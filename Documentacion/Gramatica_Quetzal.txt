@@ -1,0 +1,367 @@
+###################################################
+###############     Simbolos       ################
+###################################################
+
+..............      Especiales      ...............
+
+    \n
+    \\
+    \"
+    \t
+    \'
+
+..............      Aritmeticos      ...............
+
+    +
+    -
+    *
+    /
+    ^
+    %
+    =
+
+..............      Relacionales      ...............
+
+    ==
+    =!
+    <
+    >
+    <=
+    >=
+
+..............     Logicos      ...............
+
+    ||
+    &&
+    !
+
+..............     Agrupacion      ...............
+
+    (
+    )
+
+..............     Precedencia      ...............
+
+    NIVEL       OPERADOR                    ASOCIATIVIDAD
+    _____________________________________________________
+    0           -                           Derecha
+    1           ^                          No asociativa
+    2           /, *, %                     Izquierda
+    3           +, -                        Izquierda
+    4           ==, =!, <, <=, >, >=        Izquierda
+    5           !                           Derecha
+    6           &&                          Izquierda
+    7           ||                          Izquierda
+
+..............     Finalizacion      ...............
+
+    ;           [Obligatorio]
+    {}          Encapsula sentencias
+
+..............     Arreglos      ...............
+
+    []
+..............     Control      ...............
+
+    :
+
+..............     Asignacion      ...............
+
+    ::
+
+###################################################
+##############     Reservadas       ###############
+###################################################
+
+..............      Primitivos      ...............
+
+    int
+    double
+    boolean
+    char
+    String
+    nothing
+
+..............      Declaraciones      ...............
+
+    global
+    local
+
+..............      Sentencias      ...............
+￼
+
+....    Control
+
+    if
+    else
+    else if
+    switch
+    case
+    default
+
+....    Ciclicas
+
+    while
+    for
+
+....    Transferencia
+
+    break
+    continue
+    return
+    end
+
+..............      Funciones      ...............
+
+    function
+    struct
+    print
+    println
+
+....    Nativas
+
+    parse
+    trunc
+    float
+    string
+    typeOf
+    push
+    pop
+    length
+    lowercase
+    uppercase
+
+reservadas = {
+
+..............      Primitivos      ...............
+    
+    'Int64'         :   'RINT64',
+    'Float64'       :   'RFLOAT64',
+    'Bool'          :   'RBOOL',
+    'Char'          :   'RCHAR',
+    'String'        :   'RSTRING',
+    'nothing'       :   'RNOTHING',
+
+..............      Compuestos      ...............
+
+    'struct'        :   'RSTRUCT',
+
+..............      Nativas      ...............
+
+    'log10'         :   'RLOG10',
+    'log'           :   'RLOG',
+    'sin'           :   'RSIN',
+    'cos'           :   'RCOS',
+    'tan'           :   'RTAN',
+    'sqrt'          :   'RSQRT',
+
+..............      Declaraciones      ...............
+
+    'global'        :   'RGLOBAL',
+    'local'         :   'RLOCAL',
+
+..............      Sentencias      ...............
+
+....    Control
+
+    'if'            :   'RIF',
+    'elseif'        :   'RELSEIF',
+    'else'          :   'RELSE'
+
+....    Ciclicas
+
+    'while'         :   'RWHILE',
+    'for'           :   'RFOR',
+    'in'            :   'RIN',
+
+....    Transferencia
+
+    'break'         :   'RBREAK',
+    'continue'      :   'RCONTINUE',
+    'return'        :   'RRETURN',
+    'end'           :   'REND',
+
+..............      Funciones      ...............
+
+    'function'      :   'RFUNCTION',
+    'print'         :   'RPRINT',
+    'println'       :   'RPRINTLN'
+
+....    Nativas
+
+    'parse'         :   'RPARSE',
+    'trunc'         :   'RTRUNC',
+    'float'         :   'RFLOATF',
+    'string'        :   'RSTRINGF',
+    'typeOf'        :   'RTYPEOF',
+    'push'          :   'RPUSH',
+    'pop'           :   'RPOP',
+    'length'        :   'RLENGTH',
+    'lowercase'     :   'RLOWERCASE',
+    'uppercase'     :   'RUPPERCASE'
+}
+
+tokens = [
+    'PUNTO',                .
+    'PUNTOCOMA',            ;
+    'COMA',                 ,
+    'DOSPUNTOS',            :
+    'DOBLESPUNTOS',         ::
+    'PARA',                 (
+    'PARC',                 )
+    'CORA',                 [
+    'CORC',                 ]
+    'LLAVEA',               {
+    'LLAVEC',               }
+    'MAS',                  +
+    'MENOS',                -
+    'POR',                  *
+    'DIV',                  /
+    'POTENCIA'              ^
+    'MODULO'                %
+    'IGUAL'                 =
+    'IGUALDAD'              ==
+    'DIFERENTE'             !=
+    'MENORQUE'              <
+    'MAYORQUE'              >
+    'MENORIGUAL'            <=
+    'MAYORIGUAL'            >=
+    'OR'                    ||
+    'AND'                   &&
+    'NOT'                   !
+    'DECIMAL',
+    'ENTERO',
+    'CADENA',
+    'ID'
+] + list(reservadas.values())
+
+###################################################
+###############     Gramatica       ###############
+###################################################
+
+    inicio              :   instrucciones
+
+    declaraciones       :   declaraciones declaracion
+
+    declaracion         :   ID PUNTOCOMA
+                        |   ID '::' tipo PUNTOCOMA
+                        |   ID
+
+    asignaciones        :   asignaciones asignacion
+
+    asignacion          :   ID IGUAL expresion '::' tipo PUNTOCOMA
+                        |   ID IGUAL expresion PUNTOCOMA
+
+    asignacion_structs  :   ID IGUAL ID PARA parametros PARC PUNTOCOMA
+                        |   ID PUNTO ID IGUAL expresion PUNTOCOMA                        
+
+    instrucciones       :   instrucciones instruccion
+
+    instruccion         :   declaraciones
+                        |   asignaciones
+                        |   asignacion_struct
+                        |   print_instr
+                        |   println_instr
+                        |   if_instr
+                        |   while_instr
+                        |   for_instr
+                        |   funciones
+                        |   llamada
+                        |   log10_instr
+                        |   log_instr
+                        |   sin_instr
+                        |   cos_instr
+                        |   tan_instr
+                        |   sqrt_instr
+                        |   tolower_instr
+                        |   toupper_instr
+                        |   length_instr
+                        |   truncate_instr
+                        |   round_instr
+                        |   typeof_instr
+                        |   struct_instr
+                        |   error_instr
+
+    print_instr         :   RPRINT PARA expresion PARC PUNTOCOMA
+    
+    println_instr       :   RPRINTLN PARA expresion PARC PUNTOCOMA
+
+    log10_instr         :   RLOG10 PARA expresion PARC PUNTOCOMA
+    
+    log_instr           :   RLOG PARA expresion COMA expresion PARC PUNTOCOMA
+    
+    sen_instr           :   RSEN PARA expresion PARC PUNTOCOMA
+
+    cos_instr           :   RCOS PARA expresion PARC PUNTOCOMA
+
+    tan_instr           :   RTAN PARA expresion PARC PUNTOCOMA
+
+    sqrt_instr          :   RSQRT PARA expresion PARC PUNTOCOMA
+
+    tolower_instr       :   RTOLOWER PARA expresion PARC PUNTOCOMA
+
+    toupper_instr       :   RTOUPPER PARA expresion PARC PUNTOCOMA
+
+    length_instr        :   RLENGTH PARA expresion PARC PUNTOCOMA
+
+    truncate_instr      :   RTRUNCATE PARA valor PARC PUNTOCOMA
+
+    round_instr         :   RROUND PARA valor PARC PUNTOCOMA
+
+    typeof_instr        :   RTYPEOF PARA valor PARC PUNTOCOMA
+
+    if_instr            :   RIF expresion
+                            instrucciones
+                            REND PUNTOCOMA
+                        |   RIF expresion
+                            instrucciones
+                            RELSEIF expresion
+                            instrucciones
+                            RELSE
+                            instrucciones
+                            REND PUNTOCOMA
+                        |   RIF expresion
+                            instrucciones
+                            RELSE
+                            instrucciones
+                            REND PUNTOCOMA
+
+    while_instr         :   RWHILE expresion
+                            instrucciones
+                            REND PUNTOCOMA
+
+    for_instr           :   RFOR asignacion RIN expresion
+                            instrucciones
+                            REND PUNTOCOMA
+
+    funciones           :   RFUNCTION ID PARA parametros PARC
+                            instrucciones
+                            REND PUNTOCOMA
+
+    struct_instr        :   RSTRUCT ID
+                            declaraciones
+                            asignaciones
+                            REND PUNTOCOMA
+
+    parametros          :   parametros COMA tipo [] ID
+                        |   tipo [] ID
+
+    llamada             :   ID PARA parametros_llamada PARC
+                        |   ID PARA PARC
+
+    parametros_llamada  :   parametros_llamada COMA expresion
+                        |   expresion
+
+    expresion           :   expresion MAS expresion
+                        |   expresion MENOS expresion
+                        |   expresion MULTIPLICACION expresion
+                        |   expresion DIVISION expresion
+                        |   expresion MODULO expresion
+                        |   UMENOS expresion
+                        |   expresion POTENCIA expresion
+
+    tipo                :   RINT64
+                        |   RFLOAT64
+                        |   RBOOL
+                        |   RCHAR
+                        |   RSTRING
