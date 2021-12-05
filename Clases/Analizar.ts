@@ -1,6 +1,6 @@
 // import * as sintactico from '../Analizadores/gramatica'
 
-// import * as sintactico_interprete from '../Analizadores/A_interprete'
+import * as sintactico from '../Analizadores/gramatica'
 // import Controlador from './Controlador';
 // import { TablaSimbolos } from './TablaSimbolos/TablaSimbolos';
 
@@ -12,7 +12,7 @@
 export class Analizador{
     public recorrer(input){
         try {
-            // let ast = sintactico_interprete.parse(input);
+            let ast = sintactico.parse(input);
             // let nodo_ast = ast.recorrer();
 
             // return nodo_ast;
@@ -26,7 +26,7 @@ export class Analizador{
         console.log("Analizando la entrada");
 
         try {
-            // let ast = sintactico_interprete.parse(input);
+            // let ast = sintactico.parse(input);
             // let controlado = new Controlador();
             // let ts_global = new TablaSimbolos(null);
 

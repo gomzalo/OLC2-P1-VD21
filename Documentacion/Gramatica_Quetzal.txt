@@ -288,6 +288,7 @@ tokens = [
                         |   typeof_instr
                         |   struct_instr
                         |   error_instr
+                        |   dowhile_statement
 
     print_instr         :   RPRINT PARA expresion PARC terminacion
     
@@ -341,8 +342,15 @@ tokens = [
 
     while_instr         :   RWHILE PARA expresion PARC
                             LLAVEA instrucciones LLAVEC
+    
+    dowhile_statement   : DO LLAVEA instrucciones LLAVEC WHILE PARA expresion PARC  
 
     for_instr           :   RFOR PARA declaracion PUNTOCOMA condicion PUNTOCOMA actualizacion PARC
+                            LLAVE instrucciones LLAVEC
+    
+    for_in              :   RFOR PARA ID RIN expresion PARC
+                            LLAVE instrucciones LLAVEC
+                        |   RFOR PARA ID RIN rango PARC
                             LLAVE instrucciones LLAVEC
 
     funciones           :   RFUNCTION ID PARA parametros PARC
@@ -369,6 +377,11 @@ tokens = [
                         |   expresion MODULO expresion
                         |   UMENOS expresion
                         |   expresion POTENCIA expresion
+
+    rango    : expresion DOSPUNTOS expresion
+            | RBEGIN DOSPUNTOS REND
+            | expresion DOSPUNTOS REND
+            | RBEGIN DOSPUNTOS expresion
 
     tipo                :   RINT
                         |   RDOUBLE
