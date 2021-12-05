@@ -80,12 +80,11 @@
     boolean
     char
     String
-    nothing
+    null
 
-..............      Declaraciones      ...............
+..............      Compuestos      ...............
 
-    global
-    local
+    struct
 
 ..............      Sentencias      ...............
 ￼
@@ -94,7 +93,7 @@
 
     if
     else
-    else if
+    elseif
     switch
     case
     default
@@ -102,6 +101,7 @@
 ....    Ciclicas
 
     while
+    do while
     for
 
 ....    Transferencia
@@ -109,38 +109,43 @@
     break
     continue
     return
-    end
 
 ..............      Funciones      ...............
 
     function
-    struct
     print
     println
 
 ....    Nativas
 
+    sin
+    log10
+    cos
+    tan
+    sqrt
     parse
-    trunc
-    float
-    string
-    typeOf
+    toInt
+    toDouble
+    String
+    typeof
     push
     pop
+    caracterOfPosition
+    subString
     length
-    lowercase
-    uppercase
+    toLowercase
+    toUppercase
 
 reservadas = {
 
 ..............      Primitivos      ...............
     
-    'Int64'         :   'RINT64',
-    'Float64'       :   'RFLOAT64',
-    'Bool'          :   'RBOOL',
-    'Char'          :   'RCHAR',
+    'int'           :   'RINT',
+    'double'        :   'RDOUBLE',
+    'boolean'       :   'RBOOLEAN',
+    'char'          :   'RCHAR',
     'String'        :   'RSTRING',
-    'nothing'       :   'RNOTHING',
+    'null'          :   'RNULL',
 
 ..............      Compuestos      ...............
 
@@ -149,7 +154,6 @@ reservadas = {
 ..............      Nativas      ...............
 
     'log10'         :   'RLOG10',
-    'log'           :   'RLOG',
     'sin'           :   'RSIN',
     'cos'           :   'RCOS',
     'tan'           :   'RTAN',
@@ -171,6 +175,7 @@ reservadas = {
 ....    Ciclicas
 
     'while'         :   'RWHILE',
+    'do'            :   'RDO',
     'for'           :   'RFOR',
     'in'            :   'RIN',
 
@@ -179,7 +184,6 @@ reservadas = {
     'break'         :   'RBREAK',
     'continue'      :   'RCONTINUE',
     'return'        :   'RRETURN',
-    'end'           :   'REND',
 
 ..............      Funciones      ...............
 
@@ -189,16 +193,16 @@ reservadas = {
 
 ....    Nativas
 
-    'parse'         :   'RPARSE',
-    'trunc'         :   'RTRUNC',
-    'float'         :   'RFLOATF',
-    'string'        :   'RSTRINGF',
-    'typeOf'        :   'RTYPEOF',
+    'parse'         :   'RPARSEF',
+    'toInt'         :   'RTOINTF',
+    'toDouble'      :   'RTODOUBLEF',
+    'String'        :   'RSTRINGF',
+    'typeof'        :   'RTYPEOF',
     'push'          :   'RPUSH',
     'pop'           :   'RPOP',
     'length'        :   'RLENGTH',
-    'lowercase'     :   'RLOWERCASE',
-    'uppercase'     :   'RUPPERCASE'
+    'toLowercase'   :   'RTOLOWERCASE',
+    'toUppercase'   :   'RTOUPPERCASE'
 }
 
 tokens = [
@@ -206,7 +210,6 @@ tokens = [
     'PUNTOCOMA',            ;
     'COMA',                 ,
     'DOSPUNTOS',            :
-    'DOBLESPUNTOS',         ::
     'PARA',                 (
     'PARC',                 )
     'CORA',                 [
@@ -242,18 +245,21 @@ tokens = [
     inicio              :   instrucciones
 
     declaraciones       :   declaraciones declaracion
+    
+    terminacion         :   PUNTOCOMA
+                        |   
 
-    declaracion         :   ID PUNTOCOMA
-                        |   ID '::' tipo PUNTOCOMA
-                        |   ID
+    declaracion         :   tipo lista_id terminacion
+                        |   tipo ID IGUAL expresion terminacion
+    
+    lista_id            :   lista_id ID
 
     asignaciones        :   asignaciones asignacion
 
-    asignacion          :   ID IGUAL expresion '::' tipo PUNTOCOMA
-                        |   ID IGUAL expresion PUNTOCOMA
+    asignacion          :   ID IGUAL expresion terminacion
 
-    asignacion_structs  :   ID IGUAL ID PARA parametros PARC PUNTOCOMA
-                        |   ID PUNTO ID IGUAL expresion PUNTOCOMA                        
+    asignacion_structs  :   ID ID IGUAL ID PARA parametros PARC terminacion
+                        |   ID PUNTO ID IGUAL expresion terminacion                        
 
     instrucciones       :   instrucciones instruccion
 
@@ -263,6 +269,7 @@ tokens = [
                         |   print_instr
                         |   println_instr
                         |   if_instr
+                        |   switch_case_instr
                         |   while_instr
                         |   for_instr
                         |   funciones
@@ -282,72 +289,75 @@ tokens = [
                         |   struct_instr
                         |   error_instr
 
-    print_instr         :   RPRINT PARA expresion PARC PUNTOCOMA
+    print_instr         :   RPRINT PARA expresion PARC terminacion
     
-    println_instr       :   RPRINTLN PARA expresion PARC PUNTOCOMA
+    println_instr       :   RPRINTLN PARA expresion PARC terminacion
 
-    log10_instr         :   RLOG10 PARA expresion PARC PUNTOCOMA
+    log10_instr         :   RLOG10 PARA expresion PARC terminacion
     
-    log_instr           :   RLOG PARA expresion COMA expresion PARC PUNTOCOMA
+    log_instr           :   RLOG PARA expresion COMA expresion PARC terminacion
     
-    sen_instr           :   RSEN PARA expresion PARC PUNTOCOMA
+    sen_instr           :   RSEN PARA expresion PARC terminacion
 
-    cos_instr           :   RCOS PARA expresion PARC PUNTOCOMA
+    cos_instr           :   RCOS PARA expresion PARC terminacion
 
-    tan_instr           :   RTAN PARA expresion PARC PUNTOCOMA
+    tan_instr           :   RTAN PARA expresion PARC terminacion
 
-    sqrt_instr          :   RSQRT PARA expresion PARC PUNTOCOMA
+    sqrt_instr          :   RSQRT PARA expresion PARC terminacion
 
-    tolower_instr       :   RTOLOWER PARA expresion PARC PUNTOCOMA
+    tolower_instr       :   RTOLOWER PARA expresion PARC terminacion
 
-    toupper_instr       :   RTOUPPER PARA expresion PARC PUNTOCOMA
+    toupper_instr       :   RTOUPPER PARA expresion PARC terminacion
 
-    length_instr        :   RLENGTH PARA expresion PARC PUNTOCOMA
+    length_instr        :   RLENGTH PARA expresion PARC terminacion
 
-    truncate_instr      :   RTRUNCATE PARA valor PARC PUNTOCOMA
+    truncate_instr      :   RTRUNCATE PARA valor PARC terminacion
 
-    round_instr         :   RROUND PARA valor PARC PUNTOCOMA
+    round_instr         :   RROUND PARA valor PARC terminacion
 
-    typeof_instr        :   RTYPEOF PARA valor PARC PUNTOCOMA
+    typeof_instr        :   RTYPEOF PARA valor PARC terminacion
 
-    if_instr            :   RIF expresion
+    if_instr            :   RIF PARA expresion PARC
+                            LLAVEA instrucciones LLAVEC
+                        |   RIF PARA expresion PARC
+                            LLAVEA instrucciones LLAVEC
+                            RELSE LLAVEA instrucciones LLAVEC
+                        |   RIF PARA expresion PARC
+                            LLAVEA instrucciones LLAVEC
+                            RELSE if_instr
+
+    switch_case_instr   :   RSWITCH PARA expresiones PARC
+                            LLAVEA cases_list default LLAVEC
+                        |   RSWITCH PARA expresiones PARC
+                            LLAVEA cases_list LLAVEC
+                        |   RSWITCH PARA expresiones PARC
+                            LLAVEA default LLAVEC
+
+    cases_list          :   RCASE expresion DOSPUNTOS
                             instrucciones
-                            REND PUNTOCOMA
-                        |   RIF expresion
-                            instrucciones
-                            RELSEIF expresion
-                            instrucciones
-                            RELSE
-                            instrucciones
-                            REND PUNTOCOMA
-                        |   RIF expresion
-                            instrucciones
-                            RELSE
-                            instrucciones
-                            REND PUNTOCOMA
 
-    while_instr         :   RWHILE expresion
+    default             :   RDEFAULT DOSPUNTOS
                             instrucciones
-                            REND PUNTOCOMA
 
-    for_instr           :   RFOR asignacion RIN expresion
-                            instrucciones
-                            REND PUNTOCOMA
+    while_instr         :   RWHILE PARA expresion PARC
+                            LLAVEA instrucciones LLAVEC
+
+    for_instr           :   RFOR PARA declaracion PUNTOCOMA condicion PUNTOCOMA actualizacion PARC
+                            LLAVE instrucciones LLAVEC
 
     funciones           :   RFUNCTION ID PARA parametros PARC
-                            instrucciones
-                            REND PUNTOCOMA
+                            LLAVEA instrucciones LLAVEC
 
     struct_instr        :   RSTRUCT ID
                             declaraciones
                             asignaciones
-                            REND PUNTOCOMA
+                            terminacion
 
     parametros          :   parametros COMA tipo [] ID
                         |   tipo [] ID
 
-    llamada             :   ID PARA parametros_llamada PARC
-                        |   ID PARA PARC
+    llamada             :   ID PARA parametros_llamada PARC terminacion
+                        |   ID PARA PARC terminacion
 
     parametros_llamada  :   parametros_llamada COMA expresion
                         |   expresion
@@ -360,8 +370,8 @@ tokens = [
                         |   UMENOS expresion
                         |   expresion POTENCIA expresion
 
-    tipo                :   RINT64
-                        |   RFLOAT64
-                        |   RBOOL
+    tipo                :   RINT
+                        |   RDOUBLE
+                        |   RBOOLEAN
                         |   RCHAR
                         |   RSTRING
