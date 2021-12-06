@@ -163,64 +163,64 @@ function limpiarTab(){
 
 function compilarProyecto(){
 
-    // let listaImprimir = Lista_Imprimir.getInstance();
+    let listaImprimir = Lista_Imprimir.getInstance();
 
-    // let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
+    let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
-    // let indexTab = 0;
-    // let auxiliar = 0;
+    let indexTab = 0;
+    let auxiliar = 0;
 
-    // myTabs.forEach(element => {
+    myTabs.forEach(element => {
 
-    //     var itemA = element.querySelector("a");
+        var itemA = element.querySelector("a");
 
-    //     var bandera = itemA.getAttribute('aria-selected')
+        var bandera = itemA.getAttribute('aria-selected')
 
-    //     if (bandera == 'true') {
-    //         currentTab = itemA.id;
-    //         indexTab = auxiliar;
-    //     }
+        if (bandera == 'true') {
+            currentTab = itemA.id;
+            indexTab = auxiliar;
+        }
 
-    //     auxiliar = auxiliar + 1;
-    // });
+        auxiliar = auxiliar + 1;
+    });
     
-    // //parse(editores[indexTab].codeEditor.getValue());
+    //parse(editores[indexTab].codeEditor.getValue());
     
-    // var textArea2 = document.getElementById("exampleFormControlTextarea1");
-    // $("#exampleFormControlTextarea1").val("");
+    var textArea2 = document.getElementById("exampleFormControlTextarea1");
+    $("#exampleFormControlTextarea1").val("");
 
-    // try{
-    //     listaImprimir.length = 0;
-    //     listaErrores.length = 0;
-    //     astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
-    //     let entorno = new Entorno(null);
-    //     entorno.setGlobal(entorno);
-    //     entorno.setPadre(null);
-    //     entornoAnalizar = entorno;
-    //     astGenerado.entornoGlobal.setGlobal(astGenerado.entornoGlobal);
-    //     astGenerado.entornoGlobal.setPadre(null);
-    //     astGenerado.ejecutar(entorno);
+    try{
+        listaImprimir.length = 0;
+        listaErrores.length = 0;
+        astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        let entorno = new Entorno(null);
+        entorno.setGlobal(entorno);
+        entorno.setPadre(null);
+        entornoAnalizar = entorno;
+        astGenerado.entornoGlobal.setGlobal(astGenerado.entornoGlobal);
+        astGenerado.entornoGlobal.setPadre(null);
+        astGenerado.ejecutar(entorno);
     
-    //     let texto = "***************************************** SALIDA *****************************************";
+        let texto = "***************************************** SALIDA *****************************************";
         
-    //     listaImprimir.forEach(
-    //         element =>{
-    //             texto += ("\n"+element);
-    //         }
-    //     );
+        listaImprimir.forEach(
+            element =>{
+                texto += ("\n"+element);
+            }
+        );
         
-    //     $("#exampleFormControlTextarea1").val(texto);
-    //     //textArea2.append(texto);
-    //     //listaImprimir = [];
-        
-
+        $("#exampleFormControlTextarea1").val(texto);
+        //textArea2.append(texto);
+        //listaImprimir = [];
         
 
-    //     alert('Gramatica Correcta');
-    // }catch(e){
-    //     alert('Grmatica Incorrecta');
-    //     alert(e);
-    // }
+        
+
+        alert('Gramatica Correcta');
+    }catch(e){
+        alert('Grmatica Incorrecta');
+        alert(e);
+    }
 
 
 }

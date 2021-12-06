@@ -1,6 +1,6 @@
 // import * as sintactico from '../Analizadores/gramatica'
 
-import * as sintactico from '../Analizadores/gramatica'
+import * as sintactico from '../Analizadores/gramatica.js'
 // import Controlador from './Controlador';
 // import { TablaSimbolos } from './TablaSimbolos/TablaSimbolos';
 
@@ -10,7 +10,7 @@ import * as sintactico from '../Analizadores/gramatica'
  */
 
 export class Analizador{
-    public recorrer(input){
+    public recorrer(input: string){
         try {
             let ast = sintactico.parse(input);
             // let nodo_ast = ast.recorrer();
@@ -22,11 +22,11 @@ export class Analizador{
         }
     }
 
-    public ejecutar(input):any{
+    public ejecutar(input: string):any{
         console.log("Analizando la entrada");
 
         try {
-            // let ast = sintactico.parse(input);
+            let ast = sintactico.parse(input);
             // let controlado = new Controlador();
             // let ts_global = new TablaSimbolos(null);
 
@@ -37,6 +37,10 @@ export class Analizador{
 
             // let retorno = { "errores" : controlado.errores, "ts" : ts_html, "consola" : controlado.consola}
             // return retorno;
+
+            /// PRUEBAAAAA JKSDFJKASDJKADF
+            // return salida;
+            console.log(ast);
         } catch (error) {
             console.log("Error Exist");
             return "Error Exist"

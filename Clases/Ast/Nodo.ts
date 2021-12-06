@@ -3,7 +3,7 @@
  * @class Clase Nodo para graficar ast
  */
 export default class Nodo{
-    public token : string;
+    public token : string ;
     public lexema : string;
     public hijos : Array<Nodo>;
 
