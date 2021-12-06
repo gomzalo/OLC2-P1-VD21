@@ -26,8 +26,16 @@ class TablaSimbolos{
     public actualizarTabla(simbolo){
         while(this.tabla != null){
             if(simbolo.id in this.tabla){
-                
+                if(this.tabla[simbolo.id].getTipo() == simbolo.getTipo() || this.tabla[simbolo.id].getTipo() == TIPO.NULO || simbolo.getTipo() == TIPO.NULO){
+                    this.tabla[simbolo.id].setValor(simbolo.getValor());
+                    this.tabla[simbolo.id].setTipo(simbolo.getTipo());
+                    return null;
+                }
+                return new Excepcion("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+            }else{
+                this.tabla = this.anterior
             }
+            return new Excepcion("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
         }
     }
 }
