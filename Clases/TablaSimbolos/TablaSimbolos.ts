@@ -16,7 +16,7 @@ export class TablaSimbolos{
         return null;
     }
 
-    public getSymbolTabla(id: string){
+    public getSymbolTabla(id: string): Simbolo{
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             let existe = tablaActual.tabla.get(id);
