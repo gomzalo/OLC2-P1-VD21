@@ -1,4 +1,8 @@
-enum TIPO{
+/**
+ * @enum de Tipo nos permite enumerar los tipos del lenguaje
+ */
+
+export enum TIPO{
     ENTERO,
     DECIMAL,
     BOOLEANO,
@@ -9,10 +13,10 @@ enum TIPO{
     ANY,
     RANGO,
     STRUCT,
-    RELACIONAL
+    VOID
 }
 
-enum OperadorAritmetico{
+export enum OperadorAritmetico{
     MAS,
     MENOS,
     POR,
@@ -24,7 +28,7 @@ enum OperadorAritmetico{
     UMASMAS
 }
 
-enum OperadorRelacional{
+export enum OperadorRelacional{
     MENORQUE,
     MAYORQUE,
     MENORIGUAL,
@@ -33,8 +37,41 @@ enum OperadorRelacional{
     DIFERENTE
 }
 
-enum OperadorLogico{
+export enum OperadorLogico{
     NOT,
     AND,
     OR
 }
+
+/**
+ * @class Esta clase sirve para llevar el control de los tipos de los simbolos del lenguaje
+ */
+
+// export default class Tipo{
+//     public type : tipo;
+//     public stype : string;
+
+//     constructor(stype : string){
+//         this.stype = stype;
+//         this.type = this.getTipo(stype);
+//     }
+
+//     // TODO: Hacer metodo getTipo
+//     getTipo(stype: string): tipo{
+//         if(stype == 'DOBLE'){
+//             return tipo.DECIMAL;
+//         }else if(stype == 'ENTERO'){
+//             return tipo.ENTERO;
+//         }else if(stype == 'STRING'){
+//             return tipo.CADENA;
+//         }else if(stype == 'BOOLEAN'){
+//             return tipo.BOOLEANO;
+//         }else if(stype == 'VOID'){
+//             return tipo.VOID;
+//         }
+//     }
+
+//     getStype():string {
+//         return this.stype;
+//     }
+// }

@@ -1,5 +1,7 @@
-class Simbolo{
-    private id;
+import {TIPO} from "./Tipo";
+
+export default class Simbolo{
+    private id: string;
     private tipo:TIPO;
     private fila: number;
     private col: number;
