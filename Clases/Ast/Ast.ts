@@ -1,4 +1,4 @@
-import { Instruccion } from "../Interfaz/Instruccion";
+import { Instruccion } from "../Interfaces/Instruccion";
 
 export default class Ast  {
     public instrucciones:Array<Instruccion>;

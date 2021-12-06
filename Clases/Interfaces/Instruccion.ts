@@ -1,4 +1,4 @@
-import { TablaSimbolos } from './../TablaSimbolos/TablaSimbolos';
+import { TablaSimbolos } from '../TablaSimbolos/TablaSimbolos';
 import { TIPO } from "../TablaSimbolos/Tipo";
 import Ast from "../Ast/Ast";
 export interface Instruccion {
@@ -11,9 +11,9 @@ export interface Instruccion {
      */
     ejecutar(table : TablaSimbolos, tree : Ast): any;
 
-    translate3d();
+    // translate3d();
 
-    recorrer();
+    // recorrer();
 
 
 }

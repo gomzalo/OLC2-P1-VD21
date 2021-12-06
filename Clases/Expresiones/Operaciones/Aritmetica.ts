@@ -1,10 +1,10 @@
-import { OperadorAritmetico } from './../TablaSimbolos/Tipo';
-import Nodo from "../Ast/Nodo";
+import { OperadorAritmetico } from '../../TablaSimbolos/Tipo';
+import Nodo from "../../Ast/Nodo";
 // import Controlador from "../Controlador";
-import Ast from "./../Ast/Ast"
-import { Expresion } from "../Interfaz/Expresion";
-import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
-import { TIPO } from "../TablaSimbolos/Tipo";
+import Ast from "../../Ast/Ast"
+import { Expresion } from "../../Interfaces/Expresion";
+import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
+import { TIPO } from "../../TablaSimbolos/Tipo";
 // import Operacion, { Operador } from "../Operaciones";
 
 
@@ -12,15 +12,15 @@ export default class Aritmetica implements Expresion {
     public exp1: any;
     public operador: any;
     public exp2: any;
-    public linea: number;
+    public fila: number;
     public columna: number;
     public expU: any;
 
-    public constructor(exp1, operador, exp2, linea, columna, expU ) {
+    public constructor(exp1, operador, exp2, fila, columna, expU ) {
         this.exp1 = exp1;
         this.operador = operador;
         this.exp2 = exp2;
-        this.linea = linea;
+        this.fila = fila;
         this.columna = columna;
         this.expU = expU;
     }
