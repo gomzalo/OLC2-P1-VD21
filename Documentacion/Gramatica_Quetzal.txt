@@ -119,9 +119,9 @@
 ....    Nativas
 
     sin
-    log10
     cos
     tan
+    log10
     sqrt
     parse
     toInt
