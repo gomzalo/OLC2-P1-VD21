@@ -25,6 +25,14 @@ export default class Print implements Instruccion{
         return null;
     }
 
+    translate3d(table: TablaSimbolos, tree: Ast) {
+        
+    }
+
+    recorrer(table: TablaSimbolos, tree: Ast) {
+        
+    }
+
     // recorrer(): Nodo {
     //     let padre = new Nodo("Print",""); 
     //     padre.AddHijo(new Nodo("print",""));

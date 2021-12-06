@@ -11,9 +11,9 @@ export interface Instruccion {
      */
     ejecutar(table : TablaSimbolos, tree : Ast): any;
 
-    // translate3d();
+    translate3d(table : TablaSimbolos, tree : Ast): any;
 
-    // recorrer();
+    recorrer(table : TablaSimbolos, tree : Ast): any;
 
 
 }
