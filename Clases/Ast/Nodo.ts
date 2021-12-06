@@ -12,8 +12,8 @@ export default class Nodo{
      * @param token guarda el token del nodo
      * @param lexema guarda el lexema del nodo
      */
-    constructor(/*token : string,*/ lexema : string) {
-        // this.token = token;
+    constructor(token : string, lexema : string) {
+        this.token = token;
         this.lexema = lexema;
         this.hijos = new Array<Nodo>();
     }
