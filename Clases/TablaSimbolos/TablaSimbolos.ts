@@ -2,8 +2,9 @@ import Simbolo from "./Simbolo";
 import { TIPO } from "./Tipo";
 
 export class TablaSimbolos{
-    private tabla: Map<string, Simbolo>;
-    private anterior: TablaSimbolos;
+
+    public anterior: TablaSimbolos;
+    public tabla: Map<string, Simbolo>;
 
     constructor(anterior : TablaSimbolos){
         this.anterior = anterior;

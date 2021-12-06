@@ -1,9 +1,9 @@
-import Nodo from "src/Clases/Ast/Nodo";
-import Controlador from "src/Clases/Controlador";
-import { Expresion } from "src/Clases/Interfaz/Expresion";
-import { TablaSimbolos } from "../Clases/TablaSimbolos/TablaSimbolos";
-import { TIPO } from "./Clases/TablaSimbolos/Tipo";
-import Operacion, { Operador } from "./Operaciones";
+import Nodo from "../Ast/Nodo";
+import Controlador from "../Controlador";
+import { Expresion } from "../Interfaz/Expresion";
+import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
+import { TIPO } from "../TablaSimbolos/Tipo";
+import Operacion, { Operador } from "../Operaciones";
 
 
 export default class Aritmetica extends Operacion  implements Expresion {
@@ -12,15 +12,15 @@ export default class Aritmetica extends Operacion  implements Expresion {
         super(exp1, operador, exp2, linea, columna, expU);
     }
 
-    getTipo(controlador: Controlador, ts: TablaSimbolos) : tipo{
+    getTipo(controlador: Controlador, ts: TablaSimbolos) : TIPO{
         let valor = this.getValor(controlador, ts);
 
         if(typeof valor === 'number'){   
-            return tipo.DOBLE;
+            return TIPO.DECIMAL;
         }else if(typeof valor === 'string'){
-            return tipo.CADENA;
+            return TIPO.CADENA;
         }else if(typeof valor === 'boolean'){
-            return tipo.BOOLEANO;
+            return TIPO.BOOLEANO;
         }
     }
 
@@ -129,20 +129,20 @@ export default class Aritmetica extends Operacion  implements Expresion {
         }
 
     }
-    recorrer(): Nodo {
-        let padre = new Nodo("Exp","");
+    // recorrer(): Nodo {
+    //     let padre = new Nodo("Exp","");
 
-        if(this.expU){
-            padre.AddHijo(new Nodo(this.op,""));
-            padre.AddHijo(this.exp1.recorrer());
-        }else{
-            padre.AddHijo(this.exp1.recorrer());
-            padre.AddHijo(new Nodo(this.op,""));
-            padre.AddHijo(this.exp2.recorrer());
-        }
+    //     if(this.expU){
+    //         padre.AddHijo(new Nodo(this.op,""));
+    //         padre.AddHijo(this.exp1.recorrer());
+    //     }else{
+    //         padre.AddHijo(this.exp1.recorrer());
+    //         padre.AddHijo(new Nodo(this.op,""));
+    //         padre.AddHijo(this.exp2.recorrer());
+    //     }
         
-       return padre;
+    //    return padre;
         
-    }
+    // }
     
 }
