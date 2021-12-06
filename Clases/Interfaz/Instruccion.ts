@@ -1,4 +1,6 @@
-
+import { TablaSimbolos } from './../TablaSimbolos/TablaSimbolos';
+import { TIPO } from "../TablaSimbolos/Tipo";
+import Ast from "../Ast/Ast";
 export interface Instruccion {
 
 
@@ -7,7 +9,7 @@ export interface Instruccion {
      * @param ast llevamos el control de todo el programa
      * @param ts accede a la tabla de simbolos
      */
-    ejecutar();
+    ejecutar(table : TablaSimbolos, tree : Ast): any;
 
     translate3d();
 

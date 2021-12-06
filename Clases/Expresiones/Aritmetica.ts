@@ -1,19 +1,32 @@
+import { OperadorAritmetico } from './../TablaSimbolos/Tipo';
 import Nodo from "../Ast/Nodo";
-import Controlador from "../Controlador";
+// import Controlador from "../Controlador";
+import Ast from "./../Ast/Ast"
 import { Expresion } from "../Interfaz/Expresion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
-import Operacion, { Operador } from "../Operaciones";
+// import Operacion, { Operador } from "../Operaciones";
 
 
-export default class Aritmetica extends Operacion  implements Expresion {
+export default class Aritmetica implements Expresion {
+    public exp1: any;
+    public operador: any;
+    public exp2: any;
+    public linea: number;
+    public columna: number;
+    public expU: any;
 
     public constructor(exp1, operador, exp2, linea, columna, expU ) {
-        super(exp1, operador, exp2, linea, columna, expU);
+        this.exp1 = exp1;
+            this.operador = operador;
+        this.exp2 = exp2;
+        this.linea = linea;
+        this.columna = columna;
+        this.expU = expU;
     }
 
-    getTipo(controlador: Controlador, ts: TablaSimbolos) : TIPO{
-        let valor = this.getValor(controlador, ts);
+    getTipo(ts: TablaSimbolos, ast: Ast) : TIPO{
+        let valor = this.getValorImplicito(ts, ast);
 
         if(typeof valor === 'number'){   
             return TIPO.DECIMAL;
@@ -24,17 +37,17 @@ export default class Aritmetica extends Operacion  implements Expresion {
         }
     }
 
-    getValor(controlador: Controlador, ts: TablaSimbolos) {
+    getValorImplicito(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
         
         
         if(this.expU == false){
-            valor_exp1 = this.exp1.getValor(controlador, ts);
-            valor_exp2 = this.exp2.getValor(controlador, ts);
+            valor_exp1 = this.exp1.getValorImplicito(tree, table);
+            valor_exp2 = this.exp2.getValor(tree, table);
         }else{
-            valor_expU = this.exp1.getValor(controlador, ts);
+            valor_expU = this.exp1.getValor(tree, table);
         }
 
         /**
@@ -42,7 +55,7 @@ export default class Aritmetica extends Operacion  implements Expresion {
          * de las operaciones aritmeticas permitidas que soporta el lenguaje descrito en el enunciado.
          */
         switch (this.operador) {
-            case Operador.SUMA:
+            case OperadorAritmetico.MAS:
                 if(typeof valor_exp1 === 'number'){
                     if(typeof valor_exp2 === 'number'){
                         return valor_exp1 + valor_exp2;
@@ -94,28 +107,28 @@ export default class Aritmetica extends Operacion  implements Expresion {
                 
                 break;
 
-            case Operador.UNARIO:
+            case OperadorAritmetico.MAS:
                 if(typeof valor_expU == 'number'){
                     return -valor_expU;
                 }else{
                      //TODO: agregar error semantico.
                 }
                 break;
-            case Operador.RESTA:
+            case OperadorAritmetico.MENOS:
                 if(typeof valor_exp1 === 'number'){
                     if(typeof valor_exp2 === 'number'){
                         return valor_exp1 - valor_exp2;
                     }//TODO: Agregar las otras validaciones
                 }
                 break;
-            case Operador.MULTI:
+            case OperadorAritmetico.POR:
                     if(typeof valor_exp1 === 'number'){
                         if(typeof valor_exp2 === 'number'){
                             return valor_exp1 * valor_exp2;
                         }//TODO: Agregar las otras validaciones
                     }
                     break;  
-            case Operador.DIV:
+            case OperadorAritmetico.DIV:
                 if(typeof valor_exp1 === 'number'){
                     if(typeof valor_exp2 === 'number'){
                         return valor_exp1 / valor_exp2;
