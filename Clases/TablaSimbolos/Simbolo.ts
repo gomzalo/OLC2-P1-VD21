@@ -4,16 +4,16 @@ export default class Simbolo{
     private id: string;
     private tipo:TIPO;
     private fila: number;
-    private col: number;
+    private columna: number;
     private valor : any;
     private arreglo : any;
     private structEnv: any; // ENTORNO STRUCT
     
-    constructor(id,tipo,arreglo,fila,col,valor,structEnv = null){
+    constructor(id,tipo,arreglo,fila,columna,valor,structEnv = null){
         this.id = id;
         this.tipo = tipo;
         this.fila = fila;
-        this.col = col;
+        this.columna = columna;
         this.valor =  valor;
         this.arreglo = arreglo;
         this.structEnv = structEnv;
@@ -47,8 +47,8 @@ export default class Simbolo{
         return this.fila;
     }
 
-    getColumn(){
-        return this.col;
+    getColumna(){
+        return this.columna;
     }
 
     getArreglo(){

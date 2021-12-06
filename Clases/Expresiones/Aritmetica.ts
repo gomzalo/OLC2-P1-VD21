@@ -18,7 +18,7 @@ export default class Aritmetica implements Expresion {
 
     public constructor(exp1, operador, exp2, linea, columna, expU ) {
         this.exp1 = exp1;
-            this.operador = operador;
+        this.operador = operador;
         this.exp2 = exp2;
         this.linea = linea;
         this.columna = columna;
@@ -45,9 +45,9 @@ export default class Aritmetica implements Expresion {
         
         if(this.expU == false){
             valor_exp1 = this.exp1.getValorImplicito(tree, table);
-            valor_exp2 = this.exp2.getValor(tree, table);
+            valor_exp2 = this.exp2.getValorImplicito(tree, table);
         }else{
-            valor_expU = this.exp1.getValor(tree, table);
+            valor_expU = this.exp1.getValorImplicito(tree, table);
         }
 
         /**
@@ -107,7 +107,7 @@ export default class Aritmetica implements Expresion {
                 
                 break;
 
-            case OperadorAritmetico.MAS:
+            case OperadorAritmetico.UMENOS:
                 if(typeof valor_expU == 'number'){
                     return -valor_expU;
                 }else{
