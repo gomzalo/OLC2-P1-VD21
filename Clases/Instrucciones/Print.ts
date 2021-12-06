@@ -45,7 +45,7 @@ export default class Print implements Instruccion{
         padre.addChildNode(new Nodo("(",""));
 
         let hijo = new Nodo("exp","");
-        hijo.addChildNode(this.expresion.recorrer());
+        hijo.addChildNode(this.parametros.recorrer());
         
         padre.addChildNode(hijo);
         padre.addChildNode(new Nodo(")",""));

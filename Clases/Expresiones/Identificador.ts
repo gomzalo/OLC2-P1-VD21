@@ -10,7 +10,7 @@ export default class Identicador implements Instruccion{
      public tipo : TIPO;
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let simbolo = table;
+        // let simbolo = table.get
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
         throw new Error("Method not implemented.");

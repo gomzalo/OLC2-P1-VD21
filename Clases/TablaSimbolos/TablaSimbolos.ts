@@ -11,12 +11,12 @@ export class TablaSimbolos{
         this.tabla = new Map<string, Simbolo>();
     }
 
-    public setTabla(simbolo: Simbolo){
+    public setSymbolTabla(simbolo: Simbolo){
         this.tabla[simbolo.getId()] = simbolo;
         return null;
     }
 
-    public getTabla(id: string){
+    public getSymbolTabla(id: string){
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             let existe = tablaActual.tabla.get(id);
@@ -29,7 +29,7 @@ export class TablaSimbolos{
         return null;
     }
 
-    public actualizarTabla(simbolo){
+    public updateSymbolTabla(simbolo){
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             if(simbolo.id in tablaActual.tabla){
