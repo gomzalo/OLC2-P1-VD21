@@ -163,7 +163,7 @@ function limpiarTab(){
 
 function compilarProyecto(){
 
-    let listaImprimir = Lista_Imprimir.getInstance();
+    // let listaImprimir = Lista_Imprimir.getInstance();
 
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
@@ -190,24 +190,25 @@ function compilarProyecto(){
     $("#exampleFormControlTextarea1").val("");
 
     try{
-        listaImprimir.length = 0;
-        listaErrores.length = 0;
+        // listaImprimir.length = 0;
+        // listaErrores.length = 0;
         astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        let entorno = new Entorno(null);
-        entorno.setGlobal(entorno);
-        entorno.setPadre(null);
-        entornoAnalizar = entorno;
-        astGenerado.entornoGlobal.setGlobal(astGenerado.entornoGlobal);
-        astGenerado.entornoGlobal.setPadre(null);
-        astGenerado.ejecutar(entorno);
+        console.log(astGenerado)
+        // let entorno = new Entorno(null);
+        // entorno.setGlobal(entorno);
+        // entorno.setPadre(null);
+        // entornoAnalizar = entorno;
+        // astGenerado.entornoGlobal.setGlobal(astGenerado.entornoGlobal);
+        // astGenerado.entornoGlobal.setPadre(null);
+        // astGenerado.ejecutar(entorno);
     
         let texto = "***************************************** SALIDA *****************************************";
         
-        listaImprimir.forEach(
-            element =>{
-                texto += ("\n"+element);
-            }
-        );
+        // listaImprimir.forEach(
+        //     element =>{
+        //         texto += ("\n"+element);
+        //     }
+        // );
         
         $("#exampleFormControlTextarea1").val(texto);
         //textArea2.append(texto);
