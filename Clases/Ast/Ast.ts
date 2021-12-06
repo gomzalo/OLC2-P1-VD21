@@ -36,7 +36,67 @@ export default class Ast  {
         return this.Errores;
     }
 
-    public setErrores(){
+    public setErrores(excepciones){
+        this.Errores = excepciones;
+    }
+
+    public addError(error){
+        this.Errores.concat(error);
+        // this.updateConsola(error.toString());
+    }
+
+    public getConsola(){
+        return this.consola;
+    }
+
+    public setConsola(consola){
+        this.consola = consola;
+    }
+
+    public updateConsolaPrintln(cadena: string){
+        this.consola += cadena + '\n'
+    }
+
+    public updateConsolaPrint(cadena){
+        this.consola += cadena
+    }
+
+    public getTSGlobal(){
+        return this.TSglobal;
+    }
+
+    public setTSGlobal(TSglobal){
+        this.TSglobal = TSglobal;
+    }
+
+    public getFunction(name){
+        this.funciones.forEach(function (func) {
+            // console.log(func);
+            if (func.name == name){
+                return func;
+            }
+        }); 
+        return null
+    }
+
+    public addFunction(funcion){
+        this.funciones.concat(funcion);
+    }
+
+    public getStruct(name){
+        this.structs.forEach(struct => {
+            if (struct.id = name){
+                return struct;
+            }
+        });
+        return null;
+    }
+
+    public addStruct(struct){
+        this.structs.concat(struct);
+    }
+
+    public getDot(raiz){
         
     }
 }
