@@ -1,11 +1,9 @@
 import { OperadorAritmetico } from '../../TablaSimbolos/Tipo';
 import Nodo from "../../Ast/Nodo";
-// import Controlador from "../Controlador";
 import Ast from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
-// import Operacion, { Operador } from "../Operaciones";
 
 
 export default class Aritmetica implements Expresion {
@@ -142,20 +140,19 @@ export default class Aritmetica implements Expresion {
         }
 
     }
-    // recorrer(): Nodo {
-    //     let padre = new Nodo("Exp","");
+    
+    recorrer(): Nodo {
+        let padre = new Nodo("Exp","");
 
-    //     if(this.expU){
-    //         padre.AddHijo(new Nodo(this.op,""));
-    //         padre.AddHijo(this.exp1.recorrer());
-    //     }else{
-    //         padre.AddHijo(this.exp1.recorrer());
-    //         padre.AddHijo(new Nodo(this.op,""));
-    //         padre.AddHijo(this.exp2.recorrer());
-    //     }
-        
-    //    return padre;
-        
-    // }
+        if(this.expU){
+            padre.addChildNode(new Nodo(this.operador,""));
+            padre.addChildNode(this.exp1.recorrer());
+        }else{
+            padre.addChildNode(this.exp1.recorrer());
+            padre.addChildNode(new Nodo(this.operador,""));
+            padre.addChildNode(this.exp2.recorrer());
+        }
+        return padre;
+    }
     
 }
