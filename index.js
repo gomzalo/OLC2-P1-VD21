@@ -1,5 +1,6 @@
-// const { default: Ast } = require("./Clases/Ast/Ast");
 // const { TablaSimbolos } = require("./Clases/TablaSimbolos/TablaSimbolos");
+
+// import Nodo from "../../Ast/Nodo";
 
 var myTab = document.getElementById('myTab');
 var itemAbrir = document.getElementById('item1');
@@ -7,7 +8,11 @@ let astGenerado;
 let astTraduccion;
 let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
+const Ast = require("./dist/Ast/Ast");
+const gramatica = require("./Analizadores/gramatica");
+// const Lista_Imprimir = require("./dist/Lista_imprimir");
 
+const compilar = document.getElementById('compilarProyecto');
 
 var text = CodeMirror.fromTextArea(document.getElementById("textInitial"),{
     mode: "javascript",
@@ -164,9 +169,9 @@ function limpiarTab(){
     
 }
 
-function compilarProyecto(){
+compilar.addEventListener('click', () => {
 
-    let listaImprimir = Lista_Imprimir.getInstance();
+    // let listaImprimir = Lista_Imprimir.getInstance();
 
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
@@ -193,7 +198,7 @@ function compilarProyecto(){
     $("#exampleFormControlTextarea1").val("");
 
     try{
-        listaImprimir.length = 0;
+        // listaImprimir.length = 0;
         // listaErrores.length = 0;
         astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
         let tablaSimbolos = new TablaSimbolos();
@@ -212,13 +217,13 @@ function compilarProyecto(){
     
         let texto = "***************************************** SALIDA *****************************************";
         
-        listaImprimir.forEach(
-            element =>{
-                texto += ("\n"+element);
-            }
-        );
+        // listaImprimir.forEach(
+        //     element =>{
+        //         texto += ("\n"+element);
+        //     }
+        // );
         
-        $("#exampleFormControlTextarea1").val(texto + output);
+        $("#exampleFormControlTextarea1").val(output);
         //textArea2.append(texto);
         //listaImprimir = [];
         
@@ -232,7 +237,7 @@ function compilarProyecto(){
     }
 
 
-}
+});
 
 function reporteAST(){  
 

@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
-const TIPO = require("../../TablaSimbolos/Tipo/TIPO");
-const OperadorLogico = require("../../TablaSimbolos/Tipo/OperadorLogico");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Errores_1 = __importDefault(require("../../Ast/Errores"));
 class Logica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -18,13 +18,13 @@ class Logica {
     getTipo(table, tree) {
         let valor = this.getValorImplicito(table, tree);
         if (typeof valor === 'number') {
-            return TIPO.DECIMAL;
+            return Tipo_1.TIPO.DECIMAL;
         }
         else if (typeof valor === 'string') {
-            return TIPO.CADENA;
+            return Tipo_1.TIPO.CADENA;
         }
         else if (typeof valor === 'boolean') {
-            return TIPO.BOOLEANO;
+            return Tipo_1.TIPO.BOOLEANO;
         }
     }
     getValorImplicito(table, tree) {
@@ -43,32 +43,35 @@ class Logica {
          * de las operaciones Logicas permitidas que soporta el lenguaje descrito en el enunciado.
          */
         switch (this.operador) {
-            case OperadorLogico.AND:
+            case Tipo_1.OperadorLogico.AND:
                 if (typeof valor_exp1 == 'boolean') {
                     if (typeof valor_exp2 == 'boolean') {
                         return valor_exp1 && valor_exp2;
                     }
                     else {
                         // ERROR SEMANTICO
+                        return new Errores_1.default("Semantico", "Logica -AND- Los tipos no coinciden ", this.fila, this.columna);
                     }
                 }
                 break;
-            case OperadorLogico.OR:
+            case Tipo_1.OperadorLogico.OR:
                 if (typeof valor_exp1 == 'boolean') {
                     if (typeof valor_exp2 == 'boolean') {
                         return valor_exp1 || valor_exp2;
                     }
                     else {
                         // ERROR SEMANTICO
+                        return new Errores_1.default("Semantico", "Logica -OR- Los tipos no coinciden ", this.fila, this.columna);
                     }
                 }
                 break;
-            case OperadorLogico.NOT:
+            case Tipo_1.OperadorLogico.NOT:
                 if (typeof valor_expU == 'boolean') {
                     return !valor_expU;
                 }
                 else {
                     //TODO: Error
+                    return new Errores_1.default("Semantico", "Logica -NOT- El tipo no coincide ", this.fila, this.columna);
                 }
             // TODO: Agregar caso para logica OR. 
             default:

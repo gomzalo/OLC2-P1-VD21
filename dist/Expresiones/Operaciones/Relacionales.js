@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Errores_1 = __importDefault(require("../../Ast/Errores"));
 class Relacional {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -54,6 +55,7 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
+                            return new Errores_1.default("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     } //TODO: agregar los otros casos de errores
                 }
@@ -69,6 +71,7 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
+                            return new Errores_1.default("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     } //TODO: agregar los otros casos de errores
                 }
@@ -85,8 +88,28 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
+                            return new Errores_1.default("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
+                        }
+                    }
+                }
+                else if (typeof valor_exp1 === 'string') {
+                    let num_ascii = valor_exp1.charCodeAt(0);
+                    if (typeof valor_exp2 === 'number') {
+                        return num_ascii > valor_exp2;
+                    }
+                    else if (typeof valor_exp2 == 'string') {
+                        if (valor_exp2.length == 1) {
+                            let num_ascii2 = valor_exp2.charCodeAt(0);
+                            return num_ascii > num_ascii2;
+                        }
+                        else {
+                            // TODO: agregar error
+                            return new Errores_1.default("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     } //TODO: agregar los otros casos de errores
+                }
+                else {
+                    //error semantico
                 }
                 break;
             case Tipo_1.OperadorRelacional.IGUALIGUAL:

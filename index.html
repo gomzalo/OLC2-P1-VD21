@@ -68,7 +68,7 @@
                 Ejecución
             </a>
             <div class="dropdown-menu" >
-                <a class="dropdown-item" onclick="compilarProyecto()"><i class="fa fa-play"></i> Compilar</a>                
+                <a class="dropdown-item" id="compilarProyecto"><i class="fa fa-play"></i> Compilar</a>                
                 <a class="dropdown-item" onclick="traducirProyecto()"><i class="fa fa-edit"></i> Traducir</a>
                 <a class="dropdown-item" href="#"><i class="fa fa-compress"></i> Optimizar Archivo</a>
             </div>
@@ -245,34 +245,36 @@
 <script src="js/S/S.js"></script>
 <script src="jison/traduccion.js"></script> 
 <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
--->
+
 
 <script>var exports = {};</script>
-<!-- AST -->
+
 <script src="./dist/Ast/Ast.js"></script>
 <script src="./dist/Ast/Nodo.js"></script>
 <script src="./dist/Ast/Errores.js"></script>
-<!-- Errores -->
+
 <script src="./dist/Error/Nodo_Error.js"></script>
 <script src="./dist/Error/Lista_error.js"></script>
-<!-- Expresiones -->
+
+<script src="./dist/Expresiones/Operaciones/Aritmetica.js"></script>
+
 <script src="./dist/Expresiones/Operaciones/Aritmetica.js"></script>
 <script src="./dist/Expresiones/Operaciones/Logicas.js"></script>
 <script src="./dist/Expresiones/Operaciones/Relacionales.js"></script>
 <script src="./dist/Expresiones/Primitivo.js"></script>
 <script src="./dist/Expresiones/Identificador.js"></script>
-<!-- Instrucciones -->
 
-<!-- Lista -->
+
+
 <script src="./dist/Lista_imprimir.js"></script>
-<!-- Gramatica -->
 <script src="./Analizadores/gramatica.js"></script>
-<!-- Index -->
+
 <script src="index.js"></script>
 <script src="./dist/Analizar.js"></script>
-<!-- Tabla de simbolos -->
+
 <script src="./dist/TablaSimbolos/TablaSimbolos.js"></script>
-<script src="./dist/TablaSimbolos/Tipo.js"></script>
+<script src="./dist/TablaSimbolos/Tipo.js"></script>-->
+<script src="./bundle.js"></script>
 </body>
 
 </html>
