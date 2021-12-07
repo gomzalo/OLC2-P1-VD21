@@ -301,11 +301,11 @@ e :   e MAS e             {$$ = new aritmetica.default($1, tipo.OperadorAritmeti
     | e MENOS e         {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
     | e MULTI e         {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
     | e DIV e           {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
-    /*| e POTENCIA e           {$$ = new aritmetica.default($1, 'pot', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    /*| e PORCENTAJE e           {$$ = new aritmetica.default($1, '%', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    /*| e AND e           {$$ = new logica.default($1, '&&', $3, $1.first_line, $1.last_column, false);}
-    | e OR e           {$$ = new logica.default($1, '||', $3, $1.first_line, $1.last_column, false);}//NEW
-    | NOT e             {$$ = new logica.default($2, '!', null, $1.first_line, $1.last_column, true);}*/
+    | e POTENCIA e           {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.POT, $3, $1.first_line, $1.last_column, false);} //new PORCENTAJE
+    | e PORCENTAJE e           {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.MOD, $3, $1.first_line, $1.last_column, false);} //new PORCENTAJE
+    | e AND e           {$$ = new logica.default($1, tipo.OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
+    | e OR e           {$$ = new logica.default($1, tipo.OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
+    | NOT e             {$$ = new logica.default($2, tipo.OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}
     | e MAYORQUE e      {$$ = new relacional.default($1, tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
     | e MAYORIGUAL e      {$$ = new relacional.default($1, tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
     /*| e MENORIGUAL e      {$$ = new relacional.default($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new

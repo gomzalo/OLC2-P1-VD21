@@ -4,6 +4,7 @@ import Ast from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
+import Errores from '../../Ast/Errores';
 
 export default class Logica implements Expresion{
     fila: number;
@@ -57,6 +58,7 @@ export default class Logica implements Expresion{
                         return valor_exp1 && valor_exp2;
                     }else{
                         // ERROR SEMANTICO
+                        return new Errores("Semantico", "Logica -AND- Los tipos no coinciden " , this.fila, this.columna);
                     }
                 }
                 break;
@@ -67,6 +69,7 @@ export default class Logica implements Expresion{
                         return valor_exp1 || valor_exp2;
                     }else {
                         // ERROR SEMANTICO
+                        return new Errores("Semantico", "Logica -OR- Los tipos no coinciden " , this.fila, this.columna);
                     }
                 }
                 break;
@@ -75,6 +78,7 @@ export default class Logica implements Expresion{
                         return !valor_expU;
                     }else{
                         //TODO: Error
+                        return new Errores("Semantico", "Logica -NOT- El tipo no coincide " , this.fila, this.columna);
                     }
             // TODO: Agregar caso para logica OR. 
             default:
