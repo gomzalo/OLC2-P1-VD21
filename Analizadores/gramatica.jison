@@ -302,17 +302,17 @@ e :   e MAS e             {$$ = new Aritmetica($1, tipo.OperadorAritmetico.MAS, 
     | e MENOS e         {$$ = new Aritmetica($1, tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
     | e MULTI e         {$$ = new Aritmetica($1, tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
     | e DIV e           {$$ = new Aritmetica($1, tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
-    /*| e POTENCIA e           {$$ = new aritmetica.default($1, 'pot', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    /*| e PORCENTAJE e           {$$ = new aritmetica.default($1, '%', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    /*| e AND e           {$$ = new logica.default($1, '&&', $3, $1.first_line, $1.last_column, false);}
-    | e OR e           {$$ = new logica.default($1, '||', $3, $1.first_line, $1.last_column, false);}//NEW
-    | NOT e             {$$ = new logica.default($2, '!', null, $1.first_line, $1.last_column, true);}*/
+    | e POTENCIA e      {$$ = new Aritmetica($1, 'pot', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+    | e PORCENTAJE e    {$$ = new Aritmetica($1, '%', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+    | e AND e           {$$ = new Logica($1, '&&', $3, $1.first_line, $1.last_column, false);}
+    | e OR e           {$$ = new Logica($1, '||', $3, $1.first_line, $1.last_column, false);}//NEW
+    | NOT e             {$$ = new Logica($2, '!', null, $1.first_line, $1.last_column, true);}*/
     | e MAYORQUE e      {$$ = new Relacionales($1, tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
     | e MAYORIGUAL e      {$$ = new Relacionales($1, tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
-    /*| e MENORIGUAL e      {$$ = new relacional.default($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new
+    | e MENORIGUAL e      {$$ = new Relacionales($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new
     | e MENORQUE e      {$$ = new Relacionales($1, tipo.OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
     | e IGUALIGUAL e      {$$ = new Relacionales($1, tipo.OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
-    /*| e DIFERENTE e      {$$ = new relacional.default($1, '!=', $3, $1.first_line, $1.last_column, false);} */ //new
+    | e DIFERENTE e      {$$ = new Relacionales($1, '!=', $3, $1.first_line, $1.last_column, false);} */ //new
     | MENOS e %prec UNARIO {$$ = new Aritmetica($2, tipo.OperadorAritmetico.UMENOS, null, $1.first_line, $1.last_column, true);}
     | PARA e PARC       {$$ = $2;}
     | DECIMAL           {$$ = new Primitivo(Number(yytext),tipo.TIPO.DECIMAL, $1.first_line, $1.last_column);}

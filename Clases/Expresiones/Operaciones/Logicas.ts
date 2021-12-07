@@ -2,7 +2,7 @@ import Nodo from "../../Ast/Nodo";
 import Ast from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
-import { TIPO } from "../../TablaSimbolos/Tipo";
+import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";
 import Errores from '../../Ast/Errores';
 
 export default class Logica implements Expresion{
@@ -22,7 +22,7 @@ export default class Logica implements Expresion{
         this.expU = expU;
     }
 
-    getTipo(table: TablaSimbolos, tree: Ast): typeof TIPO {
+    getTipo(table: TablaSimbolos, tree: Ast): TIPO {
         let valor = this.getValorImplicito(table, tree);
 
         if(typeof valor === 'number'){   
