@@ -2,8 +2,8 @@ import Nodo from "../../Ast/Nodo";
 import Ast from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
-import { TIPO, OperadorRelacional } from "../../TablaSimbolos/Tipo";
-
+import { OperadorRelacional, TIPO } from "../../TablaSimbolos/Tipo";
+import Errores from '../../Ast/Errores';
 export default class Relacional implements Expresion{
     public exp1: any;
     public operador: any;
@@ -59,7 +59,7 @@ export default class Relacional implements Expresion{
                             return valor_exp1 < num_ascii;
                         }else{
                             // TODO: agregar error
-                            return new Errores("Semantico", "Relacional -MENORQUE- Los tipos no coinciden " , this.fila, this.columna);
+                            return new Errores("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden " , this.fila, this.columna);
                         }
                     }//TODO: agregar los otros casos de errores
                 }else if(typeof valor_exp1 === 'string'){
@@ -73,7 +73,7 @@ export default class Relacional implements Expresion{
                             return num_ascii < num_ascii2;
                         }else{
                             // TODO: agregar error
-                            return new Errores("Semantico", "Relacional -MENORQUE- Los tipos no coinciden " , this.fila, this.columna);
+                            return new Errores("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden " , this.fila, this.columna);
                         }
                     }//TODO: agregar los otros casos de errores
                 }
@@ -89,8 +89,26 @@ export default class Relacional implements Expresion{
                                 return valor_exp1 > num_ascii;
                             }else{
                                 // TODO: agregar error
+                                return new Errores("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden " , this.fila, this.columna);
+                            }
+                        }
+                    }else if(typeof valor_exp1 === 'string'){
+                        let num_ascii = valor_exp1.charCodeAt(0);
+    
+                        if(typeof valor_exp2 === 'number'){
+                            return num_ascii > valor_exp2;
+                        }else if(typeof valor_exp2 == 'string'){
+                            if(valor_exp2.length == 1){
+                                let num_ascii2 = valor_exp2.charCodeAt(0);
+                                return num_ascii > num_ascii2;
+                            }else{
+                                // TODO: agregar error
+                                return new Errores("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden " , this.fila, this.columna);
                             }
                         }//TODO: agregar los otros casos de errores
+                    }else {
+                        //error semantico
+                        
                     }
                     
                     break;
