@@ -59,6 +59,7 @@ export default class Relacional implements Expresion{
                             return valor_exp1 < num_ascii;
                         }else{
                             // TODO: agregar error
+                            return new Errores("Semantico", "Relacional -MENORQUE- Los tipos no coinciden " , this.fila, this.columna);
                         }
                     }//TODO: agregar los otros casos de errores
                 }else if(typeof valor_exp1 === 'string'){
@@ -72,6 +73,7 @@ export default class Relacional implements Expresion{
                             return num_ascii < num_ascii2;
                         }else{
                             // TODO: agregar error
+                            return new Errores("Semantico", "Relacional -MENORQUE- Los tipos no coinciden " , this.fila, this.columna);
                         }
                     }//TODO: agregar los otros casos de errores
                 }

@@ -298,31 +298,31 @@ lista_exp : lista_exp COMA e        { $$ = $1; $$.push($3); }
         | e                         { $$ = new Array(); $$.push($1); }
         ;
 
-e :   e MAS e             {$$ = new Aritmetica($1, tipo.OperadorAritmetico.MAS, $3, $1.first_line, $1.last_column, false);}
-    | e MENOS e         {$$ = new Aritmetica($1, tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
-    | e MULTI e         {$$ = new Aritmetica($1, tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
-    | e DIV e           {$$ = new Aritmetica($1, tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
-    | e POTENCIA e      {$$ = new Aritmetica($1, 'pot', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    | e PORCENTAJE e    {$$ = new Aritmetica($1, '%', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    | e AND e           {$$ = new Logica($1, '&&', $3, $1.first_line, $1.last_column, false);}
-    | e OR e           {$$ = new Logica($1, '||', $3, $1.first_line, $1.last_column, false);}//NEW
-    | NOT e             {$$ = new Logica($2, '!', null, $1.first_line, $1.last_column, true);}*/
-    | e MAYORQUE e      {$$ = new Relacionales($1, tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
-    | e MAYORIGUAL e      {$$ = new Relacionales($1, tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
+e :   e MAS e             {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MAS, $3, $1.first_line, $1.last_column, false);}
+    | e MENOS e         {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
+    | e MULTI e         {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
+    | e DIV e           {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
+    | e POTENCIA e      {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.POT, $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+    | e PORCENTAJE e    {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MOD, $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+    | e AND e           {$$ = new Logica($1, Tipo.OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
+    | e OR e           {$$ = new Logica($1, Tipo.OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
+    | NOT e             {$$ = new Logica($2, Tipo.OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}*/
+    | e MAYORQUE e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
+    | e MAYORIGUAL e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
     | e MENORIGUAL e      {$$ = new Relacionales($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new
-    | e MENORQUE e      {$$ = new Relacionales($1, tipo.OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
-    | e IGUALIGUAL e      {$$ = new Relacionales($1, tipo.OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
+    | e MENORQUE e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
+    | e IGUALIGUAL e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
     | e DIFERENTE e      {$$ = new Relacionales($1, '!=', $3, $1.first_line, $1.last_column, false);} */ //new
-    | MENOS e %prec UNARIO {$$ = new Aritmetica($2, tipo.OperadorAritmetico.UMENOS, null, $1.first_line, $1.last_column, true);}
+    | MENOS e %prec UNARIO {$$ = new Aritmetica($2, Tipo.OperadorAritmetico.UMENOS, null, $1.first_line, $1.last_column, true);}
     | PARA e PARC       {$$ = $2;}
-    | DECIMAL           {$$ = new Primitivo(Number(yytext),tipo.TIPO.DECIMAL, $1.first_line, $1.last_column);}
-    | ENTERO            {$$ = new Primitivo(Number(yytext),tipo.TIPO.ENTERO, $1.first_line, $1.last_column);}
-    | CADENA            {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,tipo.TIPO.CADENA, $1.first_line, $1.last_column);}
-    | CHAR              {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,tipo.TIPO.CHARACTER, $1.first_line, $1.last_column);}
-    | TRUE              {$$ = new Primitivo(true,tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
-    | FALSE             {$$ = new Primitivo(false,tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
+    | DECIMAL           {$$ = new Primitivo(Number(yytext),Tipo.TIPO.DECIMAL, $1.first_line, $1.last_column);}
+    | ENTERO            {$$ = new Primitivo(Number(yytext),Tipo.TIPO.ENTERO, $1.first_line, $1.last_column);}
+    | CADENA            {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,Tipo.TIPO.CADENA, $1.first_line, $1.last_column);}
+    | CHAR              {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,Tipo.TIPO.CHARACTER, $1.first_line, $1.last_column);}
+    | TRUE              {$$ = new Primitivo(true,Tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
+    | FALSE             {$$ = new Primitivo(false,Tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
     | ID                {$$ = new Identificador($1, @1.first_line, @1.last_column); }
-    | NULO              {$$ = new Primitivo($1,tipo.TIPO.NULO,@1.first_line,@1.last_column)}
+    | NULO              {$$ = new Primitivo($1,Tipo.TIPO.NULO,@1.first_line,@1.last_column)}
     /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
     /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
     | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/
