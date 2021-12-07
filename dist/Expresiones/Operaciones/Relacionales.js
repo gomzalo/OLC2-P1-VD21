@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Relacional = void 0;
 const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Errores_1 = __importDefault(require("../../Ast/Errores"));
@@ -145,4 +146,4 @@ class Relacional {
         return padre;
     }
 }
-exports.default = Relacional;
+exports.Relacional = Relacional;

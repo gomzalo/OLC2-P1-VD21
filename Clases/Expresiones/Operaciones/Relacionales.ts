@@ -4,7 +4,7 @@ import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorRelacional, TIPO } from "../../TablaSimbolos/Tipo";
 import Errores from '../../Ast/Errores';
-export default class Relacional implements Expresion{
+export class Relacional implements Expresion{
     public exp1: any;
     public operador: any;
     public exp2: any;

@@ -5,7 +5,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";
 import Errores from '../../Ast/Errores';
 
-export default class Logica implements Expresion{
+export class Logica implements Expresion{
     fila: number;
     columna: number;
     public exp1: any;
