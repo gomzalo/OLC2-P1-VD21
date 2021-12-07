@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "tsc": "tsc -w",
+    "jison": "jison './Analizadores/gramatica.jison' ",
+    "tsc": "tsc ",
     "build": "browserify index.js --standalone load > bundle.js",
-    "compi": "jison Analizadores/gramatica.jison & tsc & browserify index.js --standalone load > bundle.js"
+    "compi": " tsc & browserify index.js --standalone load > bundle.js"
   },
   "repository": {
     "type": "git",
