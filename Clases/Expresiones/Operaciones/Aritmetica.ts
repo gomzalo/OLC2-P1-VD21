@@ -156,7 +156,7 @@ export default class Aritmetica implements Expresion {
     }
     
     recorrer(): Nodo {
-        let padre = new Nodo("Exp","");
+        let padre = new Nodo("Exp. Aritmetica","");
 
         if(this.expU){
             padre.addChildNode(new Nodo(this.operador,""));

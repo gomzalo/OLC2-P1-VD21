@@ -114,4 +114,17 @@ export default class Relacional implements Expresion{
         }
     }
 
+    recorrer(): Nodo {
+        let padre = new Nodo("Exp. Relacional","");
+
+        if(this.expU){
+            padre.addChildNode(new Nodo(this.operador,""));
+            padre.addChildNode(this.exp1.recorrer());
+        }else{
+            padre.addChildNode(this.exp1.recorrer());
+            padre.addChildNode(new Nodo(this.operador,""));
+            padre.addChildNode(this.exp2.recorrer());
+        }
+        return padre;
+    }
 }
