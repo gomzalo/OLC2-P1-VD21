@@ -247,12 +247,11 @@ function reporteAST(){
     clickedTab.innerHTML = "<h3>Reporte AST</h3>"
     var viz = new Viz();
     viz.renderSVGElement(result).then(function (element) {
-      clickedTab.appendChild(element);
+        clickedTab.appendChild(element);
     })
     .catch((error) => {
-      console.error(error);
+        console.error(error);
     });
-     
 }
 
 function traducirProyecto(){
@@ -362,18 +361,18 @@ function reporteAST_Traduccion(){
     clickedTab.innerHTML = "<h3>Reporte AST Traduccion</h3>"
     var viz = new Viz();
     viz.renderSVGElement(result).then(function (element) {
-      clickedTab.appendChild(element);
+        clickedTab.appendChild(element);
     })
     .catch((error) => {
-      console.error(error);
+        console.error(error);
     });
 }
 /*var viz = new Viz();
 viz.renderSVGElement(text).then(function (element) {
-      div.appendChild(element);
+        div.appendChild(element);
     })
     .catch((error) => {
-      viz = new Viz();
-      console.error(error);
+        viz = new Viz();
+        console.error(error);
     });*/
 //

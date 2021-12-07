@@ -1,9 +1,8 @@
-import { OperadorRelacional } from '../../TablaSimbolos/Tipo';
 import Nodo from "../../Ast/Nodo";
 import Ast from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
-import { TIPO } from "../../TablaSimbolos/Tipo";
+import { TIPO, OperadorRelacional } from "../../TablaSimbolos/Tipo";
 
 export default class Relacional implements Expresion{
     public exp1: any;

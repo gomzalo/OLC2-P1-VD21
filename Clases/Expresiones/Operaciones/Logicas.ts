@@ -1,4 +1,3 @@
-import { OperadorLogico } from './../../TablaSimbolos/Tipo';
 import Nodo from "../../Ast/Nodo";
 import Ast from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
@@ -23,7 +22,7 @@ export default class Logica implements Expresion{
         this.expU = expU;
     }
 
-    getTipo(table: TablaSimbolos, tree: Ast): TIPO {
+    getTipo(table: TablaSimbolos, tree: Ast): typeof TIPO {
         let valor = this.getValorImplicito(table, tree);
 
         if(typeof valor === 'number'){   

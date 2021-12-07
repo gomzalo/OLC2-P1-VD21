@@ -1,17 +1,8 @@
-
-/**
- * @class Clase Nodo para graficar ast
- */
 export default class Nodo{
     public token : string ;
     public lexema : string;
     public hijos : Array<Nodo>;
 
-    /**
-     * @constructor Crea un nuevo nodo a graficar del ast
-     * @param token guarda el token del nodo
-     * @param lexema guarda el lexema del nodo
-     */
     constructor(token : string, lexema : string) {
         this.token = token;
         this.lexema = lexema;
@@ -29,9 +20,9 @@ export default class Nodo{
      * @function getChilds retorna array de childs 
      * @returns retorna array de nodos
      */
-     public getChilds(){
+    public getChilds(){
         return this.hijos;
-   }
+    }
 
     /**
      * @method addChildNode agregar Hijo
@@ -45,7 +36,7 @@ export default class Nodo{
      * @function getValor retorna el nombre del token 
      * @returns retorna el token
      */
-     public getValor():string{
+    public getValor():string{
         return this.lexema;
     }
 
@@ -53,12 +44,9 @@ export default class Nodo{
      * @function setValor retorna el nombre del token 
      * @returns retorna el token
      */
-     public setValor(valor : string){
-         this.lexema = valor;
+    public setValor(valor : string){
+        this.lexema = valor;
     }
-
-    
-
 
     /**
      * @function getToken retorna el nombre del token 

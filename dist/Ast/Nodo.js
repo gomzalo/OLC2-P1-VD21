@@ -1,14 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * @class Clase Nodo para graficar ast
- */
 class Nodo {
-    /**
-     * @constructor Crea un nuevo nodo a graficar del ast
-     * @param token guarda el token del nodo
-     * @param lexema guarda el lexema del nodo
-     */
     constructor(token, lexema) {
         this.token = token;
         this.lexema = lexema;

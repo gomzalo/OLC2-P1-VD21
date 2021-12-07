@@ -1,9 +1,8 @@
-import { OperadorAritmetico } from '../../TablaSimbolos/Tipo';
-import Nodo from "../../Ast/Nodo";
 import Ast from "../../Ast/Ast"
+import Nodo from "../../Ast/Nodo";
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
-import { TIPO } from "../../TablaSimbolos/Tipo";
+import { TIPO, OperadorAritmetico } from "../../TablaSimbolos/Tipo";
 
 
 export default class Aritmetica implements Expresion {

@@ -3,9 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
-const Tipo_2 = require("../../TablaSimbolos/Tipo");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class Aritmetica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -18,13 +17,13 @@ class Aritmetica {
     getTipo(ts, ast) {
         let valor = this.getValorImplicito(ts, ast);
         if (typeof valor === 'number') {
-            return Tipo_2.TIPO.DECIMAL;
+            return Tipo_1.TIPO.DECIMAL;
         }
         else if (typeof valor === 'string') {
-            return Tipo_2.TIPO.CADENA;
+            return Tipo_1.TIPO.CADENA;
         }
         else if (typeof valor === 'boolean') {
-            return Tipo_2.TIPO.BOOLEANO;
+            return Tipo_1.TIPO.BOOLEANO;
         }
     }
     getValorImplicito(table, tree) {
@@ -151,7 +150,7 @@ class Aritmetica {
         }
     }
     recorrer() {
-        let padre = new Nodo_1.default("Exp", "");
+        let padre = new Nodo_1.default("Exp. Aritmetica", "");
         if (this.expU) {
             padre.addChildNode(new Nodo_1.default(this.operador, ""));
             padre.addChildNode(this.exp1.recorrer());
