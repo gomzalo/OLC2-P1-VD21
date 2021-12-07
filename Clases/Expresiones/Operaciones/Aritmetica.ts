@@ -132,7 +132,21 @@ export default class Aritmetica implements Expresion {
                         return valor_exp1 / valor_exp2;
                     }//TODO: Agregar las otras validaciones
                 }
-                break; 
+                break;
+            case OperadorAritmetico.MOD:
+                if(typeof valor_exp1 === 'number'){
+                    if(typeof valor_exp2 === 'number'){
+                        return valor_exp1 % valor_exp2;
+                    }
+                }
+                break;
+            case OperadorAritmetico.POT:
+                if(typeof valor_exp1 === 'number'){
+                    if(typeof valor_exp2 === 'number'){
+                        return Math.pow(valor_exp1, valor_exp2);
+                    }
+                }
+                break;
             //TODO: Agregar otros casos de aritmeticas (POTENCIA, MODULO)
             default:
                 //TODO: agregar errror que ser produjo algo inesperado.
