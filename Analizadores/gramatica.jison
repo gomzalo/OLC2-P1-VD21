@@ -151,22 +151,23 @@ caracter     (\'({escape2}|{aceptada2})\')
 
 /* Area de imports */
 %{
-    // const aritmetica = require('../Clases/Expresiones/Operaciones/Aritmetica');
+    const aritmetica = require('../dist/Expresiones/Operaciones/Aritmetica.js');
     // const logica = require('../Clases/Expresiones/Operaciones/Logica');
-    // const relacional = require('../Clases/Expresiones/Operaciones/Relacional');
-    // const primitivo = require('../Clases/Expresiones/Primitivo');
+    const relacional = require('../dist/Expresiones/Operaciones/Relacionales');
+    const primitivo = require('../dist/Expresiones/Primitivo');
 
 
     // const ast = require('../Clases/Ast/Ast');
     // const declaracion = require('../Clases/Instrucciones/Declaracion');
     // const asignacion = require('../Clases/Instrucciones/Asignacion');
     // const simbolo = require('../Clases/TablaSimbolos/Simbolos');
-    // const tipo = require('../Clases/TablaSimbolos/Tipo');
+    const tipo = require('../dist/TablaSimbolos/Tipo');
+    // const tipoAritm = require('../dist/TablaSimbolos/OperadorAritmetico')
 
-    // const identificador = require('../Clases/Expresiones/Identificador');
+    const identificador = require('../dist/Expresiones/Identificador');
     // const ternario = require('../Clases/Expresiones/Ternario');
 
-    // const Print = require('../Clases/Instrucciones/Print');
+    const Print = require('../dist/Instrucciones/Print');
     // const Ifs = require('../Clases/Instrucciones/SentenciaControl/Ifs');
     // const While = require('../Clases/Instrucciones/SentenciaCiclica/While');
 
@@ -212,10 +213,10 @@ instrucciones : instrucciones instruccion   { $$ = $1; $$.push($2); }
             ;
 
 
-instruccion : declaracion   {$$ = $1; }
+instruccion : /*declaracion   {$$ = $1; }
             | asignacion    { $$ = $1; }
-            | print         { $$ = $1; }
-            | sent_if       { $$ = $1; }
+            |*/ print         { $$ = $1; }
+            /*| sent_if       { $$ = $1; }
             | sent_while    { $$ = $1; } 
             | dowhile_statement { $$ = $1; } 
             | funciones     { $$ = $1; }
@@ -228,7 +229,7 @@ instruccion : declaracion   {$$ = $1; }
                         
                                 new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
                                                 this._$.first_line ,this._$.first_column);            
-                            }
+                            }*/
             ;
 
 // -- DECLARACIONES
@@ -296,32 +297,33 @@ lista_exp : lista_exp COMA e        { $$ = $1; $$.push($3); }
         | e                         { $$ = new Array(); $$.push($1); }
         ;
 
-e :   e MAS e             {$$ = new aritmetica.default($1, '+', $3, $1.first_line, $1.last_column, false);}
-    | e MENOS e         {$$ = new aritmetica.default($1, '-', $3, $1.first_line, $1.last_column, false);}
-    | e MULTI e         {$$ = new aritmetica.default($1, '*', $3, $1.first_line, $1.last_column, false);}
-    | e DIV e           {$$ = new aritmetica.default($1, '/', $3, $1.first_line, $1.last_column, false);}
-    | e POTENCIA e           {$$ = new aritmetica.default($1, 'pot', $3, $1.first_line, $1.last_column, false);} //new PORCENTAJE
-    | e PORCENTAJE e           {$$ = new aritmetica.default($1, '%', $3, $1.first_line, $1.last_column, false);} //new PORCENTAJE
-    | e AND e           {$$ = new logica.default($1, '&&', $3, $1.first_line, $1.last_column, false);}
+e :   e MAS e             {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.MAS, $3, $1.first_line, $1.last_column, false);}
+    | e MENOS e         {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
+    | e MULTI e         {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
+    | e DIV e           {$$ = new aritmetica.default($1, tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
+    /*| e POTENCIA e           {$$ = new aritmetica.default($1, 'pot', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+    /*| e PORCENTAJE e           {$$ = new aritmetica.default($1, '%', $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+    /*| e AND e           {$$ = new logica.default($1, '&&', $3, $1.first_line, $1.last_column, false);}
     | e OR e           {$$ = new logica.default($1, '||', $3, $1.first_line, $1.last_column, false);}//NEW
-    | NOT e             {$$ = new logica.default($2, '!', null, $1.first_line, $1.last_column, true);}
-    | e MAYORQUE e      {$$ = new relacional.default($1, '>', $3, $1.first_line, $1.last_column, false);}
-    | e MAYORIGUAL e      {$$ = new relacional.default($1, '>=', $3, $1.first_line, $1.last_column, false);}
-    | e MENORIGUAL e      {$$ = new relacional.default($1, '<=', $3, $1.first_line, $1.last_column, false);} //new
-    | e MENORQUE e      {$$ = new relacional.default($1, '<', $3, $1.first_line, $1.last_column, false);}
-    | e IGUALIGUAL e      {$$ = new relacional.default($1, '==', $3, $1.first_line, $1.last_column, false);}
-    | e DIFERENTE e      {$$ = new relacional.default($1, '!=', $3, $1.first_line, $1.last_column, false);} //new
-    | MENOS e %prec UNARIO {$$ = new aritmetica.default($2, 'UNARIO', null, $1.first_line, $1.last_column, true);}
+    | NOT e             {$$ = new logica.default($2, '!', null, $1.first_line, $1.last_column, true);}*/
+    | e MAYORQUE e      {$$ = new relacional.default($1, tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
+    | e MAYORIGUAL e      {$$ = new relacional.default($1, tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
+    /*| e MENORIGUAL e      {$$ = new relacional.default($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new
+    | e MENORQUE e      {$$ = new relacional.default($1, tipo.OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
+    | e IGUALIGUAL e      {$$ = new relacional.default($1, tipo.OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
+    /*| e DIFERENTE e      {$$ = new relacional.default($1, '!=', $3, $1.first_line, $1.last_column, false);} */ //new
+    | MENOS e %prec UNARIO {$$ = new aritmetica.default($2, tipo.OperadorAritmetico.UMENOS, null, $1.first_line, $1.last_column, true);}
     | PARA e PARC       {$$ = $2;}
-    | DECIMAL           {$$ = new primitivo.default(Number(yytext), $1.first_line, $1.last_column);}
-    | ENTERO            {$$ = new primitivo.default(Number(yytext), $1.first_line, $1.last_column);}
-    | CADENA            {$1 = $1.slice(1, $1.length-1); $$ = new primitivo.default($1, $1.first_line, $1.last_column);}
-    | CHAR              {$1 = $1.slice(1, $1.length-1); $$ = new primitivo.default($1, $1.first_line, $1.last_column);}
-    | TRUE              {$$ = new primitivo.default(true, $1.first_line, $1.last_column);}
-    | FALSE             {$$ = new primitivo.default(false, $1.first_line, $1.last_column);}
+    | DECIMAL           {$$ = new primitivo.default(Number(yytext),tipo.TIPO.DECIMAL, $1.first_line, $1.last_column);}
+    | ENTERO            {$$ = new primitivo.default(Number(yytext),tipo.TIPO.ENTERO, $1.first_line, $1.last_column);}
+    | CADENA            {$1 = $1.slice(1, $1.length-1); $$ = new primitivo.default($1,tipo.TIPO.CADENA, $1.first_line, $1.last_column);}
+    | CHAR              {$1 = $1.slice(1, $1.length-1); $$ = new primitivo.default($1,tipo.TIPO.CHARACTER, $1.first_line, $1.last_column);}
+    | TRUE              {$$ = new primitivo.default(true,tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
+    | FALSE             {$$ = new primitivo.default(false,tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
     | ID                {$$ = new identificador.default($1, @1.first_line, @1.last_column); }
-    | e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } 
-    | ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
-    | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
+    | NULO              {$$ = new primitivo.default($1,tipo.TIPO.NULO,@1.first_line,@1.last_column)}
+    /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
+    /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
+    | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/
     ;
 

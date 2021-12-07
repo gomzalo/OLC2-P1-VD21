@@ -1,4 +1,5 @@
 import { Instruccion } from "../Interfaces/Instruccion";
+import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 
 export default class Ast  {
     public instrucciones:Array<Instruccion>;
@@ -22,6 +23,20 @@ export default class Ast  {
         this.dot = "";
         this.contador = 0;
         this.strEntorno= "";
+    }
+
+    public ejecutar(table: TablaSimbolos, tree: Ast){
+        // 1ERA PASADA: 
+        // GUARDAR FUNCIONES  Y METODOS
+        // for( let instr of this.instrucciones){
+
+        // }
+
+        // 2DA PASADA
+        // EJECUTAMOS TODAS LAS FUNCIONES
+        for( let instr of this.instrucciones){
+            instr.ejecutar(table,tree);
+        }
     }
 
     public getInstrucciones(){

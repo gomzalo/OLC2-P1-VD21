@@ -1,3 +1,6 @@
+// const { default: Ast } = require("./Clases/Ast/Ast");
+// const { TablaSimbolos } = require("./Clases/TablaSimbolos/TablaSimbolos");
+
 var myTab = document.getElementById('myTab');
 var itemAbrir = document.getElementById('item1');
 let astGenerado;
@@ -193,7 +196,12 @@ function compilarProyecto(){
         listaImprimir.length = 0;
         // listaErrores.length = 0;
         astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        console.log("astgenerado: " + astGenerado)
+        let tablaSimbolos = new TablaSimbolos();
+        let astEjecucion = new Ast();
+        astEjecucion.ejecutar(tablaSimbolos, astEjecucion);
+        let output = astEjecucion.getConsola()
+
+        // console.log("astgenerado: " + astGenerado)
         // let entorno = new Entorno(null);
         // entorno.setGlobal(entorno);
         // entorno.setPadre(null);
@@ -210,7 +218,7 @@ function compilarProyecto(){
             }
         );
         
-        $("#exampleFormControlTextarea1").val(texto);
+        $("#exampleFormControlTextarea1").val(texto + output);
         //textArea2.append(texto);
         //listaImprimir = [];
         
