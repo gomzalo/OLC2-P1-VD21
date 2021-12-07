@@ -8,9 +8,10 @@ let astGenerado;
 let astTraduccion;
 let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
-const Ast = require("./dist/Ast/Ast");
+const {Ast} = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
-const Primitivo = require("./dist/Expresiones/Primitivo");
+const {Primitivo} = require("./dist/Expresiones/Primitivo");
+const {TablaSimbolos} = require("./dist/TablaSimbolos/TablaSimbolos");
 // const Lista_Imprimir = require("./dist/Lista_imprimir");
 
 const compilar = document.getElementById('compilarProyecto');
@@ -202,6 +203,7 @@ compilar.addEventListener('click', () => {
         // listaImprimir.length = 0;
         // listaErrores.length = 0;
         astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        console.log(astGenerado);
         let tablaSimbolos = new TablaSimbolos();
         let astEjecucion = new Ast();
         astEjecucion.ejecutar(tablaSimbolos, astEjecucion);

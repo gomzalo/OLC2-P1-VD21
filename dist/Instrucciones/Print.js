@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Print = void 0;
 const Nodo_1 = __importDefault(require("../Ast/Nodo"));
 class Print {
     constructor(parametros, fila, columna, tipo) {
@@ -12,6 +13,7 @@ class Print {
         this.tipo = tipo;
     }
     ejecutar(table, tree) {
+        console.log("entro a print siimmm");
         //TODO: verificar que el tipo del valor sea primitivo 
         this.parametros.forEach(expresion => {
             let valor = expresion.ejecutar(table, tree);
@@ -39,4 +41,4 @@ class Print {
         return padre;
     }
 }
-exports.default = Print;
+exports.Print = Print;

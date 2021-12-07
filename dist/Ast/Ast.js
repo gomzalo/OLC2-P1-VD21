@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Ast = void 0;
 class Ast {
     constructor() {
         this.consola = "";
@@ -88,4 +89,4 @@ class Ast {
     getDot(raiz) {
     }
 }
-exports.default = Ast;
+exports.Ast = Ast;

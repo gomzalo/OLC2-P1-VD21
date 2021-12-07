@@ -1,5 +1,5 @@
 import Nodo from "../../Ast/Nodo";
-import Ast from "../../Ast/Ast"
+import {Ast} from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";

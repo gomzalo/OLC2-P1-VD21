@@ -1,7 +1,7 @@
 import { Instruccion } from './../../Interfaces/Instruccion';
 import { OperadorLogico } from './../../TablaSimbolos/Tipo';
 import Nodo from "../../Ast/Nodo";
-import Ast from "../../Ast/Ast"
+import {Ast} from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";

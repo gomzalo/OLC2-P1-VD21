@@ -1,10 +1,10 @@
-import Ast from "../Ast/Ast";
+import {Ast} from "../Ast/Ast";
 import Nodo from "../Ast/Nodo"
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 
-export default class Print implements Instruccion{
+export class Print implements Instruccion{
 
     public parametros : any;
     public fila : number;
@@ -20,6 +20,7 @@ export default class Print implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
+        console.log("entro a print siimmm");
         //TODO: verificar que el tipo del valor sea primitivo 
         this.parametros.forEach(expresion => {
             let valor = expresion.ejecutar(table,tree);

@@ -795,24 +795,78 @@ process.umask = function() { return 0; };
   }
 */
 var gramatica = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o};
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,5],$V1=[5,9],$V2=[1,21],$V3=[1,20],$V4=[1,13],$V5=[1,14],$V6=[1,15],$V7=[1,16],$V8=[1,17],$V9=[1,18],$Va=[1,19],$Vb=[1,23],$Vc=[1,24],$Vd=[1,25],$Ve=[1,26],$Vf=[1,27],$Vg=[12,15,16,17,18,19],$Vh=[12,15,16];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"inicio":3,"NULO":4,"$accept":0,"$end":1},
-terminals_: {2:"error",4:"NULO"},
-productions_: [0,[3,1]],
+symbols_: {"error":2,"START":3,"RAICES":4,"EOF":5,"RAIZ":6,"PRINT":7,"semicolon":8,"print":9,"lparen":10,"EXPR":11,"rparen":12,"PRIMITIVA":13,"OP_ARITMETICAS":14,"plus":15,"minus":16,"times":17,"div":18,"mod":19,"IntegerLiteral":20,"DoubleLiteral":21,"StringLiteral":22,"charliteral":23,"null":24,"true":25,"false":26,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",8:"semicolon",9:"print",10:"lparen",12:"rparen",15:"plus",16:"minus",17:"times",18:"div",19:"mod",20:"IntegerLiteral",21:"DoubleLiteral",22:"StringLiteral",23:"charliteral",24:"null",25:"true",26:"false"},
+productions_: [0,[3,2],[4,2],[4,1],[6,2],[7,4],[11,1],[11,1],[14,3],[14,3],[14,3],[14,3],[14,3],[14,2],[14,3],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
-console.log("hola");this.$ = new Primitivo($$[$0],TIPO.NULO,_$[$0].first_line,_$[$0].last_column)
+ this.$ = $$[$0-1]; return this.$; 
+break;
+case 2:
+ $$[$0-1].push($$[$0]); this.$ = $$[$0-1];
+break;
+case 3:
+ this.$ = [$$[$0]]; 
+break;
+case 4: case 14:
+ this.$ = $$[$0-1] 
+break;
+case 5:
+ this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+break;
+case 6: case 7:
+ this.$ = $$[$0] 
+break;
+case 8:
+ this.$ = new Aritmeticas($$[$0-2],OperadorAritmetico.MAS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+break;
+case 9:
+ this.$ = new Aritmeticas($$[$0-2],OperadorAritmetico.RESTA,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+break;
+case 10:
+ this.$ = new Aritmeticas($$[$0-2],OperadorAritmetico.MULTIPLICACION,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+break;
+case 11:
+ this.$ = new Aritmeticas($$[$0-2],OperadorAritmetico.DIVISION,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+break;
+case 12:
+ this.$ = new Aritmeticas($$[$0-2],OperadorAritmetico.MODULO,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+break;
+case 13:
+ this.$ = new Aritmeticas($$[$0],OperadorAritmetico.MENOS_UNARIO,$$[$0], _$[$0-1].first_line, _$[$0-1].first_column, true); 
+break;
+case 15:
+ this.$ = new Primitivo(Number($$[$0]), TIPO.ENTERO, _$[$0].first_line, _$[$0].first_column); 
+break;
+case 16:
+ this.$ = new Primitivo(Number($$[$0]), TIPO.DECIMAL, _$[$0].first_line, _$[$0].first_column); 
+break;
+case 17:
+ this.$ = new Primitivo($$[$0], TIPO.CADENA, _$[$0].first_line, _$[$0].first_column); 
+break;
+case 18:
+ this.$ = new Primitivo($$[$0], TIPO.CHARACTER, _$[$0].first_line, _$[$0].first_column); 
+break;
+case 19:
+ this.$ = new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column); 
+break;
+case 20:
+ this.$ = new Primitivo(true, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
+break;
+case 21:
+ this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
 break;
 }
 },
-table: [{3:1,4:[1,2]},{1:[3]},{1:[2,1]}],
-defaultActions: {2:[2,1]},
+table: [{3:1,4:2,6:3,7:4,9:$V0},{1:[3]},{5:[1,6],6:7,7:4,9:$V0},o($V1,[2,3]),{8:[1,8]},{10:[1,9]},{1:[2,1]},o($V1,[2,2]),o($V1,[2,4]),{10:$V2,11:10,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{12:[1,22],15:$Vb,16:$Vc,17:$Vd,18:$Ve,19:$Vf},o($Vg,[2,6]),o($Vg,[2,7]),o($Vg,[2,15]),o($Vg,[2,16]),o($Vg,[2,17]),o($Vg,[2,18]),o($Vg,[2,19]),o($Vg,[2,20]),o($Vg,[2,21]),{10:$V2,11:28,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{10:$V2,11:29,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{8:[2,5]},{10:$V2,11:30,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{10:$V2,11:31,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{10:$V2,11:32,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{10:$V2,11:33,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},{10:$V2,11:34,13:11,14:12,16:$V3,20:$V4,21:$V5,22:$V6,23:$V7,24:$V8,25:$V9,26:$Va},o($Vg,[2,13]),{12:[1,35],15:$Vb,16:$Vc,17:$Vd,18:$Ve,19:$Vf},o($Vh,[2,8],{17:$Vd,18:$Ve,19:$Vf}),o($Vh,[2,9],{17:$Vd,18:$Ve,19:$Vf}),o($Vg,[2,10]),o($Vg,[2,11]),o($Vg,[2,12]),o($Vg,[2,14])],
+defaultActions: {6:[2,1],22:[2,5]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -960,37 +1014,10 @@ parse: function parse(input) {
     return true;
 }};
 
-    // const aritmetica = require('../dist/Expresiones/Operaciones/Aritmetica.js');
-    // const { Aritmetica } = require('../Clases/Expresiones/Operaciones/Aritmetica');
-    // const { Logica } = require('../Clases/Expresiones/Operaciones/Logica');
-    // const { Relacionales } = require('../Clases/Expresiones/Operaciones/Relacionales');
-    // const { Primitivo } = require('../Clases/Expresiones/Primitivo');
-
-
-    // const ast = require('../Clases/Ast/Ast');
-    // const declaracion = require('../Clases/Instrucciones/Declaracion');
-    // const asignacion = require('../Clases/Instrucciones/Asignacion');
-    // const simbolo = require('../Clases/TablaSimbolos/Simbolos');
-    const {TIPO} = require('../dist/TablaSimbolos/Tipo');
-    // const tipoAritm = require('../dist/TablaSimbolos/OperadorAritmetico')
-
-    // const {Identificador} = require('../dist/Expresiones/Identificador');
-    // const ternario = require('../Clases/Expresiones/Ternario');
-
-    // const {Print} = require('../dist/Instrucciones/Print');
-    // const Ifs = require('../Clases/Instrucciones/SentenciaControl/Ifs');
-    // const While = require('../Clases/Instrucciones/SentenciaCiclica/While');
-
-    // const funcion = require('../Clases/Instrucciones/Funcion');
-    // const llamada = require('../Clases/Instrucciones/Llamada');
-
-    // const ejecutar = require('../Clases/Instrucciones/Ejecutar');
-
-    // const detener = require('../Clases/Instrucciones/SentenciaTransferencia/Break');
-    // const errores = require('../Clases/Ast/Errores');
-
-    // let lista =[];
-
+    const {Print} = require("../dist/Instrucciones/Print");
+    const {Aritmeticas} = require("../dist/Expresiones/Operaciones/Aritmeticas");
+    const {TIPO, OperadorAritmetico} = require("../dist/TablaSimbolos/Tipo");
+    const {Primitivo} = require("../dist/Expresiones/Primitivo");
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -1319,178 +1346,86 @@ options: {"case-insensitive":true},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:/* Ignoro los comentarios simples */
+case 0:/* skip comments */
 break;
-case 1:/*Ignorar comentarios con multiples lneas*/
+case 1:this.begin('comment');
 break;
-case 2: console.log("Reconocio : "+ yy_.yytext); return 'INCRE'
+case 2:this.popState();
 break;
-case 3: console.log("Reconocio : "+ yy_.yytext); return 'DECRE'
+case 3:/* skip comment content*/
 break;
-case 4: console.log("Reconocio : "+ yy_.yytext); return 'PARA'
+case 4:/* skip whitespace */
 break;
-case 5: console.log("Reconocio : "+ yy_.yytext); return 'PARC'
+case 5:return 9;
 break;
-case 6: console.log("Reconocio : "+ yy_.yytext); return 'CORA'
+case 6:return 24;
 break;
-case 7: console.log("Reconocio : "+ yy_.yytext); return 'CORC'
+case 7:return 25;
 break;
-case 8: console.log("Reconocio : "+ yy_.yytext); return 'PUNTO'
+case 8:return 26;
 break;
-case 9: console.log("Reconocio : "+ yy_.yytext); return 'PUNTOCOMA'
+case 9:return 15;
 break;
-case 10: console.log("Reconocio : "+ yy_.yytext); return 'COMA'
+case 10:return 16;
 break;
-case 11: console.log("Reconocio : "+ yy_.yytext); return 'IGUALIGUAL'
+case 11:return 17;
 break;
-case 12: console.log("Reconocio : "+ yy_.yytext); return 'IGUAL'
+case 12:return 18;
 break;
-case 13: console.log("Reconocio : "+ yy_.yytext); return 'INTERROGACION'
+case 13:return 19;
 break;
-case 14: console.log("Reconocio : "+ yy_.yytext); return 'DOSPUNTOS'
+case 14:return 'lte';
 break;
-case 15: console.log("Reconocio : "+ yy_.yytext); return 'LLAVA'
+case 15:return 'gte';
 break;
-case 16: console.log("Reconocio : "+ yy_.yytext); return 'LLAVC'
+case 16:return 'lt';
 break;
-case 17: console.log("Reconocio : "+ yy_.yytext); return 'PORCENTAJE'
+case 17:return 'gt';
 break;
-case 18: console.log("Reconocio : "+ yy_.yytext); return 'MAS'
+case 18:return 'asig';
 break;
-case 19: console.log("Reconocio : "+ yy_.yytext); return 'MENOS'
+case 19:return 'equal';
 break;
-case 20: console.log("Reconocio : "+ yy_.yytext); return 'MULTI'
+case 20:return 'nequal';
 break;
-case 21: console.log("Reconocio : "+ yy_.yytext); return 'DIV'
+case 21:return 'and';
 break;
-case 22: console.log("Reconocio : "+ yy_.yytext); return 'MENORQUE'
+case 22:return 'or';
 break;
-case 23: console.log("Reconocio : "+ yy_.yytext); return 'MAYORIGUAL'
+case 23:return 'not';
 break;
-case 24: console.log("Reconocio : "+ yy_.yytext); return 'MAYORQUE'
+case 24:return 8;
 break;
-case 25: lista.push({F: yy_.yylloc.first_line, C: yy_.yylloc.first_column,T: 'DIFERENTE', L: yy_.yytext}); return 'DIFERENTE'; 
+case 25:return 10;
 break;
-case 26: lista.push({F: yy_.yylloc.first_line, C: yy_.yylloc.first_column,T: 'MENORIGUAL', L: yy_.yytext}); return 'MENORIGUAL'; 
+case 26:return 12;
 break;
-case 27: console.log("Reconocio : "+ yy_.yytext); return 'AND'
+case 27:return 'and';
 break;
-case 28: lista.push({F: yy_.yylloc.first_line, C: yy_.yylloc.first_column,T: 'OR', L: yy_.yytext}); console.log("Reconocio : "+ yy_.yytext); return 'OR'; 
+case 28:return 'or';
 break;
-case 29: lista.push({F: yy_.yylloc.first_line, C: yy_.yylloc.first_column,T: 'NEGACION', L: yy_.yytext}); console.log("Reconocio : "+ yy_.yytext);return 'NEGACION'; 
+case 29:return 'not';
 break;
-case 30: lista.push({F: yy_.yylloc.first_line, C: yy_.yylloc.first_column,T: 'POTENCIA', L: yy_.yytext}); console.log("Reconocio : "+ yy_.yytext); return 'POTENCIA'; 
+case 30:return 21;
 break;
-case 31://..............      Primitivos      ...............
+case 31:return 20;
 break;
-case 32: console.log("Reconocio : "+ yy_.yytext); return 'INT'
+case 32:return 'identifier';
 break;
-case 33: console.log("Reconocio : "+ yy_.yytext); return 'DOUBLE'
+case 33:return 22
 break;
-case 34: console.log("Reconocio : "+ yy_.yytext); return 'STRING'
+case 34:return 'CharLiteral'
 break;
-case 35: console.log("Reconocio : "+ yy_.yytext); return 'CHAR'
+case 35:
+                                        console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column);
+                                    
 break;
-case 36: console.log("Reconocio : "+ yy_.yytext); return 'BOOLEAN'
-break;
-case 37: console.log("Reconocio : "+ yy_.yytext); return 4
-break;
-case 38: console.log("Reconocio : "+ yy_.yytext); return 'STRUCT'
-break;
-case 39: console.log("Reconocio : "+ yy_.yytext); return 'IF'
-break;
-case 40: console.log("Reconocio : "+ yy_.yytext); return 'ELSE'
-break;
-case 41: console.log("Reconocio : "+ yy_.yytext); return 'ELSEIF'
-break;
-case 42: console.log("Reconocio : "+ yy_.yytext); return 'SWITCH'
-break;
-case 43: console.log("Reconocio : "+ yy_.yytext); return 'CASE'
-break;
-case 44: console.log("Reconocio : "+ yy_.yytext); return 'DEFAULT'
-break;
-case 45: console.log("Reconocio : "+ yy_.yytext); return 'WHILE'
-break;
-case 46: console.log("Reconocio : "+ yy_.yytext); return 'DO'
-break;
-case 47: console.log("Reconocio : "+ yy_.yytext); return 'FOR'
-break;
-case 48: console.log("Reconocio : "+ yy_.yytext); return 'BREAK'
-break;
-case 49: console.log("Reconocio : "+ yy_.yytext); return 'CONTINUE'
-break;
-case 50: console.log("Reconocio : "+ yy_.yytext); return 'RETURN'
-break;
-case 51: console.log("Reconocio : "+ yy_.yytext); return 'PRINT'
-break;
-case 52: console.log("Reconocio : "+ yy_.yytext); return 'PRINTLN'
-break;
-case 53: console.log("Reconocio : "+ yy_.yytext); return 'VOID'
-break;
-case 54: console.log("Reconocio : "+ yy_.yytext); return 'SIN'
-break;
-case 55: console.log("Reconocio : "+ yy_.yytext); return 'COS'
-break;
-case 56: console.log("Reconocio : "+ yy_.yytext); return 'TAN'
-break;
-case 57: console.log("Reconocio : "+ yy_.yytext); return 'LOG10'
-break;
-case 58: console.log("Reconocio : "+ yy_.yytext); return 'SQRT'
-break;
-case 59: console.log("Reconocio : "+ yy_.yytext); return 'PARSE'
-break;
-case 60: console.log("Reconocio : "+ yy_.yytext); return 'TOINT'
-break;
-case 61: console.log("Reconocio : "+ yy_.yytext); return 'TODOUBLE'
-break;
-case 62: console.log("Reconocio : "+ yy_.yytext); return 'TYPEOF'
-break;
-case 63: console.log("Reconocio : "+ yy_.yytext); return 'PUSH'
-break;
-case 64: console.log("Reconocio : "+ yy_.yytext); return 'POP'
-break;
-case 65: console.log("Reconocio : "+ yy_.yytext); return 'CHAROFPOS'
-break;
-case 66: console.log("Reconocio : "+ yy_.yytext); return 'SUBSTRING'
-break;
-case 67: console.log("Reconocio : "+ yy_.yytext); return 'LENGTH'
-break;
-case 68: console.log("Reconocio : "+ yy_.yytext); return 'TOLOWERCASE'
-break;
-case 69: console.log("Reconocio : "+ yy_.yytext); return 'TOUPPERCASE'
-break;
-case 70: console.log("Reconocio : "+ yy_.yytext); return 'TRUE'
-break;
-case 71: console.log("Reconocio : "+ yy_.yytext); return 'FALSE'
-break;
-case 72: console.log("Reconocio : "+ yy_.yytext); return 'DECIMAL'
-break;
-case 73: console.log("Reconocio : "+ yy_.yytext); return 'ENTERO'
-break;
-case 74: console.log("Reconocio : "+ yy_.yytext); return 'ID'
-break;
-case 75: console.log("Reconocio : "+ yy_.yytext); return 'CADENA'
-break;
-case 76: console.log("Reconocio : "+ yy_.yytext); return 'CHAR'
-break;
-case 77:/* skip whitespace */
-break;
-case 78:return 'EOF'
-break;
-case 79: console.log("Error Lexico "+yy_.yytext
-                        +" linea "+yy_.yylineno
-                        +" columna "+(yy_.yylloc.last_column+1));
-
-                        new errores.default('Lexico', 'El caracter ' + yy_.yytext 
-                                + ' no forma parte del lenguaje', 
-                                yy_.yylineno+1, 
-                                yy_.yylloc.last_column+1); 
-                        
+case 36:return 5
 break;
 }
 },
-rules: [/^(?:\/\/.*)/i,/^(?:\/\*((\*+[^/*])|([^*]))*\**\*\/)/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\.)/i,/^(?:;)/i,/^(?:,)/i,/^(?:==)/i,/^(?:=)/i,/^(?:\?)/i,/^(?::)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:%)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:<)/i,/^(?:>=)/i,/^(?:>)/i,/^(?:!=)/i,/^(?:<=)/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:!)/i,/^(?:\^)/i,/^(?:)/i,/^(?:int\b)/i,/^(?:double\b)/i,/^(?:String\b)/i,/^(?:char\b)/i,/^(?:boolean\b)/i,/^(?:null\b)/i,/^(?:struct\b)/i,/^(?:if\b)/i,/^(?:else\b)/i,/^(?:elseif\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:default\b)/i,/^(?:while\b)/i,/^(?:do\b)/i,/^(?:for\b)/i,/^(?:break\b)/i,/^(?:continue\b)/i,/^(?:return\b)/i,/^(?:print\b)/i,/^(?:println\b)/i,/^(?:void\b)/i,/^(?:sin\b)/i,/^(?:cos\b)/i,/^(?:tan\b)/i,/^(?:log10\b)/i,/^(?:sqrt\b)/i,/^(?:parse\b)/i,/^(?:toInt\b)/i,/^(?:toDouble\b)/i,/^(?:typeof\b)/i,/^(?:push\b)/i,/^(?:pop\b)/i,/^(?:caracterOfPosition\b)/i,/^(?:subString\b)/i,/^(?:length\b)/i,/^(?:toLowercase\b)/i,/^(?:toUppercase\b)/i,/^(?:true\b)/i,/^(?:false\b)/i,/^(?:[0-9]+(\.[0-9]+)?\b)/i,/^(?:([0-9]+))/i,/^(?:([a-zñA-ZÑ_][a-zñA-ZÑ0-9_]*))/i,/^(?:(("((\\([\'\"\\ntr]))|([^\"\\]+))*")))/i,/^(?:(('((\\([\\ntr]))|([^\'\\]))')))/i,/^(?:[\r\n\t])/i,/^(?:$)/i,/^(?:.)/i],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79],"inclusive":true}}
+rules: [/^(?:\/\/.*)/i,/^(?:\/\*)/i,/^(?:\*\/)/i,/^(?:.)/i,/^(?:\s+)/i,/^(?:print\b)/i,/^(?:null\b)/i,/^(?:true\b)/i,/^(?:false\b)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:%)/i,/^(?:<=)/i,/^(?:>=)/i,/^(?:<)/i,/^(?:>)/i,/^(?:=)/i,/^(?:==)/i,/^(?:!=)/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:!)/i,/^(?:;)/i,/^(?:\()/i,/^(?:\))/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:!)/i,/^(?:(([0-9]+\.[0-9]*)|(\.[0-9]+)))/i,/^(?:[0-9]+)/i,/^(?:[a-zA-Z_][a-zA-Z0-9_ñÑ]*)/i,/^(?:("((\\([\'\"\\bfnrtv]))|([^\"\\]+))*"))/i,/^(?:('((\\([\'\"\\bfnrtv]))|([^\'\\]))'))/i,/^(?:.)/i,/^(?:$)/i],
+conditions: {"comment":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],"inclusive":true},"INITIAL":{"rules":[0,1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],"inclusive":true}}
 });
 return lexer;
 })();
@@ -1520,9 +1455,10 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 }
 }).call(this)}).call(this,require('_process'))
-},{"../dist/TablaSimbolos/Tipo":8,"_process":3,"fs":1,"path":2}],5:[function(require,module,exports){
+},{"../dist/Expresiones/Operaciones/Aritmeticas":7,"../dist/Expresiones/Primitivo":8,"../dist/Instrucciones/Print":9,"../dist/TablaSimbolos/Tipo":11,"_process":3,"fs":1,"path":2}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Ast = void 0;
 class Ast {
     constructor() {
         this.consola = "";
@@ -1611,7 +1547,7 @@ class Ast {
     getDot(raiz) {
     }
 }
-exports.default = Ast;
+exports.Ast = Ast;
 
 },{}],6:[function(require,module,exports){
 "use strict";
@@ -1706,6 +1642,176 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Aritmetica = void 0;
+const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+class Aritmetica {
+    constructor(exp1, operador, exp2, fila, columna, expU) {
+        this.exp1 = exp1;
+        this.operador = operador;
+        this.exp2 = exp2;
+        this.fila = fila;
+        this.columna = columna;
+        this.expU = expU;
+    }
+    getTipo(ts, ast) {
+        let valor = this.getValorImplicito(ts, ast);
+        if (typeof valor === 'number') {
+            return Tipo_1.TIPO.DECIMAL;
+        }
+        else if (typeof valor === 'string') {
+            return Tipo_1.TIPO.CADENA;
+        }
+        else if (typeof valor === 'boolean') {
+            return Tipo_1.TIPO.BOOLEANO;
+        }
+    }
+    getValorImplicito(table, tree) {
+        let valor_exp1;
+        let valor_exp2;
+        let valor_expU;
+        if (this.expU == false) {
+            valor_exp1 = this.exp1.getValorImplicito(tree, table);
+            valor_exp2 = this.exp2.getValorImplicito(tree, table);
+        }
+        else {
+            valor_expU = this.exp1.getValorImplicito(tree, table);
+        }
+        /**
+         * Para las siguientes validaciones nos basamos en la tabla de
+         * de las operaciones aritmeticas permitidas que soporta el lenguaje descrito en el enunciado.
+         */
+        switch (this.operador) {
+            case Tipo_1.OperadorAritmetico.MAS:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return valor_exp1 + valor_exp2;
+                    }
+                    else if (typeof valor_exp2 === 'boolean') {
+                        let num = 1;
+                        if (valor_exp2 == false) {
+                            num = 0;
+                        }
+                        return valor_exp1 + num;
+                    }
+                    else if (typeof valor_exp2 === 'string') {
+                        if (valor_exp2.length == 1) { //si es de tamaño 1 es un caracter
+                            let numascii = valor_exp2.charCodeAt(0);
+                            return valor_exp1 + numascii;
+                        }
+                        else {
+                            return valor_exp1 + valor_exp2; //se convierte a cadena
+                        }
+                    }
+                }
+                else if (typeof valor_exp1 === 'boolean') {
+                    if (typeof valor_exp2 === 'number') {
+                        let num = 1;
+                        if (valor_exp1 == false) {
+                            num = 0;
+                        }
+                        return num + valor_exp2;
+                    }
+                    else if (typeof valor_exp2 === 'boolean') {
+                        //TODO: agregar error semantico.
+                    }
+                }
+                else if (typeof valor_exp1 == 'string') {
+                    if (valor_exp1.length == 1) {
+                        if (typeof valor_exp2 == 'string') {
+                            if (valor_exp2.length == 1) { //si es de tamaño 1 es un caracter
+                                console.log('suma de caracteres ');
+                                return valor_exp1 + valor_exp2;
+                            }
+                            else {
+                                return valor_exp1 + valor_exp2; //se convierte a cadena
+                            }
+                        }
+                    }
+                    else {
+                        if (typeof valor_exp2 == 'string') {
+                            if (valor_exp2.length == 1) { //si es de tamaño 1 es un caracter
+                                return valor_exp1 + valor_exp2;
+                            }
+                            else {
+                                return valor_exp1 + valor_exp2; //se convierte a cadena
+                            }
+                        }
+                    }
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.UMENOS:
+                if (typeof valor_expU == 'number') {
+                    return -valor_expU;
+                }
+                else {
+                    //TODO: agregar error semantico.
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.MENOS:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return valor_exp1 - valor_exp2;
+                    } //TODO: Agregar las otras validaciones
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.POR:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return valor_exp1 * valor_exp2;
+                    } //TODO: Agregar las otras validaciones
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.DIV:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return valor_exp1 / valor_exp2;
+                    } //TODO: Agregar las otras validaciones
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.MOD:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return valor_exp1 % valor_exp2;
+                    }
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.POT:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return Math.pow(valor_exp1, valor_exp2);
+                    }
+                }
+                break;
+            //TODO: Agregar otros casos de aritmeticas (POTENCIA, MODULO)
+            default:
+                //TODO: agregar errror que ser produjo algo inesperado.
+                break;
+        }
+    }
+    recorrer() {
+        let padre = new Nodo_1.default("Exp. Aritmetica", "");
+        if (this.expU) {
+            padre.addChildNode(new Nodo_1.default(this.operador, ""));
+            padre.addChildNode(this.exp1.recorrer());
+        }
+        else {
+            padre.addChildNode(this.exp1.recorrer());
+            padre.addChildNode(new Nodo_1.default(this.operador, ""));
+            padre.addChildNode(this.exp2.recorrer());
+        }
+        return padre;
+    }
+}
+exports.Aritmetica = Aritmetica;
+
+},{"../../Ast/Nodo":6,"../../TablaSimbolos/Tipo":11}],8:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Primitivo = void 0;
 const Nodo_1 = __importDefault(require("../Ast/Nodo"));
 class Primitivo {
     constructor(valor, tipo, fila, columna) {
@@ -1726,9 +1832,102 @@ class Primitivo {
         return padre;
     }
 }
-exports.default = Primitivo;
+exports.Primitivo = Primitivo;
 
-},{"../Ast/Nodo":6}],8:[function(require,module,exports){
+},{"../Ast/Nodo":6}],9:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Print = void 0;
+const Nodo_1 = __importDefault(require("../Ast/Nodo"));
+class Print {
+    constructor(parametros, fila, columna, tipo) {
+        this.parametros = parametros;
+        this.fila = fila;
+        this.columna = columna;
+        this.tipo = tipo;
+    }
+    ejecutar(table, tree) {
+        console.log("entro a print siimmm");
+        //TODO: verificar que el tipo del valor sea primitivo 
+        this.parametros.forEach(expresion => {
+            let valor = expresion.ejecutar(table, tree);
+            this.value += valor.toString();
+            return valor;
+        });
+        if (this.tipo) {
+            tree.updateConsolaPrintln(this.value.toString());
+        }
+        else {
+            tree.updateConsolaPrint(this.value.toString());
+        }
+        return null;
+    }
+    translate3d(table, tree) {
+    }
+    recorrer() {
+        let padre = new Nodo_1.default("Print", "");
+        padre.addChildNode(new Nodo_1.default("print", ""));
+        padre.addChildNode(new Nodo_1.default("(", ""));
+        let hijo = new Nodo_1.default("exp", "");
+        hijo.addChildNode(this.parametros.recorrer());
+        padre.addChildNode(hijo);
+        padre.addChildNode(new Nodo_1.default(")", ""));
+        return padre;
+    }
+}
+exports.Print = Print;
+
+},{"../Ast/Nodo":6}],10:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TablaSimbolos = void 0;
+const Tipo_1 = require("./Tipo");
+class TablaSimbolos {
+    constructor(anterior) {
+        this.anterior = anterior;
+        this.tabla = new Map();
+    }
+    setSymbolTabla(simbolo) {
+        this.tabla[simbolo.getId()] = simbolo;
+        return null;
+    }
+    getSymbolTabla(id) {
+        let tablaActual = this;
+        while (tablaActual != null) {
+            let existe = tablaActual.tabla.get(id);
+            if (existe != null) {
+                return tablaActual.tabla[id];
+            }
+            else {
+                tablaActual = this.anterior;
+            }
+        }
+        return null;
+    }
+    updateSymbolTabla(simbolo) {
+        let tablaActual = this;
+        while (tablaActual != null) {
+            if (simbolo.id in tablaActual.tabla) {
+                if (tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo() || this.tabla[simbolo.id].getTipo() == Tipo_1.TIPO.NULO || simbolo.getTipo() == Tipo_1.TIPO.NULO) {
+                    tablaActual.tabla[simbolo.id].setValor(simbolo.getValor());
+                    tablaActual.tabla[simbolo.id].setTipo(simbolo.getTipo());
+                    return null;
+                }
+                return new Excepcion("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+            }
+            else {
+                tablaActual = this.anterior;
+            }
+            return new Excepcion("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+        }
+    }
+}
+exports.TablaSimbolos = TablaSimbolos;
+
+},{"./Tipo":11}],11:[function(require,module,exports){
 "use strict";
 /**
  * @enum de Tipo nos permite enumerar los tipos del lenguaje
@@ -1805,7 +2004,7 @@ var OperadorLogico;
 //     }
 // }
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // const { TablaSimbolos } = require("./Clases/TablaSimbolos/TablaSimbolos");
 
 // import Nodo from "../../Ast/Nodo";
@@ -1816,9 +2015,10 @@ let astGenerado;
 let astTraduccion;
 let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
-const Ast = require("./dist/Ast/Ast");
+const {Ast} = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
-const Primitivo = require("./dist/Expresiones/Primitivo");
+const {Primitivo} = require("./dist/Expresiones/Primitivo");
+const {TablaSimbolos} = require("./dist/TablaSimbolos/TablaSimbolos");
 // const Lista_Imprimir = require("./dist/Lista_imprimir");
 
 const compilar = document.getElementById('compilarProyecto');
@@ -2010,6 +2210,7 @@ compilar.addEventListener('click', () => {
         // listaImprimir.length = 0;
         // listaErrores.length = 0;
         astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        console.log(astGenerado);
         let tablaSimbolos = new TablaSimbolos();
         let astEjecucion = new Ast();
         astEjecucion.ejecutar(tablaSimbolos, astEjecucion);
@@ -2190,5 +2391,5 @@ viz.renderSVGElement(text).then(function (element) {
         console.error(error);
     });*/
 //
-},{"./Analizadores/gramatica":4,"./dist/Ast/Ast":5,"./dist/Expresiones/Primitivo":7}]},{},[9])(9)
+},{"./Analizadores/gramatica":4,"./dist/Ast/Ast":5,"./dist/Expresiones/Primitivo":8,"./dist/TablaSimbolos/TablaSimbolos":10}]},{},[12])(12)
 });

@@ -1,7 +1,7 @@
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 
-export default class Ast  {
+export class Ast  {
     public instrucciones:Array<Instruccion>;
     public funciones ;
     public structs ;

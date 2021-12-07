@@ -1,11 +1,11 @@
-import Ast from "../../Ast/Ast"
+import {Ast} from "../../Ast/Ast"
 import Nodo from "../../Ast/Nodo";
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO, OperadorAritmetico } from "../../TablaSimbolos/Tipo";
 
 
-export default class Aritmetica implements Expresion {
+export class Aritmetica implements Expresion {
     public exp1: any;
     public operador: any;
     public exp2: any;

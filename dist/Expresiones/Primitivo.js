@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Primitivo = void 0;
 const Nodo_1 = __importDefault(require("../Ast/Nodo"));
 class Primitivo {
     constructor(valor, tipo, fila, columna) {
@@ -23,4 +24,4 @@ class Primitivo {
         return padre;
     }
 }
-exports.default = Primitivo;
+exports.Primitivo = Primitivo;

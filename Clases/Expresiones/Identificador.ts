@@ -1,4 +1,4 @@
-import Ast from "../Ast/Ast";
+import {Ast} from "../Ast/Ast";
 import Errores from "../Ast/Errores";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
