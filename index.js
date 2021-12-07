@@ -10,6 +10,7 @@ let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
 const Ast = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
+const Primitivo = require("./dist/Expresiones/Primitivo");
 // const Lista_Imprimir = require("./dist/Lista_imprimir");
 
 const compilar = document.getElementById('compilarProyecto');
@@ -197,7 +198,7 @@ compilar.addEventListener('click', () => {
     var textArea2 = document.getElementById("exampleFormControlTextarea1");
     $("#exampleFormControlTextarea1").val("");
 
-    try{
+    // try{
         // listaImprimir.length = 0;
         // listaErrores.length = 0;
         astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
@@ -231,10 +232,10 @@ compilar.addEventListener('click', () => {
         
 
         alert('Gramatica Correcta');
-    }catch(e){
-        alert('Gramatica Incorrecta');
-        alert(e);
-    }
+    // }catch(e){
+    //     alert('Gramatica Incorrecta');
+    //     alert(e);
+    // }
 
 
 });

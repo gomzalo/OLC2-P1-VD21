@@ -131,7 +131,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 {caracter}                      { console.log("Reconocio : "+ yytext); return 'CHAR'}
 
 /* Espacios */
-[\s\r\n\t]                  {/* skip whitespace */}
+[\r\n\t]                  {/* skip whitespace */}
 
 
 <<EOF>>               return 'EOF'
@@ -152,23 +152,23 @@ caracter     (\'({escape2}|{aceptada2})\')
 /* Area de imports */
 %{
     // const aritmetica = require('../dist/Expresiones/Operaciones/Aritmetica.js');
-    // const aritmetica = require('../dist/Expresiones/Operaciones/Aritmetica');
-    // const logica = require('../dist/Expresiones/Operaciones/Logica');
-    // const relacional = require('../dist/Expresiones/Operaciones/Relacionales');
-    // const primitivo = require('../dist/Expresiones/Primitivo');
+    // const { Aritmetica } = require('../Clases/Expresiones/Operaciones/Aritmetica');
+    // const { Logica } = require('../Clases/Expresiones/Operaciones/Logica');
+    // const { Relacionales } = require('../Clases/Expresiones/Operaciones/Relacionales');
+    // const { Primitivo } = require('../Clases/Expresiones/Primitivo');
 
 
-    // // const ast = require('../Clases/Ast/Ast');
-    // // const declaracion = require('../Clases/Instrucciones/Declaracion');
-    // // const asignacion = require('../Clases/Instrucciones/Asignacion');
-    // // const simbolo = require('../Clases/TablaSimbolos/Simbolos');
-    // const tipo = require('../dist/TablaSimbolos/Tipo');
-    // // const tipoAritm = require('../dist/TablaSimbolos/OperadorAritmetico')
+    // const ast = require('../Clases/Ast/Ast');
+    // const declaracion = require('../Clases/Instrucciones/Declaracion');
+    // const asignacion = require('../Clases/Instrucciones/Asignacion');
+    // const simbolo = require('../Clases/TablaSimbolos/Simbolos');
+    const {TIPO} = require('../dist/TablaSimbolos/Tipo');
+    // const tipoAritm = require('../dist/TablaSimbolos/OperadorAritmetico')
 
-    // const identificador = require('../dist/Expresiones/Identificador');
-    // // const ternario = require('../Clases/Expresiones/Ternario');
+    // const {Identificador} = require('../dist/Expresiones/Identificador');
+    // const ternario = require('../Clases/Expresiones/Ternario');
 
-    // const Print = require('../dist/Instrucciones/Print');
+    // const {Print} = require('../dist/Instrucciones/Print');
     // const Ifs = require('../Clases/Instrucciones/SentenciaControl/Ifs');
     // const While = require('../Clases/Instrucciones/SentenciaCiclica/While');
 
@@ -205,126 +205,128 @@ caracter     (\'({escape2}|{aceptada2})\')
 
 
 inicio
-    : instrucciones EOF { console.log($1); $$= new ast.default($1);  return $$; }
+    : /*instrucciones EOF { console.log($1); $$= new ast.default($1);  return $$; }*/
+    NULO              {console.log("hola");$$ = new Primitivo($1,TIPO.NULO,@1.first_line,@1.last_column)}
     ;
 // -- INSTRUCCIOENS
 
-instrucciones : instrucciones instruccion   { $$ = $1; $$.push($2); }
-            | instruccion                   {$$= new Array(); $$.push($1); }
-            ;
+// instrucciones : instrucciones instruccion   { $$ = $1; $$.push($2); }
+//             | instruccion                   {$$= new Array(); $$.push($1); }
+//             ;
 
 
-instruccion : /*declaracion   {$$ = $1; }
-            | asignacion    { $$ = $1; }
-            |*/ print         { $$ = $1; }
-            /*| sent_if       { $$ = $1; }
-            | sent_while    { $$ = $1; } 
-            | dowhile_statement { $$ = $1; } 
-            | funciones     { $$ = $1; }
-            | llamada PUNTOCOMA   { $$ = $1; }
-            | EJECUTAR llamada PUNTOCOMA { $$ = new ejecutar.default($2, @1.first_line, @1.last_column); }
-            | BREAK PUNTOCOMA     { $$ = new detener.default(); }
-            | error         { console.log("Error Sintactico" + yytext 
-                                    + "linea: " + this._$.first_line 
-                                    + "columna: " + this._$.first_column); 
+// instruccion : /*declaracion   {$$ = $1; }
+//             | asignacion    { $$ = $1; }
+//             |*/ /*print         { $$ = $1; }*/
+//             // NULO              {console.log("hola");$$ = new Primitivo($1,Tipo.TIPO.NULO,@1.first_line,@1.last_column)}
+//             /*| sent_if       { $$ = $1; }
+//             | sent_while    { $$ = $1; } 
+//             | dowhile_statement { $$ = $1; } 
+//             | funciones     { $$ = $1; }
+//             | llamada PUNTOCOMA   { $$ = $1; }
+//             | EJECUTAR llamada PUNTOCOMA { $$ = new ejecutar.default($2, @1.first_line, @1.last_column); }
+//             | BREAK PUNTOCOMA     { $$ = new detener.default(); }
+//             | error         { console.log("Error Sintactico" + yytext 
+//                                     + "linea: " + this._$.first_line 
+//                                     + "columna: " + this._$.first_column); 
                         
-                                new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
-                                                this._$.first_line ,this._$.first_column);            
-                            }*/
-            ;
+//                                 new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
+//                                                 this._$.first_line ,this._$.first_column);            
+//                             }*/
+//             ;
 
 // -- DECLARACIONES
 
-declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new declaracion.default($1, $2, @1.first_line, @1.last_column); }
-            ; 
+// declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new declaracion.default($1, $2, @1.first_line, @1.last_column); }
+//             ; 
 
-// -- TIPO
-tipo : INT      { $$ = new tipo.default('ENTERO'); }
-    | DOUBLE    { $$ = new tipo.default('DOBLE'); }
-    | STRING    { $$ = new tipo.default('STRING'); }
-    | CHAR      { $$ = new tipo.default('CHAR'); }
-    | BOOLEAN   { $$ = new tipo.default('BOOLEAN'); }
-    ;
+// // -- TIPO
+// tipo : INT      { $$ = new tipo.default('ENTERO'); }
+//     | DOUBLE    { $$ = new tipo.default('DOBLE'); }
+//     | STRING    { $$ = new tipo.default('STRING'); }
+//     | CHAR      { $$ = new tipo.default('CHAR'); }
+//     | BOOLEAN   { $$ = new tipo.default('BOOLEAN'); }
+//     ;
 
-// -- LISTA SIMBOLOS
-lista_simbolos : lista_simbolos COMA ID          { $$ = $1; $$.push(new simbolo.default(1,null,$3, null)); }
-            | lista_simbolos COMA ID IGUAL e    { $$ = $1; $$.push(new simbolo.default(1,null,$3, $5)); }
-            | ID               { $$ = new Array(); $$.push(new simbolo.default(1,null,$1, null)); }
-            | ID IGUAL e      { $$ = new Array(); $$.push(new simbolo.default(1,null,$1, $3)); }
-            ;
+// // -- LISTA SIMBOLOS
+// lista_simbolos : lista_simbolos COMA ID          { $$ = $1; $$.push(new simbolo.default(1,null,$3, null)); }
+//             | lista_simbolos COMA ID IGUAL e    { $$ = $1; $$.push(new simbolo.default(1,null,$3, $5)); }
+//             | ID               { $$ = new Array(); $$.push(new simbolo.default(1,null,$1, null)); }
+//             | ID IGUAL e      { $$ = new Array(); $$.push(new simbolo.default(1,null,$1, $3)); }
+//             ;
 
-// -- ASIGNACION
-asignacion : ID IGUAL e PUNTOCOMA   { $$ = new Asignacion($1,$3, @1.first_line, @1.last_column); }
-            ; 
+// // -- ASIGNACION
+// asignacion : ID IGUAL e PUNTOCOMA   { $$ = new Asignacion($1,$3, @1.first_line, @1.last_column); }
+//             ; 
 
 
-// -- IF
-sent_if : IF PARA e PARC LLAVA instrucciones LLAVC { $$ = new If($3, $6, [], @1.first_line, @1.last_column); }
-        | IF PARA e PARC LLAVA instrucciones LLAVC ELSE LLAVA instrucciones LLAVC { $$ = new If($3, $6, $10, @1.first_line, @1.last_column); }
-        | IF PARA e PARC LLAVA instrucciones LLAVC ELSE sent_if { $$ = new If($3, $6, [$9], @1.first_line, @1.last_column); }
-        ;
+// // -- IF
+// sent_if : IF PARA e PARC LLAVA instrucciones LLAVC { $$ = new If($3, $6, [], @1.first_line, @1.last_column); }
+//         | IF PARA e PARC LLAVA instrucciones LLAVC ELSE LLAVA instrucciones LLAVC { $$ = new If($3, $6, $10, @1.first_line, @1.last_column); }
+//         | IF PARA e PARC LLAVA instrucciones LLAVC ELSE sent_if { $$ = new If($3, $6, [$9], @1.first_line, @1.last_column); }
+//         ;
 
-// -- WHILE
-sent_while : WHILE PARA e PARC LLAVA instrucciones LLAVC { $$ = new While($3, $6, @1.first_line, @1.last_column); }
-            ; 
+// // -- WHILE
+// sent_while : WHILE PARA e PARC LLAVA instrucciones LLAVC { $$ = new While($3, $6, @1.first_line, @1.last_column); }
+//             ; 
 
-// -- DO WHILE STATMENT
-dowhile_statement : DO LLAVEIZQ instrucciones LLAVEDER WHILE PARIZQ expresion PARC                 
-                //{ $$ =  new DoWhile.default($3, $7, @1.first_line, @1.last_column); }
-                ;
+// // -- DO WHILE STATMENT
+// dowhile_statement : DO LLAVEIZQ instrucciones LLAVEDER WHILE PARIZQ expresion PARC                 
+//                 //{ $$ =  new DoWhile.default($3, $7, @1.first_line, @1.last_column); }
+//                 ;
 
 // -- PRINT
-print : PRINT PARA e PARC PUNTOCOMA  {$$ = new Print($3, @1.first_line, @1.last_column); }
-    ; 
+// print : PRINT PARA e PARC PUNTOCOMA  {console.log("entre print");$$ = new Print($3, @1.first_line, @1.last_column); }
+//     ; 
 
-// -- FUNCIONES
-funciones : VOID ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new funcion.default(3, new tipo.default('VOID'), $2, [], true, $6, @1.first_line, @1.last_column ); }
-        | VOID ID PARA lista_parametros PARC LLAVA instrucciones LLAVC  { $$ = new funcion.default(3, new tipo.default('VOID'), $2, $4, true, $7, @1.first_line, @1.last_column ); }
-        ;
+// // -- FUNCIONES
+// funciones : VOID ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new funcion.default(3, new tipo.default('VOID'), $2, [], true, $6, @1.first_line, @1.last_column ); }
+//         | VOID ID PARA lista_parametros PARC LLAVA instrucciones LLAVC  { $$ = new funcion.default(3, new tipo.default('VOID'), $2, $4, true, $7, @1.first_line, @1.last_column ); }
+//         ;
 
-// -- LISTA DE PARAMETROS
-lista_parametros : lista_parametros COMA tipo ID    { $$ = $1; $$.push(new simbolo.default(6,$3, $4, null)); }
-                | tipo ID                           { $$ = new Array(); $$.push(new simbolo.default(6,$1,$2, null)); }
-                ;
+// // -- LISTA DE PARAMETROS
+// lista_parametros : lista_parametros COMA tipo ID    { $$ = $1; $$.push(new simbolo.default(6,$3, $4, null)); }
+//                 | tipo ID                           { $$ = new Array(); $$.push(new simbolo.default(6,$1,$2, null)); }
+//                 ;
 
-// -- LLAMADAS A METODOS
+// // -- LLAMADAS A METODOS
 
-llamada : ID PARA PARC              { $$ = new llamada.default($1, [],@1.first_line, @1.last_column ); }
-        | ID PARA lista_exp PARC    { $$ = new llamada.default($1, $3 ,@1.first_line, @1.last_column ); }
-        ;
+// llamada : ID PARA PARC              { $$ = new llamada.default($1, [],@1.first_line, @1.last_column ); }
+//         | ID PARA lista_exp PARC    { $$ = new llamada.default($1, $3 ,@1.first_line, @1.last_column ); }
+//         ;
 
-// -- LISTA DE EXPRECSIONES
-lista_exp : lista_exp COMA e        { $$ = $1; $$.push($3); }
-        | e                         { $$ = new Array(); $$.push($1); }
-        ;
+// // -- LISTA DE EXPRECSIONES
+// lista_exp : lista_exp COMA e        { $$ = $1; $$.push($3); }
+//         | e                         { $$ = new Array(); $$.push($1); }
+//         ;
 
-e :   e MAS e             {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MAS, $3, $1.first_line, $1.last_column, false);}
-    | e MENOS e         {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
-    | e MULTI e         {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
-    | e DIV e           {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
-    | e POTENCIA e      {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.POT, $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    | e PORCENTAJE e    {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MOD, $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
-    | e AND e           {$$ = new Logica($1, Tipo.OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
-    | e OR e           {$$ = new Logica($1, Tipo.OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
-    | NOT e             {$$ = new Logica($2, Tipo.OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}*/
-    | e MAYORQUE e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
-    | e MAYORIGUAL e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | e MENORIGUAL e      {$$ = new Relacionales($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new
-    | e MENORQUE e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
-    | e IGUALIGUAL e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | e DIFERENTE e      {$$ = new Relacionales($1, '!=', $3, $1.first_line, $1.last_column, false);} */ //new
-    | MENOS e %prec UNARIO {$$ = new Aritmetica($2, Tipo.OperadorAritmetico.UMENOS, null, $1.first_line, $1.last_column, true);}
-    | PARA e PARC       {$$ = $2;}
-    | DECIMAL           {$$ = new Primitivo(Number(yytext),Tipo.TIPO.DECIMAL, $1.first_line, $1.last_column);}
-    | ENTERO            {$$ = new Primitivo(Number(yytext),Tipo.TIPO.ENTERO, $1.first_line, $1.last_column);}
-    | CADENA            {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,Tipo.TIPO.CADENA, $1.first_line, $1.last_column);}
-    | CHAR              {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,Tipo.TIPO.CHARACTER, $1.first_line, $1.last_column);}
-    | TRUE              {$$ = new Primitivo(true,Tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
-    | FALSE             {$$ = new Primitivo(false,Tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
-    | ID                {$$ = new Identificador($1, @1.first_line, @1.last_column); }
-    | NULO              {$$ = new Primitivo($1,Tipo.TIPO.NULO,@1.first_line,@1.last_column)}
-    /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
-    /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
-    | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/
-    ;
+// e :   e MAS e             {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MAS, $3, $1.first_line, $1.last_column, false);}
+//     | e MENOS e         {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MENOS, $3, $1.first_line, $1.last_column, false);}
+//     | e MULTI e         {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.POR, $3, $1.first_line, $1.last_column, false);}
+//     | e DIV e           {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.DIV, $3, $1.first_line, $1.last_column, false);}
+//     | e POTENCIA e      {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.POT, $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+//     | e PORCENTAJE e    {$$ = new Aritmetica($1, Tipo.OperadorAritmetico.MOD, $3, $1.first_line, $1.last_column, false);}*/ //new PORCENTAJE
+//     | e AND e           {$$ = new Logica($1, Tipo.OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
+//     | e OR e           {$$ = new Logica($1, Tipo.OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
+//     | NOT e             {$$ = new Logica($2, Tipo.OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}*/
+//     | e MAYORQUE e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
+//     | e MAYORIGUAL e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
+//     | e MENORIGUAL e      {$$ = new Relacionales($1, '<=', $3, $1.first_line, $1.last_column, false);}*/ //new
+//     | e MENORQUE e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
+//     | e IGUALIGUAL e      {$$ = new Relacionales($1, Tipo.OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
+//     | e DIFERENTE e      {$$ = new Relacionales($1, '!=', $3, $1.first_line, $1.last_column, false);} */ //new
+//     | MENOS e %prec UNARIO {$$ = new Aritmetica($2, Tipo.OperadorAritmetico.UMENOS, null, $1.first_line, $1.last_column, true);}
+//     | PARA e PARC       {$$ = $2;}
+//     | DECIMAL           {$$ = new Primitivo(Number(yytext),Tipo.TIPO.DECIMAL, $1.first_line, $1.last_column);}
+//     | ENTERO            {$$ = new Primitivo(Number(yytext),Tipo.TIPO.ENTERO, $1.first_line, $1.last_column);}
+//     | CADENA            {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,Tipo.TIPO.CADENA, $1.first_line, $1.last_column);}
+//     | CHAR              {$1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1,Tipo.TIPO.CHARACTER, $1.first_line, $1.last_column);}
+//     | TRUE              {$$ = new Primitivo(true,Tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
+//     | FALSE             {$$ = new Primitivo(false,Tipo.TIPO.BOOLEANO, $1.first_line, $1.last_column);}
+//     | ID                {$$ = new Identificador($1, @1.first_line, @1.last_column); }
+//     | NULO              {$$ = new Primitivo($1,Tipo.TIPO.NULO,@1.first_line,@1.last_column)}
+//     /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
+//     /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
+//     | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/
+//     ;
 
