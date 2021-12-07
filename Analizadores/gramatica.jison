@@ -99,6 +99,8 @@ BSL                                 "\\".
     const {Logica} = require("../dist/Expresiones/Operaciones/Logicas");
     const {Relacional} = require("../dist/Expresiones/Operaciones/Relacionales");
 
+    const {Ast} = require("../dist/Ast/Ast");
+
 
 %}
 
@@ -145,12 +147,13 @@ BSL                                 "\\".
 
 
 /* Definición de la gramática */
-start : instrucciones EOF         { $$ = $1; return $$; }
+start : instrucciones EOF         /*{ $$ = $1; return $$; }*/
+        { console.log($1); $$ = new Ast();  $$.instrucciones = $1; return $$; }
     ;
 
 instrucciones:
-    instrucciones instruccion           { $1.push($2); $$ = $1;}
-	| instruccion                { $$ = [$1]; } ;
+    instrucciones instruccion           { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
+	| instruccion                {$$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */;
 
 instruccion:
     print PUNTOCOMA       { $$ = $1 }
