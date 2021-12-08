@@ -12,6 +12,7 @@ export class Relacional implements Instruccion{
     public expU: any;
     public fila: number;
     public columna: number;
+    public tipo : TIPO;
 
     public constructor(exp1, operador, exp2, fila, columna, expU ) {
         this.exp1 = exp1;
@@ -20,15 +21,18 @@ export class Relacional implements Instruccion{
         this.fila = fila;
         this.columna = columna;
         this.expU = expU;
+        this.tipo = TIPO.BOOLEANO;
     }
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
+        let tipoGeneral;
 
         if(this.expU == false){
             valor_exp1 = this.exp1.ejecutar(table, tree);
             valor_exp2 = this.exp2.ejecutar(table, tree);
+            tipoGeneral = this.getTipoMax(this.exp1.tipo, this.exp2.tipo);
         }else{
             valor_expU = this.exp1.ejecutar(table, tree);
         }
@@ -115,8 +119,14 @@ export class Relacional implements Instruccion{
                         }
                     }
                     break;
-                
             // TODO: Agregar mas casos de relacionales (IGUALIGUAL, DIFERENCIA, MAYORIGUAL, MENORIGUAL)
+            case OperadorRelacional.MENORIGUAL:
+                    if(typeof valor_exp1 === 'number'){
+                        if(typeof valor_exp2 === 'number'){
+                            return valor_exp1 <= valor_exp2;
+                        }
+                    }
+                    break;
             default:
                 break;
         }
@@ -134,6 +144,27 @@ export class Relacional implements Instruccion{
             return TIPO.CADENA;
         }else if(typeof valor === 'boolean'){
             return TIPO.BOOLEANO;
+        }
+    }
+
+    getTipoMax(tipoIzq, tipoDer){
+        if (tipoIzq == TIPO.NULO || tipoDer == TIPO.NULO){
+            return TIPO.NULO
+        }
+        if (tipoIzq == TIPO.CADENA || tipoDer == TIPO.CADENA){
+            return TIPO.CADENA
+        }
+        if (tipoIzq == TIPO.CHARACTER || tipoDer == TIPO.CHARACTER){
+            return TIPO.CADENA
+        }
+        if (tipoIzq == TIPO.BOOLEANO || tipoDer == TIPO.BOOLEANO){
+            return TIPO.BOOLEANO
+        }
+        if (tipoIzq == TIPO.DECIMAL || tipoDer == TIPO.DECIMAL){
+            return TIPO.DECIMAL
+        }
+        if (tipoIzq == TIPO.ENTERO || tipoDer == TIPO.ENTERO){
+            return TIPO.ENTERO
         }
     }
 

@@ -29,11 +29,11 @@ BSL                                 "\\".
 ###################################################
 */
 
-"print"                     return 'PRINT';
-"println"                   return 'PRINTLN';
-"null"                      return 'NULL';
-"true"                      return 'TRUE';
-"false"                     return 'FALSE';
+"print"                     { return 'PRINT' };
+"println"                   { return 'PRINTLN' };
+"null"                      { return 'NULL' };
+"true"                      { return 'TRUE' };
+"false"                     { return 'FALSE' };
 
 /* ..............      Aritmeticos      ...............*/
 "+"                         { return 'MAS'}
@@ -45,19 +45,19 @@ BSL                                 "\\".
 
 
 /*..............      Relacionales      ...............*/
-"<"                         { return 'MENORQUE'}
-">="                        { return 'MAYORIGUAL'}
-">"                         { return 'MAYORQUE'}
-"!="                        { return 'DIFERENTE'; }
-"<="                        { return 'MENORIGUAL'; }
-"=="                        return 'IGUALIGUAL';
-"="                         return 'IGUAL';
+">="                        { return 'MAYORIGUAL' };
+"<="                        { return 'MENORIGUAL' };
+"<"                         { return 'MENORQUE' };
+">"                         { return 'MAYORQUE' };
+"!="                        { return 'DIFERENTE' };
+"=="                        { return 'IGUALIGUAL' };
+"="                         { return 'IGUAL' };
 
 /*..............     LOGICOS      ...............*/
-"&&"                        { console.log("Reconocio : "+ yytext); return 'AND' }
-"||"                        return 'OR';
-"!"                         return 'NOT';
-"&"                         { console.log("Reconocio : "+ yytext); return 'AMPERSON'; }
+"&&"                        { console.log("Reconocio : "+ yytext); return 'AND' };
+"||"                        { return 'OR' };
+"!"                         { return 'NOT' };
+"&"                         { console.log("Reconocio : "+ yytext); return 'AMPERSON' };
 
 /*..............     OTROS      ...............*/
 "++"                   { return 'INCRE'}
@@ -80,8 +80,8 @@ BSL                                 "\\".
 
 [a-zA-Z_][a-zA-Z0-9_ñÑ]*            return 'ID';
 
-{stringliteral}                     return 'CADENA'
-{charliteral}                       return 'CHAR'
+{stringliteral}                     return 'CADENA';
+{charliteral}                       return 'CHAR';
 
 //error lexico
 .                                   {
@@ -107,7 +107,6 @@ BSL                                 "\\".
 
     const {Ast} = require("../dist/Ast/Ast");
 
-
 %}
 
 // DEFINIMOS PRESEDENCIA DE OPERADORES
@@ -122,21 +121,19 @@ BSL                                 "\\".
 
 // %left 'lparen' 'rparen'
 // %right 'INTERROGACION'
-%left 'OR'
-%left 'AND'
-%right 'NOT'
-%left 'IGUALIGUAL' 'DIFERENTE' 'MENORQUE' 'MENORIGUAL' 'MAYORQUE'  'MAYORIGUAL' 
+%left   'OR'
+%left   'AND'
+%right  'NOT'
+%left   'IGUALIGUAL' 'DIFERENTE'
+%left   'MENORQUE' 'MAYORQUE' 'MENORIGUAL' 'MAYORIGUAL' 
 // %left 'AMPERSON' 
-%left 'MAS' 'MENOS' 'AMPERSON'
-%left 'MULTI' 'DIV' 'PORCENTAJE'
-
-%left 'POTENCIA' 
+%left   'MAS' 'MENOS' 'AMPERSON'
+%left   'MULTI' 'DIV' 'PORCENTAJE'
+%left   'POTENCIA'
 // %right 'UNARIO'
-%right 'UMINUS'
-%right 'PARA' 'PARC'
+%right  'UMINUS'
+%right  'PARA' 'PARC'
 // %nonassoc 'IGUAL'
-
-
 // %right 'INTERROGACION'
 // %left 'OR'
 // %left 'AND'
@@ -174,10 +171,12 @@ instruccion:
 
 // ---------  INSTRUCCIONES --------
 print:
-    PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); } ;
+    PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); }
+    ;
 
 println:
-    PRINTLN PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, true); } ;
+    PRINTLN PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, true); }
+    ;
 
 
 lista_parametros: 
@@ -200,14 +199,14 @@ expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,
     | MENOS expr %prec UMINUS   { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); }
     | PARA expr PARC            { $$ = $2;}
     | expr AND expr             {$$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
-    | expr OR expr              {$$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
-    | NOT expr                  {$$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}*/
+    | expr OR expr              {$$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}
+    | NOT expr                  {$$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}
     | expr MAYORQUE expr        {$$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
     | expr MAYORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | expr MENORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false);}*/ //new
+    | expr MENORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false);}
     | expr MENORQUE expr        {$$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
     | expr IGUALIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | expr DIFERENTE expr       {$$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false);} */ //new
+    | expr DIFERENTE expr       {$$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false);}
     | ENTERO                    { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
     | DECIMAL                   { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
     | CADENA                    { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }

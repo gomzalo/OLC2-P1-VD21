@@ -13,6 +13,7 @@ export class Logica implements Instruccion{
     public operador: any;
     public exp2: any;
     public expU: any;
+    public tipo : TIPO;
     
     public constructor(exp1, operador, exp2, fila, columna, expU ) {
         this.exp1 = exp1;
@@ -21,15 +22,19 @@ export class Logica implements Instruccion{
         this.fila = fila;
         this.columna = columna;
         this.expU = expU;
+        this.tipo = null;
     }
+
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
+        let tipoGeneral;
 
         if(this.expU == false){
             valor_exp1 = this.exp1.ejecutar(table, tree);
             valor_exp2 = this.exp2.ejecutar(table, tree);
+            tipoGeneral = this.getTipoMax(this.exp1.tipo, this.exp2.tipo);
         }else{
             valor_expU = this.exp1.ejecutar(table, tree);
         }
@@ -43,6 +48,7 @@ export class Logica implements Instruccion{
             case OperadorLogico.AND:
                 if(typeof valor_exp1 == 'boolean'){
                     if(typeof valor_exp2 == 'boolean'){
+                        this.tipo = TIPO.BOOLEANO;
                         return valor_exp1 && valor_exp2;
                     }else{
                         // ERROR SEMANTICO
@@ -54,6 +60,7 @@ export class Logica implements Instruccion{
             case OperadorLogico.OR:
                 if(typeof valor_exp1 == 'boolean'){
                     if(typeof valor_exp2 == 'boolean'){
+                        this.tipo = TIPO.BOOLEANO;
                         return valor_exp1 || valor_exp2;
                     }else {
                         // ERROR SEMANTICO
@@ -63,6 +70,7 @@ export class Logica implements Instruccion{
                 break;
             case OperadorLogico.NOT:
                     if(typeof valor_expU == 'boolean'){
+                        this.tipo = TIPO.BOOLEANO;
                         return !valor_expU;
                     }else{
                         //TODO: Error
@@ -88,6 +96,28 @@ export class Logica implements Instruccion{
             return TIPO.BOOLEANO;
         }
     }
+
+    getTipoMax(tipoIzq, tipoDer){
+        if (tipoIzq == TIPO.NULO || tipoDer == TIPO.NULO){
+            return TIPO.NULO
+        }
+        if (tipoIzq == TIPO.CADENA || tipoDer == TIPO.CADENA){
+            return TIPO.CADENA
+        }
+        if (tipoIzq == TIPO.CHARACTER || tipoDer == TIPO.CHARACTER){
+            return TIPO.CADENA
+        }
+        if (tipoIzq == TIPO.BOOLEANO || tipoDer == TIPO.BOOLEANO){
+            return TIPO.BOOLEANO
+        }
+        if (tipoIzq == TIPO.DECIMAL || tipoDer == TIPO.DECIMAL){
+            return TIPO.DECIMAL
+        }
+        if (tipoIzq == TIPO.ENTERO || tipoDer == TIPO.ENTERO){
+            return TIPO.ENTERO
+        }
+    }
+
 
     recorrer(): Nodo {
         let padre = new Nodo("Exp. Logica","");

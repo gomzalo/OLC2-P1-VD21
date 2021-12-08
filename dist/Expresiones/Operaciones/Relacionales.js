@@ -12,14 +12,17 @@ class Relacional {
         this.fila = fila;
         this.columna = columna;
         this.expU = expU;
+        this.tipo = Tipo_1.TIPO.BOOLEANO;
     }
     ejecutar(table, tree) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
+        let tipoGeneral;
         if (this.expU == false) {
             valor_exp1 = this.exp1.ejecutar(table, tree);
             valor_exp2 = this.exp2.ejecutar(table, tree);
+            tipoGeneral = this.getTipoMax(this.exp1.tipo, this.exp2.tipo);
         }
         else {
             valor_expU = this.exp1.ejecutar(table, tree);
@@ -113,6 +116,13 @@ class Relacional {
                 }
                 break;
             // TODO: Agregar mas casos de relacionales (IGUALIGUAL, DIFERENCIA, MAYORIGUAL, MENORIGUAL)
+            case Tipo_1.OperadorRelacional.MENORIGUAL:
+                if (typeof valor_exp1 === 'number') {
+                    if (typeof valor_exp2 === 'number') {
+                        return valor_exp1 <= valor_exp2;
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -130,6 +140,26 @@ class Relacional {
         }
         else if (typeof valor === 'boolean') {
             return Tipo_1.TIPO.BOOLEANO;
+        }
+    }
+    getTipoMax(tipoIzq, tipoDer) {
+        if (tipoIzq == Tipo_1.TIPO.NULO || tipoDer == Tipo_1.TIPO.NULO) {
+            return Tipo_1.TIPO.NULO;
+        }
+        if (tipoIzq == Tipo_1.TIPO.CADENA || tipoDer == Tipo_1.TIPO.CADENA) {
+            return Tipo_1.TIPO.CADENA;
+        }
+        if (tipoIzq == Tipo_1.TIPO.CHARACTER || tipoDer == Tipo_1.TIPO.CHARACTER) {
+            return Tipo_1.TIPO.CADENA;
+        }
+        if (tipoIzq == Tipo_1.TIPO.BOOLEANO || tipoDer == Tipo_1.TIPO.BOOLEANO) {
+            return Tipo_1.TIPO.BOOLEANO;
+        }
+        if (tipoIzq == Tipo_1.TIPO.DECIMAL || tipoDer == Tipo_1.TIPO.DECIMAL) {
+            return Tipo_1.TIPO.DECIMAL;
+        }
+        if (tipoIzq == Tipo_1.TIPO.ENTERO || tipoDer == Tipo_1.TIPO.ENTERO) {
+            return Tipo_1.TIPO.ENTERO;
         }
     }
     recorrer() {
