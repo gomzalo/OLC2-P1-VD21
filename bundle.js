@@ -2181,15 +2181,19 @@ class Print {
         this.parametros.forEach((expresion) => {
             let valor = expresion.ejecutar(table, tree);
             console.log("print exp val: " + valor.toString());
-            this.value += valor.toString();
+            if (this.tipo) {
+                this.value += valor.toString() + "\n";
+            }
+            else {
+                this.value += valor.toString();
+            }
             return valor;
         });
-        if (this.tipo) {
-            tree.updateConsolaPrintln(this.value.toString());
-        }
-        else {
-            tree.updateConsolaPrint(this.value.toString());
-        }
+        // if(this.tipo){
+        //     tree.updateConsolaPrintln(this.value.toString())
+        // }else{
+        tree.updateConsolaPrint(this.value.toString());
+        // }
         return null;
     }
     translate3d(table, tree) {
