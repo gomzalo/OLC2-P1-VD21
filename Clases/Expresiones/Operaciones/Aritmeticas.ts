@@ -1,6 +1,6 @@
 import {Ast} from "../../Ast/Ast"
-import Errores from "../../Ast/Errores";
-import Nodo from "../../Ast/Nodo";
+import {Errores} from "../../Ast/Errores";
+import {Nodo} from "../../Ast/Nodo";
 // import { Expresion } from "../../Interfaces/Expresion";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";

@@ -1,11 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
-const Errores_1 = __importDefault(require("../../Ast/Errores"));
-const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
+const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class Aritmetica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
@@ -40,10 +37,10 @@ class Aritmetica {
                 if (tipoGeneral == Tipo_1.TIPO.CADENA) {
                     // this.tipo = TIPO.CADENA;
                     // return valor_exp1.toString() + valor_exp2.toString();
-                    return new Errores_1.default("Semantico", "Suma - Error de tipos STRING, no concatenable", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "Suma - Error de tipos STRING, no concatenable", this.fila, this.columna);
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.BOOLEANO) {
-                    return new Errores_1.default("Semantico", "Suma - Error de tipo booleano", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "Suma - Error de tipo booleano", this.fila, this.columna);
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.CHARACTER) {
                     if (this.exp1.tipo == Tipo_1.TIPO.ENTERO) {
@@ -75,7 +72,7 @@ class Aritmetica {
                         return valor_exp1.charCodeAt(0) + valor_exp2;
                     }
                     else {
-                        return new Errores_1.default("Semantico", "Suma - Error de tipo ", this.fila, this.columna);
+                        return new Errores_1.Errores("Semantico", "Suma - Error de tipo ", this.fila, this.columna);
                     }
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
@@ -87,7 +84,7 @@ class Aritmetica {
                     return valor_exp1 + valor_exp2;
                 }
                 else {
-                    return new Errores_1.default("Semantico", "Suma - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "Suma - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.UMENOS:
@@ -95,7 +92,7 @@ class Aritmetica {
                     return -valor_expU;
                 }
                 else {
-                    return new Errores_1.default("Semantico", "UNARIO - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "UNARIO - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.MENOS:
@@ -129,7 +126,7 @@ class Aritmetica {
                         return valor_exp1.charCodeAt(0) - valor_exp2;
                     }
                     else {
-                        return new Errores_1.default("Semantico", "Resta - Error de tipo ", this.fila, this.columna);
+                        return new Errores_1.Errores("Semantico", "Resta - Error de tipo ", this.fila, this.columna);
                     }
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
@@ -141,7 +138,7 @@ class Aritmetica {
                     return valor_exp1 - valor_exp2;
                 }
                 else {
-                    return new Errores_1.default("Semantico", "Resta - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "Resta - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.POR:
@@ -175,7 +172,7 @@ class Aritmetica {
                         return valor_exp1.charCodeAt(0) * valor_exp2;
                     }
                     else {
-                        return new Errores_1.default("Semantico", "POR - Error de tipo ", this.fila, this.columna);
+                        return new Errores_1.Errores("Semantico", "POR - Error de tipo ", this.fila, this.columna);
                     }
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
@@ -187,7 +184,7 @@ class Aritmetica {
                     return valor_exp1 * valor_exp2;
                 }
                 else {
-                    return new Errores_1.default("Semantico", "POR - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "POR - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.DIV:
@@ -221,7 +218,7 @@ class Aritmetica {
                         return valor_exp1.charCodeAt(0) / valor_exp2;
                     }
                     else {
-                        return new Errores_1.default("Semantico", "DIV - Error de tipo ", this.fila, this.columna);
+                        return new Errores_1.Errores("Semantico", "DIV - Error de tipo ", this.fila, this.columna);
                     }
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
@@ -233,7 +230,7 @@ class Aritmetica {
                     return valor_exp1 / valor_exp2;
                 }
                 else {
-                    return new Errores_1.default("Semantico", "DIV - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "DIV - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.MOD:
@@ -267,7 +264,7 @@ class Aritmetica {
                         return valor_exp1.charCodeAt(0) % valor_exp2;
                     }
                     else {
-                        return new Errores_1.default("Semantico", "MOD - Error de tipo ", this.fila, this.columna);
+                        return new Errores_1.Errores("Semantico", "MOD - Error de tipo ", this.fila, this.columna);
                     }
                 }
                 else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
@@ -279,7 +276,7 @@ class Aritmetica {
                     return valor_exp1 % valor_exp2;
                 }
                 else {
-                    return new Errores_1.default("Semantico", "MOD - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "MOD - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.POT:
@@ -288,7 +285,7 @@ class Aritmetica {
                     return valor_exp1.toString().repeat(valor_exp2);
                 }
                 else {
-                    return new Errores_1.default("Semantico", "POTENCIA - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "POTENCIA - Error de tipo ", this.fila, this.columna);
                 }
                 break;
             case Tipo_1.OperadorAritmetico.AMPERSON:
@@ -297,7 +294,7 @@ class Aritmetica {
                     return valor_exp1.toString() + valor_exp2.toString();
                 }
                 else {
-                    return new Errores_1.default("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
                 }
                 // if(typeof valor_exp1 === 'number'){
                 //     if(typeof valor_exp2 === 'number'){
@@ -444,14 +441,14 @@ class Aritmetica {
         }
     }
     recorrer() {
-        let padre = new Nodo_1.default("Exp. Aritmetica", "");
+        let padre = new Nodo_1.Nodo("Exp. Aritmetica", "");
         if (this.expU) {
-            padre.addChildNode(new Nodo_1.default(this.operador.toString(), ""));
+            padre.addChildNode(new Nodo_1.Nodo(this.operador.toString(), ""));
             padre.addChildNode(this.exp1.recorrer());
         }
         else {
             padre.addChildNode(this.exp1.recorrer());
-            padre.addChildNode(new Nodo_1.default(this.operador.toString(), ""));
+            padre.addChildNode(new Nodo_1.Nodo(this.operador.toString(), ""));
             padre.addChildNode(this.exp2.recorrer());
         }
         return padre;

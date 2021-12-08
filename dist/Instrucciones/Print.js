@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
-const Nodo_1 = __importDefault(require("../Ast/Nodo"));
+const Nodo_1 = require("../Ast/Nodo");
 class Print {
     constructor(parametros, fila, columna, tipo) {
         this.parametros = parametros;
@@ -37,13 +34,13 @@ class Print {
     translate3d(table, tree) {
     }
     recorrer() {
-        let padre = new Nodo_1.default("Print", "");
-        padre.addChildNode(new Nodo_1.default("print", ""));
-        padre.addChildNode(new Nodo_1.default("(", ""));
-        let hijo = new Nodo_1.default("exp", "");
+        let padre = new Nodo_1.Nodo("Print", "");
+        padre.addChildNode(new Nodo_1.Nodo("print", ""));
+        padre.addChildNode(new Nodo_1.Nodo("(", ""));
+        let hijo = new Nodo_1.Nodo("exp", "");
         // hijo.addChildNode(this.parametros.recorrer());
         padre.addChildNode(hijo);
-        padre.addChildNode(new Nodo_1.default(")", ""));
+        padre.addChildNode(new Nodo_1.Nodo(")", ""));
         return padre;
     }
 }

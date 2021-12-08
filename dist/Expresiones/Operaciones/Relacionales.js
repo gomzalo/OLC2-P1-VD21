@@ -1,12 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relacional = void 0;
-const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
+const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Errores_1 = __importDefault(require("../../Ast/Errores"));
+const Errores_1 = require("../../Ast/Errores");
 class Relacional {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -44,7 +41,7 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
-                            return new Errores_1.default("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
+                            return new Errores_1.Errores("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     } //TODO: agregar los otros casos de errores
                 }
@@ -60,7 +57,7 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
-                            return new Errores_1.default("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
+                            return new Errores_1.Errores("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     } //TODO: agregar los otros casos de errores
                 }
@@ -77,7 +74,7 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
-                            return new Errores_1.default("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
+                            return new Errores_1.Errores("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     }
                 }
@@ -93,7 +90,7 @@ class Relacional {
                         }
                         else {
                             // TODO: agregar error
-                            return new Errores_1.default("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
+                            return new Errores_1.Errores("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
                         }
                     } //TODO: agregar los otros casos de errores
                 }
@@ -136,14 +133,14 @@ class Relacional {
         }
     }
     recorrer() {
-        let padre = new Nodo_1.default("Exp. Relacional", "");
+        let padre = new Nodo_1.Nodo("Exp. Relacional", "");
         if (this.expU) {
-            padre.addChildNode(new Nodo_1.default(this.operador, ""));
+            padre.addChildNode(new Nodo_1.Nodo(this.operador, ""));
             padre.addChildNode(this.exp1.recorrer());
         }
         else {
             padre.addChildNode(this.exp1.recorrer());
-            padre.addChildNode(new Nodo_1.default(this.operador, ""));
+            padre.addChildNode(new Nodo_1.Nodo(this.operador, ""));
             padre.addChildNode(this.exp2.recorrer());
         }
         return padre;

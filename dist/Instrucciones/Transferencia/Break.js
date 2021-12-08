@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Detener = void 0;
 class Detener {
     constructor() { }
     ejecutar(table, tree) {
@@ -12,4 +13,4 @@ class Detener {
         throw new Error("Method not implemented.");
     }
 }
-exports.default = Detener;
+exports.Detener = Detener;

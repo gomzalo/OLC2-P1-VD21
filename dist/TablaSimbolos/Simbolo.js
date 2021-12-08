@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Simbolo = void 0;
 class Simbolo {
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = null) {
         this.id = id;
@@ -38,4 +39,4 @@ class Simbolo {
         return this.arreglo;
     }
 }
-exports.default = Simbolo;
+exports.Simbolo = Simbolo;

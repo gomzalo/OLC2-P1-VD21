@@ -1,9 +1,9 @@
-import Nodo from "../../Ast/Nodo";
+import {Nodo} from "../../Ast/Nodo";
 import {Ast} from "../../Ast/Ast"
 // import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorRelacional, TIPO } from "../../TablaSimbolos/Tipo";
-import Errores from '../../Ast/Errores';
+import {Errores} from '../../Ast/Errores';
 import { Instruccion } from "../../Interfaces/Instruccion";
 export class Relacional implements Instruccion{
     public exp1: any;

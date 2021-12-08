@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
-const Nodo_1 = __importDefault(require("../Ast/Nodo"));
+const Nodo_1 = require("../Ast/Nodo");
 class Primitivo {
     constructor(valor, tipo, fila, columna) {
         this.valor = valor;
@@ -19,8 +16,8 @@ class Primitivo {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        let padre = new Nodo_1.default("PRIMITIVO", "");
-        padre.addChildNode(new Nodo_1.default(this.valor.toString(), ""));
+        let padre = new Nodo_1.Nodo("PRIMITIVO", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.valor.toString(), ""));
         return padre;
     }
 }

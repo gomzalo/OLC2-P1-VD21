@@ -1,7 +1,7 @@
 import { Ast } from "../Ast/Ast";
-import Errores from "../Ast/Errores";
+import {Errores} from "../Ast/Errores";
 import { Instruccion } from "../Interfaces/Instruccion";
-import Simbolo from "../TablaSimbolos/Simbolo";
+import {Simbolo} from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 
 export  class Declaracion implements Instruccion{

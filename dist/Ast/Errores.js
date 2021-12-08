@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Errores = void 0;
 class Errores {
     constructor(tipo, descripcion, fila, columna) {
         this.tipo = tipo;
@@ -8,4 +9,4 @@ class Errores {
         this.columna = columna;
     }
 }
-exports.default = Errores;
+exports.Errores = Errores;

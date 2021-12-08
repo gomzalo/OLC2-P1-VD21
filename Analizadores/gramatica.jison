@@ -42,7 +42,7 @@ BSL                                 "\\".
 "/"                         { return 'DIV'}
 "%"                         { return 'PORCENTAJE'}
 "^"                         { return 'POTENCIA'; }
-"&"                         { return 'AMPERSON'; }
+
 
 /*..............      Relacionales      ...............*/
 "<"                         { return 'MENORQUE'}
@@ -54,9 +54,10 @@ BSL                                 "\\".
 "="                         return 'IGUAL';
 
 /*..............     LOGICOS      ...............*/
-"&&"                        return 'AND';
+"&&"                        { console.log("Reconocio : "+ yytext); return 'AND' }
 "||"                        return 'OR';
 "!"                         return 'NOT';
+"&"                         { console.log("Reconocio : "+ yytext); return 'AMPERSON'; }
 
 /*..............     OTROS      ...............*/
 "++"                   { return 'INCRE'}
@@ -125,12 +126,15 @@ BSL                                 "\\".
 %left 'AND'
 %right 'NOT'
 %left 'IGUALIGUAL' 'DIFERENTE' 'MENORQUE' 'MENORIGUAL' 'MAYORQUE'  'MAYORIGUAL' 
-%left 'MAS' 'MENOS'
+// %left 'AMPERSON' 
+%left 'MAS' 'MENOS' 'AMPERSON'
 %left 'MULTI' 'DIV' 'PORCENTAJE'
-%right 'UMINUS'
-%left 'POTENCIA' 'AMPERSON' 
+
+%left 'POTENCIA' 
 // %right 'UNARIO'
+%right 'UMINUS'
 %right 'PARA' 'PARC'
+// %nonassoc 'IGUAL'
 
 
 // %right 'INTERROGACION'

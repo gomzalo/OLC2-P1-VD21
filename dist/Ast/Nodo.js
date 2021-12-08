@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Nodo = void 0;
 class Nodo {
     constructor(token, lexema) {
         this.token = token;
@@ -82,4 +83,4 @@ class Nodo {
         return r;
     }
 }
-exports.default = Nodo;
+exports.Nodo = Nodo;

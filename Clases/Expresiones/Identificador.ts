@@ -1,10 +1,10 @@
 import {Ast} from "../Ast/Ast";
-import Errores from "../Ast/Errores";
+import {Errores} from "../Ast/Errores";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
-import Simbolo from "../TablaSimbolos/Simbolo"
-import Nodo from "../Ast/Nodo";
+import {Simbolo} from "../TablaSimbolos/Simbolo"
+import {Nodo} from "../Ast/Nodo";
 
 export default class Identicador implements Instruccion{
     public id ;

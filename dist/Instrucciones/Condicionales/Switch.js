@@ -1,43 +1,52 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Switch = void 0;
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Break_1 = __importDefault(require("../Transferencia/Break"));
+const Break_1 = require("../Transferencia/Break");
+const Return_1 = require("../Transferencia/Return");
 class Switch {
-    constructor(condicion, lista_ifs, lista_elses, linea, columna) {
+    constructor(condicion, lista_case, lista_default, fila, columna) {
         this.condicion = condicion;
-        this.lista_ifs = lista_ifs;
-        this.lista_elses = lista_elses;
+        this.lista_case = lista_case;
+        this.lista_default = lista_default;
         this.columna = columna;
-        this.linea = linea;
+        this.fila = fila;
     }
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        let valor_condicion = this.condicion.getValorImplicito(table, tree);
-        if (this.condicion.getTipo(table, tree) == Tipo_1.TIPO.BOOLEANO) {
-            if (valor_condicion) {
-                for (let ins of this.lista_ifs) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if (ins instanceof Break_1.default || res instanceof Break_1.default) {
-                        return res;
-                    }
-                }
+        for (let sw of this.lista_case) {
+            sw.valor_sw = this.valor_sw.ejecutar(table, tree);
+        }
+        let x = 0;
+        for (let ins of this.lista_case) {
+            let res = ins.ejecutar(table, tree);
+            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                x = 1;
+                break;
             }
             else {
-                for (let ins of this.lista_elses) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
-                    if (ins instanceof Break_1.default || res instanceof Break_1.default) {
+                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                    return res;
+                }
+            }
+        }
+        if (x == 0) {
+            for (let ins of this.lista_default) {
+                let res = ins.ejecutar(table, tree);
+                if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                    break;
+                }
+                else {
+                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        // controlador.graficarEntornos(controlador,ts_local," (switch)");
                         return res;
                     }
                 }
             }
         }
-        return null;
     }
     translate3d(table, tree) {
         throw new Error('Method not implemented.');
@@ -46,4 +55,4 @@ class Switch {
         throw new Error('Method not implemented.');
     }
 }
-exports.default = Switch;
+exports.Switch = Switch;
