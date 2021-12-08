@@ -6,7 +6,7 @@ import { TIPO } from "../TablaSimbolos/Tipo";
 import { Simbolo } from "../TablaSimbolos/Simbolo"
 import { Nodo } from "../Ast/Nodo";
 
-export default class Identicador implements Instruccion{
+export class Identificador implements Instruccion{
     public id ;
     public fila: number ;
     public columna :  number;

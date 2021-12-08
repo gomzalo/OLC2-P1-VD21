@@ -41,6 +41,13 @@ BSL                                 "\\".
 "null"                      { return 'NULL' };
 "true"                      { return 'TRUE' };
 "false"                     { return 'FALSE' };
+
+"int"                       { return 'RINT' };
+"double"                    { return 'RDOUBLE' };
+"boolean"                   { return 'RBOOLEAN' };
+"char"                      { return 'RCHAR' };
+"String"                    { return 'RSTRING' };
+
 /* ..............      Aritmeticos      ...............*/
 "+"                         { return 'MAS' };
 "-"                         { return 'MENOS' };
@@ -109,18 +116,26 @@ BSL                                 "\\".
 
     /*::::::::::::::::::     AST      ::::::::::::::::::*/
     const { Ast } = require("../dist/Ast/Ast");
+
     /*::::::::::::::::::     ENUMs      ::::::::::::::::::*/
     const { TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
+
     /*::::::::::::::::::     Expresiones      ::::::::::::::::::*/
     const { Primitivo } = require("../dist/Expresiones/Primitivo");
+    const {Identificador} = require("../dist/Expresiones/Identificador");
     /*..............     Operaciones      ...............*/
     const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
     const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
     const { Relacional } = require("../dist/Expresiones/Operaciones/Relacionales");
+
     /*::::::::::::::::::     Instrucciones      ::::::::::::::::::*/
     const { Print } = require("../dist/Instrucciones/Print");
     /*..............     Condicionales      ...............*/
     const { If } = require("../dist/Instrucciones/Condicionales/If");
+
+    /*..............     DECLARACION Y ASIGNACION      ...............*/
+    const { Declaracion } = require("../dist/Instrucciones/Declaracion");
+    const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
 
 %}
 
@@ -172,8 +187,20 @@ instrucciones:
 instruccion:
     print_instr PUNTOCOMA               { $$ = $1 }
     | println_instr PUNTOCOMA           { $$ = $1 }
+    | declaracion                          { $$ = $1 }
     | if_instr                          { $$ = $1 }
     ;
+/*..............     Declaraciones      ...............*/
+
+declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new Declaracion($1,  @1.first_line, @1.last_column,$2); }
+            ; 
+
+lista_simbolos : lista_simbolos COMA ID          { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
+            | lista_simbolos COMA ID IGUAL e     { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
+            | ID                                 { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); }
+            | ID IGUAL e                         { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
+            ; 
+
 /*..............     Print      ...............*/
 print_instr:
     RPRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); }
@@ -195,8 +222,13 @@ lista_parametros:
     | expr                              { $$ = new Array(); $$.push($1);}
     ;
 
-// declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new declaracion.default($1, $2, @1.first_line, @1.last_column); }
-//             ; 
+// ------------ TIPO
+tipo : RINT      { $$ = TIPO.ENTERO; }
+    | RDOUBLE    { $$ = TIPO.DECIMAL; }
+    | RSTRING    { $$ = TIPO.CADENA; }
+    | RCHAR      { $$ = TIPO.CHARACTER; }
+    | RBOOLEAN   { $$ = TIPO.BOOLEANO; }
+    ;
 
 
 /*..............     Expresiones      ...............*/
@@ -225,6 +257,7 @@ expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,
     | NULL                      { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
     | TRUE                      { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
     | FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
+    | ID                        { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
 //     /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
 //     /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
 //     | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/
