@@ -1,13 +1,13 @@
 import { TIPO } from "./Tipo";
 
 export class Simbolo{
-    private id: string;
-    private tipo:TIPO;
-    private fila: number;
-    private columna: number;
-    private valor : any;
-    private arreglo : any;
-    private structEnv: any; // ENTORNO STRUCT
+    public id: string;
+    public tipo:TIPO;
+    public fila: number;
+    public columna: number;
+    public valor : any;
+    public arreglo : any;
+    public structEnv: any; // ENTORNO STRUCT
     
     constructor(id,tipo,arreglo,fila,columna,valor,structEnv = null){
         this.id = id;

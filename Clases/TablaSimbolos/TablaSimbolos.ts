@@ -12,7 +12,11 @@ export class TablaSimbolos{
     }
 
     public setSymbolTabla(simbolo: Simbolo){
-        this.tabla[simbolo.getId()] = simbolo;
+        if (simbolo.id in this.tabla){
+            return new Excepcion("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+        }else{
+            this.tabla[simbolo.getId()] = simbolo;
+        }
         return null;
     }
 
@@ -33,9 +37,13 @@ export class TablaSimbolos{
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             if(simbolo.id in tablaActual.tabla){
-                if(tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo() || this.tabla[simbolo.id].getTipo() == TIPO.NULO || simbolo.getTipo() == TIPO.NULO){
+                // validacion DE TIPO
+                if(tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo() ){
                     tablaActual.tabla[simbolo.id].setValor(simbolo.getValor());
                     tablaActual.tabla[simbolo.id].setTipo(simbolo.getTipo());
+
+                    // AGREGAR STRUCT ACA
+
                     return null;
                 }
                 return new Excepcion("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());

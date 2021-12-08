@@ -1,14 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
-const Tipo_1 = require("./Tipo");
 class TablaSimbolos {
     constructor(anterior) {
         this.anterior = anterior;
         this.tabla = new Map();
     }
     setSymbolTabla(simbolo) {
-        this.tabla[simbolo.getId()] = simbolo;
+        if (simbolo.id in this.tabla) {
+            return new Excepcion("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+        }
+        else {
+            this.tabla[simbolo.getId()] = simbolo;
+        }
         return null;
     }
     getSymbolTabla(id) {
@@ -28,9 +32,11 @@ class TablaSimbolos {
         let tablaActual = this;
         while (tablaActual != null) {
             if (simbolo.id in tablaActual.tabla) {
-                if (tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo() || this.tabla[simbolo.id].getTipo() == Tipo_1.TIPO.NULO || simbolo.getTipo() == Tipo_1.TIPO.NULO) {
+                // validacion DE TIPO
+                if (tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo()) {
                     tablaActual.tabla[simbolo.id].setValor(simbolo.getValor());
                     tablaActual.tabla[simbolo.id].setTipo(simbolo.getTipo());
+                    // AGREGAR STRUCT ACA
                     return null;
                 }
                 return new Excepcion("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());

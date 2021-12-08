@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Identificador = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
-class Identicador {
+class Identificador {
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;
@@ -26,4 +27,4 @@ class Identicador {
         return padre;
     }
 }
-exports.default = Identicador;
+exports.Identificador = Identificador;
