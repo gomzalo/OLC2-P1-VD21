@@ -1,15 +1,14 @@
+import { Expresion } from './../../Interfaces/Expresion';
 import { Instruccion } from './../../Interfaces/Instruccion';
-import { OperadorLogico } from './../../TablaSimbolos/Tipo';
+import { OperadorLogico, TIPO } from './../../TablaSimbolos/Tipo';
 import { Nodo } from "../../Ast/Nodo";
-import {Ast} from "../../Ast/Ast"
-import { Expresion } from "../../Interfaces/Expresion";
+import { Ast } from "../../Ast/Ast"
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
-import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from '../Transferencia/Break';
 
 export class If implements Instruccion{
 
-    public condicion : Expresion;
+    public condicion : any;
     public lista_ifs : Array<Instruccion>;
     public lista_elses : Array<Instruccion>;
     public fila : number;
@@ -26,9 +25,9 @@ export class If implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos(table);
 
-        let valor_condicion = this.condicion.getValorImplicito(table, tree);
-
-        if(this.condicion.getTipo(table, tree) == TIPO.BOOLEANO){
+        let valor_condicion = this.condicion.ejecutar(table, tree);
+        
+        if(this.condicion == TIPO.BOOLEANO){
             if(valor_condicion){
                 for(let ins of this.lista_ifs){
                     let res = ins.ejecutar(ts_local, tree);

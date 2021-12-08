@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
+const Tipo_1 = require("./../../TablaSimbolos/Tipo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Break_1 = require("../Transferencia/Break");
 class If {
     constructor(condicion, lista_ifs, lista_elses, fila, columna) {
@@ -14,8 +14,8 @@ class If {
     }
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        let valor_condicion = this.condicion.getValorImplicito(table, tree);
-        if (this.condicion.getTipo(table, tree) == Tipo_1.TIPO.BOOLEANO) {
+        let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (this.condicion == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion) {
                 for (let ins of this.lista_ifs) {
                     let res = ins.ejecutar(ts_local, tree);

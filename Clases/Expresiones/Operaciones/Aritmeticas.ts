@@ -1,7 +1,6 @@
-import {Ast} from "../../Ast/Ast"
-import {Errores} from "../../Ast/Errores";
-import {Nodo} from "../../Ast/Nodo";
-// import { Expresion } from "../../Interfaces/Expresion";
+import { Ast } from "../../Ast/Ast"
+import { Errores} from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO, OperadorAritmetico } from "../../TablaSimbolos/Tipo";

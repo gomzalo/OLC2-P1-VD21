@@ -1,6 +1,6 @@
 import { TablaSimbolos } from '../TablaSimbolos/TablaSimbolos';
 import { TIPO } from "../TablaSimbolos/Tipo";
-import {Ast} from "../Ast/Ast";
+import { Ast } from "../Ast/Ast";
 export interface Instruccion {
 
 

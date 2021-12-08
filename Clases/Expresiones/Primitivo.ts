@@ -1,9 +1,9 @@
 // import { Expresion } from "../Interfaces/Expresion";
-import {Ast} from "../Ast/Ast";
+import { Ast } from "../Ast/Ast";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
-import  { Nodo }  from "../Ast/Nodo";
+import { Nodo }  from "../Ast/Nodo";
 export class Primitivo implements Instruccion{
     public tipo : TIPO;
     public valor: any;

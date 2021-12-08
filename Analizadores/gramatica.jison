@@ -1,4 +1,8 @@
-/* Definición Léxica */
+/*
+###################################################
+###############  Definicion lexica  ###############
+###################################################
+*/
 %lex
 
 %options case-insensitive
@@ -28,22 +32,22 @@ BSL                                 "\\".
 ###############     Simbolos       ################
 ###################################################
 */
-
-"print"                     { return 'PRINT' };
-"println"                   { return 'PRINTLN' };
+/*::::::::::::::::::     Palabras reservadas      ::::::::::::::::::*/
+/* ..............      Instrucciones      ...............*/
+"if"                        { return 'RIF' };
+"print"                     { return 'RPRINT' };
+"println"                   { return 'RPRINTLN' };
+/* ..............      Tipos      ...............*/
 "null"                      { return 'NULL' };
 "true"                      { return 'TRUE' };
 "false"                     { return 'FALSE' };
-
 /* ..............      Aritmeticos      ...............*/
-"+"                         { return 'MAS'}
-"-"                         { return 'MENOS'}
-"*"                         { return 'MULTI'}
-"/"                         { return 'DIV'}
-"%"                         { return 'PORCENTAJE'}
-"^"                         { return 'POTENCIA'; }
-
-
+"+"                         { return 'MAS' };
+"-"                         { return 'MENOS' };
+"*"                         { return 'MULTI' };
+"/"                         { return 'DIV' };
+"%"                         { return 'PORCENTAJE' };
+"^"                         { return 'POTENCIA' };
 /*..............      Relacionales      ...............*/
 ">="                        { return 'MAYORIGUAL' };
 "<="                        { return 'MENORIGUAL' };
@@ -52,74 +56,80 @@ BSL                                 "\\".
 "!="                        { return 'DIFERENTE' };
 "=="                        { return 'IGUALIGUAL' };
 "="                         { return 'IGUAL' };
-
-/*..............     LOGICOS      ...............*/
-"&&"                        { console.log("Reconocio : "+ yytext); return 'AND' };
+/*..............     Logicos      ...............*/
+"&&"                        { return 'AND' };
 "||"                        { return 'OR' };
 "!"                         { return 'NOT' };
-"&"                         { console.log("Reconocio : "+ yytext); return 'AMPERSON' };
+"&"                         { return 'AMPERSON' };
+/*..............     Aumento-decremento      ...............*/
+"++"                        { return 'INCRE'};
+"--"                        { return 'DECRE'};
+/*..............     Asociacion      ...............*/
+"("                         { return 'PARA' };
+")"                         { return 'PARC' };
+"["                         { return 'CORA' };
+"]"                         { return 'CORC' };
+"{"                         { return 'LLAVA' };
+"}"                         { return 'LLAVC' };
+/*..............     Simbolos      ...............*/
+"."                         { return 'PUNTO' };
+";"                         { return 'PUNTOCOMA' };
+","                         { return 'COMA' };
+"?"                         { return 'INTERROGACION' };
+":"                         { return 'DOSPUNTOS' };
+/*
+::::::::::::::::::      Expresiones regulares     ::::::::::::::::::
+*/
 
-/*..............     OTROS      ...............*/
-"++"                   { return 'INCRE'}
-"--"                   { return 'DECRE'}
-"("                    { return 'PARA'}
-")"                    { return 'PARC'}
-"["                    { return 'CORA'}
-"]"                    { return 'CORC'}
-"."                    { return 'PUNTO'}
-";"                    { return 'PUNTOCOMA'}
-","                    { return 'COMA'}
-"?"                    { return 'INTERROGACION'}
-":"                    { return 'DOSPUNTOS'}
-"{"                    { return 'LLAVA'}
-"}"                    { return 'LLAVC'}
-
-/* Number literals */
 (([0-9]+"."[0-9]*)|("."[0-9]+))     return 'DECIMAL';
 [0-9]+                              return 'ENTERO';
-
 [a-zA-Z_][a-zA-Z0-9_ñÑ]*            return 'ID';
-
 {stringliteral}                     return 'CADENA';
 {charliteral}                       return 'CHAR';
+/*..............     Error lexico      ...............*/
 
-//error lexico
 .                                   {
                                         console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
                                     }
 
-/* Espacios */
+/*..............     Espacios      ...............*/
 [\r\n\t]                  {/* skip whitespace */}
 
 <<EOF>>                     return 'EOF'
 
 /lex
 
-//SECCION DE IMPORTS
+/*
+###################################################
+###############     Imports        ################
+###################################################
+*/
+
 %{
 
-    const {Print} = require("../dist/Instrucciones/Print");
-    const {Aritmetica} = require("../dist/Expresiones/Operaciones/Aritmeticas");
-    const {TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
-    const {Primitivo} = require("../dist/Expresiones/Primitivo");
-    const {Logica} = require("../dist/Expresiones/Operaciones/Logicas");
-    const {Relacional} = require("../dist/Expresiones/Operaciones/Relacionales");
-
-    const {Ast} = require("../dist/Ast/Ast");
+    /*::::::::::::::::::     AST      ::::::::::::::::::*/
+    const { Ast } = require("../dist/Ast/Ast");
+    /*::::::::::::::::::     ENUMs      ::::::::::::::::::*/
+    const { TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
+    /*::::::::::::::::::     Expresiones      ::::::::::::::::::*/
+    const { Primitivo } = require("../dist/Expresiones/Primitivo");
+    /*..............     Operaciones      ...............*/
+    const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
+    const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
+    const { Relacional } = require("../dist/Expresiones/Operaciones/Relacionales");
+    /*::::::::::::::::::     Instrucciones      ::::::::::::::::::*/
+    const { Print } = require("../dist/Instrucciones/Print");
+    /*..............     Condicionales      ...............*/
+    const { If } = require("../dist/Instrucciones/Condicionales/If");
 
 %}
 
-// DEFINIMOS PRESEDENCIA DE OPERADORES
-// %left 'or'
-// %left 'and'
-// %left 'lt' 'lte' 'gt' 'gte' 'equal' 'nequal'
-// %left 'plus' 'minus'
-// %left 'times' 'div' 'mod'
-// %left 'pow'
-// %left 'not'
-// %left UMINUS
+/*
+###################################################
+###############    Precedencia     ################
+###################################################
+*/
 
-// %left 'lparen' 'rparen'
 // %right 'INTERROGACION'
 %left   'OR'
 %left   'AND'
@@ -130,65 +140,66 @@ BSL                                 "\\".
 %left   'MAS' 'MENOS' 'AMPERSON'
 %left   'MULTI' 'DIV' 'PORCENTAJE'
 %left   'POTENCIA'
-// %right 'UNARIO'
 %right  'UMINUS'
 %right  'PARA' 'PARC'
 // %nonassoc 'IGUAL'
-// %right 'INTERROGACION'
-// %left 'OR'
-// %left 'AND'
-// %right 'NOT'
-// %left 'IGUALIGUAL' 'DIFERENTE' 'MENORQUE' 'MENORIGUAL' 'MAYORQUE'  'MAYORIGUAL' 
-// %left 'MAS' 'MENOS'
-// %left 'MULTI' 'DIV' 'MODULO'
-// %nonassoc 'POT'
-// %right 'UNARIO'
-// %right 'PARA' 'CORA'
 
+/*
+###################################################
+###############     Sintaxis      ################
+###################################################
+*/
 
-// DEFINIMOS PRODUCCIÓN INICIAL
+/*..............     Produccion inicial      ...............*/
 %start start
 
 %%
-
-
-/* Definición de la gramática */
+/*
+::::::::::::::::::      Gramatica     ::::::::::::::::::
+*/
 start : 
     instrucciones EOF         /*{ $$ = $1; return $$; }*/
     { console.log($1); $$ = new Ast();  $$.instrucciones = $1; return $$; }
     ;
-
-// --------- LISTADO INSTRUCCIONES --------
+/*
+::::::::::::::::::      Instrucciones     ::::::::::::::::::
+*/
 instrucciones:
     instrucciones instruccion           { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
 	| instruccion                       { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
     ;
 
 instruccion:
-    print PUNTOCOMA                     { $$ = $1 }
-    | println PUNTOCOMA                 { $$ = $1 }
+    print_instr PUNTOCOMA               { $$ = $1 }
+    | println_instr PUNTOCOMA           { $$ = $1 }
+    | if_instr                          { $$ = $1 }
+    ;
+/*..............     Print      ...............*/
+print_instr:
+    RPRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); }
     ;
 
-// ---------  INSTRUCCIONES --------
-print:
-    PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); }
+println_instr:
+    RPRINTLN PARA lista_parametros PARC  { $$ = new Print($3, @1.first_line, @1.first_column, true); }
     ;
 
-println:
-    PRINTLN PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, true); }
+/*..............     If      ...............*/
+if_instr:
+    RIF PARA expr PARC LLAVA instrucciones LLAVC { $$ = new If($3, [$6], null, @1.first_line, @1.first_column); }
     ;
 
+/*..............     Lista parametros      ...............*/
 
 lista_parametros: 
-    lista_parametros COMA expr     { $$ = $1; $$.push($3); }
-    | expr                         { $$ = new Array(); $$.push($1);}
+    lista_parametros COMA expr          { $$ = $1; $$.push($3); }
+    | expr                              { $$ = new Array(); $$.push($1);}
     ;
 
 // declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new declaracion.default($1, $2, @1.first_line, @1.last_column); }
 //             ; 
 
 
-// ---------  EXPRESIONES --------
+/*..............     Expresiones      ...............*/
 expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
     | expr MENOS expr           { $$ = new Aritmetica($1,OperadorAritmetico.MENOS,$3, @1.first_line, @1.first_column, false); }
     | expr MULTI expr           { $$ = new Aritmetica($1,OperadorAritmetico.POR,$3, @1.first_line, @1.first_column, false); }
@@ -197,16 +208,16 @@ expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,
     | expr POTENCIA expr        { $$ = new Aritmetica($1,OperadorAritmetico.POT,$3, @1.first_line, @1.first_column, false); }
     | expr AMPERSON expr        { $$ = new Aritmetica($1,OperadorAritmetico.AMPERSON,$3, @1.first_line, @1.first_column, false); }
     | MENOS expr %prec UMINUS   { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); }
-    | PARA expr PARC            { $$ = $2;}
-    | expr AND expr             {$$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
-    | expr OR expr              {$$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}
-    | NOT expr                  {$$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}
-    | expr MAYORQUE expr        {$$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
-    | expr MAYORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | expr MENORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | expr MENORQUE expr        {$$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
-    | expr IGUALIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
-    | expr DIFERENTE expr       {$$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false);}
+    | PARA expr PARC            { $$ = $2; }
+    | expr AND expr             { $$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false); }
+    | expr OR expr              { $$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false); }
+    | NOT expr                  { $$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true); }
+    | expr MAYORQUE expr        { $$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false); }
+    | expr MAYORIGUAL expr      { $$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false); }
+    | expr MENORIGUAL expr      { $$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false); }
+    | expr MENORQUE expr        { $$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false); }
+    | expr IGUALIGUAL expr      { $$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false); }
+    | expr DIFERENTE expr       { $$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false); }
     | ENTERO                    { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
     | DECIMAL                   { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
     | CADENA                    { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
