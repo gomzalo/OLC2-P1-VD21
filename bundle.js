@@ -2229,7 +2229,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relacional = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Errores_1 = require("../../Ast/Errores");
 class Relacional {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -2258,97 +2257,18 @@ class Relacional {
          * de las operaciones relacionales permitidas que soporta el lenguaje descrito en el enunciado.
          */
         switch (this.operador) {
-            case Tipo_1.OperadorRelacional.MENORQUE:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 < valor_exp2;
-                    }
-                    else if (typeof valor_exp2 == 'string') {
-                        if (valor_exp2.length == 1) {
-                            let num_ascii = valor_exp2.charCodeAt(0);
-                            return valor_exp1 < num_ascii;
-                        }
-                        else {
-                            // TODO: agregar error
-                            return new Errores_1.Errores("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
-                        }
-                    } //TODO: agregar los otros casos de errores
-                }
-                else if (typeof valor_exp1 === 'string') {
-                    let num_ascii = valor_exp1.charCodeAt(0);
-                    if (typeof valor_exp2 === 'number') {
-                        return num_ascii < valor_exp2;
-                    }
-                    else if (typeof valor_exp2 == 'string') {
-                        if (valor_exp2.length == 1) {
-                            let num_ascii2 = valor_exp2.charCodeAt(0);
-                            return num_ascii < num_ascii2;
-                        }
-                        else {
-                            // TODO: agregar error
-                            return new Errores_1.Errores("Semantico", "Relacional -MENORQUE- Error de tipos no coinciden ", this.fila, this.columna);
-                        }
-                    } //TODO: agregar los otros casos de errores
-                }
-                break;
-            case Tipo_1.OperadorRelacional.MAYORQUE:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 > valor_exp2;
-                    }
-                    else if (typeof valor_exp2 == 'string') {
-                        if (valor_exp2.length == 1) {
-                            let num_ascii = valor_exp2.charCodeAt(0);
-                            return valor_exp1 > num_ascii;
-                        }
-                        else {
-                            // TODO: agregar error
-                            return new Errores_1.Errores("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
-                        }
-                    }
-                }
-                else if (typeof valor_exp1 === 'string') {
-                    let num_ascii = valor_exp1.charCodeAt(0);
-                    if (typeof valor_exp2 === 'number') {
-                        return num_ascii > valor_exp2;
-                    }
-                    else if (typeof valor_exp2 == 'string') {
-                        if (valor_exp2.length == 1) {
-                            let num_ascii2 = valor_exp2.charCodeAt(0);
-                            return num_ascii > num_ascii2;
-                        }
-                        else {
-                            // TODO: agregar error
-                            return new Errores_1.Errores("Semantico", "Relacional -MAYORQUE- Error de tipos no coinciden ", this.fila, this.columna);
-                        }
-                    } //TODO: agregar los otros casos de errores
-                }
-                else {
-                    //error semantico
-                }
-                break;
             case Tipo_1.OperadorRelacional.IGUALIGUAL:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 == valor_exp2;
-                    }
-                }
-                break;
-            case Tipo_1.OperadorRelacional.MAYORIGUAL:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 >= valor_exp2;
-                    }
-                }
-                break;
-            // TODO: Agregar mas casos de relacionales (IGUALIGUAL, DIFERENCIA, MAYORIGUAL, MENORIGUAL)
+                return this.igualigual(valor_exp1, valor_exp2);
+            case Tipo_1.OperadorRelacional.DIFERENTE:
+                return this.diferente(valor_exp1, valor_exp2);
+            case Tipo_1.OperadorRelacional.MENORQUE:
+                return this.menorque(valor_exp1, valor_exp2);
             case Tipo_1.OperadorRelacional.MENORIGUAL:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 <= valor_exp2;
-                    }
-                }
-                break;
+                return this.menorigual(valor_exp1, valor_exp2);
+            case Tipo_1.OperadorRelacional.MAYORQUE:
+                return this.mayorque(valor_exp1, valor_exp2);
+            case Tipo_1.OperadorRelacional.MAYORIGUAL:
+                return this.mayoigual(valor_exp1, valor_exp2);
             default:
                 break;
         }
@@ -2366,6 +2286,312 @@ class Relacional {
         }
         else if (typeof valor === 'boolean') {
             return Tipo_1.TIPO.BOOLEANO;
+        }
+    }
+    igualigual(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return valor_exp1 == valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error Semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                //char
+                if (valor_exp2.length == 1) {
+                    let num = valor_exp2.charCodeAt(0);
+                    return valor_exp1 == num;
+                }
+                else {
+                    //String 
+                    //Error semantico
+                }
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            if (typeof valor_exp2 == 'number') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                return valor_exp1 == valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'string') {
+                //Error semantico
+            }
+        }
+        else if (typeof valor_exp1 == 'string') {
+            if (valor_exp1.length == 1) {
+                //char
+                if (typeof valor_exp2 == 'number') {
+                    let num = valor_exp1.charCodeAt(0);
+                    return num == valor_exp2;
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    return valor_exp1 == valor_exp2;
+                }
+            }
+            else {
+                //cadena
+                if (typeof valor_exp2 == 'number') {
+                    //error semantico
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    return valor_exp1 == valor_exp2;
+                }
+            }
+        }
+    }
+    diferente(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return valor_exp1 != valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error Semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                //char
+                if (valor_exp2.length == 1) {
+                    let num = valor_exp2.charCodeAt(0);
+                    return valor_exp1 != num;
+                }
+                else {
+                    //String 
+                    //Error semantico
+                }
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            if (typeof valor_exp2 == 'number') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                return valor_exp1 != valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'string') {
+                //Error semantico
+            }
+        }
+        else if (typeof valor_exp1 == 'string') {
+            if (valor_exp1.length == 1) {
+                //char
+                if (typeof valor_exp2 == 'number') {
+                    let num = valor_exp1.charCodeAt(0);
+                    return num != valor_exp2;
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    return valor_exp1 != valor_exp2;
+                }
+            }
+            else {
+                //cadena
+                if (typeof valor_exp2 == 'number') {
+                    //error semantico
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    return valor_exp1 != valor_exp2;
+                }
+            }
+        }
+    }
+    menorque(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return valor_exp1 < valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                if (valor_exp2.length == 1) {
+                    let num = valor_exp2.charCodeAt(0);
+                    return valor_exp1 < num;
+                }
+                else {
+                    // Error semantico 
+                }
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            //Error semantico
+        }
+        else if (typeof valor_exp1 == 'string') {
+            if (valor_exp1.length == 1) {
+                if (typeof valor_exp2 == 'number') {
+                    let num = valor_exp1.charCodeAt(0);
+                    return num < valor_exp2;
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    if (valor_exp2.length == 1) {
+                        let num1 = valor_exp1.charCodeAt(0);
+                        let num2 = valor_exp2.charCodeAt(0);
+                        return num1 < num2;
+                    }
+                    else {
+                        //Error semantico
+                    }
+                }
+            }
+            else {
+                //cadena
+                //error semantico
+            }
+        }
+    }
+    menorigual(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return valor_exp1 <= valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                if (valor_exp2.length == 1) {
+                    let num = valor_exp2.charCodeAt(0);
+                    return valor_exp1 <= num;
+                }
+                else {
+                    // Error semantico 
+                }
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            //Error semantico
+        }
+        else if (typeof valor_exp1 == 'string') {
+            if (valor_exp1.length == 1) {
+                if (typeof valor_exp2 == 'number') {
+                    let num = valor_exp1.charCodeAt(0);
+                    return num <= valor_exp2;
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    if (valor_exp2.length == 1) {
+                        let num1 = valor_exp1.charCodeAt(0);
+                        let num2 = valor_exp2.charCodeAt(0);
+                        return num1 <= num2;
+                    }
+                    else {
+                        //Error semantico
+                    }
+                }
+            }
+            else {
+                //cadena
+                //error semantico
+            }
+        }
+    }
+    mayorque(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return valor_exp1 > valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                if (valor_exp2.length == 1) {
+                    let num = valor_exp2.charCodeAt(0);
+                    return valor_exp1 > num;
+                }
+                else {
+                    // Error semantico 
+                }
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            //Error semantico
+        }
+        else if (typeof valor_exp1 == 'string') {
+            if (valor_exp1.length == 1) {
+                if (typeof valor_exp2 == 'number') {
+                    let num = valor_exp1.charCodeAt(0);
+                    return num > valor_exp2;
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    if (valor_exp2.length == 1) {
+                        let num1 = valor_exp1.charCodeAt(0);
+                        let num2 = valor_exp2.charCodeAt(0);
+                        return num1 > num2;
+                    }
+                    else {
+                        //Error semantico
+                    }
+                }
+            }
+            else {
+                //cadena
+                //error semantico
+            }
+        }
+    }
+    mayoigual(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return valor_exp1 >= valor_exp2;
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                if (valor_exp2.length == 1) {
+                    let num = valor_exp2.charCodeAt(0);
+                    return valor_exp1 >= num;
+                }
+                else {
+                    // Error semantico 
+                }
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            //Error semantico
+        }
+        else if (typeof valor_exp1 == 'string') {
+            if (valor_exp1.length == 1) {
+                if (typeof valor_exp2 == 'number') {
+                    let num = valor_exp1.charCodeAt(0);
+                    return num >= valor_exp2;
+                }
+                else if (typeof valor_exp2 == 'boolean') {
+                    //Error semantico
+                }
+                else if (typeof valor_exp2 == 'string') {
+                    if (valor_exp2.length == 1) {
+                        let num1 = valor_exp1.charCodeAt(0);
+                        let num2 = valor_exp2.charCodeAt(0);
+                        return num1 >= num2;
+                    }
+                    else {
+                        //Error semantico
+                    }
+                }
+            }
+            else {
+                //cadena
+                //error semantico
+            }
         }
     }
     getTipoMax(tipoIzq, tipoDer) {
@@ -2404,7 +2630,7 @@ class Relacional {
 }
 exports.Relacional = Relacional;
 
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":14}],11:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":14}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
