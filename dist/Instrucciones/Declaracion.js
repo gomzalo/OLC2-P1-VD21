@@ -4,7 +4,7 @@ exports.Declaracion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 class Declaracion {
-    constructor(tipo, fila, columna, simbolos /*= null*/) {
+    constructor(tipo, simbolos, fila, columna) {
         this.arreglo = false;
         // this.id = id;
         this.tipo = tipo;
@@ -16,16 +16,6 @@ class Declaracion {
     ejecutar(table, tree) {
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
-            //--> verifico que la variable no exista en la tabla de simbolos actual \
-            // if(table.existeEnActual(variable.identificador))
-            // {
-            //     let error = new Errores('Semantico', `La variable ${variable.identificador} ya existe en el entorno actual.`, this.linea, this.columna);
-            //     controlador.errores.push(error);
-            //     controlador.append(`** Error Semantico : La variable ${variable.identificador} ya existe en el entorno actual. En la linea ${this.linea} y columna ${this.columna}`);
-            //     continue;
-            // }
-            //int p1 = 2;
-            // int p2;
             if (variable.valor != null) {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable

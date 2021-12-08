@@ -9,7 +9,7 @@ export class Simbolo{
     public arreglo : any;
     public structEnv: any; // ENTORNO STRUCT
     
-    constructor(id,tipo,arreglo,fila,columna,valor,structEnv = null){
+    constructor(id, tipo, arreglo, fila, columna, valor, structEnv = null){
         this.id = id;
         this.tipo = tipo;
         this.fila = fila;

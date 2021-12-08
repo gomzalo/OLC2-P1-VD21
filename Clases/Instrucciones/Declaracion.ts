@@ -12,7 +12,7 @@ export  class Declaracion implements Instruccion{
     public columna;
     public arreglo = false;
 
-    constructor(tipo,fila,columna,simbolos /*= null*/){
+    constructor(tipo, simbolos, fila, columna){
         // this.id = id;
         this.tipo= tipo;
         this.simbolos = simbolos;
@@ -25,21 +25,8 @@ export  class Declaracion implements Instruccion{
         for(let simbolo of this.simbolos){
 
             let variable = simbolo as Simbolo;
-
-            //--> verifico que la variable no exista en la tabla de simbolos actual \
-            // if(table.existeEnActual(variable.identificador))
-            // {
-            //     let error = new Errores('Semantico', `La variable ${variable.identificador} ya existe en el entorno actual.`, this.linea, this.columna);
-            //     controlador.errores.push(error);
-            //     controlador.append(`** Error Semantico : La variable ${variable.identificador} ya existe en el entorno actual. En la linea ${this.linea} y columna ${this.columna}`);
-            //     continue;
-            // }
-
-            //int p1 = 2;
-            // int p2;
             if(variable.valor != null){
                 let valor = variable.valor.ejecutar(table, tree);
-
                 //Verificando TIPOS de Variable
                 let tipo_valor = variable.valor.getTipo();
                 if (valor instanceof Errores)
@@ -58,7 +45,7 @@ export  class Declaracion implements Instruccion{
                 
             }else{
                 //-- Se agrega a la tabla de simbolos 
-                let nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila,variable.columna,null);
+                let nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
                 table.setSymbolTabla(nuevo_simb);
             }
 

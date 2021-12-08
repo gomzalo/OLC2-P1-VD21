@@ -192,7 +192,7 @@ instruccion:
     ;
 /*..............     Declaraciones      ...............*/
 
-declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new Declaracion($1,  @1.first_line, @1.last_column,$2); }
+declaracion : tipo lista_simbolos PUNTOCOMA      { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column,$2); }
             ; 
 
 lista_simbolos : lista_simbolos COMA ID          { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }

@@ -99,7 +99,7 @@ case 6: case 7:
  this.$ = $$[$0] 
 break;
 case 8:
- this.$ = new Declaracion($$[$0-2],  _$[$0-2].first_line, _$[$0-2].last_column,$$[$0-1]); 
+ this.$ = new Declaracion($$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column,$$[$0-1]); 
 break;
 case 9:
  this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); 

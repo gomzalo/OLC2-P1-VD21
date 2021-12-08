@@ -822,7 +822,7 @@ case 6: case 7:
  this.$ = $$[$0] 
 break;
 case 8:
- this.$ = new Declaracion($$[$0-2],  _$[$0-2].first_line, _$[$0-2].last_column,$$[$0-1]); 
+ this.$ = new Declaracion($$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column,$$[$0-1]); 
 break;
 case 9:
  this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); 
@@ -2838,7 +2838,7 @@ exports.Declaracion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 class Declaracion {
-    constructor(tipo, fila, columna, simbolos /*= null*/) {
+    constructor(tipo, simbolos, fila, columna) {
         this.arreglo = false;
         // this.id = id;
         this.tipo = tipo;
@@ -2850,16 +2850,6 @@ class Declaracion {
     ejecutar(table, tree) {
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
-            //--> verifico que la variable no exista en la tabla de simbolos actual \
-            // if(table.existeEnActual(variable.identificador))
-            // {
-            //     let error = new Errores('Semantico', `La variable ${variable.identificador} ya existe en el entorno actual.`, this.linea, this.columna);
-            //     controlador.errores.push(error);
-            //     controlador.append(`** Error Semantico : La variable ${variable.identificador} ya existe en el entorno actual. En la linea ${this.linea} y columna ${this.columna}`);
-            //     continue;
-            // }
-            //int p1 = 2;
-            // int p2;
             if (variable.valor != null) {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
@@ -2912,6 +2902,7 @@ class Print {
         this.parametros.forEach((expresion) => {
             let valor = expresion.ejecutar(table, tree);
             console.log("print exp val: " + valor);
+            console.log("type print exp val: " + typeof (valor));
             if (this.tipo) {
                 this.value += valor.toString() + "\n";
             }

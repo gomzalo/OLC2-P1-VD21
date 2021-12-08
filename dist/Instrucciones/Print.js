@@ -16,6 +16,7 @@ class Print {
         this.parametros.forEach((expresion) => {
             let valor = expresion.ejecutar(table, tree);
             console.log("print exp val: " + valor);
+            console.log("type print exp val: " + typeof (valor));
             if (this.tipo) {
                 this.value += valor.toString() + "\n";
             }
