@@ -16,28 +16,16 @@ class Logica {
         this.columna = columna;
         this.expU = expU;
     }
-    getTipo(table, tree) {
-        let valor = this.getValorImplicito(table, tree);
-        if (typeof valor === 'number') {
-            return Tipo_1.TIPO.DECIMAL;
-        }
-        else if (typeof valor === 'string') {
-            return Tipo_1.TIPO.CADENA;
-        }
-        else if (typeof valor === 'boolean') {
-            return Tipo_1.TIPO.BOOLEANO;
-        }
-    }
-    getValorImplicito(table, tree) {
+    ejecutar(table, tree) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
         if (this.expU == false) {
-            valor_exp1 = this.exp1.getValorImplicito(table, tree);
-            valor_exp2 = this.exp2.getValorImplicito(table, tree);
+            valor_exp1 = this.exp1.ejecutar(table, tree);
+            valor_exp2 = this.exp2.ejecutar(table, tree);
         }
         else {
-            valor_expU = this.exp1.getValorImplicito(table, tree);
+            valor_expU = this.exp1.ejecutar(table, tree);
         }
         /**
          * Para las siguientes validaciones nos basamos en la tabla de
@@ -77,6 +65,21 @@ class Logica {
             // TODO: Agregar caso para logica OR. 
             default:
                 break;
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error("Method not implemented.");
+    }
+    getTipo(table, tree) {
+        let valor = this.ejecutar(table, tree);
+        if (typeof valor === 'number') {
+            return Tipo_1.TIPO.DECIMAL;
+        }
+        else if (typeof valor === 'string') {
+            return Tipo_1.TIPO.CADENA;
+        }
+        else if (typeof valor === 'boolean') {
+            return Tipo_1.TIPO.BOOLEANO;
         }
     }
     recorrer() {

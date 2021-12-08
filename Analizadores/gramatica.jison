@@ -42,6 +42,7 @@ BSL                                 "\\".
 "/"                         { return 'DIV'}
 "%"                         { return 'PORCENTAJE'}
 "^"                         { return 'POTENCIA'; }
+"&"                         { return 'AMPERSON'; }
 
 /*..............      Relacionales      ...............*/
 "<"                         { return 'MENORQUE'}
@@ -122,14 +123,14 @@ BSL                                 "\\".
 // %right 'INTERROGACION'
 %left 'OR'
 %left 'AND'
-%left 'NOT'
+%right 'NOT'
 %left 'IGUALIGUAL' 'DIFERENTE' 'MENORQUE' 'MENORIGUAL' 'MAYORQUE'  'MAYORIGUAL' 
 %left 'MAS' 'MENOS'
 %left 'MULTI' 'DIV' 'PORCENTAJE'
 %right 'UMINUS'
-// %nonassoc 'POTENCIA'
+%left 'POTENCIA' 'AMPERSON' 
 // %right 'UNARIO'
-%left 'PARA' 'PARC'
+%right 'PARA' 'PARC'
 
 
 // %right 'INTERROGACION'
@@ -156,6 +157,7 @@ start :
     { console.log($1); $$ = new Ast();  $$.instrucciones = $1; return $$; }
     ;
 
+// --------- LISTADO INSTRUCCIONES --------
 instrucciones:
     instrucciones instruccion           { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
 	| instruccion                       { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
@@ -166,6 +168,7 @@ instruccion:
     | println PUNTOCOMA                 { $$ = $1 }
     ;
 
+// ---------  INSTRUCCIONES --------
 print:
     PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); } ;
 
@@ -178,12 +181,19 @@ lista_parametros:
     | expr                         { $$ = new Array(); $$.push($1);}
     ;
 
+// declaracion : tipo lista_simbolos PUNTOCOMA   { $$ = new declaracion.default($1, $2, @1.first_line, @1.last_column); }
+//             ; 
+
+
+// ---------  EXPRESIONES --------
 expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
-    | expr MENOS expr           { $$ = new Aritmetica($1,OperadorAritmetico.RESTA,$3, @1.first_line, @1.first_column, false); }
-    | expr MULTI expr           { $$ = new Aritmetica($1,OperadorAritmetico.MULTIPLICACION,$3, @1.first_line, @1.first_column, false); }
-    | expr DIV expr             { $$ = new Aritmetica($1,OperadorAritmetico.DIVISION,$3, @1.first_line, @1.first_column, false); }
-    | expr PORCENTAJE expr      { $$ = new Aritmetica($1,OperadorAritmetico.MODULO,$3, @1.first_line, @1.first_column, false); }
-    | MENOS expr %prec UMINUS   { $$ = new Aritmetica($2,OperadorAritmetico.MENOS_UNARIO,$2, @1.first_line, @1.first_column, true); }
+    | expr MENOS expr           { $$ = new Aritmetica($1,OperadorAritmetico.MENOS,$3, @1.first_line, @1.first_column, false); }
+    | expr MULTI expr           { $$ = new Aritmetica($1,OperadorAritmetico.POR,$3, @1.first_line, @1.first_column, false); }
+    | expr DIV expr             { $$ = new Aritmetica($1,OperadorAritmetico.DIV,$3, @1.first_line, @1.first_column, false); }
+    | expr PORCENTAJE expr      { $$ = new Aritmetica($1,OperadorAritmetico.MOD,$3, @1.first_line, @1.first_column, false); }
+    | expr POTENCIA expr        { $$ = new Aritmetica($1,OperadorAritmetico.POT,$3, @1.first_line, @1.first_column, false); }
+    | expr AMPERSON expr        { $$ = new Aritmetica($1,OperadorAritmetico.AMPERSON,$3, @1.first_line, @1.first_column, false); }
+    | MENOS expr %prec UMINUS   { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); }
     | PARA expr PARC            { $$ = $2;}
     | expr AND expr             {$$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
     | expr OR expr              {$$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
@@ -196,8 +206,8 @@ expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,
     | expr DIFERENTE expr       {$$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false);} */ //new
     | ENTERO                    { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
     | DECIMAL                   { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
-    | CADENA                    { $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
-    | CHAR                      { $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); }
+    | CADENA                    { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
+    | CHAR                      { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); }
     | NULL                      { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
     | TRUE                      { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
     | FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 

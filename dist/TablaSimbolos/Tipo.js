@@ -29,6 +29,7 @@ var OperadorAritmetico;
     OperadorAritmetico[OperadorAritmetico["UMENOS"] = 6] = "UMENOS";
     OperadorAritmetico[OperadorAritmetico["UMENOSMENOS"] = 7] = "UMENOSMENOS";
     OperadorAritmetico[OperadorAritmetico["UMASMAS"] = 8] = "UMASMAS";
+    OperadorAritmetico[OperadorAritmetico["AMPERSON"] = 9] = "AMPERSON";
 })(OperadorAritmetico = exports.OperadorAritmetico || (exports.OperadorAritmetico = {}));
 var OperadorRelacional;
 (function (OperadorRelacional) {

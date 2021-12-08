@@ -25,7 +25,8 @@ export enum OperadorAritmetico{
     MOD,
     UMENOS,
     UMENOSMENOS,
-    UMASMAS
+    UMASMAS,
+    AMPERSON
 }
 
 export enum OperadorRelacional{

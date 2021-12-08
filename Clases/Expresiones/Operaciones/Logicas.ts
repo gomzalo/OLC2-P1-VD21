@@ -1,11 +1,12 @@
 import Nodo from "../../Ast/Nodo";
 import {Ast} from "../../Ast/Ast"
-import { Expresion } from "../../Interfaces/Expresion";
+// import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";
 import Errores from '../../Ast/Errores';
+import { Instruccion } from "../../Interfaces/Instruccion";
 
-export class Logica implements Expresion{
+export class Logica implements Instruccion{
     fila: number;
     columna: number;
     public exp1: any;
@@ -21,28 +22,16 @@ export class Logica implements Expresion{
         this.columna = columna;
         this.expU = expU;
     }
-
-    getTipo(table: TablaSimbolos, tree: Ast): TIPO {
-        let valor = this.getValorImplicito(table, tree);
-
-        if(typeof valor === 'number'){   
-            return TIPO.DECIMAL;
-        }else if(typeof valor === 'string'){
-            return TIPO.CADENA;
-        }else if(typeof valor === 'boolean'){
-            return TIPO.BOOLEANO;
-        }
-    }
-    getValorImplicito(table: TablaSimbolos, tree: Ast) {
+    ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
 
         if(this.expU == false){
-            valor_exp1 = this.exp1.getValorImplicito(table, tree);
-            valor_exp2 = this.exp2.getValorImplicito(table, tree);
+            valor_exp1 = this.exp1.ejecutar(table, tree);
+            valor_exp2 = this.exp2.ejecutar(table, tree);
         }else{
-            valor_expU = this.exp1.getValorImplicito(table, tree);
+            valor_expU = this.exp1.ejecutar(table, tree);
         }
 
 
@@ -82,6 +71,21 @@ export class Logica implements Expresion{
             // TODO: Agregar caso para logica OR. 
             default:
                 break;
+        }
+    }
+    translate3d(table: TablaSimbolos, tree: Ast) {
+        throw new Error("Method not implemented.");
+    }
+
+    getTipo(table: TablaSimbolos, tree: Ast): TIPO {
+        let valor = this.ejecutar(table, tree);
+
+        if(typeof valor === 'number'){   
+            return TIPO.DECIMAL;
+        }else if(typeof valor === 'string'){
+            return TIPO.CADENA;
+        }else if(typeof valor === 'boolean'){
+            return TIPO.BOOLEANO;
         }
     }
 

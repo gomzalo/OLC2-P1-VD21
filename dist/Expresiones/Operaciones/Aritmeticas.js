@@ -4,19 +4,415 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
+const Errores_1 = __importDefault(require("../../Ast/Errores"));
 const Nodo_1 = __importDefault(require("../../Ast/Nodo"));
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class Aritmetica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
         this.operador = operador;
+        console.log(this.operador);
         this.exp2 = exp2;
         this.fila = fila;
         this.columna = columna;
         this.expU = expU;
+        this.tipo = null;
+    }
+    ejecutar(table, tree) {
+        let valor_exp1;
+        let valor_exp2;
+        let valor_expU;
+        let tipoGeneral;
+        if (this.expU == false) {
+            valor_exp1 = this.exp1.ejecutar(tree, table);
+            valor_exp2 = this.exp2.ejecutar(tree, table);
+            tipoGeneral = this.getTipoMax(this.exp1.tipo, this.exp2.tipo);
+        }
+        else {
+            valor_expU = this.exp1.ejecutar(tree, table);
+        }
+        /**
+         * Para las siguientes validaciones nos basamos en la tabla de
+         * de las operaciones aritmeticas permitidas que soporta el lenguaje descrito en el enunciado.
+         */
+        switch (this.operador) {
+            case Tipo_1.OperadorAritmetico.MAS:
+                if (tipoGeneral == Tipo_1.TIPO.CADENA) {
+                    // this.tipo = TIPO.CADENA;
+                    // return valor_exp1.toString() + valor_exp2.toString();
+                    return new Errores_1.default("Semantico", "Suma - Error de tipos STRING, no concatenable", this.fila, this.columna);
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.BOOLEANO) {
+                    return new Errores_1.default("Semantico", "Suma - Error de tipo booleano", this.fila, this.columna);
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.CHARACTER) {
+                    if (this.exp1.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 + valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) + valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1 + valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1.charCodeAt(0) + valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER && this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) + valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 + valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) + valor_exp2;
+                    }
+                    else {
+                        return new Errores_1.default("Semantico", "Suma - Error de tipo ", this.fila, this.columna);
+                    }
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
+                    this.tipo = Tipo_1.TIPO.DECIMAL;
+                    return valor_exp1 + valor_exp2;
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.ENTERO) {
+                    this.tipo = Tipo_1.TIPO.ENTERO;
+                    return valor_exp1 + valor_exp2;
+                }
+                else {
+                    return new Errores_1.default("Semantico", "Suma - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.UMENOS:
+                if (this.exp1.tipo == Tipo_1.TIPO.ENTERO || this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                    return -valor_expU;
+                }
+                else {
+                    return new Errores_1.default("Semantico", "UNARIO - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.MENOS:
+                if (tipoGeneral == Tipo_1.TIPO.CHARACTER) {
+                    if (this.exp1.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 - valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) - valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1 - valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1.charCodeAt(0) - valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER && this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) - valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 - valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) - valor_exp2;
+                    }
+                    else {
+                        return new Errores_1.default("Semantico", "Resta - Error de tipo ", this.fila, this.columna);
+                    }
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
+                    this.tipo = Tipo_1.TIPO.DECIMAL;
+                    return valor_exp1 - valor_exp2;
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.ENTERO) {
+                    this.tipo = Tipo_1.TIPO.ENTERO;
+                    return valor_exp1 - valor_exp2;
+                }
+                else {
+                    return new Errores_1.default("Semantico", "Resta - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.POR:
+                if (tipoGeneral == Tipo_1.TIPO.CHARACTER) {
+                    if (this.exp1.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 * valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) * valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1 * valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1.charCodeAt(0) * valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER && this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) * valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 * valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) * valor_exp2;
+                    }
+                    else {
+                        return new Errores_1.default("Semantico", "POR - Error de tipo ", this.fila, this.columna);
+                    }
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
+                    this.tipo = Tipo_1.TIPO.DECIMAL;
+                    return valor_exp1 * valor_exp2;
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.ENTERO) {
+                    this.tipo = Tipo_1.TIPO.ENTERO;
+                    return valor_exp1 * valor_exp2;
+                }
+                else {
+                    return new Errores_1.default("Semantico", "POR - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.DIV:
+                if (tipoGeneral == Tipo_1.TIPO.CHARACTER) {
+                    if (this.exp1.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 / valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) / valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1 / valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1.charCodeAt(0) / valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER && this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) / valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 / valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) / valor_exp2;
+                    }
+                    else {
+                        return new Errores_1.default("Semantico", "DIV - Error de tipo ", this.fila, this.columna);
+                    }
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
+                    this.tipo = Tipo_1.TIPO.DECIMAL;
+                    return valor_exp1 / valor_exp2;
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.ENTERO) {
+                    this.tipo = Tipo_1.TIPO.ENTERO;
+                    return valor_exp1 / valor_exp2;
+                }
+                else {
+                    return new Errores_1.default("Semantico", "DIV - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.MOD:
+                if (tipoGeneral == Tipo_1.TIPO.CHARACTER) {
+                    if (this.exp1.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 % valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.ENTERO) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) % valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1 % valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                        this.tipo = Tipo_1.TIPO.DECIMAL;
+                        return valor_exp1.charCodeAt(0) % valor_exp2;
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER && this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) % valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp1.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1 % valor_exp2.charCodeAt(0);
+                    }
+                    else if (this.exp2.tipo == Tipo_1.TIPO.CHARACTER) {
+                        this.tipo = Tipo_1.TIPO.ENTERO;
+                        return valor_exp1.charCodeAt(0) % valor_exp2;
+                    }
+                    else {
+                        return new Errores_1.default("Semantico", "MOD - Error de tipo ", this.fila, this.columna);
+                    }
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.DECIMAL) {
+                    this.tipo = Tipo_1.TIPO.DECIMAL;
+                    return valor_exp1 % valor_exp2;
+                }
+                else if (tipoGeneral == Tipo_1.TIPO.ENTERO) {
+                    this.tipo = Tipo_1.TIPO.ENTERO;
+                    return valor_exp1 % valor_exp2;
+                }
+                else {
+                    return new Errores_1.default("Semantico", "MOD - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.POT:
+                if (this.exp1.tipo == Tipo_1.TIPO.CADENA && this.exp2.tipo == Tipo_1.TIPO.ENTERO) {
+                    this.tipo = Tipo_1.TIPO.CADENA;
+                    return valor_exp1.toString().repeat(valor_exp2);
+                }
+                else {
+                    return new Errores_1.default("Semantico", "POTENCIA - Error de tipo ", this.fila, this.columna);
+                }
+                break;
+            case Tipo_1.OperadorAritmetico.AMPERSON:
+                if (this.exp1.tipo == Tipo_1.TIPO.CADENA && this.exp2.tipo == Tipo_1.TIPO.CADENA) {
+                    this.tipo = Tipo_1.TIPO.CADENA;
+                    return valor_exp1.toString() + valor_exp2.toString();
+                }
+                else {
+                    return new Errores_1.default("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
+                }
+                // if(typeof valor_exp1 === 'number'){
+                //     if(typeof valor_exp2 === 'number'){
+                //         return Math.pow(valor_exp1, valor_exp2);
+                //     }
+                // }
+                break;
+            //TODO: Agregar otros casos de aritmeticas (POTENCIA, MODULO)
+            default:
+                //TODO: agregar errror que ser produjo algo inesperado.
+                break;
+        }
+        // switch (this.operador) {
+        //     case OperadorAritmetico.MAS:
+        //         if( valor_exp1.tipo === TIPO){
+        //             if(typeof valor_exp2 === 'number'){
+        //                 return valor_exp1 + valor_exp2;
+        //             }else if(typeof valor_exp2 === 'boolean'){
+        //                 let num = 1;
+        //                 if(valor_exp2 == false){
+        //                     num = 0;
+        //                 }
+        //                 return valor_exp1 + num;
+        //             }else if(typeof valor_exp2 === 'string'){
+        //                 if(valor_exp2.length == 1){ //si es de tamaño 1 es un caracter
+        //                     let numascii = valor_exp2.charCodeAt(0);
+        //                     return valor_exp1 + numascii;
+        //                 }else{
+        //                     return valor_exp1 + valor_exp2; //se convierte a cadena
+        //                 }
+        //             }
+        //         }else if(typeof valor_exp1 === 'boolean'){
+        //             if(typeof valor_exp2 === 'number'){
+        //                 let num = 1;
+        //                 if(valor_exp1 == false){
+        //                     num = 0;
+        //                 }
+        //                 return num + valor_exp2;
+        //             }else if(typeof valor_exp2 === 'boolean'){
+        //                 //TODO: agregar error semantico.
+        //             }
+        //         }else if(typeof valor_exp1 == 'string'){
+        //             if(valor_exp1.length == 1){
+        //                 if(typeof valor_exp2 == 'string'){
+        //                     if(valor_exp2.length == 1){ //si es de tamaño 1 es un caracter
+        //                         console.log('suma de caracteres ')
+        //                         return valor_exp1 + valor_exp2;
+        //                     }else{
+        //                         return valor_exp1 + valor_exp2; //se convierte a cadena
+        //                     }
+        //                 }
+        //             }else{
+        //                 if(typeof valor_exp2 == 'string'){
+        //                     if(valor_exp2.length == 1){ //si es de tamaño 1 es un caracter
+        //                         return valor_exp1 + valor_exp2; 
+        //                     }else{
+        //                         return valor_exp1 + valor_exp2; //se convierte a cadena
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         break;
+        //     case OperadorAritmetico.UMENOS:
+        //         if(typeof valor_expU == 'number'){
+        //             return -valor_expU;
+        //         }else{
+        //              //TODO: agregar error semantico.
+        //         }
+        //         break;
+        //     case OperadorAritmetico.MENOS:
+        //         if(typeof valor_exp1 === 'number'){
+        //             if(typeof valor_exp2 === 'number'){
+        //                 return valor_exp1 - valor_exp2;
+        //             }//TODO: Agregar las otras validaciones
+        //         }
+        //         break;
+        //     case OperadorAritmetico.POR:
+        //             if(typeof valor_exp1 === 'number'){
+        //                 if(typeof valor_exp2 === 'number'){
+        //                     return valor_exp1 * valor_exp2;
+        //                 }//TODO: Agregar las otras validaciones
+        //             }
+        //             break;  
+        //     case OperadorAritmetico.DIV:
+        //         if(typeof valor_exp1 === 'number'){
+        //             if(typeof valor_exp2 === 'number'){
+        //                 return valor_exp1 / valor_exp2;
+        //             }//TODO: Agregar las otras validaciones
+        //         }
+        //         break;
+        //     case OperadorAritmetico.MOD:
+        //         if(typeof valor_exp1 === 'number'){
+        //             if(typeof valor_exp2 === 'number'){
+        //                 return valor_exp1 % valor_exp2;
+        //             }
+        //         }
+        //         break;
+        //     case OperadorAritmetico.POT:
+        //         if(typeof valor_exp1 === 'number'){
+        //             if(typeof valor_exp2 === 'number'){
+        //                 return Math.pow(valor_exp1, valor_exp2);
+        //             }
+        //         }
+        //         break;
+        //     //TODO: Agregar otros casos de aritmeticas (POTENCIA, MODULO)
+        //     default:
+        //         //TODO: agregar errror que ser produjo algo inesperado.
+        //         break;
+        // }
+    }
+    translate3d(table, tree) {
+        throw new Error("Method not implemented.");
     }
     getTipo(ts, ast) {
-        let valor = this.getValorImplicito(ts, ast);
+        let valor = this.ejecutar(ts, ast);
         if (typeof valor === 'number') {
             return Tipo_1.TIPO.DECIMAL;
         }
@@ -27,141 +423,55 @@ class Aritmetica {
             return Tipo_1.TIPO.BOOLEANO;
         }
     }
-    getValorImplicito(table, tree) {
-        let valor_exp1;
-        let valor_exp2;
-        let valor_expU;
-        if (this.expU == false) {
-            valor_exp1 = this.exp1.getValorImplicito(tree, table);
-            valor_exp2 = this.exp2.getValorImplicito(tree, table);
+    getTipoMax(tipoIzq, tipoDer) {
+        if (tipoIzq == Tipo_1.TIPO.NULO || tipoDer == Tipo_1.TIPO.NULO) {
+            return Tipo_1.TIPO.NULO;
         }
-        else {
-            valor_expU = this.exp1.getValorImplicito(tree, table);
+        if (tipoIzq == Tipo_1.TIPO.CADENA || tipoDer == Tipo_1.TIPO.CADENA) {
+            return Tipo_1.TIPO.CADENA;
         }
-        /**
-         * Para las siguientes validaciones nos basamos en la tabla de
-         * de las operaciones aritmeticas permitidas que soporta el lenguaje descrito en el enunciado.
-         */
-        switch (this.operador) {
-            case Tipo_1.OperadorAritmetico.MAS:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 + valor_exp2;
-                    }
-                    else if (typeof valor_exp2 === 'boolean') {
-                        let num = 1;
-                        if (valor_exp2 == false) {
-                            num = 0;
-                        }
-                        return valor_exp1 + num;
-                    }
-                    else if (typeof valor_exp2 === 'string') {
-                        if (valor_exp2.length == 1) { //si es de tamaño 1 es un caracter
-                            let numascii = valor_exp2.charCodeAt(0);
-                            return valor_exp1 + numascii;
-                        }
-                        else {
-                            return valor_exp1 + valor_exp2; //se convierte a cadena
-                        }
-                    }
-                }
-                else if (typeof valor_exp1 === 'boolean') {
-                    if (typeof valor_exp2 === 'number') {
-                        let num = 1;
-                        if (valor_exp1 == false) {
-                            num = 0;
-                        }
-                        return num + valor_exp2;
-                    }
-                    else if (typeof valor_exp2 === 'boolean') {
-                        //TODO: agregar error semantico.
-                    }
-                }
-                else if (typeof valor_exp1 == 'string') {
-                    if (valor_exp1.length == 1) {
-                        if (typeof valor_exp2 == 'string') {
-                            if (valor_exp2.length == 1) { //si es de tamaño 1 es un caracter
-                                console.log('suma de caracteres ');
-                                return valor_exp1 + valor_exp2;
-                            }
-                            else {
-                                return valor_exp1 + valor_exp2; //se convierte a cadena
-                            }
-                        }
-                    }
-                    else {
-                        if (typeof valor_exp2 == 'string') {
-                            if (valor_exp2.length == 1) { //si es de tamaño 1 es un caracter
-                                return valor_exp1 + valor_exp2;
-                            }
-                            else {
-                                return valor_exp1 + valor_exp2; //se convierte a cadena
-                            }
-                        }
-                    }
-                }
-                break;
-            case Tipo_1.OperadorAritmetico.UMENOS:
-                if (typeof valor_expU == 'number') {
-                    return -valor_expU;
-                }
-                else {
-                    //TODO: agregar error semantico.
-                }
-                break;
-            case Tipo_1.OperadorAritmetico.MENOS:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 - valor_exp2;
-                    } //TODO: Agregar las otras validaciones
-                }
-                break;
-            case Tipo_1.OperadorAritmetico.POR:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 * valor_exp2;
-                    } //TODO: Agregar las otras validaciones
-                }
-                break;
-            case Tipo_1.OperadorAritmetico.DIV:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 / valor_exp2;
-                    } //TODO: Agregar las otras validaciones
-                }
-                break;
-            case Tipo_1.OperadorAritmetico.MOD:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return valor_exp1 % valor_exp2;
-                    }
-                }
-                break;
-            case Tipo_1.OperadorAritmetico.POT:
-                if (typeof valor_exp1 === 'number') {
-                    if (typeof valor_exp2 === 'number') {
-                        return Math.pow(valor_exp1, valor_exp2);
-                    }
-                }
-                break;
-            //TODO: Agregar otros casos de aritmeticas (POTENCIA, MODULO)
-            default:
-                //TODO: agregar errror que ser produjo algo inesperado.
-                break;
+        if (tipoIzq == Tipo_1.TIPO.CHARACTER || tipoDer == Tipo_1.TIPO.CHARACTER) {
+            return Tipo_1.TIPO.CADENA;
+        }
+        if (tipoIzq == Tipo_1.TIPO.BOOLEANO || tipoDer == Tipo_1.TIPO.BOOLEANO) {
+            return Tipo_1.TIPO.BOOLEANO;
+        }
+        if (tipoIzq == Tipo_1.TIPO.DECIMAL || tipoDer == Tipo_1.TIPO.DECIMAL) {
+            return Tipo_1.TIPO.DECIMAL;
+        }
+        if (tipoIzq == Tipo_1.TIPO.ENTERO || tipoDer == Tipo_1.TIPO.ENTERO) {
+            return Tipo_1.TIPO.ENTERO;
         }
     }
     recorrer() {
         let padre = new Nodo_1.default("Exp. Aritmetica", "");
         if (this.expU) {
-            padre.addChildNode(new Nodo_1.default(this.operador, ""));
+            padre.addChildNode(new Nodo_1.default(this.operador.toString(), ""));
             padre.addChildNode(this.exp1.recorrer());
         }
         else {
             padre.addChildNode(this.exp1.recorrer());
-            padre.addChildNode(new Nodo_1.default(this.operador, ""));
+            padre.addChildNode(new Nodo_1.default(this.operador.toString(), ""));
             padre.addChildNode(this.exp2.recorrer());
         }
         return padre;
+    }
+    getValor(tipo, valor) {
+        // if (tipo == TIPO.ENTERO){
+        //     return valor.valueOf()
+        // }
+        // else if (tipo == TIPO.DECIMAL){
+        //     return valor.valueOf()
+        // }
+        // else if (tipo == TIPO.BOOLEANO){
+        //     return bool(valor)
+        // }
+        // else if (tipo == TIPO.CHARACTER){
+        //     return str(valor)
+        // }
+        // else if (tipo == TIPO.CADENA){
+        //     return str(valor)
+        // }
     }
 }
 exports.Aritmetica = Aritmetica;

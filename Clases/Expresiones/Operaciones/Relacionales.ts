@@ -1,10 +1,11 @@
 import Nodo from "../../Ast/Nodo";
 import {Ast} from "../../Ast/Ast"
-import { Expresion } from "../../Interfaces/Expresion";
+// import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorRelacional, TIPO } from "../../TablaSimbolos/Tipo";
 import Errores from '../../Ast/Errores';
-export class Relacional implements Expresion{
+import { Instruccion } from "../../Interfaces/Instruccion";
+export class Relacional implements Instruccion{
     public exp1: any;
     public operador: any;
     public exp2: any;
@@ -20,28 +21,16 @@ export class Relacional implements Expresion{
         this.columna = columna;
         this.expU = expU;
     }
-
-    getTipo(table: TablaSimbolos, tree: Ast): TIPO {
-        let valor = this.getValorImplicito(table, tree);
-
-        if(typeof valor === 'number'){   
-            return TIPO.DECIMAL;
-        }else if(typeof valor === 'string'){
-            return TIPO.CADENA;
-        }else if(typeof valor === 'boolean'){
-            return TIPO.BOOLEANO;
-        }
-    }
-    getValorImplicito(table: TablaSimbolos, tree: Ast) {
+    ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
 
         if(this.expU == false){
-            valor_exp1 = this.exp1.getValorImplicito(table, tree);
-            valor_exp2 = this.exp2.getValorImplicito(table, tree);
+            valor_exp1 = this.exp1.ejecutar(table, tree);
+            valor_exp2 = this.exp2.ejecutar(table, tree);
         }else{
-            valor_expU = this.exp1.getValorImplicito(table, tree);
+            valor_expU = this.exp1.ejecutar(table, tree);
         }
 
         /**
@@ -130,6 +119,21 @@ export class Relacional implements Expresion{
             // TODO: Agregar mas casos de relacionales (IGUALIGUAL, DIFERENCIA, MAYORIGUAL, MENORIGUAL)
             default:
                 break;
+        }
+    }
+    translate3d(table: TablaSimbolos, tree: Ast) {
+        throw new Error("Method not implemented.");
+    }
+
+    getTipo(table: TablaSimbolos, tree: Ast): TIPO {
+        let valor = this.ejecutar(table, tree);
+
+        if(typeof valor === 'number'){   
+            return TIPO.DECIMAL;
+        }else if(typeof valor === 'string'){
+            return TIPO.CADENA;
+        }else if(typeof valor === 'boolean'){
+            return TIPO.BOOLEANO;
         }
     }
 

@@ -25,7 +25,7 @@ export class Print implements Instruccion{
         this.value = "";
         this.parametros.forEach((expresion: Instruccion) => {
             let valor = expresion.ejecutar(table,tree);
-            console.log("print exp val: " + valor.toString());
+            console.log("print exp val: " + valor);
             
             if (this.tipo){
                 this.value += valor.toString() + "\n";
