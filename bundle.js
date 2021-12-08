@@ -1510,13 +1510,13 @@ if (typeof module !== 'undefined' && require.main === module) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
 class Ast {
-    constructor(instrucciones) {
+    constructor() {
         this.consola = "";
         this.TSglobal = null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
-        this.instrucciones = instrucciones;
+        this.instrucciones = new Array();
         this.funciones = new Array();
         this.structs = new Array();
         this.Errores = new Array();
@@ -2523,8 +2523,8 @@ compilar.addEventListener('click', () => {
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
         // console.log(result);
         let tablaSimbolos = new TablaSimbolos();
-        let astEjecucion = new Ast(result);
-        result.forEach(res => {
+        let astEjecucion = new Ast();
+        result.instrucciones.forEach(res => {
             res.ejecutar(tablaSimbolos, astEjecucion);
         });
         // let output = astEjecucion.getConsola();

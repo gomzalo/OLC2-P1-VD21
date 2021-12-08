@@ -94,10 +94,11 @@ BSL                                 "\\".
 
     const {Print} = require("../dist/Instrucciones/Print");
     const {Aritmetica} = require("../dist/Expresiones/Operaciones/Aritmeticas");
-    const {TIPO, OperadorAritmetico, OperadorLogico,OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
+    const {TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
     const {Primitivo} = require("../dist/Expresiones/Primitivo");
     const {Logica} = require("../dist/Expresiones/Operaciones/Logicas");
     const {Relacional} = require("../dist/Expresiones/Operaciones/Relacionales");
+    const {Exoresion} = require("../dist/Interfaces/Instruccion");
 
     const {Ast} = require("../dist/Ast/Ast");
 
@@ -125,7 +126,7 @@ BSL                                 "\\".
 %right 'UMINUS'
 // %nonassoc 'POTENCIA'
 // %right 'UNARIO'
-%right 'PARA' 'CORA'
+%left 'PARA' 'PARC'
 
 
 // %right 'INTERROGACION'
@@ -147,20 +148,27 @@ BSL                                 "\\".
 
 
 /* Definición de la gramática */
-start : instrucciones EOF         /*{ $$ = $1; return $$; }*/
-        { console.log($1); $$ = new Ast();  $$.instrucciones = $1; return $$; }
+start : 
+    instrucciones EOF         /*{ $$ = $1; return $$; }*/
+    { console.log($1); $$ = new Ast();  $$.instrucciones = $1; return $$; }
     ;
 
 instrucciones:
     instrucciones instruccion           { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
-	| instruccion                {$$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */;
+	| instruccion                       { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
+    ;
 
 instruccion:
-    print PUNTOCOMA       { $$ = $1 }
-;
+    print PUNTOCOMA                     { $$ = $1 }
+    ;
 
 print:
-    PRINT PARA expr PARC            { $$ = new Print($3, @1.first_line, @1.first_column); } ;
+    PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column); } ;
+
+lista_parametros: 
+    lista_parametros COMA expr     { $$ = $1; $$.push($3); }
+    | expr                         { $$ = new Array(); $$.push($1);}
+    ;
 
 expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
     | expr MENOS expr           { $$ = new Aritmetica($1,OperadorAritmetico.RESTA,$3, @1.first_line, @1.first_column, false); }
@@ -172,15 +180,12 @@ expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,
     | expr AND expr             {$$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false);}
     | expr OR expr              {$$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false);}//NEW
     | NOT expr                  {$$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true);}*/
-    
     | expr MAYORQUE expr        {$$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false);}
     | expr MAYORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false);}
     | expr MENORIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false);}*/ //new
     | expr MENORQUE expr        {$$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false);}
     | expr IGUALIGUAL expr      {$$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false);}
     | expr DIFERENTE expr       {$$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false);} */ //new
-
-
     | ENTERO                    { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
     | DECIMAL                   { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
     | CADENA                    { $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
@@ -188,7 +193,6 @@ expr: expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,
     | NULL                      { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
     | TRUE                      { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
     | FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
-
 //     /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
 //     /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
 //     | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/

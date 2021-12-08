@@ -21,7 +21,8 @@ export class Print implements Instruccion{
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         console.log("entro a print siimmm");
-        //TODO: verificar que el tipo del valor sea primitivo 
+        //TODO: verificar que el tipo del valor sea primitivo
+        
         this.parametros.forEach((expresion: Expresion) => {
             let valor = expresion.getValorImplicito(table,tree);
             this.value += valor.toString();

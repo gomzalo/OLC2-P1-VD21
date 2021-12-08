@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
 class Ast {
-    constructor(instrucciones) {
+    constructor() {
         this.consola = "";
         this.TSglobal = null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
-        this.instrucciones = instrucciones;
+        this.instrucciones = new Array();
         this.funciones = new Array();
         this.structs = new Array();
         this.Errores = new Array();

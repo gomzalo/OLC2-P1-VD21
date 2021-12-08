@@ -13,8 +13,8 @@ export class Ast  {
     public strEntorno : string = "";
 
 
-    constructor(instrucciones: Array<Instruccion>){
-        this.instrucciones = instrucciones;
+    constructor(){
+        this.instrucciones = new Array<Instruccion>();
         this.funciones =  new Array();
         this.structs =  new Array();
         this.Errores = new Array();
