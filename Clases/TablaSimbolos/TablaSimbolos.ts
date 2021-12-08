@@ -1,4 +1,4 @@
-import Simbolo from "./Simbolo";
+import { Simbolo } from "./Simbolo";
 import { TIPO } from "./Tipo";
 
 export class TablaSimbolos{

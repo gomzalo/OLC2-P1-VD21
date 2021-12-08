@@ -1,5 +1,5 @@
-import Errores from "./Ast/Errores";
-import Simbolos from "./TablaSimbolos/Simbolo";
+import { Errores } from "./Ast/Errores";
+import { Simbolo } from "./TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "./TablaSimbolos/TablaSimbolos";
 
 /**
@@ -55,7 +55,7 @@ export default class Controlador{
      * @param sim simbolo de la tabla
      * @returns retorna el valor del simbolo
      */
-    getValor(sim:Simbolos):string{
+    getValor(sim:Simbolo):string{
         if(sim.getValor() != null){
             return sim.getValor().toString(); 
         }else{

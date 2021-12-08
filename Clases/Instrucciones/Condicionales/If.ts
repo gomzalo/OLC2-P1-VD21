@@ -1,26 +1,26 @@
 import { Instruccion } from './../../Interfaces/Instruccion';
 import { OperadorLogico } from './../../TablaSimbolos/Tipo';
-import Nodo from "../../Ast/Nodo";
+import { Nodo } from "../../Ast/Nodo";
 import {Ast} from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
-import Detener from '../Transferencia/Break';
+import { Detener } from '../Transferencia/Break';
 
-export default class If implements Instruccion{
+export class If implements Instruccion{
 
     public condicion : Expresion;
     public lista_ifs : Array<Instruccion>;
     public lista_elses : Array<Instruccion>;
-    public linea : number;
+    public fila : number;
     public columna : number;
 
-    constructor(condicion, lista_ifs, lista_elses, linea, columna) {
+    constructor(condicion, lista_ifs, lista_elses, fila, columna) {
         this.condicion = condicion;
         this.lista_ifs = lista_ifs;
         this.lista_elses = lista_elses;
         this.columna = columna;
-        this.linea = linea;
+        this.fila = fila;
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {

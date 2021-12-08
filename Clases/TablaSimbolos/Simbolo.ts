@@ -1,6 +1,6 @@
-import {TIPO} from "./Tipo";
+import { TIPO } from "./Tipo";
 
-export default class Simbolo{
+export class Simbolo{
     private id: string;
     private tipo:TIPO;
     private fila: number;

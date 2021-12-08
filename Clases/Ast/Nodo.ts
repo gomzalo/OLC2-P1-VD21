@@ -1,4 +1,4 @@
-export default class Nodo{
+export class Nodo{
     public token : string ;
     public lexema : string;
     public hijos : Array<Nodo>;
