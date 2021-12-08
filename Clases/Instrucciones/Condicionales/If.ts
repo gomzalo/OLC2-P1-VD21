@@ -1,3 +1,7 @@
+import { Primitivo } from './../../Expresiones/Primitivo';
+import { Logica } from './../../Expresiones/Operaciones/Logicas';
+import { Relacional } from './../../Expresiones/Operaciones/Relacionales';
+import { Aritmetica } from './../../Expresiones/Operaciones/Aritmeticas';
 import { Expresion } from './../../Interfaces/Expresion';
 import { Instruccion } from './../../Interfaces/Instruccion';
 import { OperadorLogico, TIPO } from './../../TablaSimbolos/Tipo';
@@ -26,22 +30,43 @@ export class If implements Instruccion{
         let ts_local = new TablaSimbolos(table);
 
         let valor_condicion = this.condicion.ejecutar(table, tree);
-        
-        if(this.condicion == TIPO.BOOLEANO){
-            if(valor_condicion){
-                for(let ins of this.lista_ifs){
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if(ins instanceof Detener || res instanceof Detener  ){
-                        return res;
-                    }
-                }
-            }else{
-                for(let ins of this.lista_elses){
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
-                    if(ins instanceof Detener || res instanceof Detener  ){
-                        return res;
+        if(this.condicion instanceof Primitivo){
+            if(this.condicion.tipo == TIPO.BOOLEANO){
+                if(valor_condicion){
+                    this.lista_ifs.forEach(ins => {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if(ins instanceof Detener || res instanceof Detener  ){
+                            return res;
+                        }else{
+                            if(ins instanceof Continuar || res instanceof Continuar){
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                return ins;
+                            }else{
+                                if( ins instanceof Return || res instanceof Return){
+                                    // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                    return ins;
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    for(let ins of this.lista_elses){
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                        if(ins instanceof Detener || res instanceof Detener  ){
+                            return res;
+                        }else{
+                            if(ins instanceof Continuar || res instanceof Continuar){
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                return ins;
+                            }else{
+                                if( ins instanceof Return || res instanceof Return){
+                                    // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                    return ins;
+                                }
+                            }
+                        }
                     }
                 }
             }

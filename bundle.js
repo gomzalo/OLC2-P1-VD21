@@ -828,7 +828,7 @@ case 8:
  this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); 
 break;
 case 9:
- this.$ = new If($$[$0-4], [$$[$0-1]], null, _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new If($$[$0-4], $$[$0-1], null, _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
 case 10:
  this.$ = $$[$0-2]; this.$.push($$[$0]); 
@@ -2674,6 +2674,7 @@ exports.Primitivo = Primitivo;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
+const Primitivo_1 = require("./../../Expresiones/Primitivo");
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
@@ -2688,22 +2689,35 @@ class If {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
-        if (this.condicion == Tipo_1.TIPO.BOOLEANO) {
-            if (valor_condicion) {
-                for (let ins of this.lista_ifs) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
-                    }
+        console.log("valorcon if: " + valor_condicion);
+        console.log("typeof valorcon if: " + typeof (valor_condicion));
+        console.log("tipo valorcon if: " + this.condicion.tipo);
+        if (this.condicion instanceof Primitivo_1.Primitivo) {
+            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (valor_condicion) {
+                    console.log("listaifs: " + typeof (this.lista_ifs));
+                    this.lista_ifs.forEach(ins => {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return res;
+                        }
+                    });
+                    // for(let ins of this.lista_ifs){
+                    //     let res = ins.ejecutar(ts_local, tree);
+                    //     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                    //     if(ins instanceof Detener || res instanceof Detener  ){
+                    //         return res;
+                    //     }
+                    // }
                 }
-            }
-            else {
-                for (let ins of this.lista_elses) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
+                else {
+                    for (let ins of this.lista_elses) {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return res;
+                        }
                     }
                 }
             }
@@ -2719,7 +2733,7 @@ class If {
 }
 exports.If = If;
 
-},{"../../TablaSimbolos/TablaSimbolos":15,"../Transferencia/Break":14,"./../../TablaSimbolos/Tipo":16}],13:[function(require,module,exports){
+},{"../../TablaSimbolos/TablaSimbolos":15,"../Transferencia/Break":14,"./../../Expresiones/Primitivo":11,"./../../TablaSimbolos/Tipo":16}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -3087,43 +3101,27 @@ compilar.addEventListener('click', () => {
     $("#textAreaConsola").val("");
 
     try{
-        // listaImprimir.length = 0;
-        // listaErrores.length = 0;
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        // console.log(result);
+        
         let tablaSimbolos = new TablaSimbolos();
         let astEjecucion = new Ast();
         result.instrucciones.forEach(res => {
             res.ejecutar(tablaSimbolos, astEjecucion);
         });
-        // let output = astEjecucion.getConsola();
-
-        // alert("result: " + result)
-        // alert("getcconsola: " + astEjecucion.getConsola().toString())
-        // let entorno = new Entorno(null);
-        // entorno.setGlobal(entorno);
-        // entorno.setPadre(null);
-        // entornoAnalizar = entorno;
-        // result.entornoGlobal.setGlobal(result.entornoGlobal);
-        // result.entornoGlobal.setPadre(null);
-        // result.ejecutar(entorno);
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
-        // astEjecucion.get.forEach(
-        //     element =>{
-        //         texto += ("\n"+element);
-        //     }
-        // );
         texto += astEjecucion.getConsola();
         $("#textAreaConsola").val(texto);
         txtConsola.append(texto);
-        // listaImprimir = [];
-        
-        alert('Gramatica Correcta aaa');
+        Swal.fire(
+            '¡Gramatica correcta!'
+        );
     }catch(e){
-        alert('Gramatica Incorrecta');
-        alert(e);
+        Swal.fire(
+            'Gramatica incorrecta\n:' + e
+        );
+        // alert(e);
     }
 
 

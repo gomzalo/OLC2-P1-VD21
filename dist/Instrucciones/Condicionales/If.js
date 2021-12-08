@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
+const Primitivo_1 = require("./../../Expresiones/Primitivo");
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
@@ -15,22 +16,48 @@ class If {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
-        if (this.condicion == Tipo_1.TIPO.BOOLEANO) {
-            if (valor_condicion) {
-                for (let ins of this.lista_ifs) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
-                    }
+        if (this.condicion instanceof Primitivo_1.Primitivo) {
+            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (valor_condicion) {
+                    this.lista_ifs.forEach(ins => {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return res;
+                        }
+                        else {
+                            if (ins instanceof Continuar || res instanceof Continuar) {
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                return ins;
+                            }
+                            else {
+                                if (ins instanceof Return || res instanceof Return) {
+                                    // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                    return ins;
+                                }
+                            }
+                        }
+                    });
                 }
-            }
-            else {
-                for (let ins of this.lista_elses) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
+                else {
+                    for (let ins of this.lista_elses) {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return res;
+                        }
+                        else {
+                            if (ins instanceof Continuar || res instanceof Continuar) {
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                return ins;
+                            }
+                            else {
+                                if (ins instanceof Return || res instanceof Return) {
+                                    // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                    return ins;
+                                }
+                            }
+                        }
                     }
                 }
             }

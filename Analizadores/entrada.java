@@ -28,4 +28,8 @@
     println((21.0==20.5||95>=94)&&((19<39&&83<=96)||35<97));    // true
     println((68==33||(2<95&&17==37))&&63<=9||12<=42||25==1);    // true
 
-    println("Probando expresiones Arítmeticas, Booleanas y Lógicas");
+    println("************IF**************");
+
+    if(true){
+        println("Erick puñeta xd");
+    }

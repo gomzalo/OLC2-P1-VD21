@@ -201,43 +201,27 @@ compilar.addEventListener('click', () => {
     $("#textAreaConsola").val("");
 
     try{
-        // listaImprimir.length = 0;
-        // listaErrores.length = 0;
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        // console.log(result);
+        
         let tablaSimbolos = new TablaSimbolos();
         let astEjecucion = new Ast();
         result.instrucciones.forEach(res => {
             res.ejecutar(tablaSimbolos, astEjecucion);
         });
-        // let output = astEjecucion.getConsola();
-
-        // alert("result: " + result)
-        // alert("getcconsola: " + astEjecucion.getConsola().toString())
-        // let entorno = new Entorno(null);
-        // entorno.setGlobal(entorno);
-        // entorno.setPadre(null);
-        // entornoAnalizar = entorno;
-        // result.entornoGlobal.setGlobal(result.entornoGlobal);
-        // result.entornoGlobal.setPadre(null);
-        // result.ejecutar(entorno);
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
-        // astEjecucion.get.forEach(
-        //     element =>{
-        //         texto += ("\n"+element);
-        //     }
-        // );
         texto += astEjecucion.getConsola();
         $("#textAreaConsola").val(texto);
         txtConsola.append(texto);
-        // listaImprimir = [];
-        
-        alert('Gramatica Correcta aaa');
+        Swal.fire(
+            '¡Gramatica correcta!'
+        );
     }catch(e){
-        alert('Gramatica Incorrecta');
-        alert(e);
+        Swal.fire(
+            'Gramatica incorrecta\n:' + e
+        );
+        // alert(e);
     }
 
 

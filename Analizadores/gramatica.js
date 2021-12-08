@@ -105,7 +105,7 @@ case 8:
  this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); 
 break;
 case 9:
- this.$ = new If($$[$0-4], [$$[$0-1]], null, _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new If($$[$0-4], $$[$0-1], null, _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
 case 10:
  this.$ = $$[$0-2]; this.$.push($$[$0]); 

@@ -185,7 +185,7 @@ println_instr:
 
 /*..............     If      ...............*/
 if_instr:
-    RIF PARA expr PARC LLAVA instrucciones LLAVC { $$ = new If($3, [$6], null, @1.first_line, @1.first_column); }
+    RIF PARA expr PARC LLAVA instrucciones LLAVC { $$ = new If($3, $6, null, @1.first_line, @1.first_column); }
     ;
 
 /*..............     Lista parametros      ...............*/
