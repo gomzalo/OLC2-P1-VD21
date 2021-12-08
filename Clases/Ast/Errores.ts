@@ -1,4 +1,4 @@
-export default class Errores{
+export class Errores{
 
     public tipo : string;
     public descripcion : string;

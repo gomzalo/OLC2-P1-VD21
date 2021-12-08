@@ -1,9 +1,9 @@
-import Nodo from "../../Ast/Nodo";
-import {Ast} from "../../Ast/Ast";
+import { Nodo } from "../../Ast/Nodo";
+import { Ast } from "../../Ast/Ast";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 
-export default class Detener implements Instruccion{
+export class Detener implements Instruccion{
 
     constructor() { }
     

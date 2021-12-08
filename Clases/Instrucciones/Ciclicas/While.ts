@@ -1,15 +1,17 @@
 import { Instruccion } from './../../Interfaces/Instruccion';
 import { OperadorLogico } from './../../TablaSimbolos/Tipo';
-import Nodo from "../../Ast/Nodo";
-import {Ast} from "../../Ast/Ast"
+import { Nodo } from "../../Ast/Nodo";
+import { Ast } from "../../Ast/Ast"
 import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
-import Detener from '../Transferencia/Break';
+import { Detener } from '../Transferencia/Break';
+import { Continuar } from '../Transferencia/Continuar';
+import { Return } from '../Transferencia/Return';
 
-export default class While implements Instruccion{
+export class While implements Instruccion{
 
-    public condicion : Expresion;
+    public condicion : Instruccion;
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
@@ -22,11 +24,11 @@ export default class While implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let valor_condicion = this.condicion.getValorImplicito(table, tree);
+        let valor_condicion = this.condicion.ejecutar(table, tree);
 
         if(typeof valor_condicion == 'boolean'){
 
-            while(this.condicion.getValorImplicito(table, tree)){
+            while(this.condicion.ejecutar(table, tree)){
 
                 let ts_local = new TablaSimbolos(table);
 
@@ -34,9 +36,16 @@ export default class While implements Instruccion{
                     let res = ins.ejecutar(ts_local, tree);
                      //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if(ins instanceof Detener || res instanceof Detener ){
-                        return res;
+                        return null;
+                    }else{
+                        if(ins instanceof Continuar || res instanceof Continuar){
+                            break;
+                        }else{
+                            if(ins instanceof Return || res instanceof Return){
+                                return res;
+                            }
+                        }
                     }
-
                 }
             }
         }
@@ -47,7 +56,17 @@ export default class While implements Instruccion{
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("CICLO","");
+        padre.addChildNode(new Nodo("while",""));
+        padre.addChildNode(new Nodo("(",""));
+        padre.addChildNode(this.condicion.recorrer(table, tree));
+        padre.addChildNode(new Nodo(")",""));
+        padre.addChildNode(new Nodo("{",""));
+        for(let ins of this.lista_instrucciones){
+            padre.addChildNode(ins.recorrer(table, tree));
+        }
+        padre.addChildNode(new Nodo("}",""));
+        return padre;
     }
 
 }

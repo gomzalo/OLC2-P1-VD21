@@ -1,5 +1,3 @@
-import { Return } from './../Transferencia/Return';
-import { Continuar } from './../Transferencia/Continuar';
 import { Instruccion } from './../../Interfaces/Instruccion';
 import { OperadorLogico } from './../../TablaSimbolos/Tipo';
 import { Nodo } from "../../Ast/Nodo";
@@ -8,36 +6,29 @@ import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from '../Transferencia/Break';
-import { timingSafeEqual } from 'crypto';
+import { Continuar } from '../Transferencia/Continuar';
+import { Return } from '../Transferencia/Return';
 
-export class For implements Instruccion{
+export class DoWhile implements Instruccion{
 
     public condicion : Instruccion;
     public lista_instrucciones : Array<Instruccion>;
-    public inicio;
-    public fin;
     public fila : number;
     public columna : number;
 
-    constructor(condicion, lista_instrucciones, inicio, fin, fila, columna) {
+    constructor(condicion, lista_instrucciones, fila, columna) {
         this.condicion = condicion;
         this.lista_instrucciones = lista_instrucciones;
-        this.inicio = inicio;
-        this.fin = fin;
         this.fila = fila;
         this.columna = columna;
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let ts_for = new TablaSimbolos(table);
-        this.inicio.ejecutar(ts_for, tree);
-        let valor_condicion = this.condicion.ejecutar(ts_for, tree);
+        let valor_condicion = this.condicion.ejecutar(table, tree);
 
         if(typeof valor_condicion == 'boolean'){
-
-            while(this.condicion.ejecutar(ts_for, tree)){
-
-                let ts_local = new TablaSimbolos(ts_for);
+            do{
+                let ts_local = new TablaSimbolos(table);
 
                 for(let ins of this.lista_instrucciones){
                     let res = ins.ejecutar(ts_local, tree);
@@ -54,8 +45,8 @@ export class For implements Instruccion{
                         }
                     }
                 }
-                this.fin.ejecutar(ts_for, tree);
             }
+            while(this.condicion.ejecutar(table, tree))
         }
     }
 
