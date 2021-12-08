@@ -1510,13 +1510,13 @@ if (typeof module !== 'undefined' && require.main === module) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
 class Ast {
-    constructor() {
+    constructor(instrucciones) {
         this.consola = "";
         this.TSglobal = null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
-        this.instrucciones = new Array();
+        this.instrucciones = instrucciones;
         this.funciones = new Array();
         this.structs = new Array();
         this.Errores = new Array();
@@ -1526,17 +1526,17 @@ class Ast {
         this.contador = 0;
         this.strEntorno = "";
     }
-    ejecutar(table, tree) {
-        // 1ERA PASADA: 
-        // GUARDAR FUNCIONES  Y METODOS
-        // for( let instr of this.instrucciones){
-        // }
-        // 2DA PASADA
-        // EJECUTAMOS TODAS LAS FUNCIONES
-        for (let instr of this.instrucciones) {
-            instr.ejecutar(table, tree);
-        }
-    }
+    // public ejecutar(table: TablaSimbolos, tree: Ast){
+    //     // 1ERA PASADA: 
+    //     // GUARDAR FUNCIONES  Y METODOS
+    //     // for( let instr of this.instrucciones){
+    //     // }
+    //     // 2DA PASADA
+    //     // EJECUTAMOS TODAS LAS FUNCIONES
+    //     this.instrucciones.forEach(instruccion => {
+    //         instruccion.ejecutar(table, tree);
+    //     });
+    // }
     getInstrucciones() {
         return this.instrucciones;
     }
@@ -1593,8 +1593,6 @@ class Ast {
     }
     addStruct(struct) {
         this.structs.concat(struct);
-    }
-    getDot(raiz) {
     }
 }
 exports.Ast = Ast;
@@ -2164,8 +2162,8 @@ class Print {
     ejecutar(table, tree) {
         console.log("entro a print siimmm");
         //TODO: verificar que el tipo del valor sea primitivo 
-        this.parametros.forEach(expresion => {
-            let valor = expresion.ejecutar(table, tree);
+        this.parametros.forEach((expresion) => {
+            let valor = expresion.getValorImplicito(table, tree);
             this.value += valor.toString();
             return valor;
         });
@@ -2184,7 +2182,7 @@ class Print {
         padre.addChildNode(new Nodo_1.default("print", ""));
         padre.addChildNode(new Nodo_1.default("(", ""));
         let hijo = new Nodo_1.default("exp", "");
-        hijo.addChildNode(this.parametros.recorrer());
+        // hijo.addChildNode(this.parametros.recorrer());
         padre.addChildNode(hijo);
         padre.addChildNode(new Nodo_1.default(")", ""));
         return padre;
@@ -2322,8 +2320,8 @@ var OperadorLogico;
 // import Nodo from "../../Ast/Nodo";
 
 var myTab = document.getElementById('myTab');
-var itemAbrir = document.getElementById('item1');
-let astGenerado;
+var itemAbrir = document.getElementById('itemAbrir');
+let result;
 let astTraduccion;
 let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
@@ -2331,11 +2329,12 @@ const {Ast} = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
 const {Primitivo} = require("./dist/Expresiones/Primitivo");
 const {TablaSimbolos} = require("./dist/TablaSimbolos/TablaSimbolos");
+// import {Instruccion} from("./dist/Interfaces/Instruccion");
 // const Lista_Imprimir = require("./dist/Lista_imprimir");
 
 const compilar = document.getElementById('compilarProyecto');
 
-var text = CodeMirror.fromTextArea(document.getElementById("textInitial"),{
+var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "javascript",
     theme:"ttcn",
     lineNumbers:true,
@@ -2493,7 +2492,7 @@ function limpiarTab(){
 compilar.addEventListener('click', () => {
 
     // let listaImprimir = Lista_Imprimir.getInstance();
-
+    // alert("dsfasdfa");
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
     let indexTab = 0;
@@ -2515,48 +2514,48 @@ compilar.addEventListener('click', () => {
     
     //parse(editores[indexTab].codeEditor.getValue());
     
-    var textArea2 = document.getElementById("exampleFormControlTextarea1");
-    $("#exampleFormControlTextarea1").val("");
+    var txtConsola = document.getElementById("textAreaConsola");
+    $("#textAreaConsola").val("");
 
-    // try{
+    try{
         // listaImprimir.length = 0;
         // listaErrores.length = 0;
-        astGenerado = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        console.log(astGenerado);
+        result = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        // console.log(result);
         let tablaSimbolos = new TablaSimbolos();
-        let astEjecucion = new Ast();
-        astEjecucion.ejecutar(tablaSimbolos, astEjecucion);
-        let output = astEjecucion.getConsola()
+        let astEjecucion = new Ast(result);
+        result.forEach(res => {
+            res.ejecutar(tablaSimbolos, astEjecucion);
+        });
+        // let output = astEjecucion.getConsola();
 
-        // console.log("astgenerado: " + astGenerado)
+        // alert("result: " + result)
+        alert("getcconsola: " + astEjecucion.getConsola().toString())
         // let entorno = new Entorno(null);
         // entorno.setGlobal(entorno);
         // entorno.setPadre(null);
         // entornoAnalizar = entorno;
-        // astGenerado.entornoGlobal.setGlobal(astGenerado.entornoGlobal);
-        // astGenerado.entornoGlobal.setPadre(null);
-        // astGenerado.ejecutar(entorno);
+        // result.entornoGlobal.setGlobal(result.entornoGlobal);
+        // result.entornoGlobal.setPadre(null);
+        // result.ejecutar(entorno);
     
         let texto = "***************************************** SALIDA *****************************************";
         
-        // listaImprimir.forEach(
+        // astEjecucion.get.forEach(
         //     element =>{
         //         texto += ("\n"+element);
         //     }
         // );
+        texto += astEjecucion.getConsola();
+        $("#textAreaConsola").val(texto);
+        txtConsola.append(texto);
+        // listaImprimir = [];
         
-        $("#exampleFormControlTextarea1").val(output);
-        //textArea2.append(texto);
-        //listaImprimir = [];
-        
-
-        
-
-        alert('Gramatica Correcta');
-    // }catch(e){
-    //     alert('Gramatica Incorrecta');
-    //     alert(e);
-    // }
+        alert('Gramatica Correcta aaa');
+    }catch(e){
+        alert('Gramatica Incorrecta');
+        alert(e);
+    }
 
 
 });
@@ -2566,7 +2565,7 @@ function reporteAST(){
     let arbol = new Arbol();
     
     //parse(editores[indexTab].codeEditor.getValue());
-    let result = arbol.generarDot(astGenerado);
+    let result = arbol.generarDot(result);
     //console.log(result);
 
     var clickedTab = document.getElementById("clickedTab");
@@ -2609,14 +2608,14 @@ function traducirProyecto(){
         let entorno = new Entorno(null);
         entorno.setGlobal(entorno);
         entorno.setPadre(null);
-        //astTraduccion.entornoGlobal.setGlobal(astGenerado.entornoGlobal);
+        //astTraduccion.entornoGlobal.setGlobal(result.entornoGlobal);
         //astTraduccion.entornoGlobal.setPadre(null);
         let textoTraduccion = astTraduccion.traducir(entorno);
     
         agregarNuevoTab();
         let tam =  editores.length;
         editores[tam-1].codeEditor.setValue(textoTraduccion);
-        //textArea2.append(texto);
+        //txtConsola.append(texto);
         //listaImprimir = [];
         
 

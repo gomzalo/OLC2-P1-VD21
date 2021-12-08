@@ -15,8 +15,8 @@ class Print {
     ejecutar(table, tree) {
         console.log("entro a print siimmm");
         //TODO: verificar que el tipo del valor sea primitivo 
-        this.parametros.forEach(expresion => {
-            let valor = expresion.ejecutar(table, tree);
+        this.parametros.forEach((expresion) => {
+            let valor = expresion.getValorImplicito(table, tree);
             this.value += valor.toString();
             return valor;
         });
@@ -35,7 +35,7 @@ class Print {
         padre.addChildNode(new Nodo_1.default("print", ""));
         padre.addChildNode(new Nodo_1.default("(", ""));
         let hijo = new Nodo_1.default("exp", "");
-        hijo.addChildNode(this.parametros.recorrer());
+        // hijo.addChildNode(this.parametros.recorrer());
         padre.addChildNode(hijo);
         padre.addChildNode(new Nodo_1.default(")", ""));
         return padre;

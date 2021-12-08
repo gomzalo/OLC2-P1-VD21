@@ -7,14 +7,14 @@ export class Ast  {
     public structs ;
     public Errores ;
     public consola: string = "";
-    public TSglobal =  null;
-    public dot = "";
-    public contador = 0;
-    public strEntorno= "";
+    public TSglobal : TablaSimbolos =  null;
+    public dot : string = "";
+    public contador : number = 0;
+    public strEntorno : string = "";
 
 
-    constructor(){
-        this.instrucciones = new Array<Instruccion>();
+    constructor(instrucciones: Array<Instruccion>){
+        this.instrucciones = instrucciones;
         this.funciones =  new Array();
         this.structs =  new Array();
         this.Errores = new Array();
@@ -25,19 +25,19 @@ export class Ast  {
         this.strEntorno= "";
     }
 
-    public ejecutar(table: TablaSimbolos, tree: Ast){
-        // 1ERA PASADA: 
-        // GUARDAR FUNCIONES  Y METODOS
-        // for( let instr of this.instrucciones){
+    // public ejecutar(table: TablaSimbolos, tree: Ast){
+    //     // 1ERA PASADA: 
+    //     // GUARDAR FUNCIONES  Y METODOS
+    //     // for( let instr of this.instrucciones){
 
-        // }
+    //     // }
 
-        // 2DA PASADA
-        // EJECUTAMOS TODAS LAS FUNCIONES
-        for( let instr of this.instrucciones){
-            instr.ejecutar(table,tree);
-        }
-    }
+    //     // 2DA PASADA
+    //     // EJECUTAMOS TODAS LAS FUNCIONES
+    //     this.instrucciones.forEach(instruccion => {
+    //         instruccion.ejecutar(table, tree);
+    //     });
+    // }
 
     public getInstrucciones(){
         return this.instrucciones;
@@ -69,11 +69,11 @@ export class Ast  {
     }
 
     public updateConsolaPrintln(cadena: string){
-        this.consola += cadena + '\n'
+        this.consola += cadena + '\n';
     }
 
     public updateConsolaPrint(cadena){
-        this.consola += cadena
+        this.consola += cadena;
     }
 
     public getTSGlobal(){
@@ -91,7 +91,7 @@ export class Ast  {
                 return func;
             }
         }); 
-        return null
+        return null;
     }
 
     public addFunction(funcion){
@@ -111,7 +111,7 @@ export class Ast  {
         this.structs.concat(struct);
     }
 
-    public getDot(raiz){
+    // public getDot(raiz){
         
-    }
+    // }
 }

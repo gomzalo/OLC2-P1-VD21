@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
 class Ast {
-    constructor() {
+    constructor(instrucciones) {
         this.consola = "";
         this.TSglobal = null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
-        this.instrucciones = new Array();
+        this.instrucciones = instrucciones;
         this.funciones = new Array();
         this.structs = new Array();
         this.Errores = new Array();
@@ -18,17 +18,17 @@ class Ast {
         this.contador = 0;
         this.strEntorno = "";
     }
-    ejecutar(table, tree) {
-        // 1ERA PASADA: 
-        // GUARDAR FUNCIONES  Y METODOS
-        // for( let instr of this.instrucciones){
-        // }
-        // 2DA PASADA
-        // EJECUTAMOS TODAS LAS FUNCIONES
-        for (let instr of this.instrucciones) {
-            instr.ejecutar(table, tree);
-        }
-    }
+    // public ejecutar(table: TablaSimbolos, tree: Ast){
+    //     // 1ERA PASADA: 
+    //     // GUARDAR FUNCIONES  Y METODOS
+    //     // for( let instr of this.instrucciones){
+    //     // }
+    //     // 2DA PASADA
+    //     // EJECUTAMOS TODAS LAS FUNCIONES
+    //     this.instrucciones.forEach(instruccion => {
+    //         instruccion.ejecutar(table, tree);
+    //     });
+    // }
     getInstrucciones() {
         return this.instrucciones;
     }
@@ -85,8 +85,6 @@ class Ast {
     }
     addStruct(struct) {
         this.structs.concat(struct);
-    }
-    getDot(raiz) {
     }
 }
 exports.Ast = Ast;
