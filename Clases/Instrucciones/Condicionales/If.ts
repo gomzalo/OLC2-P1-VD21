@@ -9,6 +9,8 @@ import { Nodo } from "../../Ast/Nodo";
 import { Ast } from "../../Ast/Ast"
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { Detener } from '../Transferencia/Break';
+import { Continuar } from '../Transferencia/Continuar';
+import { Return } from '../Transferencia/Return';
 
 export class If implements Instruccion{
 

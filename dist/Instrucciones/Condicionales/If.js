@@ -5,6 +5,8 @@ const Primitivo_1 = require("./../../Expresiones/Primitivo");
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Return_1 = require("../Transferencia/Return");
 class If {
     constructor(condicion, lista_ifs, lista_elses, fila, columna) {
         this.condicion = condicion;
@@ -26,12 +28,12 @@ class If {
                             return res;
                         }
                         else {
-                            if (ins instanceof Continuar || res instanceof Continuar) {
+                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
                                 // controlador.graficarEntornos(controlador,ts_local," (case)");
                                 return ins;
                             }
                             else {
-                                if (ins instanceof Return || res instanceof Return) {
+                                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
                                     // controlador.graficarEntornos(controlador,ts_local," (case)");
                                     return ins;
                                 }
@@ -47,12 +49,12 @@ class If {
                             return res;
                         }
                         else {
-                            if (ins instanceof Continuar || res instanceof Continuar) {
+                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
                                 // controlador.graficarEntornos(controlador,ts_local," (case)");
                                 return ins;
                             }
                             else {
-                                if (ins instanceof Return || res instanceof Return) {
+                                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
                                     // controlador.graficarEntornos(controlador,ts_local," (case)");
                                     return ins;
                                 }
