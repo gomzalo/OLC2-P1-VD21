@@ -52,9 +52,11 @@ class Ast {
         this.consola = consola;
     }
     updateConsolaPrintln(cadena) {
+        // console.log("cad println: " + cadena);
         this.consola += cadena + '\n';
     }
     updateConsolaPrint(cadena) {
+        // console.log("cad print: " + cadena);
         this.consola += cadena;
     }
     getTSGlobal() {

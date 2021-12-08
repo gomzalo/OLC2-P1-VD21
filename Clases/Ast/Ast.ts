@@ -69,10 +69,12 @@ export class Ast  {
     }
 
     public updateConsolaPrintln(cadena: string){
+        // console.log("cad println: " + cadena);
         this.consola += cadena + '\n';
     }
 
-    public updateConsolaPrint(cadena){
+    public updateConsolaPrint(cadena: string){
+        // console.log("cad print: " + cadena);
         this.consola += cadena;
     }
 

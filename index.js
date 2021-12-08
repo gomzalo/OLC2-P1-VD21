@@ -213,7 +213,7 @@ compilar.addEventListener('click', () => {
         // let output = astEjecucion.getConsola();
 
         // alert("result: " + result)
-        alert("getcconsola: " + astEjecucion.getConsola().toString())
+        // alert("getcconsola: " + astEjecucion.getConsola().toString())
         // let entorno = new Entorno(null);
         // entorno.setGlobal(entorno);
         // entorno.setPadre(null);
@@ -222,7 +222,7 @@ compilar.addEventListener('click', () => {
         // result.entornoGlobal.setPadre(null);
         // result.ejecutar(entorno);
     
-        let texto = "***************************************** SALIDA *****************************************";
+        let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         // astEjecucion.get.forEach(
         //     element =>{

@@ -6,11 +6,11 @@ import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 
 export class Print implements Instruccion{
 
-    public parametros : Array<Expresion>;
+    public parametros : Array<Instruccion>;
     public fila : number;
     public columna : number;
     public tipo : boolean;
-    public value : String;
+    public value : string;
 
     constructor(parametros, fila, columna, tipo) {
         this.parametros =parametros;
@@ -20,11 +20,12 @@ export class Print implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        console.log("entro a print siimmm");
+        // console.log("print params: " + this.parametros.toString());
         //TODO: verificar que el tipo del valor sea primitivo
-        
-        this.parametros.forEach((expresion: Expresion) => {
-            let valor = expresion.getValorImplicito(table,tree);
+        this.value = "";
+        this.parametros.forEach((expresion: Instruccion) => {
+            let valor = expresion.ejecutar(table,tree);
+            console.log("print exp val: " + valor.toString());
             this.value += valor.toString();
             return valor;
         });

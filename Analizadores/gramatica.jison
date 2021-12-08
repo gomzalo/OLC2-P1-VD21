@@ -30,6 +30,7 @@ BSL                                 "\\".
 */
 
 "print"                     return 'PRINT';
+"println"                   return 'PRINTLN';
 "null"                      return 'NULL';
 "true"                      return 'TRUE';
 "false"                     return 'FALSE';
@@ -85,6 +86,9 @@ BSL                                 "\\".
                                         console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
                                     }
 
+/* Espacios */
+[\r\n\t]                  {/* skip whitespace */}
+
 <<EOF>>                     return 'EOF'
 
 /lex
@@ -98,7 +102,6 @@ BSL                                 "\\".
     const {Primitivo} = require("../dist/Expresiones/Primitivo");
     const {Logica} = require("../dist/Expresiones/Operaciones/Logicas");
     const {Relacional} = require("../dist/Expresiones/Operaciones/Relacionales");
-    const {Exoresion} = require("../dist/Interfaces/Instruccion");
 
     const {Ast} = require("../dist/Ast/Ast");
 
@@ -160,10 +163,15 @@ instrucciones:
 
 instruccion:
     print PUNTOCOMA                     { $$ = $1 }
+    | println PUNTOCOMA                 { $$ = $1 }
     ;
 
 print:
-    PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column); } ;
+    PRINT PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, false); } ;
+
+println:
+    PRINTLN PARA lista_parametros PARC    { $$ = new Print($3, @1.first_line, @1.first_column, true); } ;
+
 
 lista_parametros: 
     lista_parametros COMA expr     { $$ = $1; $$.push($3); }

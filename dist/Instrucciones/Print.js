@@ -13,10 +13,12 @@ class Print {
         this.tipo = tipo;
     }
     ejecutar(table, tree) {
-        console.log("entro a print siimmm");
-        //TODO: verificar que el tipo del valor sea primitivo 
+        // console.log("print params: " + this.parametros.toString());
+        //TODO: verificar que el tipo del valor sea primitivo
+        this.value = "";
         this.parametros.forEach((expresion) => {
-            let valor = expresion.getValorImplicito(table, tree);
+            let valor = expresion.ejecutar(table, tree);
+            console.log("print exp val: " + valor.toString());
             this.value += valor.toString();
             return valor;
         });
