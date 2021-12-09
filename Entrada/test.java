@@ -69,6 +69,7 @@
         println("Erick no puñeta xd");
     println("************   ASGINACIONES  **************");
     
-    int test1, test2, test3;
+    int test1, test2 = 56, test3;
     int test;
     println(test);
+    println(test2);
