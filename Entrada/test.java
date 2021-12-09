@@ -130,4 +130,5 @@
     println(respuesta);
 
     println(animal == "Perro" ? 15 : 10);
+    println(animal == "Perro" ? animal == "Perro" ? "adentro" : 10 : 10); //adentro
 
