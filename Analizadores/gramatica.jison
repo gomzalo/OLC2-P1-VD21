@@ -123,7 +123,7 @@ BSL                                 "\\".
     const { TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
     /*::::::::::::::::::     Expresiones      ::::::::::::::::::*/
     const { Primitivo } = require("../dist/Expresiones/Primitivo");
-    const {Identificador} = require("../dist/Expresiones/Identificador");
+    const { Identificador } = require("../dist/Expresiones/Identificador");
     /*..............     Operaciones      ...............*/
     const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
     const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
@@ -133,6 +133,7 @@ BSL                                 "\\".
     const { Print } = require("../dist/Instrucciones/Print");
     /*..............     Condicionales      ...............*/
     const { If } = require("../dist/Instrucciones/Condicionales/If");
+    const { Ifsinllave } = require("../dist/Instrucciones/Condicionales/Ifsinllave");
     /*..............     DECLARACION Y ASIGNACION      ...............*/
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
     const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
@@ -186,13 +187,14 @@ instrucciones:
 instruccion:
         print_instr PUNTOCOMA               { $$ = $1 }
     |   println_instr PUNTOCOMA             { $$ = $1 }
-    |   declaracion                         { $$ = $1 }
+    |   declaracion PUNTOCOMA               { $$ = $1 }
+    |   if_llav_instr                       { $$ = $1 }
     |   if_instr                            { $$ = $1 }
     ;
 /*..............     Declaraciones      ...............*/
 
 declaracion : 
-        tipo lista_simbolos PUNTOCOMA       { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column,$2); }
+        tipo lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column,$2); }
     ; 
 
 lista_simbolos :
@@ -211,17 +213,35 @@ println_instr:
         RPRINTLN PARA lista_parametros PARC { $$ = new Print($3, @1.first_line, @1.first_column, true); }
     ;
 
-/*..............     If      ...............*/
-if_instr:
+/*..............     If con llave     ...............*/
+if_llav_instr:
+    // If
         RIF PARA expr PARC
         LLAVA instrucciones LLAVC           { $$ = new If($3, $6, null, @1.first_line, @1.first_column); }
+    // If-else
     |   RIF PARA expr PARC
         LLAVA instrucciones LLAVC
         RELSE LLAVA instrucciones LLAVC     { $$ = new If($3, $6, $10, @1.first_line, @1.first_column); }
+    // If-elseif
+    |   RIF PARA expr PARC
+        LLAVA instrucciones LLAVC
+        RELSE if_llav_instr                 { $$ = new If($3, $6, [$9], @1.first_line, @1.first_column); }
     ;
-
+/*..............     If sin llave     ...............*/
+if_instr:
+    // If
+        RIF PARA expr PARC
+        instruccion                         { $$ = new Ifsinllave($3, $5, null, @1.first_line, @1.first_column); }
+    // If-else
+    |   RIF PARA expr PARC
+        instruccion
+        RELSE instruccion                   { $$ = new Ifsinllave($3, $5, $7, @1.first_line, @1.first_column); }
+    // If-elseif
+    |   RIF PARA expr PARC
+        instruccion
+        RELSE if_instr                      { $$ = new Ifsinllave($3, $5, [$7], @1.first_line, @1.first_column); }
+    ;
 /*..............     Lista parametros      ...............*/
-
 lista_parametros: 
         lista_parametros COMA expr          { $$ = $1; $$.push($3); }
     |   expr                                { $$ = new Array(); $$.push($1);}
@@ -235,7 +255,6 @@ tipo :
     |   RCHAR       { $$ = TIPO.CHARACTER; }
     |   RBOOLEAN    { $$ = TIPO.BOOLEANO; }
     ;
-
 
 /*..............     Expresiones      ...............*/
 expr: 

@@ -19,10 +19,54 @@
     println(56 < 48 && 68 >=12 && 62 != 96);    // false
     println((21.0==20.5||95>=94)&&((19<39&&83<=96)||35<97));    // true
     println((68==33||(2<95&&17==37))&&63<=9||12<=42||25==1);    // true
-    println("************   IF  **************");
+    println("************   IF con {}  **************");
     if(true){
         println("Erick puñeta xd");
     }
+    println("************   IF-ELSE  con {} **************");
+    if(false){
+        println("Erick puñeta xd");
+    }else{
+        println("Erick no puñeta xd");
+    }
+    println("************   IF-ELSEIF-ELSE Anidados  con {} **************");
+    if(false){
+        println("Erick puñeta xd");
+    }else if(true){
+        println("Erick elsif puñeta xd");
+    }else{
+        println("Erick no puñeta xd");
+    }
+    if(false){
+        println("Erick puñeta xd");
+    }else if(true){
+        println("Erick elsif puñeta xd");
+        if(true){
+            println("if dentro de elseif");
+            if(true){
+                println("if dentro de elseif x2");
+            }
+        }else{
+            println("else dentro de elseif");
+        }
+    }else{
+        println("Erick no puñeta xd");
+    }
+    println("************   IF sin {}  **************");
+    if(true)
+        println("Erick puñeta xd");
+    println("************   IF-ELSE sin {} **************");
+    if(false)
+        println("Erick puñeta xd");
+    else
+        println("Erick no puñeta xd");
+    println("************   IF-ELSEIF  sin {} **************");
+    if(false)
+        println("Erick puñeta xd");
+    else if(true)
+        println("Erick elsif puñeta xd");
+    else
+        println("Erick no puñeta xd");
     println("************   ASGINACIONES  **************");
     
     int test1, test2, test3;
