@@ -25,12 +25,15 @@ export class Print implements Instruccion{
         this.value = "";
         this.parametros.forEach((expresion: Instruccion) => {
             let valor = expresion.ejecutar(table,tree);
-            console.log("print exp val: " + valor);
+            console.log("print exp val: " + String(valor));
+            console.log(valor);
             
             if (this.tipo){
                 this.value += valor.toString() + "\n";
+                // tree.updateConsolaPrintln(String(this.value))
             }else{
                 this.value += valor.toString();
+                // tree.updateConsolaPrint(String(this.value))
             }
             return valor;
         });

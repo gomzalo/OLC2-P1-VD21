@@ -23,12 +23,14 @@ export  class Declaracion implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
 
         for(let simbolo of this.simbolos){
+            
 
             let variable = simbolo as Simbolo;
+            console.log(variable.id)
             if(variable.valor != null){
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
-                let tipo_valor = variable.valor.getTipo();
+                let tipo_valor = variable.tipo;
                 if (valor instanceof Errores)
                 {
                     return valor;
@@ -40,11 +42,12 @@ export  class Declaracion implements Instruccion{
                     table.setSymbolTabla(nuevo_simb);
                 }else{
                     //Error no se puede declarar por incopatibilidad de simbolos
-                    return new Excepcion("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
+                    return new Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 }
                 
             }else{
                 //-- Se agrega a la tabla de simbolos 
+                console.log("id " + variable.id);
                 let nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
                 table.setSymbolTabla(nuevo_simb);
             }

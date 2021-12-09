@@ -11,6 +11,8 @@ class Identificador {
         this.tipo = null;
     }
     ejecutar(table, tree) {
+        console.log("prooobleeemas");
+        console.log(table.existeEnActual(this.id));
         this.symbol = table.getSymbolTabla(this.id);
         if (this.symbol == null) {
             return new Errores_1.Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);

@@ -206,12 +206,14 @@ compilar.addEventListener('click', () => {
         let tablaSimbolos = new TablaSimbolos();
         let astEjecucion = new Ast();
         result.instrucciones.forEach(res => {
-            res.ejecutar(tablaSimbolos, astEjecucion);
+            console.log("hola")
+            console.log(res)
+            res.ejecutar(tablaSimbolos, result);
         });
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
-        texto += astEjecucion.getConsola();
+        texto += result.getConsola();
         $("#textAreaConsola").val(texto);
         txtConsola.append(texto);
         Swal.fire(

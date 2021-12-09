@@ -1,26 +1,38 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
+const Errores_1 = require("../Ast/Errores");
 class TablaSimbolos {
     constructor(anterior) {
         this.anterior = anterior;
         this.tabla = new Map();
     }
     setSymbolTabla(simbolo) {
-        if (simbolo.id in this.tabla) {
-            return new Excepcion("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+        if (this.existeEnActual(simbolo.id)) {
+            console.log("Entreeeeee");
+            return new Errores_1.Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
         }
         else {
-            this.tabla[simbolo.getId()] = simbolo;
+            // this.tabla[simbolo.getId()] = simbolo;
+            this.tabla.set(simbolo.getId(), simbolo);
+            console.log("set simbolo " + simbolo.getId() + " " + simbolo.getValor());
         }
         return null;
+    }
+    existeEnActual(id) {
+        let entorno = this;
+        let existe = entorno.tabla.get(id);
+        if (existe != null) {
+            return true;
+        }
+        return false;
     }
     getSymbolTabla(id) {
         let tablaActual = this;
         while (tablaActual != null) {
             let existe = tablaActual.tabla.get(id);
             if (existe != null) {
-                return tablaActual.tabla[id];
+                return existe;
             }
             else {
                 tablaActual = this.anterior;
@@ -39,12 +51,12 @@ class TablaSimbolos {
                     // AGREGAR STRUCT ACA
                     return null;
                 }
-                return new Excepcion("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+                return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }
             else {
                 tablaActual = this.anterior;
             }
-            return new Excepcion("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+            return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
         }
     }
 }

@@ -199,9 +199,9 @@ declaracion :
 
 lista_simbolos :
         lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
-    |   lista_simbolos COMA ID IGUAL e      { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
+    |   lista_simbolos COMA ID IGUAL expr      { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,$5)); }
     |   ID                                  { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); }
-    |   ID IGUAL e                          { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
+    |   ID IGUAL expr                          { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
     ; 
 
 /*..............     Print      ...............*/

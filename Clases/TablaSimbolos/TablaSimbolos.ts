@@ -1,3 +1,4 @@
+import { Errores } from "../Ast/Errores";
 import { Simbolo } from "./Simbolo";
 import { TIPO } from "./Tipo";
 
@@ -12,12 +13,25 @@ export class TablaSimbolos{
     }
 
     public setSymbolTabla(simbolo: Simbolo){
-        if (simbolo.id in this.tabla){
-            return new Excepcion("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+        if (this.existeEnActual(simbolo.id)){
+            console.log("Entreeeeee")
+            return new Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
         }else{
-            this.tabla[simbolo.getId()] = simbolo;
+            // this.tabla[simbolo.getId()] = simbolo;
+            this.tabla.set(simbolo.getId(),simbolo);
+            console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
         }
         return null;
+    }
+
+    public existeEnActual(id: string): boolean{
+        let entorno : TablaSimbolos = this;
+
+        let existe = entorno.tabla.get(id);
+        if(existe != null){
+            return true;
+        }
+        return false;
     }
 
     public getSymbolTabla(id: string): Simbolo{
@@ -25,7 +39,7 @@ export class TablaSimbolos{
         while(tablaActual != null){
             let existe = tablaActual.tabla.get(id);
             if(existe != null){
-                return tablaActual.tabla[id];
+                return existe;
             }else{
                 tablaActual = this.anterior;
             }
@@ -46,11 +60,11 @@ export class TablaSimbolos{
 
                     return null;
                 }
-                return new Excepcion("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+                return new Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }else{
                 tablaActual = this.anterior
             }
-            return new Excepcion("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+            return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
         }
     }
 }
