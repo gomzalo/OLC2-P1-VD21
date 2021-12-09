@@ -17,6 +17,7 @@ export class Simbolo{
         this.valor =  valor;
         this.arreglo = arreglo;
         this.structEnv = structEnv;
+        console.log("simbolor: "+this.valor);
     }
 
     getId(){

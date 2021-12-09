@@ -27,6 +27,22 @@ class TablaSimbolos {
         }
         return false;
     }
+    existe(id) {
+        let entorno = this;
+        while (entorno != null) {
+            let existe = entorno.tabla.get(id);
+            if (existe != null) {
+                return true;
+            }
+            entorno = entorno.anterior;
+        }
+        return false;
+    }
+    /**
+     * @function  getSymbolTabla
+     * @param id
+     * @returns
+     */
     getSymbolTabla(id) {
         let tablaActual = this;
         while (tablaActual != null) {
@@ -43,14 +59,16 @@ class TablaSimbolos {
     updateSymbolTabla(simbolo) {
         let tablaActual = this;
         while (tablaActual != null) {
-            if (simbolo.id in tablaActual.tabla) {
+            let existe = tablaActual.tabla.get(simbolo.id);
+            if (existe != null) {
                 // validacion DE TIPO
-                if (tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo()) {
-                    tablaActual.tabla[simbolo.id].setValor(simbolo.getValor());
-                    tablaActual.tabla[simbolo.id].setTipo(simbolo.getTipo());
+                if (existe.getTipo() == simbolo.getTipo()) {
+                    existe.setValor(simbolo.getValor());
+                    existe.setTipo(simbolo.getTipo());
                     // AGREGAR STRUCT ACA
                     return null;
                 }
+                console.log(`tipoo exp: ${existe.getTipo()} `);
                 return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }
             else {

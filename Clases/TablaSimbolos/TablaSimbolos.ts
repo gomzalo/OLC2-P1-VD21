@@ -34,7 +34,27 @@ export class TablaSimbolos{
         return false;
     }
 
-    public getSymbolTabla(id: string): Simbolo{
+    public existe(id: string): boolean{
+        let entorno : TablaSimbolos = this;
+
+        while(entorno != null){
+            let existe = entorno.tabla.get(id);
+
+            if(existe != null){
+                return true;
+            }
+            entorno = entorno.anterior;
+        }
+        return false;
+    }
+    /**
+     * @function  getSymbolTabla
+     * @param id 
+     * @returns 
+     */
+
+    public getSymbolTabla(id: string):Simbolo
+    {
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             let existe = tablaActual.tabla.get(id);
@@ -50,16 +70,18 @@ export class TablaSimbolos{
     public updateSymbolTabla(simbolo){
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
-            if(simbolo.id in tablaActual.tabla){
+            let existe = tablaActual.tabla.get(simbolo.id);
+            if(existe != null){
                 // validacion DE TIPO
-                if(tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo() ){
-                    tablaActual.tabla[simbolo.id].setValor(simbolo.getValor());
-                    tablaActual.tabla[simbolo.id].setTipo(simbolo.getTipo());
+                if(existe.getTipo() == simbolo.getTipo() ){
+                    existe.setValor(simbolo.getValor());
+                    existe.setTipo(simbolo.getTipo());
 
                     // AGREGAR STRUCT ACA
 
                     return null;
                 }
+                console.log(`tipoo exp: ${existe.getTipo()} `)
                 return new Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }else{
                 tablaActual = this.anterior

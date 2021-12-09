@@ -75,3 +75,12 @@
     println(test);
     println(test2);
     println(cprueba);
+    println("************   INCREMENTOS  **************");
+    test1++;
+    test1++;
+    test1--;
+    println(test1); //1
+
+    test=-34;
+    println(test); // -117
+

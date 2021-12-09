@@ -20,12 +20,12 @@ class Aritmetica {
         let valor_expU;
         let tipoGeneral;
         if (this.expU == false) {
-            valor_exp1 = this.exp1.ejecutar(tree, table);
-            valor_exp2 = this.exp2.ejecutar(tree, table);
+            valor_exp1 = this.exp1.ejecutar(table, tree);
+            valor_exp2 = this.exp2.ejecutar(table, tree);
             tipoGeneral = this.getTipoMax(this.exp1.tipo, this.exp2.tipo);
         }
         else {
-            valor_expU = this.exp1.ejecutar(tree, table);
+            valor_expU = this.exp1.ejecutar(table, tree);
         }
         /**
          * Para las siguientes validaciones nos basamos en la tabla de
@@ -88,6 +88,7 @@ class Aritmetica {
                 break;
             case Tipo_1.OperadorAritmetico.UMENOS:
                 if (this.exp1.tipo == Tipo_1.TIPO.ENTERO || this.exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+                    this.tipo = this.exp1.tipo;
                     return -valor_expU;
                 }
                 else {

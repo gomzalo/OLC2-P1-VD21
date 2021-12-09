@@ -7,13 +7,13 @@ import { Simbolo } from "../TablaSimbolos/Simbolo"
 import { Nodo } from "../Ast/Nodo";
 
 export class Identificador implements Instruccion{
-    public id ;
+    public id : string ;
     public fila: number ;
     public columna :  number;
     public tipo : TIPO;
-    public symbol :Simbolo;
+    public symbol :Simbolo| any;
 
-    constructor(id, fila, columna){
+    constructor(id:string, fila, columna){
         this.id =id
         this.fila = fila
         this.columna = columna
@@ -21,9 +21,11 @@ export class Identificador implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        console.log("prooobleeemas");
-        console.log(table.existeEnActual(this.id));
+        // console.log(table.existeEnActual(this.id));
+        console.log((table));
+        // table.getSymbolTabla(this.id);
         this.symbol = table.getSymbolTabla(this.id);
+        // console.log(table.getSymbolTabla(this.id));
 
         if (this.symbol == null){
             return new Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);

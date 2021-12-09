@@ -50,6 +50,9 @@ BSL                                 "\\".
 "char"                      { return 'RCHAR' };
 "String"                    { return 'RSTRING' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
+/*..............     Aumento-decremento      ...............*/
+"++"                        { return 'INCRE'};
+"--"                        { return 'DECRE'};
 /* ..............      Aritmeticos      ...............*/
 "+"                         { return 'MAS' };
 "-"                         { return 'MENOS' };
@@ -70,9 +73,7 @@ BSL                                 "\\".
 "||"                        { return 'OR' };
 "!"                         { return 'NOT' };
 "&"                         { return 'AMPERSON' };
-/*..............     Aumento-decremento      ...............*/
-"++"                        { return 'INCRE'};
-"--"                        { return 'DECRE'};
+
 /*..............     Asociacion      ...............*/
 "("                         { return 'PARA' };
 ")"                         { return 'PARC' };
@@ -136,6 +137,7 @@ BSL                                 "\\".
     const { Ifsinllave } = require("../dist/Instrucciones/Condicionales/Ifsinllave");
     /*..............     DECLARACION Y ASIGNACION      ...............*/
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
+    const { Asignacion } = require("../dist/Instrucciones/Asignacion");
     const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
 
 %}
@@ -157,6 +159,7 @@ BSL                                 "\\".
 %left   'MULTI' 'DIV' 'PORCENTAJE'
 %left   'POTENCIA'
 %right  'UMINUS'
+%right  'INCRE' 'DECRE'
 %right  'PARA' 'PARC'
 // %nonassoc 'IGUAL'
 
@@ -187,7 +190,9 @@ instrucciones:
 instruccion:
         print_instr PUNTOCOMA               { $$ = $1 }
     |   println_instr PUNTOCOMA             { $$ = $1 }
+    |   asignacion  PUNTOCOMA               { $$ = $1 }
     |   declaracion PUNTOCOMA               { $$ = $1 }
+    
     |   if_llav_instr                       { $$ = $1 }
     |   if_instr                            { $$ = $1 }
     ;
@@ -203,6 +208,11 @@ lista_simbolos :
     |   ID                                  { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); }
     |   ID IGUAL expr                          { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
     ; 
+
+asignacion :    ID IGUAL expr   { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
+            |   ID INCRE        { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+            |   ID DECRE        { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+            ; 
 
 /*..............     Print      ...............*/
 print_instr:
@@ -285,6 +295,6 @@ expr:
     |   FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
     |   ID                        { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
 //     /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
-//     /*| ID INCRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}
-//     | ID DECRE          {$$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, $1.first_line, $1.last_column), $1.first_line, $1.last_column, false);}*/
+    |   ID INCRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
+    |   ID DECRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     ;
