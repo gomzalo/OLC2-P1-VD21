@@ -28,9 +28,9 @@ BSL                                 "\\".
 \s+                                 /* skip whitespace */
 
 /*
-###################################################
+###################################################################
 ###############     Simbolos y palabras reservadas       ################
-###################################################
+###################################################################
 */
 /*::::::::::::::::::     Palabras reservadas      ::::::::::::::::::*/
 /* ..............      Instrucciones      ...............*/
@@ -42,6 +42,9 @@ BSL                                 "\\".
 "switch"                    { return 'RSWITCH' };
 "case"                      { return 'RCASE' };
 "default"                   { return 'RDEFAULT' };
+// Ciclicas
+"while"                     { return 'RWHILE' };
+"for"                       { return 'RFOR' };
 /* ..............      Tipos      ...............*/
 "null"                      { return 'NULL' };
 "true"                      { return 'TRUE' };
@@ -133,7 +136,6 @@ BSL                                 "\\".
     const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
     const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
     const { Relacional } = require("../dist/Expresiones/Operaciones/Relacionales");
-
     /*::::::::::::::::::     Instrucciones      ::::::::::::::::::*/
     const { Print } = require("../dist/Instrucciones/Print");
     /*..............     Condicionales      ...............*/
@@ -145,6 +147,10 @@ BSL                                 "\\".
     const { Detener } = require("../dist/Instrucciones/Transferencia/Break");
     const { Continuar } = require("../dist/Instrucciones/Transferencia/Continuar");
     const { Return } = require("../dist/Instrucciones/Transferencia/Return");
+    /*..............     Ciclicas      ...............*/
+    const { While } = require("../dist/Instrucciones/Ciclicas/While");
+    const { DoWhile } = require("../dist/Instrucciones/Ciclicas/DoWhile");
+    const { For } = require("../dist/Instrucciones/Ciclicas/For");
     /*..............     Declaracion y asignacion      ...............*/
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
     const { Asignacion } = require("../dist/Instrucciones/Asignacion");
@@ -199,13 +205,13 @@ instruccion:
     |   println_instr PUNTOCOMA             { $$ = $1 }
     |   asignacion  PUNTOCOMA               { $$ = $1 }
     |   declaracion PUNTOCOMA               { $$ = $1 }
-    
     |   if_llav_instr                       { $$ = $1 }
     |   if_instr                            { $$ = $1 }
     |   switch_instr                        { $$ = $1 }
     |   break_instr PUNTOCOMA               { $$ = $1 }
     |   continue_instr PUNTOCOMA            { $$ = $1 }
     |   return_instr PUNTOCOMA              { $$ = $1 }
+    |   while_instr                         { $$ = $1 }
     ;
 /*..............     Declaraciones      ...............*/
 declaracion : 
@@ -293,7 +299,7 @@ lista_parametros:
     ;
 /*..............     Break      ...............*/
 break_instr:
-        RBREAK                                  { $$ = new Detener(); }
+        RBREAK                              { $$ = new Detener(); }
     ;
 /*..............     Continue      ...............*/
 continue_instr:
@@ -303,7 +309,11 @@ continue_instr:
 return_instr:
         RRETURN expr                        { $$ = new Return($2); }
     ;
-/*..............     Return      ...............*/
+/*..............     While      ...............*/
+while_instr:
+        RWHILE PARA expr PARC
+        LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); }
+    ;
 /*..............     Tipos      ...............*/
 tipo : 
         RINT        { $$ = TIPO.ENTERO; }

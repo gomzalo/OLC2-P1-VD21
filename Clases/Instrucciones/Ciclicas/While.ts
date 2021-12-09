@@ -1,3 +1,4 @@
+import { Errores } from './../../Ast/Errores';
 import { Instruccion } from './../../Interfaces/Instruccion';
 import { OperadorLogico } from './../../TablaSimbolos/Tipo';
 import { Nodo } from "../../Ast/Nodo";
@@ -11,7 +12,7 @@ import { Return } from '../Transferencia/Return';
 
 export class While implements Instruccion{
 
-    public condicion : Instruccion;
+    public condicion : any;
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
@@ -24,29 +25,31 @@ export class While implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let valor_condicion = this.condicion.ejecutar(table, tree);
-
-        if(typeof valor_condicion == 'boolean'){
-
-            while(this.condicion.ejecutar(table, tree)){
-
-                let ts_local = new TablaSimbolos(table);
-
-                for(let ins of this.lista_instrucciones){
-                    let res = ins.ejecutar(ts_local, tree);
-                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if(ins instanceof Detener || res instanceof Detener ){
-                        return null;
-                    }else{
-                        if(ins instanceof Continuar || res instanceof Continuar){
+        while(true){
+            let valor_condicion = this.condicion.ejecutar(table, tree);
+            alert("tipo condicion: " + typeof(valor_condicion));
+            alert("valor condicion: " + valor_condicion);
+            if(this.condicion.tipo == TIPO.BOOLEANO){
+                if(Boolean(valor_condicion)){
+                    let ts_local = new TablaSimbolos(table);
+                    for(let ins of this.lista_instrucciones){
+                        let res = ins.ejecutar(ts_local, tree);
+                        alert("type res: " + typeof(res));
+                        alert("valor res: " + res);
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if(ins instanceof Detener || res instanceof Detener ){
+                            return null;
+                        }else if(ins instanceof Continuar || res instanceof Continuar){
                             break;
-                        }else{
-                            if(ins instanceof Return || res instanceof Return){
-                                return res;
-                            }
+                        }else if(ins instanceof Return || res instanceof Return){
+                            return res;
                         }
                     }
+                }else{
+                    break;
                 }
+            }else{
+                return new Errores("Semantico", "Valor no booleano", this.fila, this.columna);
             }
         }
     }
