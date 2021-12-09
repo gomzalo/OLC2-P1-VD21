@@ -21,26 +21,26 @@
     println((68==33||(2<95&&17==37))&&63<=9||12<=42||25==1);    // true
     println("************   IF con {}  **************");
     if(true){
-        println("Erick puñeta xd");
+        println("puñeta xd");
     }
     println("************   IF-ELSE  con {} **************");
     if(false){
-        println("Erick puñeta xd");
+        println("puñeta xd");
     }else{
-        println("Erick no puñeta xd");
+        println("no puñeta xd");
     }
     println("************   IF-ELSEIF-ELSE Anidados  con {} **************");
     if(false){
-        println("Erick puñeta xd");
+        println("puñeta xd");
     }else if(true){
-        println("Erick elsif puñeta xd");
+        println("elsif puñeta xd");
     }else{
-        println("Erick no puñeta xd");
+        println("no puñeta xd");
     }
     if(false){
-        println("Erick puñeta xd");
+        println("puñeta xd");
     }else if(true){
-        println("Erick elsif puñeta xd");
+        println("elsif puñeta xd");
         if(true){
             println("if dentro de elseif");
             if(true){
@@ -50,23 +50,61 @@
             println("else dentro de elseif");
         }
     }else{
-        println("Erick no puñeta xd");
+        println("no puñeta xd");
     }
     println("************   IF sin {}  **************");
     if(true)
-        println("Erick puñeta xd");
+        println("puñeta xd");
     println("************   IF-ELSE sin {} **************");
     if(false)
-        println("Erick puñeta xd");
+        println("puñeta xd");
     else
-        println("Erick no puñeta xd");
+        println("no puñeta xd");
     println("************   IF-ELSEIF  sin {} **************");
     if(false)
-        println("Erick puñeta xd");
+        println("puñeta xd");
     else if(true)
-        println("Erick elsif puñeta xd");
+        println("elsif puñeta xd");
     else
-        println("Erick no puñeta xd");
+        println("no puñeta xd");
+    println("************   SWITCH-C-D **************");
+    char c = '+';
+    switch('+') {
+        case '+':
+            println('+');
+            break;
+        case '-':
+            println('-');
+            break;
+        case '*':
+            println('*');
+            break;
+        case '/':
+            println('/');
+            break;
+        default:
+            println('0');
+    }
+    println("************   SWITCH-C **************");
+    switch('+') {
+        case '+':
+            println('+');
+            break;
+        case '-':
+            println('-');
+            break;
+        case '*':
+            println('*');
+            break;
+        case '/':
+            println('/');
+            break;
+    }
+    println("************   SWITCH-D **************");
+    switch('+') {
+        default:
+            println('0');
+    }
     println("************   ASGINACIONES  **************");
     
     int test1, test2 = 56, test3;

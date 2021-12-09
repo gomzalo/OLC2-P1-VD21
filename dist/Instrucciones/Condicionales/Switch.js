@@ -5,8 +5,8 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Return_1 = require("../Transferencia/Return");
 class Switch {
-    constructor(condicion, lista_case, lista_default, fila, columna) {
-        this.condicion = condicion;
+    constructor(valor_sw, lista_case, lista_default, fila, columna) {
+        this.valor_sw = valor_sw;
         this.lista_case = lista_case;
         this.lista_default = lista_default;
         this.columna = columna;
@@ -15,11 +15,11 @@ class Switch {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         for (let sw of this.lista_case) {
-            sw.valor_sw = this.valor_sw.ejecutar(table, tree);
+            sw.valor_case = this.valor_sw.ejecutar(ts_local, tree);
         }
         let x = 0;
         for (let ins of this.lista_case) {
-            let res = ins.ejecutar(table, tree);
+            let res = ins.ejecutar(ts_local, tree);
             if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                 // controlador.graficarEntornos(controlador,ts_local," (switch)");
                 x = 1;
@@ -34,7 +34,7 @@ class Switch {
         }
         if (x == 0) {
             for (let ins of this.lista_default) {
-                let res = ins.ejecutar(table, tree);
+                let res = ins.ejecutar(ts_local, tree);
                 if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                     // controlador.graficarEntornos(controlador,ts_local," (switch)");
                     break;

@@ -8,15 +8,24 @@ import { Continuar } from '../Transferencia/Continuar';
 import { Return } from '../Transferencia/Return';
 
 export class Case implements Instruccion{
+    public valor_case : Instruccion;
     public lista_instrucciones : Array<Instruccion>;
-    public valor_case: Instruccion;
     public valor_sw;
+    public fila : number;
+    public columna : number;
+
+    constructor(valor_case, lista_instrucciones, fila, columna){
+        this.valor_case = valor_case;
+        this.lista_instrucciones = lista_instrucciones;
+        this.fila = fila;
+        this.columna = columna;
+    }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos(table);
-        if(this.valor_sw==this.valor_case.ejecutar(table,tree)){
+        // if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
             for(let res of this.lista_instrucciones){
-                let ins =res.ejecutar(ts_local, tree);
+                let ins = res.ejecutar(ts_local, tree);
                 if( ins instanceof Detener || res instanceof Detener){
                     // controlador.graficarEntornos(controlador,ts_local," (case)");
                     return ins;
@@ -32,7 +41,7 @@ export class Case implements Instruccion{
                     }
                 }
             }
-        }
+        // }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
         throw new Error('Method not implemented.');

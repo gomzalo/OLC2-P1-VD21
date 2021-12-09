@@ -11,15 +11,14 @@ import { Case } from './Case';
 
 export class Switch implements Instruccion{
 
-    public condicion : Expresion;
+    public valor_sw : Instruccion;
     public lista_case : Array<Case>;
     public lista_default : Array<Instruccion>;
     public fila : number;
     public columna : number;
-    public valor_sw : Instruccion;
 
-    constructor(condicion, lista_case, lista_default, fila, columna) {
-        this.condicion = condicion;
+    constructor(valor_sw, lista_case, lista_default, fila, columna) {
+        this.valor_sw = valor_sw;
         this.lista_case = lista_case;
         this.lista_default = lista_default;
         this.columna = columna;
@@ -29,11 +28,11 @@ export class Switch implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos (table);
         for(let sw of this.lista_case){
-            sw.valor_sw=this.valor_sw.ejecutar(table, tree);
+            sw.valor_case=this.valor_sw.ejecutar(ts_local, tree);
         }
         let x=0;
         for(let ins of this.lista_case){
-            let res=ins.ejecutar(table, tree);
+            let res=ins.ejecutar(ts_local, tree);
             if( ins instanceof Detener || res instanceof Detener){
                 // controlador.graficarEntornos(controlador,ts_local," (switch)");
                 x=1;
@@ -48,7 +47,7 @@ export class Switch implements Instruccion{
 
             if(x==0){
                 for(let ins of this.lista_default){
-                    let res=ins.ejecutar(table, tree);
+                    let res=ins.ejecutar(ts_local, tree);
                     if( ins instanceof Detener || res instanceof Detener){
                         // controlador.graficarEntornos(controlador,ts_local," (switch)");
                         break;

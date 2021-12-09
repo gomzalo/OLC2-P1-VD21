@@ -39,6 +39,9 @@ BSL                                 "\\".
 // Condicionales
 "if"                        { return 'RIF' };
 "else"                      { return 'RELSE' };
+"switch"                    { return 'RSWITCH' };
+"case"                      { return 'RCASE' };
+"default"                   { return 'RDEFAULT' };
 /* ..............      Tipos      ...............*/
 "null"                      { return 'NULL' };
 "true"                      { return 'TRUE' };
@@ -49,6 +52,10 @@ BSL                                 "\\".
 "boolean"                   { return 'RBOOLEAN' };
 "char"                      { return 'RCHAR' };
 "String"                    { return 'RSTRING' };
+/* ..............      Transferencia      ...............*/
+"break"                     { return 'RBREAK' };
+"continue"                  { return 'RCONTINUE' };
+"return"                    { return 'RRETURN' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -90,31 +97,26 @@ BSL                                 "\\".
 /*
 ::::::::::::::::::      Expresiones regulares     ::::::::::::::::::
 */
-
 (([0-9]+"."[0-9]*)|("."[0-9]+))     return 'DECIMAL';
 [0-9]+                              return 'ENTERO';
 [a-zA-Z_][a-zA-Z0-9_ñÑ]*            return 'ID';
 {stringliteral}                     return 'CADENA';
 {charliteral}                       return 'CHAR';
 /*..............     Error lexico      ...............*/
-
 .                                   {
                                         console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
                                     }
-
 /*..............     Espacios      ...............*/
 [\r\n\t]                  {/* skip whitespace */}
 
 <<EOF>>                     return 'EOF'
 
 /lex
-
 /*
 ###################################################
 ###############     Imports        ################
 ###################################################
 */
-
 %{
 
     /*::::::::::::::::::     AST      ::::::::::::::::::*/
@@ -135,19 +137,23 @@ BSL                                 "\\".
     /*..............     Condicionales      ...............*/
     const { If } = require("../dist/Instrucciones/Condicionales/If");
     const { Ifsinllave } = require("../dist/Instrucciones/Condicionales/Ifsinllave");
-    /*..............     DECLARACION Y ASIGNACION      ...............*/
+    const { Switch } = require("../dist/Instrucciones/Condicionales/Switch");
+    const { Case } = require("../dist/Instrucciones/Condicionales/Case");
+    /*..............     Transferencia      ...............*/
+    const { Detener } = require("../dist/Instrucciones/Transferencia/Break");
+    const { Continuar } = require("../dist/Instrucciones/Transferencia/Continuar");
+    const { Return } = require("../dist/Instrucciones/Transferencia/Return");
+    /*..............     Declaracion y asignacion      ...............*/
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
     const { Asignacion } = require("../dist/Instrucciones/Asignacion");
     const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
 
 %}
-
 /*
 ###################################################
 ###############    Precedencia     ################
 ###################################################
 */
-
 // %right 'INTERROGACION'
 %left   'OR'
 %left   'AND'
@@ -162,7 +168,6 @@ BSL                                 "\\".
 %right  'INCRE' 'DECRE'
 %right  'PARA' 'PARC'
 // %nonassoc 'IGUAL'
-
 /*
 ###################################################
 ###############     Sintaxis      ################
@@ -186,7 +191,7 @@ instrucciones:
         instrucciones instruccion           { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
 	|   instruccion                         { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
     ;
-
+/*..............     Instruccion      ...............*/
 instruccion:
         print_instr PUNTOCOMA               { $$ = $1 }
     |   println_instr PUNTOCOMA             { $$ = $1 }
@@ -195,18 +200,21 @@ instruccion:
     
     |   if_llav_instr                       { $$ = $1 }
     |   if_instr                            { $$ = $1 }
+    |   switch_instr                        { $$ = $1 }
+    |   break_instr PUNTOCOMA               { $$ = $1 }
+    |   continue_instr PUNTOCOMA            { $$ = $1 }
+    |   return_instr PUNTOCOMA              { $$ = $1 }
     ;
 /*..............     Declaraciones      ...............*/
-
 declaracion : 
         tipo lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
     ; 
 
 lista_simbolos :
         lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
-    |   lista_simbolos COMA ID IGUAL expr      { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,$5)); }
+    |   lista_simbolos COMA ID IGUAL expr   { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,$5)); }
     |   ID                                  { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); }
-    |   ID IGUAL expr                          { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
+    |   ID IGUAL expr                       { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
     ; 
 
 asignacion :    ID IGUAL expr   { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
@@ -251,13 +259,50 @@ if_instr:
         instruccion
         RELSE if_instr                      { $$ = new Ifsinllave($3, $5, [$7], @1.first_line, @1.first_column); }
     ;
+/*..............     Switch     ...............*/
+switch_instr:
+    // SW-CS
+        RSWITCH PARA expr PARC
+        LLAVA lista_cases LLAVC             { $$ = new Switch($3, $6, [], @1.first_line, @1.first_column); }
+    // SW-DF
+    |   RSWITCH PARA expr PARC
+        LLAVA RDEFAULT DOSPUNTOS
+        instrucciones LLAVC                 { $$ = new Switch($3, [], $8, @1.first_line, @1.first_column); }
+    // SW-CS-DF
+    |   RSWITCH PARA expr PARC
+        LLAVA lista_cases             
+        RDEFAULT DOSPUNTOS
+        instrucciones LLAVC                 { $$ = new Switch($3, $6, $9, @1.first_line, @1.first_column); }
+    ;
+// ------------ Lista cases
+lista_cases:
+        lista_cases case                    { $$ = $1; $$.push($2); }
+    |   case                                { $$ = new Array(); $$.push($1);}
+    ;
+// ------------ Case
+case:
+        RCASE expr DOSPUNTOS
+        instrucciones                       { $$ = new Case($2, $4, @1.first_line, @1.first_column); }
+    ;
 /*..............     Lista parametros      ...............*/
 lista_parametros: 
         lista_parametros COMA expr          { $$ = $1; $$.push($3); }
     |   expr                                { $$ = new Array(); $$.push($1);}
     ;
-
-// ------------ TIPO
+/*..............     Break      ...............*/
+break_instr:
+    RBREAK                                  { $$ = new Detener(); }
+    ;
+/*..............     Continue      ...............*/
+continue_instr:
+        RCONTINUE                           { $$ = new Continuar(); }
+    ;
+/*..............     Return      ...............*/
+return_instr:
+        RRETURN expr                        { $$ = new Return($2); }
+    ;
+/*..............     Return      ...............*/
+/*..............     Tipos      ...............*/
 tipo : 
         RINT        { $$ = TIPO.ENTERO; }
     |   RDOUBLE     { $$ = TIPO.DECIMAL; }
@@ -265,7 +310,6 @@ tipo :
     |   RCHAR       { $$ = TIPO.CHARACTER; }
     |   RBOOLEAN    { $$ = TIPO.BOOLEANO; }
     ;
-
 /*..............     Expresiones      ...............*/
 expr: 
         expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
