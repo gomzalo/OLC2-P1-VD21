@@ -131,4 +131,10 @@
 
     println(animal == "Perro" ? 15 : 10);
     println(animal == "Perro" ? animal == "Perro" ? "adentro" : 10 : 10); //adentro
+    println("************   While  **************");
+    int i = 0;
+    while (i < 5) {
+        println(i);
+        i++;
+    }
 
