@@ -162,7 +162,7 @@ BSL                                 "\\".
 ###############    Precedencia     ################
 ###################################################
 */
-    %right 'INTERROGACION'
+    %right  'INTERROGACION'
     %left   'OR'
     %left   'AND'
     %right  'NOT'
