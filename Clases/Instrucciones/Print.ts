@@ -29,11 +29,11 @@ export class Print implements Instruccion{
             console.log(valor);
             
             if (this.tipo){
-                this.value += valor.toString() + "\n";
-                // tree.updateConsolaPrintln(String(this.value))
+                // this.value += valor.toString() + "\n";
+                tree.updateConsolaPrintln(String(valor))
             }else{
                 this.value += valor.toString();
-                // tree.updateConsolaPrint(String(this.value))
+                tree.updateConsolaPrint(String(valor))
             }
             return valor;
         });
@@ -41,7 +41,7 @@ export class Print implements Instruccion{
         // if(this.tipo){
         //     tree.updateConsolaPrintln(this.value.toString())
         // }else{
-        tree.updateConsolaPrint(this.value.toString())
+        // tree.updateConsolaPrint(this.value.toString())
         // }
         return null;
     }

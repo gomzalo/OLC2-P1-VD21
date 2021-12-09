@@ -194,7 +194,7 @@ instruccion:
 /*..............     Declaraciones      ...............*/
 
 declaracion : 
-        tipo lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column,$2); }
+        tipo lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
     ; 
 
 lista_simbolos :

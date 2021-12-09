@@ -30,17 +30,20 @@ export  class Declaracion implements Instruccion{
             if(variable.valor != null){
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
-                let tipo_valor = variable.tipo;
+                let tipo_valor = variable.valor.tipo;
                 if (valor instanceof Errores)
                 {
                     return valor;
                 }
                 if(tipo_valor == this.tipo )
                 {
+                    console.log("entree tipo declaracion");
                     //--> Lo agregamos a la tabla de simbolos 
                     let nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila,variable.columna,valor);
                     table.setSymbolTabla(nuevo_simb);
                 }else{
+                    console.log("errorrr tipo declaracion");
+                    console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
                     //Error no se puede declarar por incopatibilidad de simbolos
                     return new Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 }
