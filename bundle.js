@@ -2923,12 +2923,12 @@ class Asignacion {
             /**
              * Agregar struct y arreglos aca
              */
-            console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
+            // console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
             let result = table.updateSymbolTabla(new Simbolo_1.Simbolo(this.id, this.expresion.tipo, null, this.fila, this.columna, valor));
             if (result instanceof Errores_1.Errores) {
-                console.log(result);
-                console.log(`tipoo exp: ${this.expresion.tipo} `);
-                console.log(`error en updateSymbol ${this.id} `);
+                // console.log(result);
+                // console.log(`tipoo exp: ${this.expresion.tipo} `)
+                // console.log(`error en updateSymbol ${this.id} `)
                 return result;
             }
         }
@@ -3070,16 +3070,13 @@ class While {
     ejecutar(table, tree) {
         while (true) {
             let valor_condicion = this.condicion.ejecutar(table, tree);
-            alert("tipo condicion: " + typeof (valor_condicion));
-            alert("valor condicion: " + valor_condicion);
+            // alert("tipo condicion: " + typeof(valor_condicion));
+            // alert("valor condicion: " + valor_condicion);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(valor_condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    console.log(ts_local);
                     for (let ins of this.lista_instrucciones) {
                         let res = ins.ejecutar(ts_local, tree);
-                        // alert("type res: " + typeof(res));
-                        // alert("valor res: " + res);
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return null;
@@ -3742,8 +3739,8 @@ class TablaSimbolos {
             else {
                 tablaActual = this.anterior;
             }
-            // return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
         }
+        return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
     }
 }
 exports.TablaSimbolos = TablaSimbolos;
