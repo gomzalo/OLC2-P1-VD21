@@ -137,28 +137,14 @@
         println(i);
         i++;
     }
-    println("************   For  **************");
-    for (int i = 0; i < 5; i++) {
-        println(i);
-    }
-
-        //while
-     i = 0;
-    while (i < 5) {
-        println(i);
-        i=i+1;
-    }
-
-    //do while
+    println("************   Do-While  **************");
     int i_do = 0;
     do {
         println(i_do);
         i_do=i_do+1;
     }
     while (i_do < 5);
-
-    //for
+    println("************   For  **************");
     for (int i = 0; i < 5; i++) {
         println(i);
     }
-

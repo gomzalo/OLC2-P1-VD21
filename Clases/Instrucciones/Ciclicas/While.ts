@@ -27,8 +27,6 @@ export class While implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         while(true){
             let valor_condicion = this.condicion.ejecutar(table, tree);
-            // alert("tipo condicion: " + typeof(valor_condicion));
-            // alert("valor condicion: " + valor_condicion);
             if(this.condicion.tipo == TIPO.BOOLEANO){
                 if(this.getBool(valor_condicion)){
                     let ts_local = new TablaSimbolos(table);
@@ -46,7 +44,6 @@ export class While implements Instruccion{
                             return res;
                         }
                     }
-
                 }else{
                     break;
                 }

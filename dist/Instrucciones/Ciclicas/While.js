@@ -18,8 +18,6 @@ class While {
     ejecutar(table, tree) {
         while (true) {
             let valor_condicion = this.condicion.ejecutar(table, tree);
-            // alert("tipo condicion: " + typeof(valor_condicion));
-            // alert("valor condicion: " + valor_condicion);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(valor_condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(table);

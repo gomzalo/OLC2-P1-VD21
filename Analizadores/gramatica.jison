@@ -216,32 +216,30 @@ instruccion:
     |   for_instr                           { $$ = $1 }
     |   dowhile_instr PUNTOCOMA             { $$ = $1 }
     ;
-/*..............     Declaraciones      ...............*/
-declaracion : 
+/*..............     Declaracion      ...............*/
+declaracion: 
         tipo lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
     ; 
-
-lista_simbolos :
+// Lista simbolos
+lista_simbolos:
         lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
     |   lista_simbolos COMA ID IGUAL expr   { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,$5)); }
     |   ID                                  { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); }
     |   ID IGUAL expr                       { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
     ; 
-
-asignacion :    ID IGUAL expr               { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
-            |   ID INCRE                    { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
-            |   ID DECRE                    { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
-            ; 
-
+/*..............     Asignacion      ...............*/
+asignacion:
+        ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
+    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+    ;
 /*..............     Print      ...............*/
 print_instr:
         RPRINT PARA lista_parametros PARC   { $$ = new Print($3, @1.first_line, @1.first_column, false); }
     ;
-
 println_instr:
         RPRINTLN PARA lista_parametros PARC { $$ = new Print($3, @1.first_line, @1.first_column, true); }
     ;
-
 /*..............     If con llave     ...............*/
 if_llav_instr:
     // If
@@ -318,17 +316,24 @@ while_instr:
         LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); }
     ;
 /*..............     Do While      ...............*/
-dowhile_instr : RDO LLAVA instrucciones LLAVC RWHILE PARA expr PARC  { $$ = new DoWhile($7, $3, @1.first_line, @1.last_column); }
-            ;
-
+dowhile_instr : 
+        RDO LLAVA instrucciones LLAVC
+        RWHILE PARA expr PARC               { $$ = new DoWhile($7, $3, @1.first_line, @1.last_column); }
+    ;
 /*..............     For      ...............*/
 for_instr:
         RFOR PARA asignacion PUNTOCOMA
-        expr PUNTOCOMA instruccion PARC
-        LLAVA instrucciones LLAVC           { $$ = new For($5, $11, $3, $7, @1.first_line, @1.first_column); }
+        expr PUNTOCOMA actualizacion PARC
+        LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); }
     |   RFOR PARA declaracion PUNTOCOMA
-        expr PUNTOCOMA instruccion PARC
-        LLAVA instrucciones LLAVC           { $$ = new For($5, $11, $3, $7, @1.first_line, @1.first_column); }
+        expr PUNTOCOMA actualizacion PARC
+        LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); }
+    ;
+/*..............     Actualizacion      ...............*/
+actualizacion:
+        ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
+    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 

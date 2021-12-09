@@ -9,52 +9,65 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from '../Transferencia/Break';
 import { timingSafeEqual } from 'crypto';
+import { Errores } from '../../Ast/Errores';
+import { isInt16Array } from 'util/types';
 
 export class For implements Instruccion{
 
-    public condicion : Instruccion;
+    public declaracion_asignacion : Instruccion;
+    public condicion;
+    public actualizacion;
     public lista_instrucciones : Array<Instruccion>;
-    public inicio;
-    public fin;
     public fila : number;
     public columna : number;
 
-    constructor(condicion, lista_instrucciones, inicio, fin, fila, columna) {
+    constructor(declaracion_asignacion, condicion, actualizacion, lista_instrucciones, fila, columna) {
+        this.declaracion_asignacion = declaracion_asignacion;
         this.condicion = condicion;
+        this.actualizacion = actualizacion;
         this.lista_instrucciones = lista_instrucciones;
-        this.inicio = inicio;
-        this.fin = fin;
         this.fila = fila;
         this.columna = columna;
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let ts_for = new TablaSimbolos(table);
-        this.inicio.ejecutar(ts_for, tree);
-        let valor_condicion = this.condicion.ejecutar(ts_for, tree);
-
-        if(typeof valor_condicion == 'boolean'){
-
-            while(this.condicion.ejecutar(ts_for, tree)){
-
-                let ts_local = new TablaSimbolos(ts_for);
-
-                for(let ins of this.lista_instrucciones){
-                    let res = ins.ejecutar(ts_local, tree);
-                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if(ins instanceof Detener || res instanceof Detener ){
-                        return null;
-                    }else{
+        // Asignacion o declaracion
+        let tabla_intermedia = new TablaSimbolos(table);
+        let declaracion_asignacion = this.declaracion_asignacion.ejecutar(tabla_intermedia, tree);
+        console.log("declaracion_asignacion: " + declaracion_asignacion);
+        if( declaracion_asignacion instanceof Errores){
+            return declaracion_asignacion;
+        }
+        while(true){
+            let condicion = this.condicion.ejecutar(tabla_intermedia, tree);
+            console.log("condicion: " + condicion);
+            if(this.condicion.tipo == TIPO.BOOLEANO){
+                if(this.getBool(condicion)){
+                    let ts_local = new TablaSimbolos(tabla_intermedia);
+                    for(let ins of this.lista_instrucciones){
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        
+                        if(ins instanceof Detener || res instanceof Detener ){
+                            return null;
+                        }
                         if(ins instanceof Continuar || res instanceof Continuar){
                             break;
-                        }else{
-                            if(ins instanceof Return || res instanceof Return){
-                                return res;
-                            }
+                        }
+                        if(ins instanceof Return || res instanceof Return){
+                            return res;
                         }
                     }
+                    let actualizacion = this.actualizacion.ejecutar(tabla_intermedia, tree);
+                    console.log("actualizacion: " + actualizacion);
+                    if( actualizacion instanceof Errores){
+                        return actualizacion;
+                    }
+                }else{
+                    break;
                 }
-                this.fin.ejecutar(ts_for, tree);
+            }else{
+                return new Errores("Semantico", "Valor no booleano", this.fila, this.columna);
             }
         }
     }
@@ -67,4 +80,7 @@ export class For implements Instruccion{
         throw new Error('Method not implemented.');
     }
 
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
+    }    
 }
