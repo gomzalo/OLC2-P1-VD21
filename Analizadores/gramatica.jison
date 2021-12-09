@@ -127,6 +127,8 @@ BSL                                 "\\".
     /*::::::::::::::::::     Expresiones      ::::::::::::::::::*/
     const { Primitivo } = require("../dist/Expresiones/Primitivo");
     const { Identificador } = require("../dist/Expresiones/Identificador");
+    const { Ternario } = require("../dist/Expresiones/Ternario");
+    
     /*..............     Operaciones      ...............*/
     const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
     const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
@@ -154,7 +156,7 @@ BSL                                 "\\".
 ###############    Precedencia     ################
 ###################################################
 */
-// %right 'INTERROGACION'
+%right 'INTERROGACION'
 %left   'OR'
 %left   'AND'
 %right  'NOT'
@@ -338,7 +340,8 @@ expr:
     |   TRUE                      { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
     |   FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
     |   ID                        { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
-//     /*| e INTERROGACION e DOSPUNTOS e {$$ = new ternario.default($1, $3, $5, @1.first_line, @1.last_column); } */
+    // |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new If($1, [new Return($3)], [new Return($5)], @1.first_line, @1.first_column);} 
+    |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
     |   ID INCRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     |   ID DECRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     ;

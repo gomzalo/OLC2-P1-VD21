@@ -33,7 +33,8 @@ export class If implements Instruccion{
         let valor_condicion = this.condicion.ejecutar(table, tree);
         if(this.condicion.tipo == TIPO.BOOLEANO){
             if(valor_condicion){
-                this.lista_ifs.forEach(ins => {
+                // this.lista_ifs.forEach(ins => {
+                for(let ins of this.lista_ifs){
                     let res = ins.ejecutar(ts_local, tree);
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if(ins instanceof Detener || res instanceof Detener  ){
@@ -41,15 +42,15 @@ export class If implements Instruccion{
                     }else{
                         if(ins instanceof Continuar || res instanceof Continuar){
                             // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return ins;
+                            return res;
                         }else{
                             if( ins instanceof Return || res instanceof Return){
                                 // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return ins;
+                                return res;
                             }
                         }
                     }
-                });
+                };
             }else{
                 for(let ins of this.lista_elses){
                     let res = ins.ejecutar(ts_local, tree);
@@ -59,11 +60,11 @@ export class If implements Instruccion{
                     }else{
                         if(ins instanceof Continuar || res instanceof Continuar){
                             // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return ins;
+                            return res;
                         }else{
                             if( ins instanceof Return || res instanceof Return){
                                 // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return ins;
+                                return res;
                             }
                         }
                     }

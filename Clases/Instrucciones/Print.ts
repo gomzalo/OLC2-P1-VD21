@@ -5,6 +5,7 @@ import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
+import { Return } from "./Transferencia/Return";
 
 export class Print implements Instruccion{
 
@@ -39,6 +40,13 @@ export class Print implements Instruccion{
             if (expresion.tipo == TIPO.ARREGLO)
             {
 
+            }
+            if (valor instanceof Return)
+            {
+                let temp: Return;
+                temp = valor;
+                valor = temp.valor
+                // validar si es un struct
             }
             
             if (this.tipo){

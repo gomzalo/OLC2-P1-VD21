@@ -3,17 +3,25 @@ import { Ast } from "../../Ast/Ast";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
+import { Errores } from "../../Ast/Errores";
 
 export class Return implements Instruccion{
-    public valor : Instruccion;
+    public expresion : Instruccion | any;
+    public valor : any;
     public tipo : TIPO;
-    constructor(valor){
-        this.valor = valor;
+    constructor(expresion){
+        this.expresion = expresion;
     }
     
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        if(this.valor != null){
-            return this.valor.ejecutar(table, tree);
+        if(this.expresion != null){
+            this.valor =  this.expresion.ejecutar(table, tree);
+            if(this.valor instanceof Errores)
+            {
+                return this.valor;
+            }
+            this.tipo = this.expresion.tipo;
+            return this;
         }else{
             return null;
         }

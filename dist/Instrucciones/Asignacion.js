@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Return_1 = require("./Transferencia/Return");
 class Asignacion {
     constructor(id, expresion, fila, columna) {
         this.id = id;
@@ -16,6 +17,17 @@ class Asignacion {
             console.log(valor);
             if (valor instanceof Errores_1.Errores) {
                 return valor;
+            }
+            if (valor instanceof Return_1.Return) {
+                let temp;
+                temp = valor;
+                // // validacion struct
+                /**
+                 * Agregar struct y arreglos aca
+                 */
+                // if (temp.valor instanceof Struct){
+                // }
+                valor = temp.valor;
             }
             /**
              * Agregar struct y arreglos aca

@@ -4,6 +4,7 @@ import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { Simbolo } from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
+import { Return } from "./Transferencia/Return";
 
 export class Asignacion implements Instruccion{
     public id: string;
@@ -25,6 +26,19 @@ export class Asignacion implements Instruccion{
             if (valor instanceof Errores)
             {
                 return valor;
+            }
+            if (valor instanceof Return)
+            {
+                let temp : Return;
+                temp = valor;
+                // // validacion struct
+                /**
+                 * Agregar struct y arreglos aca
+                 */
+                // if (temp.valor instanceof Struct){
+
+                // }
+                valor = temp.valor;
             }
             /**
              * Agregar struct y arreglos aca

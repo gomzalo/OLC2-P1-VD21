@@ -19,7 +19,8 @@ class If {
         let valor_condicion = this.condicion.ejecutar(table, tree);
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion) {
-                this.lista_ifs.forEach(ins => {
+                // this.lista_ifs.forEach(ins => {
+                for (let ins of this.lista_ifs) {
                     let res = ins.ejecutar(ts_local, tree);
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
@@ -28,16 +29,17 @@ class If {
                     else {
                         if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
                             // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return ins;
+                            return res;
                         }
                         else {
                             if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
                                 // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return ins;
+                                return res;
                             }
                         }
                     }
-                });
+                }
+                ;
             }
             else {
                 for (let ins of this.lista_elses) {
@@ -49,12 +51,12 @@ class If {
                     else {
                         if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
                             // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return ins;
+                            return res;
                         }
                         else {
                             if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
                                 // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return ins;
+                                return res;
                             }
                         }
                     }

@@ -4,6 +4,7 @@ exports.Print = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
+const Return_1 = require("./Transferencia/Return");
 class Print {
     constructor(parametros, fila, columna, tipo) {
         this.parametros = parametros;
@@ -23,6 +24,12 @@ class Print {
                 return valor;
             }
             if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {
+            }
+            if (valor instanceof Return_1.Return) {
+                let temp;
+                temp = valor;
+                valor = temp.valor;
+                // validar si es un struct
             }
             if (this.tipo) {
                 // this.value += valor.toString() + "\n";

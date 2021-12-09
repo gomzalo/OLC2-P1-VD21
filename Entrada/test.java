@@ -119,6 +119,15 @@
     test1--;
     println(test1); //1
 
-    test=-34;
+    test=-25*(69-33*2)+22-32*2-33*(-48+48);
     println(test); // -117
+
+    println("************   TERNARIO  **************");
+    int edad =56;
+    String respuesta, animal = "Perro";
+
+    respuesta = edad >= 50 ? "Puede vacunarse" : "No puede vacunarse";
+    println(respuesta);
+
+    println(animal == "Perro" ? 15 : 10);
 
