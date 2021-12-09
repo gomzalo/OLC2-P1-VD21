@@ -137,6 +137,10 @@
         println(i);
         i++;
     }
+    println("************   For  **************");
+    for (int i = 0; i < 5; i++) {
+        println(i);
+    }
 
         //while
      i = 0;

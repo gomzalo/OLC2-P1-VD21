@@ -176,6 +176,7 @@ break;
 case 44:
  this.$ = new While($$[$0-4], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
+<<<<<<< Updated upstream
 case 45:
  this.$ = new DoWhile($$[$0-1], $$[$0-5], _$[$0-7].first_line, _$[$0-7].last_column); 
 break;
@@ -184,6 +185,10 @@ case 46:
 break;
 case 47:
  this.$ = new For($$[$0-9], $$[$0-6], _$[$0-11].first_line, _$[$0-11].first_column); 
+=======
+case 44: case 45:
+ this.$ = new For($$[$0-7], $$[$0-1], $$[$0-9], $$[$0-5], _$[$0-11].first_line, _$[$0-11].first_column); 
+>>>>>>> Stashed changes
 break;
 case 48:
  this.$ = TIPO.ENTERO; 

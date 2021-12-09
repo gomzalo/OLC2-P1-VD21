@@ -324,11 +324,11 @@ dowhile_instr : RDO LLAVA instrucciones LLAVC RWHILE PARA expr PARC  { $$ = new 
 /*..............     For      ...............*/
 for_instr:
         RFOR PARA asignacion PUNTOCOMA
-        expr PUNTOCOMA instruccion PUNTOCOMA PARC
-        LLAVA instrucciones LLAVC           { $$ = new For($4, $6, @1.first_line, @1.first_column); }
+        expr PUNTOCOMA instruccion PARC
+        LLAVA instrucciones LLAVC           { $$ = new For($5, $11, $3, $7, @1.first_line, @1.first_column); }
     |   RFOR PARA declaracion PUNTOCOMA
-        expr PUNTOCOMA instruccion PUNTOCOMA PARC
-        LLAVA instrucciones LLAVC           { $$ = new For($3, $6, @1.first_line, @1.first_column); }
+        expr PUNTOCOMA instruccion PARC
+        LLAVA instrucciones LLAVC           { $$ = new For($5, $11, $3, $7, @1.first_line, @1.first_column); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 
