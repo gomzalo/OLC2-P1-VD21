@@ -21,20 +21,21 @@ class While {
             alert("tipo condicion: " + typeof (valor_condicion));
             alert("valor condicion: " + valor_condicion);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-                if (Boolean(valor_condicion)) {
+                if (this.getBool(valor_condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                    console.log(ts_local);
                     for (let ins of this.lista_instrucciones) {
                         let res = ins.ejecutar(ts_local, tree);
-                        alert("type res: " + typeof (res));
-                        alert("valor res: " + res);
+                        // alert("type res: " + typeof(res));
+                        // alert("valor res: " + res);
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return null;
                         }
-                        else if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
                             break;
                         }
-                        else if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
                             return res;
                         }
                     }
@@ -63,6 +64,9 @@ class While {
         }
         padre.addChildNode(new Nodo_1.Nodo("}", ""));
         return padre;
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
     }
 }
 exports.While = While;

@@ -32,8 +32,10 @@ class Asignacion {
             /**
              * Agregar struct y arreglos aca
              */
+            console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
             let result = table.updateSymbolTabla(new Simbolo_1.Simbolo(this.id, this.expresion.tipo, null, this.fila, this.columna, valor));
             if (result instanceof Errores_1.Errores) {
+                console.log(result);
                 console.log(`tipoo exp: ${this.expresion.tipo} `);
                 console.log(`error en updateSymbol ${this.id} `);
                 return result;

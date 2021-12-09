@@ -30,21 +30,26 @@ export class While implements Instruccion{
             alert("tipo condicion: " + typeof(valor_condicion));
             alert("valor condicion: " + valor_condicion);
             if(this.condicion.tipo == TIPO.BOOLEANO){
-                if(Boolean(valor_condicion)){
+                if(this.getBool(valor_condicion)){
                     let ts_local = new TablaSimbolos(table);
+                    console.log(ts_local)
                     for(let ins of this.lista_instrucciones){
                         let res = ins.ejecutar(ts_local, tree);
-                        alert("type res: " + typeof(res));
-                        alert("valor res: " + res);
+                        // alert("type res: " + typeof(res));
+                        // alert("valor res: " + res);
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        
                         if(ins instanceof Detener || res instanceof Detener ){
                             return null;
-                        }else if(ins instanceof Continuar || res instanceof Continuar){
+                        }
+                        if(ins instanceof Continuar || res instanceof Continuar){
                             break;
-                        }else if(ins instanceof Return || res instanceof Return){
+                        }
+                        if(ins instanceof Return || res instanceof Return){
                             return res;
                         }
                     }
+
                 }else{
                     break;
                 }
@@ -70,6 +75,10 @@ export class While implements Instruccion{
         }
         padre.addChildNode(new Nodo("}",""));
         return padre;
+    }
+
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
     }
 
 }

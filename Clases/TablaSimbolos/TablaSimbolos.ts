@@ -68,6 +68,7 @@ export class TablaSimbolos{
     }
 
     public updateSymbolTabla(simbolo){
+        console.log(`update id: ${simbolo.id}`);
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             let existe = tablaActual.tabla.get(simbolo.id);
@@ -81,12 +82,12 @@ export class TablaSimbolos{
 
                     return null;
                 }
-                console.log(`tipoo exp: ${existe.getTipo()} `)
+                console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
                 return new Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }else{
                 tablaActual = this.anterior
             }
-            return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+            // return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
         }
     }
 }
