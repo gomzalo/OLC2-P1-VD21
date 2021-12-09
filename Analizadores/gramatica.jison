@@ -162,20 +162,20 @@ BSL                                 "\\".
 ###############    Precedencia     ################
 ###################################################
 */
-%right 'INTERROGACION'
-%left   'OR'
-%left   'AND'
-%right  'NOT'
-%left   'IGUALIGUAL' 'DIFERENTE'
-%left   'MENORQUE' 'MAYORQUE' 'MENORIGUAL' 'MAYORIGUAL' 
-// %left 'AMPERSON' 
-%left   'MAS' 'MENOS' 'AMPERSON'
-%left   'MULTI' 'DIV' 'PORCENTAJE'
-%left   'POTENCIA'
-%right  'UMINUS'
-%right  'INCRE' 'DECRE'
-%right  'PARA' 'PARC'
-// %nonassoc 'IGUAL'
+    %right 'INTERROGACION'
+    %left   'OR'
+    %left   'AND'
+    %right  'NOT'
+    %left   'IGUALIGUAL' 'DIFERENTE'
+    %left   'MENORQUE' 'MAYORQUE' 'MENORIGUAL' 'MAYORIGUAL' 
+    // %left 'AMPERSON' 
+    %left   'MAS' 'MENOS' 'AMPERSON'
+    %left   'MULTI' 'DIV' 'PORCENTAJE'
+    %left   'POTENCIA'
+    %right  'UMINUS'
+    %right  'INCRE' 'DECRE'
+    %right  'PARA' 'PARC'
+    // %nonassoc 'IGUAL'
 /*
 ###################################################
 ###############     Sintaxis      ################
@@ -212,6 +212,7 @@ instruccion:
     |   continue_instr PUNTOCOMA            { $$ = $1 }
     |   return_instr PUNTOCOMA              { $$ = $1 }
     |   while_instr                         { $$ = $1 }
+    |   for_instr                           { $$ = $1 }
     ;
 /*..............     Declaraciones      ...............*/
 declaracion : 
@@ -225,9 +226,9 @@ lista_simbolos :
     |   ID IGUAL expr                       { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
     ; 
 
-asignacion :    ID IGUAL expr   { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
-            |   ID INCRE        { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
-            |   ID DECRE        { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+asignacion :    ID IGUAL expr               { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
+            |   ID INCRE                    { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+            |   ID DECRE                    { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
             ; 
 
 /*..............     Print      ...............*/
@@ -314,6 +315,15 @@ while_instr:
         RWHILE PARA expr PARC
         LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); }
     ;
+/*..............     For      ...............*/
+for_instr:
+        RFOR PARA asignacion PUNTOCOMA
+        expr PUNTOCOMA instruccion PUNTOCOMA PARC
+        LLAVA instrucciones LLAVC           { $$ = new For($4, $6, @1.first_line, @1.first_column); }
+    |   RFOR PARA declaracion PUNTOCOMA
+        expr PUNTOCOMA instruccion PUNTOCOMA PARC
+        LLAVA instrucciones LLAVC           { $$ = new For($3, $6, @1.first_line, @1.first_column); }
+    ;
 /*..............     Tipos      ...............*/
 tipo : 
         RINT        { $$ = TIPO.ENTERO; }
@@ -350,7 +360,6 @@ expr:
     |   TRUE                      { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
     |   FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
     |   ID                        { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
-    // |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new If($1, [new Return($3)], [new Return($5)], @1.first_line, @1.first_column);} 
     |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
     |   ID INCRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     |   ID DECRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
