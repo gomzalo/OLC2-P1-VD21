@@ -291,7 +291,7 @@ lista_parametros:
     ;
 /*..............     Break      ...............*/
 break_instr:
-    RBREAK                                  { $$ = new Detener(); }
+        RBREAK                                  { $$ = new Detener(); }
     ;
 /*..............     Continue      ...............*/
 continue_instr:
