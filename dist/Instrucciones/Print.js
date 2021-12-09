@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
+const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Print {
     constructor(parametros, fila, columna, tipo) {
         this.parametros = parametros;
@@ -10,13 +12,18 @@ class Print {
         this.tipo = tipo;
     }
     ejecutar(table, tree) {
-        // console.log("print params: " + this.parametros.toString());
         //TODO: verificar que el tipo del valor sea primitivo
         this.value = "";
-        this.parametros.forEach((expresion) => {
+        for (let expresion of this.parametros) {
             let valor = expresion.ejecutar(table, tree);
             console.log("print exp val: " + String(valor));
             console.log(valor);
+            // Validaciones de TIPOS A Imprimir
+            if (valor instanceof Errores_1.Errores) {
+                return valor;
+            }
+            if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {
+            }
             if (this.tipo) {
                 // this.value += valor.toString() + "\n";
                 tree.updateConsolaPrintln(String(valor));
@@ -25,13 +32,10 @@ class Print {
                 this.value += valor.toString();
                 tree.updateConsolaPrint(String(valor));
             }
-            return valor;
-        });
-        // if(this.tipo){
-        //     tree.updateConsolaPrintln(this.value.toString())
-        // }else{
-        // tree.updateConsolaPrint(this.value.toString())
-        // }
+            // return null;    
+        }
+        // this.parametros.forEach((expresion: Instruccion) => {
+        // });
         return null;
     }
     translate3d(table, tree) {

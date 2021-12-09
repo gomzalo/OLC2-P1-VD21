@@ -1,12 +1,14 @@
 import { Ast } from "../Ast/Ast";
+import { Errores } from "../Ast/Errores";
 import { Nodo } from "../Ast/Nodo"
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
+import { TIPO } from "../TablaSimbolos/Tipo";
 
 export class Print implements Instruccion{
 
-    public parametros : Array<Instruccion>;
+    public parametros : Array<Instruccion | any>;
     public fila : number;
     public columna : number;
     public tipo : boolean;
@@ -20,13 +22,24 @@ export class Print implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        // console.log("print params: " + this.parametros.toString());
         //TODO: verificar que el tipo del valor sea primitivo
         this.value = "";
-        this.parametros.forEach((expresion: Instruccion) => {
+
+        for (let expresion of this.parametros)
+        {
             let valor = expresion.ejecutar(table,tree);
             console.log("print exp val: " + String(valor));
             console.log(valor);
+
+            // Validaciones de TIPOS A Imprimir
+            if (valor instanceof Errores)
+            {
+                return valor;
+            }
+            if (expresion.tipo == TIPO.ARREGLO)
+            {
+
+            }
             
             if (this.tipo){
                 // this.value += valor.toString() + "\n";
@@ -35,14 +48,11 @@ export class Print implements Instruccion{
                 this.value += valor.toString();
                 tree.updateConsolaPrint(String(valor))
             }
-            return valor;
-        });
-
-        // if(this.tipo){
-        //     tree.updateConsolaPrintln(this.value.toString())
-        // }else{
-        // tree.updateConsolaPrint(this.value.toString())
-        // }
+            // return null;    
+        }
+        // this.parametros.forEach((expresion: Instruccion) => {
+            
+        // });
         return null;
     }
 

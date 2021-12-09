@@ -70,6 +70,8 @@
     println("************   ASGINACIONES  **************");
     
     int test1, test2 = 56, test3;
+    char cprueba;
     int test;
     println(test);
     println(test2);
+    println(cprueba);

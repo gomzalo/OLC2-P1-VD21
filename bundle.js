@@ -2946,6 +2946,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Declaracion {
     constructor(tipo, simbolos, fila, columna) {
         this.arreglo = false;
@@ -2959,7 +2960,7 @@ class Declaracion {
     ejecutar(table, tree) {
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
-            console.log(variable.id);
+            // console.log(variable.id)
             if (variable.valor != null) {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
@@ -2974,16 +2975,35 @@ class Declaracion {
                     table.setSymbolTabla(nuevo_simb);
                 }
                 else {
-                    console.log("errorrr tipo declaracion");
-                    console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo);
+                    // console.log("errorrr tipo declaracion");
+                    // console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
                     //Error no se puede declarar por incopatibilidad de simbolos
                     return new Errores_1.Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 }
             }
             else {
-                //-- Se agrega a la tabla de simbolos 
-                console.log("id " + variable.id);
+                //-- DECLARACION 1ERA VEZ -Se agrega a la tabla de simbolos 
                 let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                switch (this.tipo) {
+                    case Tipo_1.TIPO.ENTERO:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, 0);
+                        break;
+                    case Tipo_1.TIPO.DECIMAL:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, 0.00);
+                        break;
+                    case Tipo_1.TIPO.CADENA:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                        break;
+                    case Tipo_1.TIPO.BOOLEANO:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, false);
+                        break;
+                    case Tipo_1.TIPO.CHARACTER:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, '0');
+                        break;
+                    default:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                        break;
+                }
                 table.setSymbolTabla(nuevo_simb);
             }
         }
@@ -2997,11 +3017,13 @@ class Declaracion {
 }
 exports.Declaracion = Declaracion;
 
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":20}],16:[function(require,module,exports){
+},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":20,"../TablaSimbolos/Tipo":22}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
+const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Print {
     constructor(parametros, fila, columna, tipo) {
         this.parametros = parametros;
@@ -3010,13 +3032,18 @@ class Print {
         this.tipo = tipo;
     }
     ejecutar(table, tree) {
-        // console.log("print params: " + this.parametros.toString());
         //TODO: verificar que el tipo del valor sea primitivo
         this.value = "";
-        this.parametros.forEach((expresion) => {
+        for (let expresion of this.parametros) {
             let valor = expresion.ejecutar(table, tree);
             console.log("print exp val: " + String(valor));
             console.log(valor);
+            // Validaciones de TIPOS A Imprimir
+            if (valor instanceof Errores_1.Errores) {
+                return valor;
+            }
+            if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {
+            }
             if (this.tipo) {
                 // this.value += valor.toString() + "\n";
                 tree.updateConsolaPrintln(String(valor));
@@ -3025,13 +3052,10 @@ class Print {
                 this.value += valor.toString();
                 tree.updateConsolaPrint(String(valor));
             }
-            return valor;
-        });
-        // if(this.tipo){
-        //     tree.updateConsolaPrintln(this.value.toString())
-        // }else{
-        // tree.updateConsolaPrint(this.value.toString())
-        // }
+            // return null;    
+        }
+        // this.parametros.forEach((expresion: Instruccion) => {
+        // });
         return null;
     }
     translate3d(table, tree) {
@@ -3049,7 +3073,7 @@ class Print {
 }
 exports.Print = Print;
 
-},{"../Ast/Nodo":7}],17:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":22}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;

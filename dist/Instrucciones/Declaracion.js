@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Declaracion {
     constructor(tipo, simbolos, fila, columna) {
         this.arreglo = false;
@@ -16,7 +17,7 @@ class Declaracion {
     ejecutar(table, tree) {
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
-            console.log(variable.id);
+            // console.log(variable.id)
             if (variable.valor != null) {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
@@ -31,16 +32,35 @@ class Declaracion {
                     table.setSymbolTabla(nuevo_simb);
                 }
                 else {
-                    console.log("errorrr tipo declaracion");
-                    console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo);
+                    // console.log("errorrr tipo declaracion");
+                    // console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
                     //Error no se puede declarar por incopatibilidad de simbolos
                     return new Errores_1.Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 }
             }
             else {
-                //-- Se agrega a la tabla de simbolos 
-                console.log("id " + variable.id);
+                //-- DECLARACION 1ERA VEZ -Se agrega a la tabla de simbolos 
                 let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                switch (this.tipo) {
+                    case Tipo_1.TIPO.ENTERO:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, 0);
+                        break;
+                    case Tipo_1.TIPO.DECIMAL:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, 0.00);
+                        break;
+                    case Tipo_1.TIPO.CADENA:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                        break;
+                    case Tipo_1.TIPO.BOOLEANO:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, false);
+                        break;
+                    case Tipo_1.TIPO.CHARACTER:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, '0');
+                        break;
+                    default:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                        break;
+                }
                 table.setSymbolTabla(nuevo_simb);
             }
         }
