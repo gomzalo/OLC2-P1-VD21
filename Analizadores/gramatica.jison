@@ -45,6 +45,7 @@ BSL                                 "\\".
 // Ciclicas
 "while"                     { return 'RWHILE' };
 "for"                       { return 'RFOR' };
+"do"                        { return 'RDO' };
 /* ..............      Tipos      ...............*/
 "null"                      { return 'NULL' };
 "true"                      { return 'TRUE' };
@@ -213,6 +214,7 @@ instruccion:
     |   return_instr PUNTOCOMA              { $$ = $1 }
     |   while_instr                         { $$ = $1 }
     |   for_instr                           { $$ = $1 }
+    |   dowhile_instr PUNTOCOMA             { $$ = $1 }
     ;
 /*..............     Declaraciones      ...............*/
 declaracion : 
@@ -315,6 +317,10 @@ while_instr:
         RWHILE PARA expr PARC
         LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); }
     ;
+/*..............     Do While      ...............*/
+dowhile_instr : RDO LLAVA instrucciones LLAVC RWHILE PARA expr PARC  { $$ = new DoWhile($7, $3, @1.first_line, @1.last_column); }
+            ;
+
 /*..............     For      ...............*/
 for_instr:
         RFOR PARA asignacion PUNTOCOMA
