@@ -9,7 +9,7 @@ const Break_1 = require("../Transferencia/Break");
 const Errores_1 = require("../../Ast/Errores");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 class ForIn {
-    constructor(iterador, rango, actualizacion, lista_instrucciones, fila, columna) {
+    constructor(iterador, rango, lista_instrucciones, fila, columna) {
         this.iterador = iterador;
         this.rango = rango;
         this.lista_instrucciones = lista_instrucciones;
@@ -21,29 +21,23 @@ class ForIn {
         if (rango instanceof Errores_1.Errores) {
             return rango;
         }
-        if (this.rango instanceof String) {
-            if (this.getBool(rango)) {
-                for (var i = 0; i < rango.length; i++) {
-                    let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.CHARACTER, null, this.fila, this.columna, i);
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    let result = ts_local.updateSymbolTabla(nuevo_simb);
-                    if (result instanceof Errores_1.Errores) {
-                        result = ts_local.setSymbolTabla(nuevo_simb);
-                        if (result instanceof Errores_1.Errores) {
-                            return result;
-                        }
+        if (this.rango.tipo == Tipo_1.TIPO.CADENA) {
+            for (var i = 0; i < rango.length; i++) {
+                let char = rango.charAt(i);
+                let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.CHARACTER, null, this.fila, this.columna, char);
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                ts_local.setSymbolTabla(nuevo_simb);
+                ts_local.updateSymbolTabla(nuevo_simb);
+                for (let ins of this.lista_instrucciones) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return null;
                     }
-                    for (let ins of this.lista_instrucciones) {
-                        let res = ins.ejecutar(ts_local, tree);
-                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                            return null;
-                        }
-                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            break;
-                        }
-                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                            return res;
-                        }
+                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        break;
+                    }
+                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        return res;
                     }
                 }
             }

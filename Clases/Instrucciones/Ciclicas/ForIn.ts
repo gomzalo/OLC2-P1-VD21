@@ -11,6 +11,7 @@ import { Detener } from '../Transferencia/Break';
 import { timingSafeEqual } from 'crypto';
 import { Errores } from '../../Ast/Errores';
 import { isInt16Array } from 'util/types';
+import { Simbolo } from "../../TablaSimbolos/Simbolo";
 
 export class ForIn implements Instruccion{
 
@@ -29,42 +30,29 @@ export class ForIn implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let tabla_intermedia = new TablaSimbolos(table);
-        let iterador = this.iterador.ejecutar(tabla_intermedia, tree);
-        console.log("iterador: " + iterador);
-        if( iterador instanceof Errores){
-            return iterador;
+        let rango = this.rango.ejecutar(table, tree);
+        if(rango instanceof Errores){
+            return rango;
         }
-        while(true){
-            let rango = this.rango.ejecutar(tabla_intermedia, tree);
-            console.log("rango: " + rango);
-            if(this.rango.tipo == TIPO.BOOLEANO){
-                if(this.getBool(rango)){
-                    let ts_local = new TablaSimbolos(tabla_intermedia);
-                    for(let ins of this.lista_instrucciones){
-                        let res = ins.ejecutar(ts_local, tree);
-                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                        
-                        if(ins instanceof Detener || res instanceof Detener ){
-                            return null;
-                        }
-                        if(ins instanceof Continuar || res instanceof Continuar){
-                            break;
-                        }
-                        if(ins instanceof Return || res instanceof Return){
-                            return res;
-                        }
+        if(this.rango.tipo == TIPO.CADENA){
+            for(var i = 0; i < rango.length; i++){
+                let char = rango.charAt(i);
+                let nuevo_simb = new Simbolo(this.iterador, TIPO.CHARACTER, null, this.fila, this.columna, char);
+                let ts_local = new TablaSimbolos(table);
+                ts_local.setSymbolTabla(nuevo_simb);
+                ts_local.updateSymbolTabla(nuevo_simb);
+                for(let ins of this.lista_instrucciones){
+                    let res = ins.ejecutar(ts_local, tree);
+                    if(ins instanceof Detener || res instanceof Detener ){
+                        return null;
                     }
-                    le = this.actualizacion.ejecutar(tabla_intermedia, tree);
-                    console.log("actualizacion: " );
-                    if instanceof Errores){
-                        retur;
+                    if(ins instanceof Continuar || res instanceof Continuar){
+                        break;
                     }
-                }else{
-                    break;
+                    if(ins instanceof Return || res instanceof Return){
+                        return res;
+                    }
                 }
-            }else{
-                return new Errores("Semantico", "Valor no booleano", this.fila, this.columna);
             }
         }
     }

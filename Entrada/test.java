@@ -1,3 +1,4 @@
+void main(){
     println("************   PRIMITIVOS  **************");
     // CADENAS
     println("repeticion-"^3);
@@ -148,3 +149,17 @@
     for (int i = 0; i < 5; i++) {
         println(i);
     }
+    println("************   For-In  **************");
+    for letra in "Hola Mundo!"  // Recorre las letras de la cadena
+    {
+        print(letra, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
+    
+    }
+    println("");
+    println("xd");
+    String cadena = "OLC2";
+    for letra in cadena
+    {
+        print(letra, "-");      // Imprime O-L-C-2
+    }
+}

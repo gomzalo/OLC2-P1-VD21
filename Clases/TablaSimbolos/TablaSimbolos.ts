@@ -87,8 +87,7 @@ export class TablaSimbolos{
             }else{
                 tablaActual = this.anterior
             }
-           
         }
-         return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+        return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
     }
 }
