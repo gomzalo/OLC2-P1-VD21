@@ -2075,7 +2075,7 @@ class Llamada {
         if (this.parameters.length == resultFunc.parameters.length) {
             let count = 0;
             for (let expr of this.parameters) {
-                let valueExpr = expr.ejecutar(table, tree);
+                let valueExpr = expr.ejecutar(newTable, tree);
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
@@ -2102,7 +2102,7 @@ class Llamada {
             console.log(`tam param call: ${this.parameters.length} func ${resultFunc.parameters.length}`);
             return new Errores_1.Errores("Semantico", "Tamaño de Tipo de Parametros no coincide", this.fila, this.columna);
         }
-        let valor = resultFunc.ejecutar(table, tree);
+        let valor = resultFunc.ejecutar(newTable, tree);
         if (valor instanceof Errores_1.Errores) {
             return valor;
         }

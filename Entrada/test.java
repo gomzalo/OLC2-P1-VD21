@@ -179,7 +179,7 @@
         }
 
         println("************   Llamada  **************");
-        println(operacionMatematica('+',90,5));
+        // println(operacionMatematica('+',90,5));
         metodo("hola");
         // char operador='+';
         // switch(operador) {
@@ -203,9 +203,26 @@
     }
 
     // errorr revisar
-    // double operacionMatematica(char operador, int valor1, int valor2){
-    //     return valor1 + valor2;
-    // } 
+    double operacionMatematica(char operador, int valor1, int valor2){
+        // switch(operador) {
+        //     case '+':
+        //         println("prueba");
+        //         println(valor1 + valor2);
+        //         return valor1 + valor2;
+        //         break;
+        //     case '-':
+        //         return valor1 - valor2;
+        //         break;
+        //     case '*':
+        //         return valor1 * valor2;
+        //         break;
+        //     case '/':
+        //         return valor1 / valor2;
+        //         break;
+        //     default:
+        //         return 0;
+        // }
+    } 
 
     void metodo (string hola)
     {

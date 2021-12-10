@@ -37,7 +37,7 @@ export class Llamada implements Instruccion{
             let count=0;
             for (let expr of this.parameters)
             {
-                let valueExpr = expr.ejecutar(table,tree);
+                let valueExpr = expr.ejecutar(newTable,tree);
 
                 if( valueExpr instanceof Errores ){
                     return new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
@@ -64,7 +64,7 @@ export class Llamada implements Instruccion{
             console.log(`tam param call: ${this.parameters.length} func ${resultFunc.parameters.length}`);
             return new Errores("Semantico", "Tamaño de Tipo de Parametros no coincide", this.fila, this.columna);
         }
-        let valor = resultFunc.ejecutar(table,tree);
+        let valor = resultFunc.ejecutar(newTable,tree);
         if( valor instanceof Errores ){
             return valor;
         }
