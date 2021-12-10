@@ -177,6 +177,8 @@
         {
             print(letra, "-");      // Imprime O-L-C-2
         }
+        println("************   Arreglos  **************");
+        String[] arr = ["H","O","L","A"];
 
         println("************   Llamada  **************");
         // println(operacionMatematica('+',90,5));

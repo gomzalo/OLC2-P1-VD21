@@ -217,7 +217,6 @@ instruccion:
     |   funciones                           { $$ = $1 }
     |   declaracion PUNTOCOMA               { $$ = $1 }
     |   asignacion  PUNTOCOMA               { $$ = $1 }
-    
     |   if_llav_instr                       { $$ = $1 }
     |   if_instr                            { $$ = $1 }
     |   switch_instr                        { $$ = $1 }
@@ -381,15 +380,15 @@ parametro_func:
 
 
 /*..............     Llamada      ...............*/
-llamada : ID PARA PARC              { $$ = new Llamada($1 , [],@1.first_line, @1.last_column ); }
-        | ID PARA lista_parametros PARC    { $$ = new Llamada($1 , $3 ,@1.first_line, @1.last_column ); }
+llamada : ID PARA PARC              { $$ = new Llamada($1 , [], @1.first_line, @1.last_column ); }
+        | ID PARA lista_parametros PARC    { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column ); }
         ;
 
 /*..............     Arreglos      ...............*/
 // ------------     Declaracion array
 decl_arr_instr:
         tipo lista_dim ID
-        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr(); }
+        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column ); }
     ;
 // ------------     Dimensiones
 lista_dim:
@@ -398,8 +397,13 @@ lista_dim:
     ;
 // ------------     Lista expresiones
 lista_exp_arr:
-        lista_exp_arr CORA exp CORC         { $$ = $1; $$.push($3); }
-    |   CORA exp CORC                       { $$ = new Array(); $$.push($2); }
+        lista_exp_arr CORA lista_exp_arr_c CORC         { $$ = $1; $$.push($3); }
+    |   CORA lista_exp_arr_c CORC                       { $$ = new Array(); $$.push($2); }
+    ;
+// ------------     Lista expresiones
+lista_exp_arr_c:
+        lista_exp_arr_c COMA expr           { $$ = $1; $$.push($3); }
+    |   expr                                { $$ = new Array(); $$.push($1); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 
@@ -443,5 +447,6 @@ expr:
     |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
     |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
+    |   CORA lista_exp_arr_c CORC   { $$ = $2;}
     |   llamada                     { $$ = $1 }
     ;
