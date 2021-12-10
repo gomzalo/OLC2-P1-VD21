@@ -75,8 +75,7 @@ class Ast {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for (let instr of this.instrucciones) {
-            let value = null;
-            if (!(value instanceof Declaracion_1.Declaracion || value instanceof Asignacion_1.Asignacion || value instanceof Main_1.Main /**falta metodos */)) {
+            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main /**falta metodos */)) {
                 let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());

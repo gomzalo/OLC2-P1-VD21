@@ -202,14 +202,6 @@ compilar.addEventListener('click', () => {
 
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        
-        // let tablaSimbolos = new TablaSimbolos();
-        // let astEjecucion = new Ast();
-        // result.instrucciones.forEach(res => {
-        //     console.log("hola")
-        //     console.log(res)
-        //     res.ejecutar(tablaSimbolos, result);
-        // });
         result.ejecutar();
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
