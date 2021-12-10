@@ -46,6 +46,7 @@ BSL                                 "\\".
 "while"                     { return 'RWHILE' };
 "for"                       { return 'RFOR' };
 "do"                        { return 'RDO' };
+"in"                        { return 'RIN' };
 /* ..............      Tipos      ...............*/
 "null"                      { return 'NULL' };
 "true"                      { return 'TRUE' };
@@ -127,14 +128,12 @@ BSL                                 "\\".
 
     /*::::::::::::::::::     AST      ::::::::::::::::::*/
     const { Ast } = require("../dist/Ast/Ast");
-
     /*::::::::::::::::::     ENUMs      ::::::::::::::::::*/
     const { TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
     /*::::::::::::::::::     Expresiones      ::::::::::::::::::*/
     const { Primitivo } = require("../dist/Expresiones/Primitivo");
     const { Identificador } = require("../dist/Expresiones/Identificador");
     const { Ternario } = require("../dist/Expresiones/Ternario");
-    
     /*..............     Operaciones      ...............*/
     const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
     const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
@@ -155,6 +154,7 @@ BSL                                 "\\".
     const { While } = require("../dist/Instrucciones/Ciclicas/While");
     const { DoWhile } = require("../dist/Instrucciones/Ciclicas/DoWhile");
     const { For } = require("../dist/Instrucciones/Ciclicas/For");
+    const { ForIn } = require("../dist/Instrucciones/Ciclicas/ForIn");
     /*..............     Declaracion y asignacion      ...............*/
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
     const { Asignacion } = require("../dist/Instrucciones/Asignacion");
@@ -219,7 +219,7 @@ instruccion:
     |   while_instr                         { $$ = $1 }
     |   for_instr                           { $$ = $1 }
     |   dowhile_instr PUNTOCOMA             { $$ = $1 }
-    
+    |   for_in_instr                        { $$ = $1 }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
@@ -340,6 +340,11 @@ actualizacion:
     |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     ;
+/*..............     For in      ...............*/
+for_in_instr:
+        RFOR ID RIN expr
+        LLAVA instrucciones LLAVC           { $$ = new ForIn($2, $4, $6, @1.first_line, @1.first_column); }
+    ;
 
 /*..............     Main      ...............*/
 main_ :   RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC 
@@ -350,11 +355,11 @@ main_ :   RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC
 
 /*..............     Tipos      ...............*/
 tipo : 
-        RINT        { $$ = TIPO.ENTERO; }
-    |   RDOUBLE     { $$ = TIPO.DECIMAL; }
-    |   RSTRING     { $$ = TIPO.CADENA; }
-    |   RCHAR       { $$ = TIPO.CHARACTER; }
-    |   RBOOLEAN    { $$ = TIPO.BOOLEANO; }
+        RINT                        { $$ = TIPO.ENTERO; }
+    |   RDOUBLE                     { $$ = TIPO.DECIMAL; }
+    |   RSTRING                     { $$ = TIPO.CADENA; }
+    |   RCHAR                       { $$ = TIPO.CHARACTER; }
+    |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; }
     ;
 
 /*..............     Tipos      ...............*/
@@ -370,33 +375,33 @@ tipo_metodo :
 
 /*..............     Expresiones      ...............*/
 expr: 
-        expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
-    |   expr MENOS expr           { $$ = new Aritmetica($1,OperadorAritmetico.MENOS,$3, @1.first_line, @1.first_column, false); }
-    |   expr MULTI expr           { $$ = new Aritmetica($1,OperadorAritmetico.POR,$3, @1.first_line, @1.first_column, false); }
-    |   expr DIV expr             { $$ = new Aritmetica($1,OperadorAritmetico.DIV,$3, @1.first_line, @1.first_column, false); }
-    |   expr PORCENTAJE expr      { $$ = new Aritmetica($1,OperadorAritmetico.MOD,$3, @1.first_line, @1.first_column, false); }
-    |   expr POTENCIA expr        { $$ = new Aritmetica($1,OperadorAritmetico.POT,$3, @1.first_line, @1.first_column, false); }
-    |   expr AMPERSON expr        { $$ = new Aritmetica($1,OperadorAritmetico.AMPERSON,$3, @1.first_line, @1.first_column, false); }
-    |   MENOS expr %prec UMINUS   { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); }
-    |   PARA expr PARC            { $$ = $2; }
-    |   expr AND expr             { $$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false); }
-    |   expr OR expr              { $$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false); }
-    |   NOT expr                  { $$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true); }
-    |   expr MAYORQUE expr        { $$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false); }
-    |   expr MAYORIGUAL expr      { $$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false); }
-    |   expr MENORIGUAL expr      { $$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false); }
-    |   expr MENORQUE expr        { $$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false); }
-    |   expr IGUALIGUAL expr      { $$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false); }
-    |   expr DIFERENTE expr       { $$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false); }
-    |   ENTERO                    { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
-    |   DECIMAL                   { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
-    |   CADENA                    { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
-    |   CHAR                      { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); }
-    |   NULL                      { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
-    |   TRUE                      { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
-    |   FALSE                     { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
-    |   ID                        { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
+        expr MAS expr               { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
+    |   expr MENOS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MENOS,$3, @1.first_line, @1.first_column, false); }
+    |   expr MULTI expr             { $$ = new Aritmetica($1,OperadorAritmetico.POR,$3, @1.first_line, @1.first_column, false); }
+    |   expr DIV expr               { $$ = new Aritmetica($1,OperadorAritmetico.DIV,$3, @1.first_line, @1.first_column, false); }
+    |   expr PORCENTAJE expr        { $$ = new Aritmetica($1,OperadorAritmetico.MOD,$3, @1.first_line, @1.first_column, false); }
+    |   expr POTENCIA expr          { $$ = new Aritmetica($1,OperadorAritmetico.POT,$3, @1.first_line, @1.first_column, false); }
+    |   expr AMPERSON expr          { $$ = new Aritmetica($1,OperadorAritmetico.AMPERSON,$3, @1.first_line, @1.first_column, false); }
+    |   MENOS expr %prec UMINUS     { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); }
+    |   PARA expr PARC              { $$ = $2; }
+    |   expr AND expr               { $$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false); }
+    |   expr OR expr                { $$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false); }
+    |   NOT expr                    { $$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true); }
+    |   expr MAYORQUE expr          { $$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false); }
+    |   expr MAYORIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false); }
+    |   expr MENORIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false); }
+    |   expr MENORQUE expr          { $$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false); }
+    |   expr IGUALIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false); }
+    |   expr DIFERENTE expr         { $$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false); }
+    |   ENTERO                      { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
+    |   DECIMAL                     { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
+    |   CADENA                      { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
+    |   CHAR                        { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); }
+    |   NULL                        { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
+    |   TRUE                        { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
+    |   FALSE                       { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
+    |   ID                          { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
     |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
-    |   ID INCRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
-    |   ID DECRE        { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
+    |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
+    |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     ;
