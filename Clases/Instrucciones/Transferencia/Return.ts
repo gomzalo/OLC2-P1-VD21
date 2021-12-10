@@ -9,9 +9,15 @@ export class Return implements Instruccion{
     public expresion : Instruccion | any;
     public valor : any;
     public tipo : TIPO;
-    constructor(expresion){
+    fila: number;
+    columna: number;
+
+    constructor(expresion,fila,columna){
         this.expresion = expresion;
+        this.fila = fila;
+        this.columna =columna;
     }
+
     
     ejecutar(table: TablaSimbolos, tree: Ast) {
         if(this.expresion != null){

@@ -203,22 +203,23 @@ compilar.addEventListener('click', () => {
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
         
-        let tablaSimbolos = new TablaSimbolos();
-        let astEjecucion = new Ast();
-        result.instrucciones.forEach(res => {
-            console.log("hola")
-            console.log(res)
-            res.ejecutar(tablaSimbolos, result);
-        });
+        // let tablaSimbolos = new TablaSimbolos();
+        // let astEjecucion = new Ast();
+        // result.instrucciones.forEach(res => {
+        //     console.log("hola")
+        //     console.log(res)
+        //     res.ejecutar(tablaSimbolos, result);
+        // });
+        result.ejecutar();
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
         $("#textAreaConsola").val(texto);
         txtConsola.append(texto);
-        Swal.fire(
-            '¡Gramatica correcta!'
-        );
+        // Swal.fire(
+        //     '¡Gramatica correcta!'
+        // );
     }catch(e){
         Swal.fire(
             'Gramatica incorrecta\n:' + e

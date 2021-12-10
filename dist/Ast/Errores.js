@@ -8,5 +8,8 @@ class Errores {
         this.fila = fila;
         this.columna = columna;
     }
+    toString() {
+        return this.tipo + " - " + this.descripcion + " [" + String(this.fila) + "," + String(this.columna) + "]";
+    }
 }
 exports.Errores = Errores;

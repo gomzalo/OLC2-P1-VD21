@@ -1,6 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
+const Asignacion_1 = require("../Instrucciones/Asignacion");
+const Declaracion_1 = require("../Instrucciones/Declaracion");
+const Main_1 = require("../Instrucciones/Metodos/Main");
+const Break_1 = require("../Instrucciones/Transferencia/Break");
+const Continuar_1 = require("../Instrucciones/Transferencia/Continuar");
+const Return_1 = require("../Instrucciones/Transferencia/Return");
+const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
+const Errores_1 = require("./Errores");
 class Ast {
     constructor() {
         this.consola = "";
@@ -13,22 +21,68 @@ class Ast {
         this.structs = new Array();
         this.Errores = new Array();
         this.consola = "";
-        this.TSglobal = null;
+        // this.TSglobal =  null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
+        this.TSglobal = new TablaSimbolos_1.TablaSimbolos(null);
     }
-    // public ejecutar(table: TablaSimbolos, tree: Ast){
-    //     // 1ERA PASADA: 
-    //     // GUARDAR FUNCIONES  Y METODOS
-    //     // for( let instr of this.instrucciones){
-    //     // }
-    //     // 2DA PASADA
-    //     // EJECUTAMOS TODAS LAS FUNCIONES
-    //     this.instrucciones.forEach(instruccion => {
-    //         instruccion.ejecutar(table, tree);
-    //     });
-    // }
+    ejecutar() {
+        // 1ERA PASADA: 
+        // GUARDAR FUNCIONES  Y METODOS
+        for (let instr of this.instrucciones) {
+            let value = null;
+            if (value instanceof Declaracion_1.Declaracion || value instanceof Asignacion_1.Asignacion) {
+                value = instr.ejecutar(this.TSglobal, this);
+            }
+            if (value instanceof Errores_1.Errores) {
+                this.getErrores().push(value);
+                this.updateConsolaPrintln(value.toString());
+            }
+            if (value instanceof Break_1.Detener) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
+                this.getErrores().push(error);
+                this.updateConsolaPrintln(error.toString());
+            }
+            if (value instanceof Continuar_1.Continuar) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia Continue fuera de Instruccion Ciclo", instr.fila, instr.columna);
+                this.getErrores().push(error);
+                this.updateConsolaPrintln(error.toString());
+            }
+            if (value instanceof Return_1.Return) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia Return fuera de Metodos/Control/Ciclos", instr.fila, instr.columna);
+                this.getErrores().push(error);
+                this.updateConsolaPrintln(error.toString());
+            }
+        }
+        // 2DA PASADA
+        // EJECUTAMOS TODAS LAS FUNCIONES
+        for (let instr of this.instrucciones) {
+            let countMain = 0;
+            if (instr instanceof Main_1.Main) {
+                countMain++;
+                if (countMain > 2) {
+                    let error = new Errores_1.Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                    break;
+                }
+                let value = instr.ejecutar(this.TSglobal, this);
+            }
+            // instr.ejecutar(this.TSglobal, this);
+        }
+        ;
+        // 3RA PASADA
+        // VALIDACION FUERA DE MAIN
+        for (let instr of this.instrucciones) {
+            let value = null;
+            if (!(value instanceof Declaracion_1.Declaracion || value instanceof Asignacion_1.Asignacion || value instanceof Main_1.Main /**falta metodos */)) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
+                this.getErrores().push(error);
+                this.updateConsolaPrintln(error.toString());
+            }
+        }
+    }
     getInstrucciones() {
         return this.instrucciones;
     }

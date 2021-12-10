@@ -4,8 +4,10 @@ exports.Return = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
 const Errores_1 = require("../../Ast/Errores");
 class Return {
-    constructor(expresion) {
+    constructor(expresion, fila, columna) {
         this.expresion = expresion;
+        this.fila = fila;
+        this.columna = columna;
     }
     ejecutar(table, tree) {
         if (this.expresion != null) {

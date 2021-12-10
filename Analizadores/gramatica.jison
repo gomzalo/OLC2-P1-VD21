@@ -56,6 +56,8 @@ BSL                                 "\\".
 "boolean"                   { return 'RBOOLEAN' };
 "char"                      { return 'RCHAR' };
 "String"                    { return 'RSTRING' };
+"void"                      { return 'RVOID' };
+"main"                      { return 'RMAIN' };
 /* ..............      Transferencia      ...............*/
 "break"                     { return 'RBREAK' };
 "continue"                  { return 'RCONTINUE' };
@@ -139,6 +141,7 @@ BSL                                 "\\".
     const { Relacional } = require("../dist/Expresiones/Operaciones/Relacionales");
     /*::::::::::::::::::     Instrucciones      ::::::::::::::::::*/
     const { Print } = require("../dist/Instrucciones/Print");
+    const { Main } = require("../dist/Instrucciones/Metodos/Main");
     /*..............     Condicionales      ...............*/
     const { If } = require("../dist/Instrucciones/Condicionales/If");
     const { Ifsinllave } = require("../dist/Instrucciones/Condicionales/Ifsinllave");
@@ -204,6 +207,7 @@ instrucciones:
 instruccion:
         print_instr PUNTOCOMA               { $$ = $1 }
     |   println_instr PUNTOCOMA             { $$ = $1 }
+    |   main_                               { $$ = $1 }
     |   asignacion  PUNTOCOMA               { $$ = $1 }
     |   declaracion PUNTOCOMA               { $$ = $1 }
     |   if_llav_instr                       { $$ = $1 }
@@ -215,6 +219,7 @@ instruccion:
     |   while_instr                         { $$ = $1 }
     |   for_instr                           { $$ = $1 }
     |   dowhile_instr PUNTOCOMA             { $$ = $1 }
+    
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
@@ -300,15 +305,15 @@ lista_parametros:
     ;
 /*..............     Break      ...............*/
 break_instr:
-        RBREAK                              { $$ = new Detener(); }
+        RBREAK                              { $$ = new Detener(@1.first_line, @1.first_column); }
     ;
 /*..............     Continue      ...............*/
 continue_instr:
-        RCONTINUE                           { $$ = new Continuar(); }
+        RCONTINUE                           { $$ = new Continuar(@1.first_line, @1.first_column); }
     ;
 /*..............     Return      ...............*/
 return_instr:
-        RRETURN expr                        { $$ = new Return($2); }
+        RRETURN expr                        { $$ = new Return($2,@1.first_line, @1.first_column); }
     ;
 /*..............     While      ...............*/
 while_instr:
@@ -335,6 +340,14 @@ actualizacion:
     |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     ;
+
+/*..............     Main      ...............*/
+main_ :   RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC 
+        {$$ = new Main($6,@1.first_line, @1.first_column); }
+        | RVOID RMAIN PARA PARC LLAVA  LLAVC
+        {$$ = new Main([],@1.first_line, @1.first_column); }
+        ;
+
 /*..............     Tipos      ...............*/
 tipo : 
         RINT        { $$ = TIPO.ENTERO; }
@@ -343,6 +356,18 @@ tipo :
     |   RCHAR       { $$ = TIPO.CHARACTER; }
     |   RBOOLEAN    { $$ = TIPO.BOOLEANO; }
     ;
+
+/*..............     Tipos      ...............*/
+tipo_metodo : 
+        RINT        { $$ = TIPO.ENTERO; }
+    |   RDOUBLE     { $$ = TIPO.DECIMAL; }
+    |   RSTRING     { $$ = TIPO.CADENA; }
+    |   RCHAR       { $$ = TIPO.CHARACTER; }
+    |   RBOOLEAN    { $$ = TIPO.BOOLEANO; }
+    |   RVOID       { $$ = TIPO.VOID; }
+    ;
+
+
 /*..............     Expresiones      ...............*/
 expr: 
         expr MAS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }

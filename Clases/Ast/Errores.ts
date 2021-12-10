@@ -11,4 +11,9 @@ export class Errores{
         this.fila = fila;
         this.columna = columna;
     }
+
+    public toString()
+    {
+        return this.tipo + " - " + this.descripcion + " [" + String(this.fila) + "," + String(this.columna) + "]";
+    }
 }
