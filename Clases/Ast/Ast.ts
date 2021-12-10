@@ -1,6 +1,7 @@
 import { Asignacion } from "../Instrucciones/Asignacion";
 import { Declaracion } from "../Instrucciones/Declaracion";
 import { Main } from "../Instrucciones/Metodos/Main";
+import { Funcion } from "../Instrucciones/Metodos/Funcion";
 import { Detener } from "../Instrucciones/Transferencia/Break";
 import { Continuar } from "../Instrucciones/Transferencia/Continuar";
 import { Return } from "../Instrucciones/Transferencia/Return";
@@ -10,7 +11,7 @@ import { Errores } from "./Errores";
 
 export class Ast  {
     public instrucciones:Array<Instruccion>;
-    public funciones ;
+    public funciones:Array<any> ;
     public structs ;
     public Errores ;
     public consola: string = "";
@@ -34,14 +35,20 @@ export class Ast  {
     }
 
     public ejecutar(){
+        let tree =this;
         // 1ERA PASADA: 
         // GUARDAR FUNCIONES  Y METODOS
         for( let instr of this.instrucciones){
             let value = null;
+            if (instr instanceof Funcion )
+            {
+                this.addFunction(instr);
+            }
             if (value instanceof Declaracion || value instanceof Asignacion )
             {
-                value = instr.ejecutar(this.TSglobal,this);
+                value = instr.ejecutar(this.TSglobal,tree);
             }
+            
             if (value instanceof Errores)
             {
                 this.getErrores().push(value);
@@ -78,7 +85,7 @@ export class Ast  {
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                let value = instr.ejecutar(this.TSglobal,this);
+                let value = instr.ejecutar(this.TSglobal,tree);
 
             }
             // instr.ejecutar(this.TSglobal, this);
@@ -87,7 +94,7 @@ export class Ast  {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for( let instr of this.instrucciones){
-            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main /**falta metodos */))
+            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion))
             {
                 let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
@@ -129,6 +136,7 @@ export class Ast  {
     public updateConsolaPrintln(cadena: string){
         // console.log("cad println: " + cadena);
         this.consola += cadena + '\n';
+        
     }
 
     public updateConsolaPrint(cadena: string){
@@ -145,17 +153,24 @@ export class Ast  {
     }
 
     public getFunction(name){
-        this.funciones.forEach(function (func) {
+        let tree =this;
+        console.log(name);
+        console.log(this.funciones);
+        // this.funciones.forEach(function (func) {
+        for(let func of tree.funciones){
             // console.log(func);
-            if (func.name == name){
+            if (func.id == name){
                 return func;
             }
-        }); 
+        }
         return null;
     }
 
     public addFunction(funcion){
-        this.funciones.concat(funcion);
+        console.log(funcion.id);
+        this.funciones.push(funcion);
+        console.log(this.funciones)
+        console.log("entre funciont add");
     }
 
     public getStruct(name){

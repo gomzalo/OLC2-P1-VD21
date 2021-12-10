@@ -135,6 +135,7 @@ BSL                                 "\\".
     const { Primitivo } = require("../dist/Expresiones/Primitivo");
     const { Identificador } = require("../dist/Expresiones/Identificador");
     const { Ternario } = require("../dist/Expresiones/Ternario");
+    const { Llamada } = require("../dist/Expresiones/Llamada");
     /*..............     Operaciones      ...............*/
     const { Aritmetica } = require("../dist/Expresiones/Operaciones/Aritmeticas");
     const { Logica } = require("../dist/Expresiones/Operaciones/Logicas");
@@ -143,7 +144,7 @@ BSL                                 "\\".
     const { Print } = require("../dist/Instrucciones/Print");
     const { Main } = require("../dist/Instrucciones/Metodos/Main");
     const { Funcion } = require("../dist/Instrucciones/Metodos/Funcion");
-    const { Llamada } = require("../dist/Instrucciones/Metodos/Llamada");
+    
     /*..............     Condicionales      ...............*/
     const { If } = require("../dist/Instrucciones/Condicionales/If");
     const { Ifsinllave } = require("../dist/Instrucciones/Condicionales/Ifsinllave");
@@ -225,6 +226,7 @@ instruccion:
     |   for_instr                           { $$ = $1 }
     |   dowhile_instr PUNTOCOMA             { $$ = $1 }
     |   for_in_instr                        { $$ = $1 }
+    |   llamada PUNTOCOMA                   { $$ = $1 }
     
     ;
 /*..............     Declaracion      ...............*/
@@ -363,7 +365,7 @@ main_ :
 
 /*..............     Funciones      ...............*/
 funciones : tipo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column ); }
-        | tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC  { $$ = new Funcion($2, $1, $4, $6, @1.first_line, @1.last_column ); }
+        | tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC  { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column ); }
         ;
 
 //------     Lista parametros 
@@ -425,4 +427,5 @@ expr:
     |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
     |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
+    |   llamada                     { $$ = $1 }
     ;

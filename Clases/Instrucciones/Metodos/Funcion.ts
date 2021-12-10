@@ -2,6 +2,7 @@ import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
+import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from "../Transferencia/Break";
 import { Continuar } from "../Transferencia/Continuar";
 import { Return } from "../Transferencia/Return";
@@ -9,12 +10,14 @@ import { Return } from "../Transferencia/Return";
 export class Funcion implements Instruccion{
     public fila: number;
     public columna: number;
+    public tipo : TIPO;
     public id : string;
-    public parameters ;
+    public parameters: Array<any>;
     public instructions : Array<Instruccion>;
 
-    constructor(id,parameters,instructions,fila,columna)
+    constructor(id,tipo,parameters,instructions,fila,columna)
     {
+        this.tipo =tipo;
         this.id = id;
         this.parameters =parameters;
         this.instructions = instructions;

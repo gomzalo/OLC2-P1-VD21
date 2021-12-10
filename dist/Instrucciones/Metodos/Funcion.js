@@ -7,7 +7,8 @@ const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
 class Funcion {
-    constructor(id, parameters, instructions, fila, columna) {
+    constructor(id, tipo, parameters, instructions, fila, columna) {
+        this.tipo = tipo;
         this.id = id;
         this.parameters = parameters;
         this.instructions = instructions;

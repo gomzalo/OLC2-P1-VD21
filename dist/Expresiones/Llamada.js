@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Llamada = void 0;
-const Errores_1 = require("../../Ast/Errores");
-const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Errores_1 = require("../Ast/Errores");
+const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Llamada {
     constructor(id, parameters, fila, columna, arreglo = false) {
         this.id = id;
@@ -48,7 +48,15 @@ class Llamada {
             }
         }
         else {
+            console.log(`tam param call: ${this.parameters.length} func ${resultFunc.parameters.length}`);
+            return new Errores_1.Errores("Semantico", "Tamaño de Tipo de Parametros no coincide", this.fila, this.columna);
         }
+        let valor = resultFunc.ejecutar(table, tree);
+        if (valor instanceof Errores_1.Errores) {
+            return valor;
+        }
+        this.tipo = resultFunc.tipo;
+        return valor;
     }
     translate3d(table, tree) {
         throw new Error("Method not implemented.");

@@ -177,24 +177,31 @@
         {
             print(letra, "-");      // Imprime O-L-C-2
         }
+
+        println("************   Llamada  **************");
+        println(operacionMatematica('+',90,5));
+        // char operador='+';
+        // switch(operador) {
+        //     case '+':
+        //         println("prueba");
+        //         println(valor1 + valor2);
+        //         return valor1 + valor2;
+        //         break;
+        //     case '-':
+        //         return valor1 - valor2;
+        //         break;
+        //     case '*':
+        //         return valor1 * valor2;
+        //         break;
+        //     case '/':
+        //         return valor1 / valor2;
+        //         break;
+        //     default:
+        //         return 0;
+        // }
     }
 
     double operacionMatematica(char operador, int valor1, int valor2){
-        switch(operador) {
-            case '+':
-                return valor1 + valor2;
-                break;
-            case '-':
-                return valor1 - valor2;
-                break;
-            case '*':
-                return valor1 * valor2;
-                break;
-            case '/':
-                return valor1 / valor2;
-                break;
-            default:
-                return 0;
-        }
+        return valor1 + valor2;
     } 
     

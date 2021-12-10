@@ -4,6 +4,7 @@ exports.Ast = void 0;
 const Asignacion_1 = require("../Instrucciones/Asignacion");
 const Declaracion_1 = require("../Instrucciones/Declaracion");
 const Main_1 = require("../Instrucciones/Metodos/Main");
+const Funcion_1 = require("../Instrucciones/Metodos/Funcion");
 const Break_1 = require("../Instrucciones/Transferencia/Break");
 const Continuar_1 = require("../Instrucciones/Transferencia/Continuar");
 const Return_1 = require("../Instrucciones/Transferencia/Return");
@@ -28,12 +29,16 @@ class Ast {
         this.TSglobal = new TablaSimbolos_1.TablaSimbolos(null);
     }
     ejecutar() {
+        let tree = this;
         // 1ERA PASADA: 
         // GUARDAR FUNCIONES  Y METODOS
         for (let instr of this.instrucciones) {
             let value = null;
+            if (instr instanceof Funcion_1.Funcion) {
+                this.addFunction(instr);
+            }
             if (value instanceof Declaracion_1.Declaracion || value instanceof Asignacion_1.Asignacion) {
-                value = instr.ejecutar(this.TSglobal, this);
+                value = instr.ejecutar(this.TSglobal, tree);
             }
             if (value instanceof Errores_1.Errores) {
                 this.getErrores().push(value);
@@ -67,7 +72,7 @@ class Ast {
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                let value = instr.ejecutar(this.TSglobal, this);
+                let value = instr.ejecutar(this.TSglobal, tree);
             }
             // instr.ejecutar(this.TSglobal, this);
         }
@@ -75,7 +80,7 @@ class Ast {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for (let instr of this.instrucciones) {
-            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main /**falta metodos */)) {
+            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion)) {
                 let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());
@@ -119,16 +124,23 @@ class Ast {
         this.TSglobal = TSglobal;
     }
     getFunction(name) {
-        this.funciones.forEach(function (func) {
+        let tree = this;
+        console.log(name);
+        console.log(this.funciones);
+        // this.funciones.forEach(function (func) {
+        for (let func of tree.funciones) {
             // console.log(func);
-            if (func.name == name) {
+            if (func.id == name) {
                 return func;
             }
-        });
+        }
         return null;
     }
     addFunction(funcion) {
-        this.funciones.concat(funcion);
+        console.log(funcion.id);
+        this.funciones.push(funcion);
+        console.log(this.funciones);
+        console.log("entre funciont add");
     }
     getStruct(name) {
         this.structs.forEach(struct => {
