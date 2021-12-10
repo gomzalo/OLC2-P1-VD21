@@ -303,15 +303,16 @@ lista_parametros:
         lista_parametros COMA expr          { $$ = $1; $$.push($3); }
     |   expr                                { $$ = new Array(); $$.push($1);}
     ;
-/*..............     Break      ...............*/
+/*..............     Transferencia      ...............*/
+// ------------     Break
 break_instr:
         RBREAK                              { $$ = new Detener(@1.first_line, @1.first_column); }
     ;
-/*..............     Continue      ...............*/
+// ------------      Continue
 continue_instr:
         RCONTINUE                           { $$ = new Continuar(@1.first_line, @1.first_column); }
     ;
-/*..............     Return      ...............*/
+// ------------     Return
 return_instr:
         RRETURN expr                        { $$ = new Return($2,@1.first_line, @1.first_column); }
     ;
@@ -334,7 +335,7 @@ for_instr:
         expr PUNTOCOMA actualizacion PARC
         LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); }
     ;
-/*..............     Actualizacion      ...............*/
+// ------------     Actualizacion
 actualizacion:
         ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
     |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
@@ -345,14 +346,13 @@ for_in_instr:
         RFOR ID RIN expr
         LLAVA instrucciones LLAVC           { $$ = new ForIn($2, $4, $6, @1.first_line, @1.first_column); }
     ;
-
 /*..............     Main      ...............*/
-main_ :   RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC 
-        {$$ = new Main($6,@1.first_line, @1.first_column); }
-        | RVOID RMAIN PARA PARC LLAVA  LLAVC
-        {$$ = new Main([],@1.first_line, @1.first_column); }
-        ;
-
+main_ :
+        RVOID RMAIN PARA PARC 
+        LLAVA instrucciones LLAVC           {$$ = new Main($6,@1.first_line, @1.first_column); }
+    |   RVOID RMAIN PARA PARC 
+        LLAVA LLAVC                         {$$ = new Main([],@1.first_line, @1.first_column); }
+    ;
 /*..............     Tipos      ...............*/
 tipo : 
         RINT                        { $$ = TIPO.ENTERO; }
@@ -361,18 +361,15 @@ tipo :
     |   RCHAR                       { $$ = TIPO.CHARACTER; }
     |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; }
     ;
-
-/*..............     Tipos      ...............*/
+/*..............     Tipos metodos      ...............*/
 tipo_metodo : 
-        RINT        { $$ = TIPO.ENTERO; }
-    |   RDOUBLE     { $$ = TIPO.DECIMAL; }
-    |   RSTRING     { $$ = TIPO.CADENA; }
-    |   RCHAR       { $$ = TIPO.CHARACTER; }
-    |   RBOOLEAN    { $$ = TIPO.BOOLEANO; }
-    |   RVOID       { $$ = TIPO.VOID; }
+        RINT                        { $$ = TIPO.ENTERO; }
+    |   RDOUBLE                     { $$ = TIPO.DECIMAL; }
+    |   RSTRING                     { $$ = TIPO.CADENA; }
+    |   RCHAR                       { $$ = TIPO.CHARACTER; }
+    |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; }
+    |   RVOID                       { $$ = TIPO.VOID; }
     ;
-
-
 /*..............     Expresiones      ...............*/
 expr: 
         expr MAS expr               { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
