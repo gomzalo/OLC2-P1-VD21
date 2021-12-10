@@ -370,8 +370,8 @@ funciones : tipo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new Funcion($
         ;
 /*..............     Lista parametros      ...............*/
 lista_parametros_func: 
-        lista_parametros_func COMA expr     { $$ = $1; $$.push($3); }
-    |   expr                                { $$ = new Array(); $$.push($1); }
+        lista_parametros_func COMA parametro_func     { $$ = $1; $$.push($3); }
+    |   parametro_func                                { $$ = new Array(); $$.push($1); }
     ;
 //------   Parametros Funcion 
 parametro_func:

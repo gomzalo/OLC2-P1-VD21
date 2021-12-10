@@ -180,6 +180,7 @@
 
         println("************   Llamada  **************");
         println(operacionMatematica('+',90,5));
+        metodo("hola");
         // char operador='+';
         // switch(operador) {
         //     case '+':
@@ -201,7 +202,13 @@
         // }
     }
 
-    double operacionMatematica(char operador, int valor1, int valor2){
-        return valor1 + valor2;
-    } 
+    // errorr revisar
+    // double operacionMatematica(char operador, int valor1, int valor2){
+    //     return valor1 + valor2;
+    // } 
+
+    void metodo (string hola)
+    {
+        println(hola);
+    }
     
