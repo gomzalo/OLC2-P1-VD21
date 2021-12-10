@@ -353,6 +353,19 @@ main_ :
     |   RVOID RMAIN PARA PARC 
         LLAVA LLAVC                         {$$ = new Main([],@1.first_line, @1.first_column); }
     ;
+
+
+/*..............     Funciones      ...............*/
+funciones : tipo_metodo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new funcion.default(3, new tipo.default('VOID'), $2, [], true, $6, @1.first_line, @1.last_column ); }
+        | tipo_metodo ID PARA lista_parametros PARC LLAVA instrucciones LLAVC  { $$ = new funcion.default(3, new tipo.default('VOID'), $2, $4, true, $7, @1.first_line, @1.last_column ); }
+        ;
+
+/*..............     Lista parametros      ...............*/
+lista_parametros_func: 
+        lista_parametros_func COMA expr          { $$ = $1; $$.push($3); }
+    |   expr                                { $$ = new Array(); $$.push($1);}
+    ;
+
 /*..............     Tipos      ...............*/
 tipo : 
         RINT                        { $$ = TIPO.ENTERO; }
