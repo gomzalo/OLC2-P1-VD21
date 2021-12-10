@@ -163,6 +163,8 @@ BSL                                 "\\".
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
     const { Asignacion } = require("../dist/Instrucciones/Asignacion");
     const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
+    /*..............     Arreglos      ...............*/
+    const { DeclaracionArr } = require("../dist/Instrucciones/Arreglos/DeclaracionArr");
 
 %}
 /*
@@ -226,6 +228,7 @@ instruccion:
     |   for_instr                           { $$ = $1 }
     |   dowhile_instr PUNTOCOMA             { $$ = $1 }
     |   for_in_instr                        { $$ = $1 }
+    |   decl_arr_instr PUNTOCOMA            { $$ = $1 }
     |   llamada PUNTOCOMA                   { $$ = $1 }
     
     ;
@@ -361,17 +364,14 @@ main_ :
     |   RVOID RMAIN PARA PARC 
         LLAVA LLAVC                         {$$ = new Main([],@1.first_line, @1.first_column); }
     ;
-
-
 /*..............     Funciones      ...............*/
 funciones : tipo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column ); }
         | tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC  { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column ); }
         ;
-
-//------     Lista parametros 
+/*..............     Lista parametros      ...............*/
 lista_parametros_func: 
-        lista_parametros_func COMA parametro_func         { $$ = $1; $$.push($3); }
-    |   parametro_func                                    { $$ = new Array(); $$.push($1);}
+        lista_parametros_func COMA expr     { $$ = $1; $$.push($3); }
+    |   expr                                { $$ = new Array(); $$.push($1); }
     ;
 //------   Parametros Funcion 
 parametro_func:
@@ -385,6 +385,22 @@ llamada : ID PARA PARC              { $$ = new Llamada($1 , [],@1.first_line, @1
         | ID PARA lista_parametros PARC    { $$ = new Llamada($1 , $3 ,@1.first_line, @1.last_column ); }
         ;
 
+/*..............     Arreglos      ...............*/
+// ------------     Declaracion array
+decl_arr_instr:
+        tipo lista_dim ID
+        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr(); }
+    ;
+// ------------     Dimensiones
+lista_dim:
+        lista_dim CORA CORC                 { $$ = $1; $$.push($2+1); }
+    |   CORA CORC                           { $$ = new Array(); $$.push(1); }
+    ;
+// ------------     Lista expresiones
+lista_exp_arr:
+        lista_exp_arr CORA exp CORC         { $$ = $1; $$.push($3); }
+    |   CORA exp CORC                       { $$ = new Array(); $$.push($2); }
+    ;
 /*..............     Tipos      ...............*/
 tipo : 
         RINT                        { $$ = TIPO.ENTERO; }
