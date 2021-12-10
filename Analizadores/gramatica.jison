@@ -59,6 +59,7 @@ BSL                                 "\\".
 "String"                    { return 'RSTRING' };
 "void"                      { return 'RVOID' };
 "main"                      { return 'RMAIN' };
+"struct"                      { return 'RSTRUCT' };
 /* ..............      Transferencia      ...............*/
 "break"                     { return 'RBREAK' };
 "continue"                  { return 'RCONTINUE' };
@@ -141,6 +142,8 @@ BSL                                 "\\".
     /*::::::::::::::::::     Instrucciones      ::::::::::::::::::*/
     const { Print } = require("../dist/Instrucciones/Print");
     const { Main } = require("../dist/Instrucciones/Metodos/Main");
+    const { Funcion } = require("../dist/Instrucciones/Metodos/Funcion");
+    const { Llamada } = require("../dist/Instrucciones/Metodos/Llamada");
     /*..............     Condicionales      ...............*/
     const { If } = require("../dist/Instrucciones/Condicionales/If");
     const { Ifsinllave } = require("../dist/Instrucciones/Condicionales/Ifsinllave");
@@ -208,8 +211,10 @@ instruccion:
         print_instr PUNTOCOMA               { $$ = $1 }
     |   println_instr PUNTOCOMA             { $$ = $1 }
     |   main_                               { $$ = $1 }
-    |   asignacion  PUNTOCOMA               { $$ = $1 }
+    |   funciones                           { $$ = $1 }
     |   declaracion PUNTOCOMA               { $$ = $1 }
+    |   asignacion  PUNTOCOMA               { $$ = $1 }
+    
     |   if_llav_instr                       { $$ = $1 }
     |   if_instr                            { $$ = $1 }
     |   switch_instr                        { $$ = $1 }
@@ -220,10 +225,11 @@ instruccion:
     |   for_instr                           { $$ = $1 }
     |   dowhile_instr PUNTOCOMA             { $$ = $1 }
     |   for_in_instr                        { $$ = $1 }
+    
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
-        tipo lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
+        tipo  lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
     ; 
 // Lista simbolos
 lista_simbolos:
@@ -356,15 +362,26 @@ main_ :
 
 
 /*..............     Funciones      ...............*/
-funciones : tipo_metodo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new funcion.default(3, new tipo.default('VOID'), $2, [], true, $6, @1.first_line, @1.last_column ); }
-        | tipo_metodo ID PARA lista_parametros PARC LLAVA instrucciones LLAVC  { $$ = new funcion.default(3, new tipo.default('VOID'), $2, $4, true, $7, @1.first_line, @1.last_column ); }
+funciones : tipo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column ); }
+        | tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC  { $$ = new Funcion($2, $1, $4, $6, @1.first_line, @1.last_column ); }
         ;
 
-/*..............     Lista parametros      ...............*/
+//------     Lista parametros 
 lista_parametros_func: 
-        lista_parametros_func COMA expr          { $$ = $1; $$.push($3); }
-    |   expr                                { $$ = new Array(); $$.push($1);}
+        lista_parametros_func COMA parametro_func         { $$ = $1; $$.push($3); }
+    |   parametro_func                                    { $$ = new Array(); $$.push($1);}
     ;
+//------   Parametros Funcion 
+parametro_func:
+        tipo ID     { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; } // EN MEDIO $2 - LISTA DIM
+    |   ID          { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; }
+    ;  
+
+
+/*..............     Llamada      ...............*/
+llamada : ID PARA PARC              { $$ = new Llamada($1 , [],@1.first_line, @1.last_column ); }
+        | ID PARA lista_parametros PARC    { $$ = new Llamada($1 , $3 ,@1.first_line, @1.last_column ); }
+        ;
 
 /*..............     Tipos      ...............*/
 tipo : 
@@ -373,16 +390,10 @@ tipo :
     |   RSTRING                     { $$ = TIPO.CADENA; }
     |   RCHAR                       { $$ = TIPO.CHARACTER; }
     |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; }
-    ;
-/*..............     Tipos metodos      ...............*/
-tipo_metodo : 
-        RINT                        { $$ = TIPO.ENTERO; }
-    |   RDOUBLE                     { $$ = TIPO.DECIMAL; }
-    |   RSTRING                     { $$ = TIPO.CADENA; }
-    |   RCHAR                       { $$ = TIPO.CHARACTER; }
-    |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; }
     |   RVOID                       { $$ = TIPO.VOID; }
+    |   RSTRUCT                     { $$ = TIPO.STRUCT; }
     ;
+
 /*..............     Expresiones      ...............*/
 expr: 
         expr MAS expr               { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
