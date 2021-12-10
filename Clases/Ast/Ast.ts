@@ -87,8 +87,7 @@ export class Ast  {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for( let instr of this.instrucciones){
-            let value = null;
-            if (!(value instanceof Declaracion || value instanceof Asignacion || value instanceof Main /**falta metodos */))
+            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main /**falta metodos */))
             {
                 let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
