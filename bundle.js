@@ -3869,7 +3869,8 @@ class Funcion {
                 tree.updateConsolaPrintln(error.toString());
             }
             if (result instanceof Return_1.Return) {
-                return result;
+                this.tipo = result.tipo;
+                return result.valor;
             }
         }
     }
