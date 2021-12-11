@@ -189,7 +189,7 @@ BSL                                 "\\".
     %left   'IGUALIGUAL' 'DIFERENTE'
     %left   'MENORQUE' 'MAYORQUE' 'MENORIGUAL' 'MAYORIGUAL' 
     // %left 'AMPERSON' 
-    %left   'MAS' 'MENOS' 'AMPERSON'
+    %left   'MAS' 'MENOS' 'AMPERSON' 'PUNTO'
     %left   'MULTI' 'DIV' 'PORCENTAJE'
     %left   'POTENCIA'
     %right  'UMINUS'
@@ -488,4 +488,5 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
+    |   expr PUNTO expr                 { $$ = new AccesoStruct($1,$3,@1.first_line, @1.first_column); }
     ;

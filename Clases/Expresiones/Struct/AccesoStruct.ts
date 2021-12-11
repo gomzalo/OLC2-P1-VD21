@@ -11,9 +11,10 @@ export class AccesoStruct implements Instruccion{
     columna: number;
     arreglo: boolean;
     public id: string;
+    public idStruct;
     public tipo : TIPO;
     // public simboloStruct :Simbolo;
-    public expresiones; // OBjeto de objetos Identificador
+    public expresiones: Identificador; // OBjeto de objetos Identificador
     // { expresiones: [],
     // identificador:
     //  }
@@ -21,7 +22,7 @@ export class AccesoStruct implements Instruccion{
 
     constructor(idStruct,expresiones,fila,columna )
     {
-        this.id = idStruct;
+        this.idStruct = idStruct;
         this.expresiones = expresiones;
         this.fila = fila,
         this.columna = columna;
@@ -29,7 +30,8 @@ export class AccesoStruct implements Instruccion{
     }
     
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let simboloStruct = table.getSymbolTabla(this.id);
+        let simboloStruct = this.idStruct.ejecutar(table,tree);
+        this.id= this.idStruct.id; 
         if (simboloStruct == null){
             return new Errores("Semantico", "Struct " + this.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
         }
@@ -40,13 +42,22 @@ export class AccesoStruct implements Instruccion{
 
         // Acceso atributos
         // let value = this.accesoAttribute(this.expresiones, simboloStruct.valor)
+        console.log(this.expresiones)
+        let resultAcceso = this.expresiones.ejecutar(simboloStruct.getValor(),tree);
+        return resultAcceso;
+
+
         let entornoAttributes = simboloStruct.getValor();
-        if (this.expresiones.expresiones.length >0)
-        {
-            return this.accesoAttribute(this.expresiones.expresiones,entornoAttributes,tree);
-        }else{
-            return null;
-        }
+        
+        // if (this.expresiones.expresiones.length >0)
+        // {
+        //     return this.accesoAttribute(this.expresiones.expresiones,entornoAttributes,tree);
+        // }else{
+        //     return null;
+        // }
+
+
+
         // let valueId = null;
         // for (let expr of this.expresiones)
         // {
@@ -68,6 +79,7 @@ export class AccesoStruct implements Instruccion{
         }else{
             let resultIdentificador = expresion.identificador.ejecutar(entornoPadre,tree); //TablaSimbolos || resultado
             //recomiendo su array de expresiones
+            
             if (resultIdentificador instanceof TablaSimbolos && expresion.expresiones.length >0)
             {
                 // 2 if is TablasSimbolos

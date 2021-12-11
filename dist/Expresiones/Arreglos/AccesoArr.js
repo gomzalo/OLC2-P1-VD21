@@ -20,15 +20,15 @@ class AccesoArr {
         if (!simbolo.getArreglo()) {
             return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
         }
-        console.log("AccArr exp val: " + this.expresiones[0]);
-        console.log("AccArr exp size: " + this.expresiones[0].length);
-        console.log("AccArr exp type: " + (this.expresiones[0].tipo));
+        // console.log("AccArr exp val: " + this.expresiones[0]);
+        // console.log("AccArr exp size: " + this.expresiones[0].length);
+        // console.log("AccArr exp type: " + (this.expresiones[0].tipo));
         if (this.expresiones[0] instanceof Rango_1.Rango) {
-            console.log("AccArr RANK");
+            // console.log("AccArr RANK");
             let rank = this.expresiones[0].ejecutar(table, tree);
-            console.log("AccArr rank type: " + (rank instanceof Array));
-            console.log("rank[0] type: " + (typeof (rank[0]) == "string"));
-            console.log("rank accArr: " + rank);
+            // console.log("AccArr rank type: " + (rank instanceof Array));
+            // console.log("rank[0] type: " + (typeof(rank[0]) == "string"));
+            // console.log("rank accArr: " + rank);
             if (rank == null) {
                 return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un rango.", this.fila, this.columna);
             }

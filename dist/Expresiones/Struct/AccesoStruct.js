@@ -6,14 +6,15 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class AccesoStruct {
     constructor(idStruct, expresiones, fila, columna) {
-        this.id = idStruct;
+        this.idStruct = idStruct;
         this.expresiones = expresiones;
         this.fila = fila,
             this.columna = columna;
         this.tipo = Tipo_1.TIPO.STRUCT;
     }
     ejecutar(table, tree) {
-        let simboloStruct = table.getSymbolTabla(this.id);
+        let simboloStruct = this.idStruct.ejecutar(table, tree);
+        this.id = this.idStruct.id;
         if (simboloStruct == null) {
             return new Errores_1.Errores("Semantico", "Struct " + this.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
         }
@@ -22,13 +23,16 @@ class AccesoStruct {
         }
         // Acceso atributos
         // let value = this.accesoAttribute(this.expresiones, simboloStruct.valor)
+        console.log(this.expresiones);
+        let resultAcceso = this.expresiones.ejecutar(simboloStruct.getValor(), tree);
+        return resultAcceso;
         let entornoAttributes = simboloStruct.getValor();
-        if (this.expresiones.expresiones.length > 0) {
-            return this.accesoAttribute(this.expresiones.expresiones, entornoAttributes, tree);
-        }
-        else {
-            return null;
-        }
+        // if (this.expresiones.expresiones.length >0)
+        // {
+        //     return this.accesoAttribute(this.expresiones.expresiones,entornoAttributes,tree);
+        // }else{
+        //     return null;
+        // }
         // let valueId = null;
         // for (let expr of this.expresiones)
         // {
