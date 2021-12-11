@@ -17,7 +17,7 @@ class AccesoArr {
         }
         this.tipo = simbolo.getTipo();
         if (!simbolo.getArreglo()) {
-            return new Errores_1.Errores("Semantico", "La variable " + this.id + ", no es un arreglo.", this.fila, this.columna);
+            return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
         }
         let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
         console.log("val acc arr: " + value);

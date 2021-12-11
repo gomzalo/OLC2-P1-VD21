@@ -166,6 +166,7 @@ BSL                                 "\\".
     /*..............     Arreglos      ...............*/
     const { DeclaracionArr } = require("../dist/Instrucciones/Arreglos/DeclaracionArr");
     const { AccesoArr } = require("../dist/Expresiones/Arreglos/AccesoArr");
+    const { ModificacionArr } = require("../dist/Instrucciones/Arreglos/ModificacionArr");
 
 %}
 /*
@@ -230,7 +231,7 @@ instruccion:
     |   for_in_instr                        { $$ = $1 }
     |   decl_arr_instr PUNTOCOMA            { $$ = $1 }
     |   llamada PUNTOCOMA                   { $$ = $1 }
-    
+    |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
@@ -367,10 +368,10 @@ main_:
 /*..............     Funciones      ...............*/
 funciones:
         tipo ID PARA PARC
-        LLAVA instrucciones LLAVC           { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column ); }
+        LLAVA instrucciones LLAVC           { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column); }
     |   tipo ID
         PARA lista_parametros_func
-        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column ); }
+        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); }
     ;
 /*..............     Lista parametros      ...............*/
 lista_parametros_func: 
@@ -385,14 +386,14 @@ parametro_func:
     ;
 /*..............     Llamada      ...............*/
 llamada :
-        ID PARA PARC                        { $$ = new Llamada($1 , [], @1.first_line, @1.last_column ); }
-    | ID PARA lista_parametros PARC         { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column ); }
+        ID PARA PARC                        { $$ = new Llamada($1 , [], @1.first_line, @1.last_column); }
+    | ID PARA lista_parametros PARC         { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column); }
     ;
 /*..............     Arreglos      ...............*/
 // ------------     Declaracion array
 decl_arr_instr:
         tipo lista_dim ID
-        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column ); }
+        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column); }
     ;
 // ------------     Dimensiones
 lista_dim:
@@ -414,6 +415,10 @@ lista_exp_arr_c:
 lista_exp:
         lista_exp CORA expr CORC            { $$ = $1; $$.push($3); }
     |   CORA expr CORC                      { $$ = new Array(); $$.push($2); }
+    ;
+// ------------     Modificacion de arreglos
+modif_arr_instr:
+        ID lista_exp IGUAL expr             { $$ = new ModificacionArr($1, $2, $4, @1.first_line, @1.last_column); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 

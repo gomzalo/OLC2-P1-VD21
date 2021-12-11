@@ -6,39 +6,44 @@ import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 
-export  class AccesoArr implements Instruccion{
+export  class ModificacionArr implements Instruccion{
     public id;
     public expresiones;
+    public valor;
     public fila;
     public columna;
-    tipo: TIPO;
-    arreglo: boolean;
+    public arreglo = true;
 
-    constructor(id, expresiones, fila, columna){
+    //tipo lista_dim ID IGUAL lista_exp_arr
+    constructor(id, expresiones, valor, fila, columna){
         this.id = id;
         this.expresiones = expresiones;
+        this.valor = valor;
         this.fila = fila;
         this.columna = columna;
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let simbolo = table.getSymbolTabla(this.id);
-        if(simbolo == null){
-            return new Errores("Semantico", "No se encontro la variable " + this.id + ".", this.fila, this.columna);
-        }
-        this.tipo = simbolo.getTipo();
-        if(!simbolo.getArreglo()){
-            return new Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
-        }
-        let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
-        console.log("val acc arr: " + value);
+        let value = this.valor.ejecutar(table, tree);
         if(value instanceof Errores){
             return value;
         }
-        if(value instanceof Array){
-            return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
+        let simbolo = table.getSymbolTabla(this.id.toString());
+        if(simbolo == null){
+            return new Errores("Semantico", "Variable: \'" + this.id.toString() + "\', no encontrada.", this.fila, this.columna);
         }
-        return value;
+        if(!simbolo.getArreglo()){
+            return new Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
+        }
+        if(simbolo.getTipo() != this.valor.tipo){
+            return new Errores("Semantico", "Tipos de datos diferentes en modificacion de arreglo: \'" + this.id + "\'.", this.fila, this.columna);
+        }
+        let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
+        
+        if(result instanceof Errores){
+            return result;
+        }
+        return null;
     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
@@ -49,10 +54,13 @@ export  class AccesoArr implements Instruccion{
         throw new Error("Method not implemented.");
     }
 
-    public buscarDimensiones(table, tree, expresiones, arreglo){
+    public modificarDimensiones(table, tree, expresiones, arreglo, valor){
         let value = null;
         if(expresiones.length == 0){
-            return arreglo;
+            if(arreglo instanceof Array){
+                return new Errores("Semantico", "Modificacion de arreglo incompleto.", this.fila, this.columna);
+            }
+            return valor;
         }
         if(!(arreglo instanceof Array)){
             return new Errores("Semantico", "Acceso de mas en el arreglo.", this.fila, this.columna);
@@ -65,8 +73,14 @@ export  class AccesoArr implements Instruccion{
         if(dimension.tipo != TIPO.ENTERO){
             return new Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
-        value = this.buscarDimensiones(tree, table, expresiones, arreglo[num]);
-        return value;
+        value = this.modificarDimensiones(tree, table, expresiones, arreglo[num], valor);
+        if(value instanceof Errores){
+            return value;
+        }
+        if(value != null){
+            arreglo[num] = value;
+        }
+        return null;
     }
-
+    
 }
