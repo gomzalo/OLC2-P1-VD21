@@ -181,8 +181,14 @@
         String[] arr = ["H","O","L","A"];
         // String[] arr = ["H",["O","O"],"L","A"];
         println("************   Acceso de arreglos  **************");
-        int a = arr[0];
+        String a = arr[0];
         println(a);
+        println(arr);
+        println(arr[2]);
+        println("************   Modificacion de arreglos  **************");
+        arr[2] = "T";
+        println(arr[2]);
+        println(arr);
         println("************   Llamada  **************");
         println(operacionMatematica('+',90,5));
         metodo("hola");
