@@ -5,6 +5,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class DoWhile {
     constructor(condicion, lista_instrucciones, fila, columna) {
         this.condicion = condicion;
@@ -14,11 +15,19 @@ class DoWhile {
     }
     ejecutar(table, tree) {
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
         if (typeof valor_condicion == 'boolean') {
             do {
                 let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
                 for (let ins of this.lista_instrucciones) {
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return null;

@@ -18,11 +18,19 @@ class While {
     ejecutar(table, tree) {
         while (true) {
             let valor_condicion = this.condicion.ejecutar(table, tree);
+            if (valor_condicion instanceof Errores_1.Errores) {
+                tree.getErrores().push(valor_condicion);
+                tree.updateConsolaPrintln(valor_condicion.toString());
+            }
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(valor_condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
                     for (let ins of this.lista_instrucciones) {
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return null;

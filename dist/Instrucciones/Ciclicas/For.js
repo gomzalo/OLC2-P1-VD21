@@ -20,18 +20,30 @@ class For {
         // Asignacion o declaracion
         let tabla_intermedia = new TablaSimbolos_1.TablaSimbolos(table);
         let declaracion_asignacion = this.declaracion_asignacion.ejecutar(tabla_intermedia, tree);
+        if (declaracion_asignacion instanceof Errores_1.Errores) {
+            tree.getErrores().push(declaracion_asignacion);
+            tree.updateConsolaPrintln(declaracion_asignacion.toString());
+        }
         console.log("declaracion_asignacion: " + declaracion_asignacion);
         if (declaracion_asignacion instanceof Errores_1.Errores) {
             return declaracion_asignacion;
         }
         while (true) {
             let condicion = this.condicion.ejecutar(tabla_intermedia, tree);
+            if (condicion instanceof Errores_1.Errores) {
+                tree.getErrores().push(condicion);
+                tree.updateConsolaPrintln(condicion.toString());
+            }
             console.log("condicion: " + condicion);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(tabla_intermedia);
                     for (let ins of this.lista_instrucciones) {
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return null;
@@ -44,6 +56,10 @@ class For {
                         }
                     }
                     let actualizacion = this.actualizacion.ejecutar(tabla_intermedia, tree);
+                    if (actualizacion instanceof Errores_1.Errores) {
+                        tree.getErrores().push(actualizacion);
+                        tree.updateConsolaPrintln(actualizacion.toString());
+                    }
                     console.log("actualizacion: " + actualizacion);
                     if (actualizacion instanceof Errores_1.Errores) {
                         return actualizacion;

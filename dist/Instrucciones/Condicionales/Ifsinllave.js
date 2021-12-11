@@ -6,6 +6,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class Ifsinllave {
     constructor(condicion, ins_ifs, ins_elses, fila, columna) {
         this.condicion = condicion;
@@ -17,9 +18,17 @@ class Ifsinllave {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion) {
                 let res = this.ins_ifs.ejecutar(ts_local, tree);
+                if (res instanceof Errores_1.Errores) {
+                    tree.getErrores().push(res);
+                    tree.updateConsolaPrintln(res.toString());
+                }
                 //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                 if (this.ins_ifs instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                     return res;
@@ -41,6 +50,10 @@ class Ifsinllave {
                 if (this.ins_elses instanceof Array) {
                     this.ins_elses.forEach(ins => {
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return res;
                         }
@@ -61,6 +74,10 @@ class Ifsinllave {
                 }
                 else {
                     let res = this.ins_elses.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, RETORNO 
                     if (this.ins_elses instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return res;

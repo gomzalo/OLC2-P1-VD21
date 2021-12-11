@@ -230,7 +230,7 @@ break;
 case 77:
  this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); 
 break;
-case 81:
+case 78: case 79: case 80: case 81:
  this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; 
 break;
 case 82:
@@ -348,7 +348,7 @@ case 120:
  this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
 break;
 case 121:
- this.$ = new Rango(TIPO.RANGO, $$[$0].inicio, $$[$0].fin, _$[$0].first_line, _$[$0].last_column); 
+ this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); 
 break;
 }
 },

@@ -31,23 +31,34 @@ export  class AccesoArr implements Instruccion{
         if(!simbolo.getArreglo()){
             return new Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
         }
-        console.log("AccArr exp val: " + this.expresiones[0]);
-        console.log("AccArr exp size: " + this.expresiones[0].length);
-        console.log("AccArr exp type: " + (this.expresiones[0].tipo));
+        // console.log("AccArr exp val: " + this.expresiones[0]);
+        // console.log("AccArr exp size: " + this.expresiones[0].length);
+        // console.log("AccArr exp type: " + (this.expresiones[0].tipo));
         if(this.expresiones[0] instanceof Rango){
-            console.log("AccArr RANK");
+            // console.log("AccArr RANK");
             let rank = this.expresiones[0].ejecutar(table, tree);
-            console.log("AccArr rank type: " + (rank instanceof Array));
-            console.log("rank accArr: " + rank);
+            // console.log("AccArr rank type: " + (rank instanceof Array));
+            // console.log("rank[0] type: " + (typeof(rank[0]) == "string"));
+            // console.log("rank accArr: " + rank);
             if(rank == null){
                 return new Errores("Semantico", "La variable \'" + this.id + "\', no es un rango.", this.fila, this.columna);
             }
             
-            let begin = rank[0].ejecutar(table, tree);
+            let begin;
+            if(rank[0] == "begin"){
+                begin = 0;
+            }else{
+                begin = rank[0].ejecutar(table, tree);
+            }
             if(begin instanceof Errores){
                 return begin;
             }
-            let end = rank[1].ejecutar(table, tree);
+            let end;
+            if(rank[1] == "end"){
+                end = simbolo.getValor().length;
+            }else{
+                end = rank[1].ejecutar(table, tree);
+            }
             if(end instanceof Errores){
                 return end;
             }

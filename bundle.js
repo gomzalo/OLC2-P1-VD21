@@ -953,7 +953,7 @@ break;
 case 77:
  this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); 
 break;
-case 81:
+case 78: case 79: case 80: case 81:
  this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; 
 break;
 case 82:
@@ -1071,7 +1071,7 @@ case 120:
  this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
 break;
 case 121:
- this.$ = new Rango(TIPO.RANGO, $$[$0].inicio, $$[$0].fin, _$[$0].first_line, _$[$0].last_column); 
+ this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); 
 break;
 }
 },
@@ -2063,15 +2063,28 @@ class AccesoArr {
             console.log("AccArr RANK");
             let rank = this.expresiones[0].ejecutar(table, tree);
             console.log("AccArr rank type: " + (rank instanceof Array));
+            console.log("rank[0] type: " + (typeof (rank[0]) == "string"));
             console.log("rank accArr: " + rank);
             if (rank == null) {
                 return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un rango.", this.fila, this.columna);
             }
-            let begin = rank[0].ejecutar(table, tree);
+            let begin;
+            if (rank[0] == "begin") {
+                begin = 0;
+            }
+            else {
+                begin = rank[0].ejecutar(table, tree);
+            }
             if (begin instanceof Errores_1.Errores) {
                 return begin;
             }
-            let end = rank[1].ejecutar(table, tree);
+            let end;
+            if (rank[1] == "end") {
+                end = simbolo.getValor().length;
+            }
+            else {
+                end = rank[1].ejecutar(table, tree);
+            }
             if (end instanceof Errores_1.Errores) {
                 return end;
             }
@@ -2132,24 +2145,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rango = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
 class Rango {
-    constructor(tipo, inicio, fin, fila, columna) {
+    constructor(tipo, valor, fila, columna) {
         this.tipo = tipo;
-        this.inicio = inicio;
-        this.fin = fin;
+        this.valor = valor;
         this.fila = fila;
         this.columna = columna;
     }
     ejecutar(table, tree) {
-        let valor = [];
-        valor.push(this.inicio);
-        valor.push(this.fin);
-        return valor;
+        // let valor = [];
+        // this.valor.push(this.inicio);
+        // valor.push(this.fin);
+        return this.valor;
     }
     getValor() {
-        let valor = [];
-        valor.push(this.inicio);
-        valor.push(this.fin);
-        return valor;
+        return this.inicio + "," + this.fin;
     }
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
@@ -3463,6 +3472,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class DoWhile {
     constructor(condicion, lista_instrucciones, fila, columna) {
         this.condicion = condicion;
@@ -3472,11 +3482,19 @@ class DoWhile {
     }
     ejecutar(table, tree) {
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
         if (typeof valor_condicion == 'boolean') {
             do {
                 let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
                 for (let ins of this.lista_instrucciones) {
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return null;
@@ -3504,7 +3522,7 @@ class DoWhile {
 }
 exports.DoWhile = DoWhile;
 
-},{"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34}],21:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34}],21:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
@@ -3527,18 +3545,30 @@ class For {
         // Asignacion o declaracion
         let tabla_intermedia = new TablaSimbolos_1.TablaSimbolos(table);
         let declaracion_asignacion = this.declaracion_asignacion.ejecutar(tabla_intermedia, tree);
+        if (declaracion_asignacion instanceof Errores_1.Errores) {
+            tree.getErrores().push(declaracion_asignacion);
+            tree.updateConsolaPrintln(declaracion_asignacion.toString());
+        }
         console.log("declaracion_asignacion: " + declaracion_asignacion);
         if (declaracion_asignacion instanceof Errores_1.Errores) {
             return declaracion_asignacion;
         }
         while (true) {
             let condicion = this.condicion.ejecutar(tabla_intermedia, tree);
+            if (condicion instanceof Errores_1.Errores) {
+                tree.getErrores().push(condicion);
+                tree.updateConsolaPrintln(condicion.toString());
+            }
             console.log("condicion: " + condicion);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(tabla_intermedia);
                     for (let ins of this.lista_instrucciones) {
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return null;
@@ -3551,6 +3581,10 @@ class For {
                         }
                     }
                     let actualizacion = this.actualizacion.ejecutar(tabla_intermedia, tree);
+                    if (actualizacion instanceof Errores_1.Errores) {
+                        tree.getErrores().push(actualizacion);
+                        tree.updateConsolaPrintln(actualizacion.toString());
+                    }
                     console.log("actualizacion: " + actualizacion);
                     if (actualizacion instanceof Errores_1.Errores) {
                         return actualizacion;
@@ -3599,6 +3633,10 @@ class ForIn {
     ejecutar(table, tree) {
         let rango = this.rango.ejecutar(table, tree);
         if (rango instanceof Errores_1.Errores) {
+            tree.getErrores().push(rango);
+            tree.updateConsolaPrintln(rango.toString());
+        }
+        if (rango instanceof Errores_1.Errores) {
             return rango;
         }
         if (this.rango.tipo == Tipo_1.TIPO.CADENA) {
@@ -3610,6 +3648,10 @@ class ForIn {
                 ts_local.updateSymbolTabla(nuevo_simb);
                 for (let ins of this.lista_instrucciones) {
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return null;
                     }
@@ -3656,11 +3698,19 @@ class While {
     ejecutar(table, tree) {
         while (true) {
             let valor_condicion = this.condicion.ejecutar(table, tree);
+            if (valor_condicion instanceof Errores_1.Errores) {
+                tree.getErrores().push(valor_condicion);
+                tree.updateConsolaPrintln(valor_condicion.toString());
+            }
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(valor_condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
                     for (let ins of this.lista_instrucciones) {
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return null;
@@ -3712,6 +3762,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class Case {
     constructor(valor_case, lista_instrucciones, fila, columna) {
         this.valor_case = valor_case;
@@ -3724,6 +3775,10 @@ class Case {
         // if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
         for (let res of this.lista_instrucciones) {
             let ins = res.ejecutar(ts_local, tree);
+            if (ins instanceof Errores_1.Errores) {
+                tree.getErrores().push(ins);
+                tree.updateConsolaPrintln(ins.toString());
+            }
             if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                 // controlador.graficarEntornos(controlador,ts_local," (case)");
                 return ins;
@@ -3752,7 +3807,7 @@ class Case {
 }
 exports.Case = Case;
 
-},{"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34}],25:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34}],25:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
@@ -3761,6 +3816,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class If {
     constructor(condicion, lista_ifs, lista_elses, fila, columna) {
         this.condicion = condicion;
@@ -3772,11 +3828,19 @@ class If {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion) {
                 // this.lista_ifs.forEach(ins => {
                 for (let ins of this.lista_ifs) {
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return res;
@@ -3799,7 +3863,11 @@ class If {
             else {
                 for (let ins of this.lista_elses) {
                     let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                    //TODO verificar si res es de tipo CONTINUE, RETORNO
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return res;
                     }
@@ -3829,7 +3897,7 @@ class If {
 }
 exports.If = If;
 
-},{"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34,"./../../TablaSimbolos/Tipo":37}],26:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34,"./../../TablaSimbolos/Tipo":37}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
@@ -3838,6 +3906,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class Ifsinllave {
     constructor(condicion, ins_ifs, ins_elses, fila, columna) {
         this.condicion = condicion;
@@ -3849,9 +3918,17 @@ class Ifsinllave {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion) {
                 let res = this.ins_ifs.ejecutar(ts_local, tree);
+                if (res instanceof Errores_1.Errores) {
+                    tree.getErrores().push(res);
+                    tree.updateConsolaPrintln(res.toString());
+                }
                 //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                 if (this.ins_ifs instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                     return res;
@@ -3873,6 +3950,10 @@ class Ifsinllave {
                 if (this.ins_elses instanceof Array) {
                     this.ins_elses.forEach(ins => {
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                             return res;
                         }
@@ -3893,6 +3974,10 @@ class Ifsinllave {
                 }
                 else {
                     let res = this.ins_elses.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, RETORNO 
                     if (this.ins_elses instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return res;
@@ -3923,13 +4008,14 @@ class Ifsinllave {
 }
 exports.Ifsinllave = Ifsinllave;
 
-},{"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34,"./../../TablaSimbolos/Tipo":37}],27:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Continuar":33,"../Transferencia/Return":34,"./../../TablaSimbolos/Tipo":37}],27:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class Switch {
     constructor(valor_sw, lista_case, lista_default, fila, columna) {
         this.valor_sw = valor_sw;
@@ -3942,10 +4028,18 @@ class Switch {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         for (let sw of this.lista_case) {
             sw.valor_case = this.valor_sw.ejecutar(ts_local, tree);
+            if (sw.valor_case instanceof Errores_1.Errores) {
+                tree.getErrores().push(sw.valor_case);
+                tree.updateConsolaPrintln(sw.valor_case.toString());
+            }
         }
         let x = 0;
         for (let ins of this.lista_case) {
             let res = ins.ejecutar(ts_local, tree);
+            if (res instanceof Errores_1.Errores) {
+                tree.getErrores().push(res);
+                tree.updateConsolaPrintln(res.toString());
+            }
             if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                 // controlador.graficarEntornos(controlador,ts_local," (switch)");
                 x = 1;
@@ -3961,6 +4055,10 @@ class Switch {
         if (x == 0) {
             for (let ins of this.lista_default) {
                 let res = ins.ejecutar(ts_local, tree);
+                if (res instanceof Errores_1.Errores) {
+                    tree.getErrores().push(res);
+                    tree.updateConsolaPrintln(res.toString());
+                }
                 if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                     // controlador.graficarEntornos(controlador,ts_local," (switch)");
                     break;
@@ -3983,7 +4081,7 @@ class Switch {
 }
 exports.Switch = Switch;
 
-},{"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Return":34}],28:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":36,"../Transferencia/Break":32,"../Transferencia/Return":34}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;

@@ -6,6 +6,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class If {
     constructor(condicion, lista_ifs, lista_elses, fila, columna) {
         this.condicion = condicion;
@@ -17,11 +18,19 @@ class If {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion) {
                 // this.lista_ifs.forEach(ins => {
                 for (let ins of this.lista_ifs) {
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return res;
@@ -44,7 +53,11 @@ class If {
             else {
                 for (let ins of this.lista_elses) {
                     let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                    //TODO verificar si res es de tipo CONTINUE, RETORNO
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return res;
                     }

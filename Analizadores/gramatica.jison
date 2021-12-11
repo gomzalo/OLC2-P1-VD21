@@ -425,9 +425,9 @@ modif_arr_instr:
     ;
 // ------------     Rango
 rango:
-        expr DOSPUNTOS expr
-    |   RBEGIN DOSPUNTOS REND
-    |   expr DOSPUNTOS REND
+        expr DOSPUNTOS expr                 { $$ = {"inicio": $1, "fin": $3}; }
+    |   RBEGIN DOSPUNTOS REND               { $$ = {"inicio": $1, "fin": $3}; }
+    |   expr DOSPUNTOS REND                 { $$ = {"inicio": $1, "fin": $3}; }
     |   RBEGIN DOSPUNTOS expr               { $$ = {"inicio": $1, "fin": $3}; }
     ;
 /*..............     Tipos      ...............*/

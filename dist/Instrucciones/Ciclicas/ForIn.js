@@ -19,6 +19,10 @@ class ForIn {
     ejecutar(table, tree) {
         let rango = this.rango.ejecutar(table, tree);
         if (rango instanceof Errores_1.Errores) {
+            tree.getErrores().push(rango);
+            tree.updateConsolaPrintln(rango.toString());
+        }
+        if (rango instanceof Errores_1.Errores) {
             return rango;
         }
         if (this.rango.tipo == Tipo_1.TIPO.CADENA) {
@@ -30,6 +34,10 @@ class ForIn {
                 ts_local.updateSymbolTabla(nuevo_simb);
                 for (let ins of this.lista_instrucciones) {
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                         return null;
                     }

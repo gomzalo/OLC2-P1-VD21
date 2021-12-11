@@ -5,6 +5,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
 class Case {
     constructor(valor_case, lista_instrucciones, fila, columna) {
         this.valor_case = valor_case;
@@ -17,6 +18,10 @@ class Case {
         // if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
         for (let res of this.lista_instrucciones) {
             let ins = res.ejecutar(ts_local, tree);
+            if (ins instanceof Errores_1.Errores) {
+                tree.getErrores().push(ins);
+                tree.updateConsolaPrintln(ins.toString());
+            }
             if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                 // controlador.graficarEntornos(controlador,ts_local," (case)");
                 return ins;
