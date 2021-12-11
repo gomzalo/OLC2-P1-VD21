@@ -4020,8 +4020,8 @@ class Print {
         this.value = "";
         for (let expresion of this.parametros) {
             let valor = expresion.ejecutar(table, tree);
-            console.log("print exp val: " + String(valor));
-            console.log(valor);
+            // console.log("print exp val: " + String(valor));
+            // console.log(valor);
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores_1.Errores) {
                 return valor;
