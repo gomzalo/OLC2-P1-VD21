@@ -31,20 +31,19 @@ class Print {
                 valor = temp.valor;
                 // validar si es un struct
             }
-            if (this.tipo) {
-                // this.value += valor.toString() + "\n";
-                (valor != null) ? tree.updateConsolaPrintln(String(valor)) : tree.updateConsolaPrintln("null");
-                // tree.updateConsolaPrintln(String(valor))
-            }
-            else {
-                // this.value += valor.toString();
-                (valor != null) ? tree.updateConsolaPrintln(String(valor)) : tree.updateConsolaPrintln("null");
-                // tree.updateConsolaPrint(String(valor))
-            }
+            this.value += valor;
             // return null;    
         }
-        // this.parametros.forEach((expresion: Instruccion) => {
-        // });
+        if (this.tipo) {
+            // this.value += valor.toString() + "\n";
+            (this.value != null) ? tree.updateConsolaPrintln(String(this.value)) : tree.updateConsolaPrintln("null");
+            // tree.updateConsolaPrintln(String(valor))
+        }
+        else {
+            // this.value += valor.toString();
+            (this.value != null) ? tree.updateConsolaPrint(String(this.value)) : tree.updateConsolaPrint("null");
+            // tree.updateConsolaPrint(String(valor))
+        }
         return null;
     }
     translate3d(table, tree) {
