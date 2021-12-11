@@ -51,7 +51,7 @@ class TablaSimbolos {
                 return existe;
             }
             else {
-                tablaActual = this.anterior;
+                tablaActual = tablaActual.anterior;
             }
         }
         return null;
@@ -73,7 +73,7 @@ class TablaSimbolos {
                 return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }
             else {
-                tablaActual = this.anterior;
+                tablaActual = tablaActual.anterior;
             }
         }
         return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());

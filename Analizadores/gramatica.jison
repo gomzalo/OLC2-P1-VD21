@@ -259,7 +259,7 @@ println_instr:
 if_llav_instr:
     // If
         RIF PARA expr PARC
-        LLAVA instrucciones LLAVC           { $$ = new If($3, $6, null, @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new If($3, $6, [], @1.first_line, @1.first_column); }
     // If-else
     |   RIF PARA expr PARC
         LLAVA instrucciones LLAVC
@@ -273,7 +273,7 @@ if_llav_instr:
 if_instr:
     // If
         RIF PARA expr PARC
-        instruccion                         { $$ = new Ifsinllave($3, $5, null, @1.first_line, @1.first_column); }
+        instruccion                         { $$ = new Ifsinllave($3, $5, [], @1.first_line, @1.first_column); }
     // If-else
     |   RIF PARA expr PARC
         instruccion

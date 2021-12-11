@@ -61,7 +61,7 @@ export class TablaSimbolos{
             if(existe != null){
                 return existe;
             }else{
-                tablaActual = this.anterior;
+                tablaActual = tablaActual.anterior;
             }
         }
         return null;
@@ -85,7 +85,7 @@ export class TablaSimbolos{
                 console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
                 return new Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }else{
-                tablaActual = this.anterior
+                tablaActual = tablaActual.anterior
             }
         }
         return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
