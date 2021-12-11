@@ -2037,7 +2037,7 @@ class AccesoArr {
         if (simbolo == null) {
             return new Errores_1.Errores("Semantico", "No se encontro la variable " + this.id + ".", this.fila, this.columna);
         }
-        let tipo = simbolo.getTipo();
+        this.tipo = simbolo.getTipo();
         if (!simbolo.getArreglo()) {
             return new Errores_1.Errores("Semantico", "La variable " + this.id + ", no es un arreglo.", this.fila, this.columna);
         }
@@ -2059,7 +2059,7 @@ class AccesoArr {
     }
     buscarDimensiones(table, tree, expresiones, arreglo) {
         let value = null;
-        if (!(expresiones.length == 0)) {
+        if (expresiones.length == 0) {
             return arreglo;
         }
         if (!(arreglo instanceof Array)) {
@@ -3174,6 +3174,7 @@ const Errores_1 = require("../../Ast/Errores");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class DeclaracionArr {
+    //tipo lista_dim ID IGUAL lista_exp_arr
     constructor(tipo_arr, dimensiones, id, expresiones, fila, columna) {
         this.tipo = Tipo_1.TIPO.ARREGLO;
         this.arreglo = true;
@@ -3197,6 +3198,7 @@ class DeclaracionArr {
         console.log("value declArr: " + value);
         console.log("type declArr: " + typeof (value));
         console.log("type declArr: " + typeof (this.arr));
+        console.log("tipo declArr: " + this.tipo_arr);
         if (value instanceof Errores_1.Errores) {
             return value;
         }
@@ -3850,6 +3852,7 @@ class Declaracion {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
                 let tipo_valor = variable.valor.tipo;
+                console.log("variable.valor.tipo: " + variable.valor.tipo);
                 if (valor instanceof Errores_1.Errores) {
                     return valor;
                 }

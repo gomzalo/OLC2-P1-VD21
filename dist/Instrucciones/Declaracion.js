@@ -22,6 +22,7 @@ class Declaracion {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
                 let tipo_valor = variable.valor.tipo;
+                console.log("variable.valor.tipo: " + variable.valor.tipo);
                 if (valor instanceof Errores_1.Errores) {
                     return valor;
                 }

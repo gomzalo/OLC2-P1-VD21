@@ -16,7 +16,7 @@ export  class DeclaracionArr implements Instruccion{
     public columna;
     public arreglo = true;
     public arr = Array<any>();
-
+    //tipo lista_dim ID IGUAL lista_exp_arr
     constructor(tipo_arr, dimensiones, id, expresiones, fila, columna){
         this.tipo_arr = tipo_arr;
         this.dimensiones = dimensiones;
@@ -38,6 +38,7 @@ export  class DeclaracionArr implements Instruccion{
         console.log("value declArr: " + value);
         console.log("type declArr: " + typeof(value));
         console.log("type declArr: " + typeof(this.arr));
+        console.log("tipo declArr: " + this.tipo_arr);
         if(value instanceof Errores){
             return value;
         }

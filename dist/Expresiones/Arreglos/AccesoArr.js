@@ -15,7 +15,7 @@ class AccesoArr {
         if (simbolo == null) {
             return new Errores_1.Errores("Semantico", "No se encontro la variable " + this.id + ".", this.fila, this.columna);
         }
-        let tipo = simbolo.getTipo();
+        this.tipo = simbolo.getTipo();
         if (!simbolo.getArreglo()) {
             return new Errores_1.Errores("Semantico", "La variable " + this.id + ", no es un arreglo.", this.fila, this.columna);
         }
@@ -37,7 +37,7 @@ class AccesoArr {
     }
     buscarDimensiones(table, tree, expresiones, arreglo) {
         let value = null;
-        if (!(expresiones.length == 0)) {
+        if (expresiones.length == 0) {
             return arreglo;
         }
         if (!(arreglo instanceof Array)) {

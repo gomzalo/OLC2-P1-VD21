@@ -5,6 +5,7 @@ const Errores_1 = require("../../Ast/Errores");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class DeclaracionArr {
+    //tipo lista_dim ID IGUAL lista_exp_arr
     constructor(tipo_arr, dimensiones, id, expresiones, fila, columna) {
         this.tipo = Tipo_1.TIPO.ARREGLO;
         this.arreglo = true;
@@ -28,6 +29,7 @@ class DeclaracionArr {
         console.log("value declArr: " + value);
         console.log("type declArr: " + typeof (value));
         console.log("type declArr: " + typeof (this.arr));
+        console.log("tipo declArr: " + this.tipo_arr);
         if (value instanceof Errores_1.Errores) {
             return value;
         }
