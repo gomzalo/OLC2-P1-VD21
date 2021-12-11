@@ -28,11 +28,21 @@ export class While implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         while(true){
             let valor_condicion = this.condicion.ejecutar(table, tree);
+            if (valor_condicion instanceof Errores)
+            {
+                tree.getErrores().push(valor_condicion);
+                tree.updateConsolaPrintln(valor_condicion.toString());
+            }
             if(this.condicion.tipo == TIPO.BOOLEANO){
                 if(this.getBool(valor_condicion)){
                     let ts_local = new TablaSimbolos(table);
                     for(let ins of this.lista_instrucciones){
                         let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores)
+                        {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
                         //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                         
                         if(ins instanceof Detener || res instanceof Detener ){

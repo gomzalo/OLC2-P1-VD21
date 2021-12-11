@@ -5,6 +5,7 @@ import { Instruccion } from "../../Interfaces/Instruccion";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
+import { Rango } from "./Rango";
 
 export  class AccesoArr implements Instruccion{
     public id;
@@ -30,15 +31,47 @@ export  class AccesoArr implements Instruccion{
         if(!simbolo.getArreglo()){
             return new Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
         }
-        let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
-        console.log("val acc arr: " + value);
-        if(value instanceof Errores){
+        console.log("AccArr exp val: " + this.expresiones[0]);
+        console.log("AccArr exp size: " + this.expresiones[0].length);
+        console.log("AccArr exp type: " + (this.expresiones[0].tipo));
+        if(this.expresiones[0] instanceof Rango){
+            console.log("AccArr RANK");
+            let rank = this.expresiones[0].ejecutar(table, tree);
+            console.log("AccArr rank type: " + (rank instanceof Array));
+            console.log("rank accArr: " + rank);
+            if(rank == null){
+                return new Errores("Semantico", "La variable \'" + this.id + "\', no es un rango.", this.fila, this.columna);
+            }
+            
+            let begin = rank[0].ejecutar(table, tree);
+            if(begin instanceof Errores){
+                return begin;
+            }
+            let end = rank[1].ejecutar(table, tree);
+            if(end instanceof Errores){
+                return end;
+            }
+            console.log("begin: " + begin);
+            console.log("end: " + end);
+            let array = [];
+            let contador = begin;
+            while(contador <= end){
+                array.push(simbolo.getValor()[contador]);
+                contador++;
+            }
+            return array;
+        }else{
+            console.log("AccArr NOT RANK");
+            let value = this.buscarDimensiones(table, tree, this.expresiones[0], simbolo.getValor());
+            console.log("val acc arr: " + value);
+            if(value instanceof Errores){
+                return value;
+            }
+            if(value instanceof Array){
+                return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
+            }
             return value;
         }
-        if(value instanceof Array){
-            return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
-        }
-        return value;
     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {

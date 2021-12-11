@@ -8,6 +8,7 @@ import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from '../Transferencia/Break';
 import { Return } from '../Transferencia/Return';
 import { Case } from './Case';
+import { Errores } from '../../Ast/Errores';
 
 export class Switch implements Instruccion{
 
@@ -30,10 +31,20 @@ export class Switch implements Instruccion{
         let ts_local = new TablaSimbolos (table);
         for(let sw of this.lista_case){
             sw.valor_case=this.valor_sw.ejecutar(ts_local, tree);
+            if (sw.valor_case instanceof Errores)
+            {
+                tree.getErrores().push(sw.valor_case);
+                tree.updateConsolaPrintln(sw.valor_case.toString());
+            }
         }
         let x=0;
         for(let ins of this.lista_case){
             let res=ins.ejecutar(ts_local, tree);
+            if (res instanceof Errores)
+            {
+                tree.getErrores().push(res);
+                tree.updateConsolaPrintln(res.toString());
+            }
             if( ins instanceof Detener || res instanceof Detener){
                 // controlador.graficarEntornos(controlador,ts_local," (switch)");
                 x=1;
@@ -49,6 +60,11 @@ export class Switch implements Instruccion{
             if(x==0){
                 for(let ins of this.lista_default){
                     let res=ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores)
+                    {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if( ins instanceof Detener || res instanceof Detener){
                         // controlador.graficarEntornos(controlador,ts_local," (switch)");
                         break;

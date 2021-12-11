@@ -11,6 +11,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { Detener } from '../Transferencia/Break';
 import { Continuar } from '../Transferencia/Continuar';
 import { Return } from '../Transferencia/Return';
+import { Errores } from '../../Ast/Errores';
 
 export class If implements Instruccion{
 
@@ -32,11 +33,21 @@ export class If implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores)
+            {
+                tree.getErrores().push(valor_condicion);
+                tree.updateConsolaPrintln(valor_condicion.toString());
+            }
         if(this.condicion.tipo == TIPO.BOOLEANO){
             if(valor_condicion){
                 // this.lista_ifs.forEach(ins => {
                 for(let ins of this.lista_ifs){
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores)
+                    {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
                     if(ins instanceof Detener || res instanceof Detener  ){
                         return res;
@@ -55,7 +66,12 @@ export class If implements Instruccion{
             }else{
                 for(let ins of this.lista_elses){
                     let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                    //TODO verificar si res es de tipo CONTINUE, RETORNO
+                    if (res instanceof Errores)
+                    {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if(ins instanceof Detener || res instanceof Detener  ){
                         return res;
                     }else{

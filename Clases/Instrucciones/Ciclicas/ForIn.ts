@@ -32,6 +32,11 @@ export class ForIn implements Instruccion{
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let rango = this.rango.ejecutar(table, tree);
+        if (rango instanceof Errores)
+        {
+            tree.getErrores().push(rango);
+            tree.updateConsolaPrintln(rango.toString());
+        }
         if(rango instanceof Errores){
             return rango;
         }
@@ -44,6 +49,11 @@ export class ForIn implements Instruccion{
                 ts_local.updateSymbolTabla(nuevo_simb);
                 for(let ins of this.lista_instrucciones){
                     let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores)
+                    {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
                     if(ins instanceof Detener || res instanceof Detener ){
                         return null;
                     }

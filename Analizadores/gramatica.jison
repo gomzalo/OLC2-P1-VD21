@@ -64,6 +64,9 @@ BSL                                 "\\".
 "break"                     { return 'RBREAK' };
 "continue"                  { return 'RCONTINUE' };
 "return"                    { return 'RRETURN' };
+/* ..............      Rango      ...............*/
+"begin"                     { return 'RBEGIN' };
+"end"                       { return 'REND' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -167,7 +170,7 @@ BSL                                 "\\".
     const { DeclaracionArr } = require("../dist/Instrucciones/Arreglos/DeclaracionArr");
     const { AccesoArr } = require("../dist/Expresiones/Arreglos/AccesoArr");
     const { ModificacionArr } = require("../dist/Instrucciones/Arreglos/ModificacionArr");
-
+    const { Rango } = require("../dist/Expresiones/Arreglos/Rango");
 %}
 /*
 ###################################################
@@ -387,7 +390,7 @@ parametro_func:
 /*..............     Llamada      ...............*/
 llamada :
         ID PARA PARC                        { $$ = new Llamada($1 , [], @1.first_line, @1.last_column); }
-    | ID PARA lista_parametros PARC         { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column); }
+    |   ID PARA lista_parametros PARC       { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column); }
     ;
 /*..............     Arreglos      ...............*/
 // ------------     Declaracion array
@@ -419,6 +422,13 @@ lista_exp:
 // ------------     Modificacion de arreglos
 modif_arr_instr:
         ID lista_exp IGUAL expr             { $$ = new ModificacionArr($1, $2, $4, @1.first_line, @1.last_column); }
+    ;
+// ------------     Rango
+rango:
+        expr DOSPUNTOS expr
+    |   RBEGIN DOSPUNTOS REND
+    |   expr DOSPUNTOS REND
+    |   RBEGIN DOSPUNTOS expr               { $$ = {"inicio": $1, "fin": $3}; }
     ;
 /*..............     Tipos      ...............*/
 tipo : 
@@ -464,4 +474,5 @@ expr:
     |   CORA lista_exp_arr_c CORC   { $$ = $2; }
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
+    |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
     ;

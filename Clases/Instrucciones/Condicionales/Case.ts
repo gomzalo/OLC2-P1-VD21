@@ -6,6 +6,7 @@ import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from '../Transferencia/Break';
 import { Continuar } from '../Transferencia/Continuar';
 import { Return } from '../Transferencia/Return';
+import { Errores } from '../../Ast/Errores';
 
 export class Case implements Instruccion{
     public valor_case : Instruccion;
@@ -27,6 +28,11 @@ export class Case implements Instruccion{
         // if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
             for(let res of this.lista_instrucciones){
                 let ins = res.ejecutar(ts_local, tree);
+                if (ins instanceof Errores)
+                {
+                    tree.getErrores().push(ins);
+                    tree.updateConsolaPrintln(ins.toString());
+                }
                 if( ins instanceof Detener || res instanceof Detener){
                     // controlador.graficarEntornos(controlador,ts_local," (case)");
                     return ins;
