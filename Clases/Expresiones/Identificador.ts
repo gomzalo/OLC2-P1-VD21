@@ -11,6 +11,7 @@ export class Identificador implements Instruccion{
     public fila: number ;
     public columna :  number;
     public tipo : TIPO;
+    public tipoStruct : string;
     public symbol :Simbolo| any;
     arreglo: boolean;
     
@@ -32,6 +33,12 @@ export class Identificador implements Instruccion{
             return new Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);
         }
         this.tipo = this.symbol.getTipo()
+        console.log(`tipo id: ${this.tipo}`)
+        if (this.tipo == TIPO.STRUCT)
+        {
+            this.tipoStruct = this.symbol.getTipoStruct()
+            return this.symbol;
+        }
         return this.symbol.getValor()
     }
     translate3d(table: TablaSimbolos, tree: Ast) {

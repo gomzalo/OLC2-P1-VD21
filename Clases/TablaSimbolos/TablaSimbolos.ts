@@ -34,6 +34,21 @@ export class TablaSimbolos{
         return false;
     }
 
+    public toStringTable(){
+        let cadena = "";
+        if (this.anterior != null)
+        {
+            cadena = this.anterior.toStringTable();
+            return cadena;
+        }
+          JSON.stringify((this.tabla.forEach((key ,value)=>{
+            console.log(value)
+            // console.log( key['valor'] +"," )
+            cadena +=  key['valor'] +",";
+        })));
+        return cadena;
+    }
+
     public existe(id: string): boolean{
         let entorno : TablaSimbolos = this;
 

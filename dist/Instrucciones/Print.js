@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
+const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
 const Return_1 = require("./Transferencia/Return");
 class Print {
@@ -18,10 +19,17 @@ class Print {
         for (let expresion of this.parametros) {
             let valor = expresion.ejecutar(table, tree);
             // console.log("print exp val: " + String(valor));
-            // console.log(valor);
+            console.log(valor);
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores_1.Errores) {
                 return valor;
+            }
+            if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
+                let temp;
+                temp = valor;
+                console.log("print STRUCT");
+                console.log(valor);
+                valor = temp.toStringStruct();
             }
             if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {
             }

@@ -8,6 +8,7 @@ import { Return } from "../Instrucciones/Transferencia/Return";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { Errores } from "./Errores";
+import { Struct } from "../Instrucciones/Struct/Struct";
 
 export class Ast  {
     public instrucciones:Array<Instruccion>;
@@ -43,6 +44,10 @@ export class Ast  {
             if (instr instanceof Funcion )
             {
                 this.addFunction(instr);
+            }
+            if (instr instanceof Struct )
+            {
+                this.addStruct(instr);
             }
             if (value instanceof Declaracion || value instanceof Asignacion )
             {
@@ -94,7 +99,7 @@ export class Ast  {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for( let instr of this.instrucciones){
-            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion))
+            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct))
             {
                 let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
@@ -174,16 +179,18 @@ export class Ast  {
     }
 
     public getStruct(name){
-        this.structs.forEach(struct => {
+        let tree =this;
+        // this.structs.forEach(struct => {
+        for(let struct of tree.structs){
             if (struct.id = name){
                 return struct;
             }
-        });
+        }
         return null;
     }
 
     public addStruct(struct){
-        this.structs.concat(struct);
+        this.structs.push(struct);
     }
 
     // public getDot(raiz){

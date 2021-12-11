@@ -1,3 +1,4 @@
+import { TablaSimbolos } from "./TablaSimbolos";
 import { TIPO } from "./Tipo";
 
 export class Simbolo{
@@ -5,11 +6,12 @@ export class Simbolo{
     public tipo:TIPO;
     public fila: number;
     public columna: number;
-    public valor : any;
+    public valor : any; // if is Struct = TablaSibolos
     public arreglo : any;
     public structEnv: any; // ENTORNO STRUCT
+    public variables ; // instructions de STRUCT
     
-    constructor(id, tipo, arreglo, fila, columna, valor, structEnv = null){
+    constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false){
         this.id = id;
         this.tipo = tipo;
         this.fila = fila;
@@ -30,6 +32,10 @@ export class Simbolo{
 
     getTipo(){
         return this.tipo;
+    }
+
+    getTipoStruct(){
+        return this.id;
     }
 
     setTipo(tipo){
@@ -54,5 +60,19 @@ export class Simbolo{
 
     getArreglo(){
         return this.arreglo;
+    }
+
+    public toStringStruct()
+    {
+        // return this.id + " - " + this.descripcion + " [" + String(this.fila) + "," + String(this.columna) + "]";
+        console.log("entre a to string struct")
+        let cadena =""
+        
+        if (this.valor instanceof TablaSimbolos)
+        {
+            console.log(this.valor.tabla)
+            cadena = this.valor.toStringTable();
+        }
+        return this.id + "(" +`${cadena}` +")"; 
     }
 }

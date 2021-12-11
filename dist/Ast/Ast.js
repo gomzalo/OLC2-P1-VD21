@@ -10,6 +10,7 @@ const Continuar_1 = require("../Instrucciones/Transferencia/Continuar");
 const Return_1 = require("../Instrucciones/Transferencia/Return");
 const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 const Errores_1 = require("./Errores");
+const Struct_1 = require("../Instrucciones/Struct/Struct");
 class Ast {
     constructor() {
         this.consola = "";
@@ -36,6 +37,9 @@ class Ast {
             let value = null;
             if (instr instanceof Funcion_1.Funcion) {
                 this.addFunction(instr);
+            }
+            if (instr instanceof Struct_1.Struct) {
+                this.addStruct(instr);
             }
             if (value instanceof Declaracion_1.Declaracion || value instanceof Asignacion_1.Asignacion) {
                 value = instr.ejecutar(this.TSglobal, tree);
@@ -80,7 +84,7 @@ class Ast {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for (let instr of this.instrucciones) {
-            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion)) {
+            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion || instr instanceof Struct_1.Struct)) {
                 let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());
@@ -143,15 +147,17 @@ class Ast {
         console.log("entre funciont add");
     }
     getStruct(name) {
-        this.structs.forEach(struct => {
+        let tree = this;
+        // this.structs.forEach(struct => {
+        for (let struct of tree.structs) {
             if (struct.id = name) {
                 return struct;
             }
-        });
+        }
         return null;
     }
     addStruct(struct) {
-        this.structs.concat(struct);
+        this.structs.push(struct);
     }
 }
 exports.Ast = Ast;

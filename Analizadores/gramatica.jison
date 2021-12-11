@@ -171,6 +171,11 @@ BSL                                 "\\".
     const { AccesoArr } = require("../dist/Expresiones/Arreglos/AccesoArr");
     const { ModificacionArr } = require("../dist/Instrucciones/Arreglos/ModificacionArr");
     const { Rango } = require("../dist/Expresiones/Arreglos/Rango");
+    /*..............     Struct      ...............*/
+    const { Struct } = require("../dist/Instrucciones/Struct/Struct");
+    const { DeclararStruct } = require("../dist/Instrucciones/Struct/DeclararStruct");
+    const { AccesoStruct } = require("../dist/Expresiones/Struct/AccesoStruct");
+
 %}
 /*
 ###################################################
@@ -235,11 +240,18 @@ instruccion:
     |   decl_arr_instr PUNTOCOMA            { $$ = $1 }
     |   llamada PUNTOCOMA                   { $$ = $1 }
     |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
+    |   structs PUNTOCOMA                   { $$ = $1 }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
         tipo  lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
     ; 
+/*..............     STRUCTS      ...............*/
+structs:
+        RSTRUCT ID LLAVA instrucciones LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); }
+    |   RSTRUCT ID LLAVA  LLAVC                 { $$ = new Struct($2,$4,[].first_line, @1.last_column); }
+    ;
+
 // Lista simbolos
 lista_simbolos:
         lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
@@ -252,6 +264,7 @@ asignacion:
         ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
     |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+    |   ID ID IGUAL expr                    { $$ = new DeclararStruct($1,$2,$4,@1.first_line, @1.last_column); }
     ;
 /*..............     Print      ...............*/
 print_instr:

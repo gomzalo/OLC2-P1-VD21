@@ -3,8 +3,10 @@ import { Errores } from "../Ast/Errores";
 import { Nodo } from "../Ast/Nodo"
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
+import { Simbolo } from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
+import { Struct } from "./Struct/Struct";
 import { Return } from "./Transferencia/Return";
 
 export class Print implements Instruccion{
@@ -31,17 +33,26 @@ export class Print implements Instruccion{
         {
             let valor = expresion.ejecutar(table,tree);
             // console.log("print exp val: " + String(valor));
-            // console.log(valor);
+            console.log(valor);
 
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores)
             {
                 return valor;
             }
+            if (valor instanceof Simbolo && valor.tipo == TIPO.STRUCT)
+            {
+                let temp : Simbolo;
+                temp = valor;
+                console.log("print STRUCT")
+                console.log(valor);
+                valor = temp.toStringStruct()
+            }
             if (expresion.tipo == TIPO.ARREGLO)
             {
-
+                
             }
+            
             if (valor instanceof Return)
             {
                 let temp: Return;

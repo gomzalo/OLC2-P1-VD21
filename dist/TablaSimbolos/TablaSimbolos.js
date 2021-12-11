@@ -27,6 +27,19 @@ class TablaSimbolos {
         }
         return false;
     }
+    toStringTable() {
+        let cadena = "";
+        if (this.anterior != null) {
+            cadena = this.anterior.toStringTable();
+            return cadena;
+        }
+        JSON.stringify((this.tabla.forEach((key, value) => {
+            console.log(value);
+            // console.log( key['valor'] +"," )
+            cadena += key['valor'] + ",";
+        })));
+        return cadena;
+    }
     existe(id) {
         let entorno = this;
         while (entorno != null) {
