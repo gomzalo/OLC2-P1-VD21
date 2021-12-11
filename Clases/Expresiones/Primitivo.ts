@@ -9,6 +9,7 @@ export class Primitivo implements Instruccion{
     public valor: any;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(valor, tipo, fila, columna ){
         this.valor =  valor;

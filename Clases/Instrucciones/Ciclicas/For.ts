@@ -20,6 +20,7 @@ export class For implements Instruccion{
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(declaracion_asignacion, condicion, actualizacion, lista_instrucciones, fila, columna) {
         this.declaracion_asignacion = declaracion_asignacion;

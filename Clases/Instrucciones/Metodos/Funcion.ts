@@ -14,6 +14,7 @@ export class Funcion implements Instruccion{
     public id : string;
     public parameters: Array<any>;
     public instructions : Array<Instruccion>;
+    arreglo: boolean;
 
     constructor(id,tipo,parameters,instructions,fila,columna)
     {

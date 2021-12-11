@@ -19,6 +19,7 @@ export class Ifsinllave implements Instruccion{
     public ins_elses : Instruccion;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(condicion, ins_ifs, ins_elses, fila, columna) {
         this.condicion = condicion;

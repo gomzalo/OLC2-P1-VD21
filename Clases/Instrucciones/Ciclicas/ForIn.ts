@@ -20,6 +20,7 @@ export class ForIn implements Instruccion{
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(iterador, rango, lista_instrucciones, fila, columna) {
         this.iterador = iterador;

@@ -12,14 +12,15 @@ export class Identificador implements Instruccion{
     public columna :  number;
     public tipo : TIPO;
     public symbol :Simbolo| any;
-
+    arreglo: boolean;
+    
     constructor(id:string, fila, columna){
         this.id =id
         this.fila = fila
         this.columna = columna
         this.tipo = null;
     }
-
+    
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // console.log(table.existeEnActual(this.id));
         console.log((table));

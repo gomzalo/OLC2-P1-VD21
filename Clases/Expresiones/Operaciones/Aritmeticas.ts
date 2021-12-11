@@ -14,6 +14,7 @@ export class Aritmetica implements Instruccion {
     public columna: number;
     public expU: any;
     public tipo : TIPO;
+    arreglo: boolean;
 
     public constructor(exp1, operador, exp2, fila, columna, expU ) {
         this.exp1 = exp1;

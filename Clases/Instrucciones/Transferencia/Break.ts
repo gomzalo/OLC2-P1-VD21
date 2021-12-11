@@ -6,6 +6,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 export class Detener implements Instruccion{
     public fila: number;
     public columna: number;
+    arreglo: boolean;
 
     constructor(fila, columna) {
         this.fila = fila;

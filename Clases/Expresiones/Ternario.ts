@@ -12,6 +12,7 @@ export class Ternario implements Instruccion{
     public tipo :TIPO;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(condicion,True, False, fila, columna){
         this.condicion = condicion;

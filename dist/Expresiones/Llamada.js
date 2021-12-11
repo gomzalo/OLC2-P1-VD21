@@ -7,6 +7,7 @@ const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Llamada {
     constructor(id, parameters, fila, columna, arreglo = false) {
+        this.arreglo = false;
         this.id = id;
         this.parameters = parameters;
         this.fila = fila;

@@ -13,6 +13,7 @@ export class Relacional implements Instruccion{
     public fila: number;
     public columna: number;
     public tipo : TIPO;
+    arreglo: boolean;
 
     public constructor(exp1, operador, exp2, fila, columna, expU ) {
         this.exp1 = exp1;

@@ -6,6 +6,7 @@ const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const Return_1 = require("./Transferencia/Return");
 class Asignacion {
     constructor(id, expresion, fila, columna) {
+        this.arreglo = false;
         this.id = id;
         this.expresion = expresion;
         this.fila = fila;

@@ -165,6 +165,7 @@ BSL                                 "\\".
     const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
     /*..............     Arreglos      ...............*/
     const { DeclaracionArr } = require("../dist/Instrucciones/Arreglos/DeclaracionArr");
+    const { AccesoArr } = require("../dist/Expresiones/Arreglos/AccesoArr");
 
 %}
 /*
@@ -332,7 +333,7 @@ while_instr:
         LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); }
     ;
 /*..............     Do While      ...............*/
-dowhile_instr : 
+dowhile_instr:
         RDO LLAVA instrucciones LLAVC
         RWHILE PARA expr PARC               { $$ = new DoWhile($7, $3, @1.first_line, @1.last_column); }
     ;
@@ -357,33 +358,36 @@ for_in_instr:
         LLAVA instrucciones LLAVC           { $$ = new ForIn($2, $4, $6, @1.first_line, @1.first_column); }
     ;
 /*..............     Main      ...............*/
-main_ :
+main_:
         RVOID RMAIN PARA PARC 
         LLAVA instrucciones LLAVC           {$$ = new Main($6,@1.first_line, @1.first_column); }
     |   RVOID RMAIN PARA PARC 
         LLAVA LLAVC                         {$$ = new Main([],@1.first_line, @1.first_column); }
     ;
 /*..............     Funciones      ...............*/
-funciones : tipo ID PARA PARC LLAVA instrucciones LLAVC     { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column ); }
-        | tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC  { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column ); }
-        ;
+funciones:
+        tipo ID PARA PARC
+        LLAVA instrucciones LLAVC           { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column ); }
+    |   tipo ID
+        PARA lista_parametros_func
+        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column ); }
+    ;
 /*..............     Lista parametros      ...............*/
 lista_parametros_func: 
-        lista_parametros_func COMA parametro_func     { $$ = $1; $$.push($3); }
-    |   parametro_func                                { $$ = new Array(); $$.push($1); }
+        lista_parametros_func
+        COMA parametro_func                 { $$ = $1; $$.push($3); }
+    |   parametro_func                      { $$ = new Array(); $$.push($1); }
     ;
 //------   Parametros Funcion 
 parametro_func:
-        tipo ID     { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; } // EN MEDIO $2 - LISTA DIM
-    |   ID          { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; }
-    ;  
-
-
+        tipo ID                             { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; } // EN MEDIO $2 - LISTA DIM
+    |   ID                                  { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; }
+    ;
 /*..............     Llamada      ...............*/
-llamada : ID PARA PARC              { $$ = new Llamada($1 , [], @1.first_line, @1.last_column ); }
-        | ID PARA lista_parametros PARC    { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column ); }
-        ;
-
+llamada :
+        ID PARA PARC                        { $$ = new Llamada($1 , [], @1.first_line, @1.last_column ); }
+    | ID PARA lista_parametros PARC         { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column ); }
+    ;
 /*..............     Arreglos      ...............*/
 // ------------     Declaracion array
 decl_arr_instr:
@@ -395,15 +399,21 @@ lista_dim:
         lista_dim CORA CORC                 { $$ = $1; $$.push($2+1); }
     |   CORA CORC                           { $$ = new Array(); $$.push(1); }
     ;
-// ------------     Lista expresiones
+// ------------     Lista expresiones arr
 lista_exp_arr:
-        lista_exp_arr CORA lista_exp_arr_c CORC         { $$ = $1; $$.push($3); }
-    |   CORA lista_exp_arr_c CORC                       { $$ = new Array(); $$.push($2); }
+        lista_exp_arr 
+        CORA lista_exp_arr_c CORC           { $$ = $1; $$.push($3); }
+    |   CORA lista_exp_arr_c CORC           { $$ = new Array(); $$.push($2); }
     ;
-// ------------     Lista expresiones
+// ------------     Lista expresiones arr c
 lista_exp_arr_c:
         lista_exp_arr_c COMA expr           { $$ = $1; $$.push($3); }
     |   expr                                { $$ = new Array(); $$.push($1); }
+    ;
+// ------------     Lista expresiones
+lista_exp:
+        lista_exp CORA expr CORC            { $$ = $1; $$.push($3); }
+    |   CORA expr CORC                      { $$ = new Array(); $$.push($2); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 
@@ -415,7 +425,6 @@ tipo :
     |   RVOID                       { $$ = TIPO.VOID; }
     |   RSTRUCT                     { $$ = TIPO.STRUCT; }
     ;
-
 /*..............     Expresiones      ...............*/
 expr: 
         expr MAS expr               { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
@@ -447,6 +456,7 @@ expr:
     |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
     |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
     |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
-    |   CORA lista_exp_arr_c CORC   { $$ = $2;}
-    |   llamada                     { $$ = $1 }
+    |   CORA lista_exp_arr_c CORC   { $$ = $2; }
+    |   llamada                     { $$ = $1; }
+    |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     ;

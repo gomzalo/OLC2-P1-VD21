@@ -16,6 +16,7 @@ export class Switch implements Instruccion{
     public lista_default : Array<Instruccion>;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(valor_sw, lista_case, lista_default, fila, columna) {
         this.valor_sw = valor_sw;

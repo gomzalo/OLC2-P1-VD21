@@ -177,9 +177,12 @@
         {
             print(letra, "-");      // Imprime O-L-C-2
         }
-        println("************   Arreglos  **************");
+        println("************   Declaracion de arreglos  **************");
         String[] arr = ["H","O","L","A"];
-
+        // String[] arr = ["H",["O","O"],"L","A"];
+        println("************   Acceso de arreglos  **************");
+        int a = arr[0];
+        println(a);
         println("************   Llamada  **************");
         println(operacionMatematica('+',90,5));
         metodo("hola");

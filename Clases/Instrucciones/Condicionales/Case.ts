@@ -13,6 +13,7 @@ export class Case implements Instruccion{
     public valor_sw;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(valor_case, lista_instrucciones, fila, columna){
         this.valor_case = valor_case;

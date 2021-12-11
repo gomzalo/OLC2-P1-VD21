@@ -14,6 +14,7 @@ export class Logica implements Instruccion{
     public exp2: any;
     public expU: any;
     public tipo : TIPO;
+    arreglo: boolean;
     
     public constructor(exp1, operador, exp2, fila, columna, expU ) {
         this.exp1 = exp1;

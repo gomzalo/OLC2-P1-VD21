@@ -11,13 +11,15 @@ export class Asignacion implements Instruccion{
     public expresion : Expresion|any;
     public fila : number;
     public columna : number;
-
+    arreglo = false;
+    
     constructor(id:string, expresion, fila, columna){
         this.id = id;
         this.expresion = expresion;
         this.fila = fila;
         this.columna =columna;
     }
+    
     ejecutar(table: TablaSimbolos, tree: Ast) {
         if (table.existe(this.id)){
             let valor = this.expresion.ejecutar(table,tree );

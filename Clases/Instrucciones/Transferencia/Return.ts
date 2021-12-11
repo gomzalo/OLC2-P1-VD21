@@ -11,6 +11,7 @@ export class Return implements Instruccion{
     public tipo : TIPO;
     fila: number;
     columna: number;
+    arreglo: boolean;
 
     constructor(expresion,fila,columna){
         this.expresion = expresion;

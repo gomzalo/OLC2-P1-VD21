@@ -14,6 +14,7 @@ export class Print implements Instruccion{
     public columna : number;
     public tipo : boolean;
     public value : string;
+    arreglo: boolean;
 
     constructor(parametros, fila, columna, tipo) {
         this.parametros =parametros;

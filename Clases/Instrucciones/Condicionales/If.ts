@@ -19,6 +19,7 @@ export class If implements Instruccion{
     public lista_elses : Array<Instruccion>;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(condicion, lista_ifs, lista_elses, fila, columna) {
         this.condicion = condicion;

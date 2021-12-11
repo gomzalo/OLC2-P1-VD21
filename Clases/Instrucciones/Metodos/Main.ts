@@ -10,6 +10,7 @@ export class Main implements Instruccion{
     public instructions : Array<Instruccion>;
     public fila: number;
     public columna: number;
+    arreglo: boolean;
     
     constructor(instructions, fila, columna)
     {

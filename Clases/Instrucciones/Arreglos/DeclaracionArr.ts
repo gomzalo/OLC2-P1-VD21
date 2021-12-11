@@ -1,3 +1,4 @@
+import exp from "constants";
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
 import { Instruccion } from "../../Interfaces/Instruccion";
@@ -14,7 +15,7 @@ export  class DeclaracionArr implements Instruccion{
     public fila;
     public columna;
     public arreglo = true;
-    public arr = [];
+    public arr = Array<any>();
 
     constructor(tipo_arr, dimensiones, id, expresiones, fila, columna){
         this.tipo_arr = tipo_arr;
@@ -31,13 +32,16 @@ export  class DeclaracionArr implements Instruccion{
             return new Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
         }
         // Creando arreglo
-        this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
+        this.crearDimensiones(table, tree, this.expresiones); // Devuelve el arreglo de dimensiones
+        // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
         let value = this.arr;
         console.log("value declArr: " + value);
+        console.log("type declArr: " + typeof(value));
+        console.log("type declArr: " + typeof(this.arr));
         if(value instanceof Errores){
             return value;
         }
-        let nuevo_simb = new Simbolo(this.id.toString(), this.tipo_arr, null, this.fila, this.columna, value);
+        let nuevo_simb = new Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
         let result = table.setSymbolTabla(nuevo_simb);
         if(result instanceof Errores){
             return result;
@@ -54,25 +58,24 @@ export  class DeclaracionArr implements Instruccion{
     }
 
     public crearDimensiones(table, tree, expresiones){
-        if(expresiones.length == 0){
-            return;
-        }else{
-        console.log("entro crearD");
-        let dimension = expresiones.pop();
-        // alert("expr crearD arr: " + expresiones);
-        // alert("expr crearD arr size: " + expresiones.length);
-        let num = dimension.ejecutar(table, tree);
-        this.arr.push(num);
-        // alert("num arr: " + num);
-        // if(num instanceof Errores){
-        //     return num;
-        // }
-        // if(expresiones > 0){
-            
-        this.crearDimensiones(tree, table, expresiones.slice());
-        // }s
+        // console.log("expr crearD arr: " + expresiones);
+        while(true){
+            if(!(expresiones.length == 0)){
+                let dimension = expresiones.shift();
+                // console.log("entro crearD");
+                // console.log("dim crearD arr: " + dimension);
+                if(Array.isArray(dimension)){
+                    this.arr.push(this.crearDimensiones(tree, table, dimension) as unknown as Array<any>);
+                }else{
+                    let num = dimension.ejecutar(table, tree);
+                    console.log("numarr: " + num);
+                    this.arr.push(num);
+                    this.crearDimensiones(tree, table, expresiones);
+                }
+            }else{
+                break;
+            }
         }
-        // return this.arr;
     }
 
 }

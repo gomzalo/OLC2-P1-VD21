@@ -2,9 +2,9 @@ import { TablaSimbolos } from '../TablaSimbolos/TablaSimbolos';
 import { TIPO } from "../TablaSimbolos/Tipo";
 import { Ast } from "../Ast/Ast";
 export interface Instruccion {
-     fila:number;
-     columna:number;
-
+    fila:number;
+    columna:number;
+    arreglo: boolean;
 
     /**
      * @function ejecutar execute instruccions

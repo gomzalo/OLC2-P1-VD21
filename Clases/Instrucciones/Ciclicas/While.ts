@@ -16,6 +16,7 @@ export class While implements Instruccion{
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
+    arreglo: boolean;
 
     constructor(condicion, lista_instrucciones, fila, columna) {
         this.condicion = condicion;

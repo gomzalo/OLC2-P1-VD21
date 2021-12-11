@@ -8,7 +8,7 @@ class DeclaracionArr {
     constructor(tipo_arr, dimensiones, id, expresiones, fila, columna) {
         this.tipo = Tipo_1.TIPO.ARREGLO;
         this.arreglo = true;
-        this.arr = [];
+        this.arr = Array();
         this.tipo_arr = tipo_arr;
         this.dimensiones = dimensiones;
         this.id = id;
@@ -22,13 +22,16 @@ class DeclaracionArr {
             return new Errores_1.Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
         }
         // Creando arreglo
-        this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
+        this.crearDimensiones(table, tree, this.expresiones); // Devuelve el arreglo de dimensiones
+        // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
         let value = this.arr;
         console.log("value declArr: " + value);
+        console.log("type declArr: " + typeof (value));
+        console.log("type declArr: " + typeof (this.arr));
         if (value instanceof Errores_1.Errores) {
             return value;
         }
-        let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, null, this.fila, this.columna, value);
+        let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
         let result = table.setSymbolTabla(nuevo_simb);
         if (result instanceof Errores_1.Errores) {
             return result;
@@ -42,25 +45,26 @@ class DeclaracionArr {
         throw new Error("Method not implemented.");
     }
     crearDimensiones(table, tree, expresiones) {
-        if (expresiones.length == 0) {
-            return;
+        // console.log("expr crearD arr: " + expresiones);
+        while (true) {
+            if (!(expresiones.length == 0)) {
+                let dimension = expresiones.shift();
+                // console.log("entro crearD");
+                // console.log("dim crearD arr: " + dimension);
+                if (Array.isArray(dimension)) {
+                    this.arr.push(this.crearDimensiones(tree, table, dimension));
+                }
+                else {
+                    let num = dimension.ejecutar(table, tree);
+                    console.log("numarr: " + num);
+                    this.arr.push(num);
+                    this.crearDimensiones(tree, table, expresiones);
+                }
+            }
+            else {
+                break;
+            }
         }
-        else {
-            console.log("entro crearD");
-            let dimension = expresiones.pop();
-            // alert("expr crearD arr: " + expresiones);
-            // alert("expr crearD arr size: " + expresiones.length);
-            let num = dimension.ejecutar(table, tree);
-            this.arr.push(num);
-            // alert("num arr: " + num);
-            // if(num instanceof Errores){
-            //     return num;
-            // }
-            // if(expresiones > 0){
-            this.crearDimensiones(tree, table, expresiones.slice());
-            // }s
-        }
-        // return this.arr;
     }
 }
 exports.DeclaracionArr = DeclaracionArr;

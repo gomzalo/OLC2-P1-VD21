@@ -40,7 +40,7 @@ export  class Declaracion implements Instruccion{
                 {
                     console.log("entree tipo declaracion");
                     //--> Lo agregamos a la tabla de simbolos 
-                    let nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila,variable.columna,valor);
+                    let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,valor);
                     table.setSymbolTabla(nuevo_simb);
                 }else{
                     // console.log("errorrr tipo declaracion");
@@ -51,28 +51,28 @@ export  class Declaracion implements Instruccion{
                 
             }else{
                 //-- DECLARACION 1ERA VEZ -Se agrega a la tabla de simbolos 
-                let nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
                 
 
                 switch(this.tipo)
                 {
                     case TIPO.ENTERO:
-                        nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, 0);
+                        nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, 0);
                         break;
                     case TIPO.DECIMAL:
-                        nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, 0.00);
+                        nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, 0.00);
                         break;
                     case TIPO.CADENA:
-                        nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                        nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
                         break;
                     case TIPO.BOOLEANO:
-                        nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, false);
+                        nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, false);
                         break;
                     case TIPO.CHARACTER:
-                        nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, '0');
+                        nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, '0');
                         break;
                     default:
-                        nuevo_simb = new Simbolo(variable.id, this.tipo, null, variable.fila, variable.columna, null);
+                        nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
                         break;
 
                 }

@@ -11,7 +11,7 @@ export class Llamada implements Instruccion{
     public parameters : Array<any>;
     public fila : number;
     public columna : number;
-    public arreglo : Boolean;
+    arreglo = false;
     public tipo : TIPO;
 
     constructor(id,parameters, fila, columna, arreglo =false)
