@@ -3965,11 +3965,13 @@ class Print {
             }
             if (this.tipo) {
                 // this.value += valor.toString() + "\n";
-                tree.updateConsolaPrintln(String(valor));
+                (valor != null) ? tree.updateConsolaPrintln(String(valor)) : tree.updateConsolaPrintln("null");
+                // tree.updateConsolaPrintln(String(valor))
             }
             else {
-                this.value += valor.toString();
-                tree.updateConsolaPrint(String(valor));
+                // this.value += valor.toString();
+                (valor != null) ? tree.updateConsolaPrintln(String(valor)) : tree.updateConsolaPrintln("null");
+                // tree.updateConsolaPrint(String(valor))
             }
             // return null;    
         }
