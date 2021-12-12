@@ -69,7 +69,9 @@ export  class DeclaracionArr implements Instruccion{
                     this.arr.push(this.crearDimensiones(table, tree, dimension) as unknown as Array<any>);
                 }else{
                     let num = dimension.ejecutar(table, tree);
-                    if(num.tipo != this.tipo_arr){
+                    console.log("crearArr: num.tipo " + dimension.tipo);
+                    console.log("crearArr: this.tipo_arr " + this.tipo_arr);
+                    if(dimension.tipo != this.tipo_arr){
                         console.log("Tipo distinto al tipo del arreglo");
                         console.log(tree);
                         let res = new Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);

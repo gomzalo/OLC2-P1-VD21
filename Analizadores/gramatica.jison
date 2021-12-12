@@ -67,6 +67,11 @@ BSL                                 "\\".
 /* ..............      Rango      ...............*/
 "begin"                     { return 'RBEGIN' };
 "end"                       { return 'REND' };
+/* ..............      Nativas      ...............*/
+/* -------- Arreglos */
+"pop"                       { return 'RPOP' };
+"push"                      { return 'RPUSH' };
+"lenght"                    { return 'RLENGTH' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -176,7 +181,10 @@ BSL                                 "\\".
     const { Struct } = require("../dist/Instrucciones/Struct/Struct");
     const { DeclararStruct } = require("../dist/Instrucciones/Struct/DeclararStruct");
     const { AccesoStruct } = require("../dist/Expresiones/Struct/AccesoStruct");
-
+    /* ..............      Nativas      ...............*/
+    /* -------- Arreglos */
+    // const { LengthArr } = require("../dist/Expresiones/Arreglos/Nativas/LengthArr");
+    const { Pop } = require("../dist/Expresiones/Arreglos/Nativas/Pop");
 %}
 /*
 ###################################################
