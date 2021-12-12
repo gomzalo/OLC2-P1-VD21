@@ -25,7 +25,9 @@ export class Case implements Instruccion{
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos(table);
-        // if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
+        console.log("cs valcs: " + this.valor_case);
+        console.log("cs valorsw: " + this.valor_sw);
+        if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
             for(let res of this.lista_instrucciones){
                 let ins = res.ejecutar(ts_local, tree);
                 if (ins instanceof Errores)
@@ -48,7 +50,7 @@ export class Case implements Instruccion{
                     }
                 }
             }
-        // }
+        }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
         throw new Error('Method not implemented.');

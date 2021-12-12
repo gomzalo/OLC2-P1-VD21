@@ -132,7 +132,7 @@
         println(respuesta);
 
         println(animal == "Perro" ? 15 : 10);
-        println(animal == "Perro" ? animal == "Perro" ? "adentro" : 10 : 10); //adentro
+        println(animal == "Perro" ? (animal == "Perro" ? "adentro" : 10) : 10); //adentro
         println("************   While  **************");
         int i = 0;
         while (i < 5) {
@@ -189,6 +189,8 @@
         arr[2] = "T";
         println(arr[2]);
         println(arr);
+        println("************   Acceso de arreglos con rangos  **************");
+        println(arr[2:end]);
         println("************   Llamada  **************");
         println(operacionMatematica('+',90,5));
         metodo("hola");

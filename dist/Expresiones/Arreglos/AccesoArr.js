@@ -64,7 +64,7 @@ class AccesoArr {
         }
         else {
             console.log("AccArr NOT RANK");
-            let value = this.buscarDimensiones(table, tree, this.expresiones[0], simbolo.getValor());
+            let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
             console.log("val acc arr: " + value);
             if (value instanceof Errores_1.Errores) {
                 return value;

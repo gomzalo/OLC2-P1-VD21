@@ -26,10 +26,10 @@ class DeclaracionArr {
         this.crearDimensiones(table, tree, this.expresiones); // Devuelve el arreglo de dimensiones
         // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
         let value = this.arr;
-        console.log("value declArr: " + value);
-        console.log("type declArr: " + typeof (value));
-        console.log("type declArr: " + typeof (this.arr));
-        console.log("tipo declArr: " + this.tipo_arr);
+        // console.log("value declArr: " + value);
+        // console.log("type declArr: " + typeof(value));
+        // console.log("type declArr: " + typeof(this.arr));
+        // console.log("tipo declArr: " + this.tipo_arr);
         if (value instanceof Errores_1.Errores) {
             return value;
         }
@@ -54,13 +54,21 @@ class DeclaracionArr {
                 // console.log("entro crearD");
                 // console.log("dim crearD arr: " + dimension);
                 if (Array.isArray(dimension)) {
-                    this.arr.push(this.crearDimensiones(tree, table, dimension));
+                    this.arr.push(this.crearDimensiones(table, tree, dimension));
                 }
                 else {
                     let num = dimension.ejecutar(table, tree);
-                    console.log("numarr: " + num);
-                    this.arr.push(num);
-                    this.crearDimensiones(tree, table, expresiones);
+                    if (num.tipo != this.tipo_arr) {
+                        console.log("Tipo distinto al tipo del arreglo");
+                        console.log(tree);
+                        let res = new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
+                        tree.Errores.push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    else {
+                        this.arr.push(num);
+                        this.crearDimensiones(tree, table, expresiones);
+                    }
                 }
             }
             else {

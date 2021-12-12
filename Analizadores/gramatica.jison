@@ -171,6 +171,7 @@ BSL                                 "\\".
     const { AccesoArr } = require("../dist/Expresiones/Arreglos/AccesoArr");
     const { ModificacionArr } = require("../dist/Instrucciones/Arreglos/ModificacionArr");
     const { Rango } = require("../dist/Expresiones/Arreglos/Rango");
+    const { Arreglo } = require("../dist/Expresiones/Arreglos/Arreglo");
     /*..............     Struct      ...............*/
     const { Struct } = require("../dist/Instrucciones/Struct/Struct");
     const { DeclararStruct } = require("../dist/Instrucciones/Struct/DeclararStruct");
@@ -488,5 +489,6 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   expr PUNTO expr                 { $$ = new AccesoStruct($1,$3,@1.first_line, @1.first_column); }
+    |   expr PUNTO expr             { $$ = new AccesoStruct($1,$3,@1.first_line, @1.first_column); }
+    |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
     ;

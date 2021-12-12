@@ -20,7 +20,7 @@ export class ForIn implements Instruccion{
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
-    arreglo: boolean;
+    arreglo = false;
 
     constructor(iterador, rango, lista_instrucciones, fila, columna) {
         this.iterador = iterador;
@@ -31,19 +31,20 @@ export class ForIn implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let rango = this.rango.ejecutar(table, tree);
-        if (rango instanceof Errores)
-        {
-            tree.getErrores().push(rango);
-            tree.updateConsolaPrintln(rango.toString());
-        }
-        if(rango instanceof Errores){
-            return rango;
-        }
         if(this.rango.tipo == TIPO.CADENA){
+            let rango = this.rango.ejecutar(table, tree);
+            if (rango instanceof Errores)
+            {
+                tree.getErrores().push(rango);
+                tree.updateConsolaPrintln(rango.toString());
+            }
+            if(rango instanceof Errores){
+                return rango;
+            }
+            console.log("FOR IN CADENA");
             for(var i = 0; i < rango.length; i++){
                 let char = rango.charAt(i);
-                let nuevo_simb = new Simbolo(this.iterador, TIPO.CHARACTER, null, this.fila, this.columna, char);
+                let nuevo_simb = new Simbolo(this.iterador, TIPO.CHARACTER, this.arreglo, this.fila, this.columna, char);
                 let ts_local = new TablaSimbolos(table);
                 ts_local.setSymbolTabla(nuevo_simb);
                 ts_local.updateSymbolTabla(nuevo_simb);
@@ -65,6 +66,50 @@ export class ForIn implements Instruccion{
                     }
                 }
             }
+        }else if (this.rango.tipo == TIPO.ARREGLO || this.rango instanceof Array) {
+            console.log("FOR IN ARR");
+            this.rango.forEach(e => {
+                let element = e.ejecutar(table, tree);
+                if (element instanceof Errores)
+                {
+                    tree.getErrores().push(element);
+                    tree.updateConsolaPrintln(element.toString());
+                }
+                if(element instanceof Errores){
+                    return element;
+                }
+                let nuevo_simb = new Simbolo(this.iterador, TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                let ts_local = new TablaSimbolos(table);
+                let result = ts_local.updateSymbolTabla(nuevo_simb);
+                if (result instanceof Errores)
+                {
+                    result = ts_local.setSymbolTabla(nuevo_simb);
+                    if (result instanceof Errores)
+                    {
+                        tree.getErrores().push(result);
+                        tree.updateConsolaPrintln(result.toString());
+                    }
+                }
+                for(let ins of this.lista_instrucciones){
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores)
+                    {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    if(ins instanceof Detener || res instanceof Detener ){
+                        return null;
+                    }
+                    if(ins instanceof Continuar || res instanceof Continuar){
+                        break;
+                    }
+                    if(ins instanceof Return || res instanceof Return){
+                        return res;
+                    }
+                }
+            });
+        }else{
+            console.log("ForIn xd");
         }
     }
 

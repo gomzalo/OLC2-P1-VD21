@@ -30,11 +30,11 @@ export class Switch implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos (table);
         for(let sw of this.lista_case){
-            sw.valor_case=this.valor_sw.ejecutar(ts_local, tree);
-            if (sw.valor_case instanceof Errores)
+            sw.valor_sw=this.valor_sw.ejecutar(ts_local, tree);
+            if (sw.valor_sw instanceof Errores)
             {
-                tree.getErrores().push(sw.valor_case);
-                tree.updateConsolaPrintln(sw.valor_case.toString());
+                tree.getErrores().push(sw.valor_sw);
+                tree.updateConsolaPrintln(sw.valor_sw.toString());
             }
         }
         let x=0;

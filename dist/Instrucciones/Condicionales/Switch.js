@@ -16,10 +16,10 @@ class Switch {
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
         for (let sw of this.lista_case) {
-            sw.valor_case = this.valor_sw.ejecutar(ts_local, tree);
-            if (sw.valor_case instanceof Errores_1.Errores) {
-                tree.getErrores().push(sw.valor_case);
-                tree.updateConsolaPrintln(sw.valor_case.toString());
+            sw.valor_sw = this.valor_sw.ejecutar(ts_local, tree);
+            if (sw.valor_sw instanceof Errores_1.Errores) {
+                tree.getErrores().push(sw.valor_sw);
+                tree.updateConsolaPrintln(sw.valor_sw.toString());
             }
         }
         let x = 0;

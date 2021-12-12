@@ -15,31 +15,33 @@ class Case {
     }
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        // if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
-        for (let res of this.lista_instrucciones) {
-            let ins = res.ejecutar(ts_local, tree);
-            if (ins instanceof Errores_1.Errores) {
-                tree.getErrores().push(ins);
-                tree.updateConsolaPrintln(ins.toString());
-            }
-            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                // controlador.graficarEntornos(controlador,ts_local," (case)");
-                return ins;
-            }
-            else {
-                if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+        console.log("cs valcs: " + this.valor_case);
+        console.log("cs valorsw: " + this.valor_sw);
+        if (this.valor_sw == this.valor_case.ejecutar(table, tree)) {
+            for (let res of this.lista_instrucciones) {
+                let ins = res.ejecutar(ts_local, tree);
+                if (ins instanceof Errores_1.Errores) {
+                    tree.getErrores().push(ins);
+                    tree.updateConsolaPrintln(ins.toString());
+                }
+                if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
                     // controlador.graficarEntornos(controlador,ts_local," (case)");
                     return ins;
                 }
                 else {
-                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
                         // controlador.graficarEntornos(controlador,ts_local," (case)");
                         return ins;
+                    }
+                    else {
+                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                            // controlador.graficarEntornos(controlador,ts_local," (case)");
+                            return ins;
+                        }
                     }
                 }
             }
         }
-        // }
     }
     translate3d(table, tree) {
         throw new Error('Method not implemented.');
