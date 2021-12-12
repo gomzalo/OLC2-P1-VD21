@@ -23,6 +23,9 @@ export  class AccesoArr implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
+        if(this.expresiones instanceof AccesoArr){
+            return this.expresiones.ejecutar(table, tree);
+        }
         let simbolo = table.getSymbolTabla(this.id);
         if(simbolo == null){
             return new Errores("Semantico", "No se encontro la variable " + this.id + ".", this.fila, this.columna);

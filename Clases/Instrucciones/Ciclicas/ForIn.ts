@@ -1,3 +1,4 @@
+import { Identificador } from './../../Expresiones/Identificador';
 import { Return } from '../Transferencia/Return';
 import { Continuar } from '../Transferencia/Continuar';
 import { Instruccion } from '../../Interfaces/Instruccion';
@@ -110,12 +111,123 @@ export class ForIn implements Instruccion{
                 }
             });
         }else if(this.rango instanceof AccesoArr){
-            console.log("FOR IN ARR DEC");
+            console.log("FOR IN ARR DEC RANGO");
             // console.log(this.rango.);
             let arr = table.getSymbolTabla(this.rango.id.toString());
             if(arr != null){
                 if(arr.getArreglo()){
-                    arr.getValor().forEach(element => {
+                    console.log("foinarrdec rank: " + this.rango.expresiones[0]);
+                    let rank = this.rango.expresiones[0].ejecutar(table, tree);
+                    // console.log("AccArr rank type: " + (rank instanceof Array));
+                    // console.log("rank[0] type: " + (typeof(rank[0]) == "string"));
+                    // console.log("rank accArr: " + rank);
+                    if(rank == null){
+                        return new Errores("Semantico", "La variable \'" + this.rango.id + "\', no es un rango.", this.fila, this.columna);
+                    }
+                    
+                    let begin;
+                    if(rank[0] == "begin"){
+                        begin = 0;
+                    }else{
+                        begin = rank[0].ejecutar(table, tree);
+                    }
+                    if(begin instanceof Errores){
+                        return begin;
+                    }
+                    let end;
+                    if(rank[1] == "end"){
+                        end = arr.getValor().length;
+                    }else{
+                        end = rank[1].ejecutar(table, tree);
+                    }
+                    if(end instanceof Errores){
+                        return end;
+                    }
+                    console.log("begin: " + begin);
+                    console.log("end: " + end);
+                    let array = [];
+                    let contador = begin;
+                    while(contador <= end){
+                        array.push(arr.getValor()[contador]);
+                        let element = arr.getValor()[contador];
+                        let nuevo_simb = new Simbolo(this.iterador, TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                        let ts_local = new TablaSimbolos(table);
+                        let result = ts_local.updateSymbolTabla(nuevo_simb);
+                        if (result instanceof Errores)
+                        {
+                            result = ts_local.setSymbolTabla(nuevo_simb);
+                            if (result instanceof Errores)
+                            {
+                                tree.getErrores().push(result);
+                                tree.updateConsolaPrintln(result.toString());
+                            }
+                        }
+                        for(let ins of this.lista_instrucciones){
+                            let res = ins.ejecutar(ts_local, tree);
+                            if (res instanceof Errores)
+                            {
+                                tree.getErrores().push(res);
+                                tree.updateConsolaPrintln(res.toString());
+                            }
+                            if(ins instanceof Detener || res instanceof Detener ){
+                                return null;
+                            }
+                            if(ins instanceof Continuar || res instanceof Continuar){
+                                break;
+                            }
+                            if(ins instanceof Return || res instanceof Return){
+                                return res;
+                            }
+                        }
+                        contador++;
+                    }
+                }else{
+                    return new Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no es un arreglo.", this.fila, this.columna);
+                }
+            }else{
+                return new Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);
+            }
+        }else if(this.rango instanceof Identificador){
+            let variable = table.getSymbolTabla(this.rango.id.toString());
+            if(variable != null){
+                let rango = variable.getValor();
+                if (rango instanceof Errores)
+                {
+                    tree.getErrores().push(rango);
+                    tree.updateConsolaPrintln(rango.toString());
+                }
+                if(rango instanceof Errores){
+                    return rango;
+                }
+                if(variable.getTipo() == TIPO.CADENA && !variable.getArreglo()){
+                    console.log("FOR IN VAR CADENA");
+                    for(var i = 0; i < rango.length; i++){
+                        let char = rango.charAt(i);
+                        let nuevo_simb = new Simbolo(this.iterador, TIPO.CHARACTER, this.arreglo, this.fila, this.columna, char);
+                        let ts_local = new TablaSimbolos(table);
+                        ts_local.setSymbolTabla(nuevo_simb);
+                        ts_local.updateSymbolTabla(nuevo_simb);
+                        for(let ins of this.lista_instrucciones){
+                            let res = ins.ejecutar(ts_local, tree);
+                            if (res instanceof Errores)
+                            {
+                                tree.getErrores().push(res);
+                                tree.updateConsolaPrintln(res.toString());
+                            }
+                            if(ins instanceof Detener || res instanceof Detener ){
+                                return null;
+                            }
+                            if(ins instanceof Continuar || res instanceof Continuar){
+                                break;
+                            }
+                            if(ins instanceof Return || res instanceof Return){
+                                return res;
+                            }
+                        }
+                    }
+                }else if(variable.getArreglo()){
+                    console.log("FOR IN ARR DEC");
+                    variable.getValor().forEach(element => {
                         let nuevo_simb = new Simbolo(this.iterador, TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
                         let ts_local = new TablaSimbolos(table);
                         let result = ts_local.updateSymbolTabla(nuevo_simb);
@@ -146,8 +258,6 @@ export class ForIn implements Instruccion{
                             }
                         }
                     });
-                }else{
-                    return new Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no es un arreglo.", this.fila, this.columna);
                 }
             }else{
                 return new Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);

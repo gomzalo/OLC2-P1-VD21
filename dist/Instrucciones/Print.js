@@ -27,11 +27,7 @@ class Print {
             if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
                 let temp;
                 temp = valor;
-<<<<<<< Updated upstream
-                // console.log("print STRUCT")
-=======
                 // console.log("print STRUCT");
->>>>>>> Stashed changes
                 // console.log(valor);
                 valor = temp.toStringStruct();
             }

@@ -164,12 +164,13 @@
         for (int i = 0; i < 5; i++) {
             println(i);
         }
-        println("************   For-In cadena **************");
+        println("************   For-In cadena x **************");
         for letra in "Hola Mundo!"  // Recorre las letras de la cadena
         {
             print(letra, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
         
         }
+        println("");
         println("************   For-In arreglo x **************");
         for ts in ["2", "3", "5"]  // Recorre las letras de la cadena
         {
@@ -178,18 +179,29 @@
         }
         println("");
         println("xd");
+        println("************   For-In cadena declarada **************");
         String cadena = "OLC2";
-        for letra in cadena
+        for l in cadena
         {
-            print(letra, "-");      // Imprime O-L-C-2
+            print(l, "-");      // Imprime O-L-C-2
         }
+    
+        println("");
         println("************   Declaracion de arreglos  **************");
         String[] arr = ["H","O","L","A"];
         // String[] arr = ["H",["O","O"],"L","A"];
-        println("************   For-In arreglo declarado **************");
+        println("************   For-In arreglo declarado con rango **************");
         for t in arr[0:2]  // Recorre las letras de la cadena
         {
             print(t, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
+        
+        }
+        println("");
+        println("");
+        println("************   For-In arreglo declarado sin rango **************");
+        for j in arr  // Recorre las letras de la cadena
+        {
+            print(j, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
         
         }
         println("************   Acceso de arreglos  **************");
@@ -201,6 +213,19 @@
         arr[2] = "T";
         println(arr[2]);
         println(arr);
+        println("************   POP arreglos  **************");
+        println(arr.pop());
+        String t = arr.pop();
+        println(t);
+        println(arr);
+        println("************   LENGTH arreglos  **************");
+        println(arr.lenght());
+        println("************   PUSH arreglos  **************");
+        arr.push("S");
+        println(arr);
+        println("************   COPIA de arreglos  **************");
+        String []arr2 = #arr;
+        println(arr2);
         println("************   Llamada  **************");
         println(operacionMatematica('+',90,5));
         metodo("hola");

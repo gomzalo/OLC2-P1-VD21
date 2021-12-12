@@ -110,6 +110,7 @@ BSL                                 "\\".
 ","                         { return 'COMA' };
 "?"                         { return 'INTERROGACION' };
 ":"                         { return 'DOSPUNTOS' };
+"#"                         { return 'HASH' };
 /*
 ::::::::::::::::::      Expresiones regulares     ::::::::::::::::::
 */
@@ -177,14 +178,16 @@ BSL                                 "\\".
     const { ModificacionArr } = require("../dist/Instrucciones/Arreglos/ModificacionArr");
     const { Rango } = require("../dist/Expresiones/Arreglos/Rango");
     const { Arreglo } = require("../dist/Expresiones/Arreglos/Arreglo");
+    const { Copiar } = require("../dist/Expresiones/Arreglos/Copiar");
     /*..............     Struct      ...............*/
     const { Struct } = require("../dist/Instrucciones/Struct/Struct");
     const { DeclararStruct } = require("../dist/Instrucciones/Struct/DeclararStruct");
     const { AccesoStruct } = require("../dist/Expresiones/Struct/AccesoStruct");
     /* ..............      Nativas      ...............*/
     /* -------- Arreglos */
-    // const { LengthArr } = require("../dist/Expresiones/Arreglos/Nativas/LengthArr");
+    const { LengthArr } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/LengthArr");
     const { Pop } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop");
+    const { Push } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Push");
 %}
 /*
 ###################################################
@@ -251,6 +254,7 @@ instruccion:
     |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
     |   structs PUNTOCOMA                   { $$ = $1 }
     |   ID ID   PUNTOCOMA                            { console.log("declarar STRUCT"); $$ = new DeclararStruct($1,$2,null,@1.first_line, @1.last_column); }
+    |   nat_push_instr PUNTOCOMA            { $$ = $1 }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
@@ -432,6 +436,7 @@ lista_exp_arr:
         lista_exp_arr 
         CORA lista_exp_arr_c CORC           { $$ = $1; $$.push($3); }
     |   CORA lista_exp_arr_c CORC           { $$ = new Array(); $$.push($2); }
+    |   HASH ID                             { $$ = new Copiar($2, @1.first_line, @1.first_column); }
     ;
 // ------------     Lista expresiones arr c
 lista_exp_arr_c:
@@ -453,6 +458,12 @@ rango:
     |   RBEGIN DOSPUNTOS REND               { $$ = {"inicio": $1, "fin": $3}; }
     |   expr DOSPUNTOS REND                 { $$ = {"inicio": $1, "fin": $3}; }
     |   RBEGIN DOSPUNTOS expr               { $$ = {"inicio": $1, "fin": $3}; }
+    ;
+/*..............     Nativas      ...............*/
+// ------------     ARR -> [Push]
+nat_push_instr:
+        expr PUNTO RPUSH
+        PARA expr PARC                      { $$ = new Push($1, $5, @1.first_line, @1.first_column); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 
@@ -499,7 +510,7 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   expr PUNTO expr             {   if($3 instanceof Pop){
+    |   expr PUNTO expr             {   if($3 instanceof Pop || $3 instanceof LengthArr){
                                             $$ = $3;
                                             $$.id = $1.id;
                                         }else{
@@ -508,4 +519,5 @@ expr:
                                     }
     |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
     |   RPOP PARA PARC              { $$ = new Pop(null, @1.first_line, @1.first_column); }
+    |   RLENGTH PARA PARC           { $$ = new LengthArr(null, @1.first_line, @1.first_column); }
     ;

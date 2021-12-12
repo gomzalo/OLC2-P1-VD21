@@ -12,6 +12,9 @@ class AccesoArr {
         this.columna = columna;
     }
     ejecutar(table, tree) {
+        if (this.expresiones instanceof AccesoArr) {
+            return this.expresiones.ejecutar(table, tree);
+        }
         let simbolo = table.getSymbolTabla(this.id);
         if (simbolo == null) {
             return new Errores_1.Errores("Semantico", "No se encontro la variable " + this.id + ".", this.fila, this.columna);
