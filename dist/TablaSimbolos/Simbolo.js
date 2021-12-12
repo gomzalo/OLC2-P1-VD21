@@ -23,7 +23,7 @@ class Simbolo {
         return this.tipo;
     }
     getTipoStruct() {
-        return this.id;
+        return this.tipoStruct;
     }
     setTipo(tipo) {
         this.tipo = tipo;

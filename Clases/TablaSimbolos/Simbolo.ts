@@ -10,6 +10,7 @@ export class Simbolo{
     public arreglo : boolean;
     public structEnv: any; // ENTORNO STRUCT
     public variables ; // instructions de STRUCT
+    public tipoStruct : string;
     
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false){
         this.id = id;
@@ -35,7 +36,7 @@ export class Simbolo{
     }
 
     getTipoStruct(){
-        return this.id;
+        return this.tipoStruct;
     }
 
     setTipo(tipo){
