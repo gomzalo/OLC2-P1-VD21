@@ -189,8 +189,6 @@
         arr[2] = "T";
         println(arr[2]);
         println(arr);
-        println("************   Acceso de arreglos con rangos  **************");
-        println(arr[2:end]);
         println("************   Llamada  **************");
         println(operacionMatematica('+',90,5));
         metodo("hola");

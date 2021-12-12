@@ -861,13 +861,13 @@ case 36:
  this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); 
 break;
 case 37:
- this.$ = new If($$[$0-4], $$[$0-1], [], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new If($$[$0-4], $$[$0-1], null,null, _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
 case 38:
- this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); 
+ this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1],null, _$[$0-10].first_line, _$[$0-10].first_column); 
 break;
 case 39:
- this.$ = new If($$[$0-6], $$[$0-3], [$$[$0]], _$[$0-8].first_line, _$[$0-8].first_column); 
+ this.$ = new If($$[$0-6], $$[$0-3],null, $$[$0], _$[$0-8].first_line, _$[$0-8].first_column); 
 break;
 case 40:
  this.$ = new Ifsinllave($$[$0-2], $$[$0], [], _$[$0-4].first_line, _$[$0-4].first_column); 
@@ -1869,7 +1869,9 @@ class Ast {
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                let value = instr.ejecutar(this.TSglobal, tree);
+                else {
+                    let value = instr.ejecutar(this.TSglobal, tree);
+                }
             }
             // instr.ejecutar(this.TSglobal, this);
         }
@@ -1909,10 +1911,19 @@ class Ast {
     updateConsolaPrintln(cadena) {
         // console.log("cad println: " + cadena);
         this.consola += cadena + '\n';
+        this.printInHtml(cadena + '\n');
     }
     updateConsolaPrint(cadena) {
         // console.log("cad print: " + cadena);
+        // document.getElementById("textAreaConsola")
         this.consola += cadena;
+        this.printInHtml(cadena);
+    }
+    printInHtml(cadena) {
+        let textarea = document.querySelector('#textAreaConsola');
+        let value = textarea.value;
+        value += cadena;
+        textarea.value = value;
     }
     getTSGlobal() {
         return this.TSglobal;
@@ -2238,7 +2249,7 @@ class Identificador {
     }
     ejecutar(table, tree) {
         // console.log(table.existeEnActual(this.id));
-        console.log((table));
+        // console.log((table));
         // table.getSymbolTabla(this.id);
         this.symbol = table.getSymbolTabla(this.id);
         // console.log(table.getSymbolTabla(this.id));
@@ -2287,12 +2298,13 @@ class Llamada {
             return new Errores_1.Errores("Semantico", "Funcion no encontrada en asignacion", this.fila, this.columna);
         }
         // Ejecutando parametros
-        let newTable = new TablaSimbolos_1.TablaSimbolos(table);
+        let newTable = new TablaSimbolos_1.TablaSimbolos(tree.getTSGlobal());
         // valido tama;o de   parametros parameters de funcion y parametros de llamada
         if (this.parameters.length == resultFunc.parameters.length) {
             let count = 0;
             for (let expr of this.parameters) {
-                let valueExpr = expr.ejecutar(newTable, tree);
+                let valueExpr = expr.ejecutar(table, tree);
+                // tree.updateConsolaPrint(resultFunc.parameters[count].id + ": " + expr.id + " " + valueExpr + ", ");
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
@@ -2300,10 +2312,10 @@ class Llamada {
                  {
                     let symbol;
                     if (resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) {
-                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
+                        symbol = new Simbolo_1.Simbolo(resultFunc.parameters[count].id.toString(), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
                     }
                     else {
-                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);
+                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id.toString()), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);
                     }
                     let resultTable = newTable.setSymbolTabla(symbol);
                     if (resultTable instanceof Errores_1.Errores)
@@ -2314,6 +2326,7 @@ class Llamada {
                 }
                 count++;
             }
+            tree.updateConsolaPrint("");
         }
         else {
             console.log(`tam param call: ${this.parameters.length} func ${resultFunc.parameters.length}`);
@@ -3577,7 +3590,7 @@ class Asignacion {
     ejecutar(table, tree) {
         if (table.existe(this.id)) {
             let valor = this.expresion.ejecutar(table, tree);
-            console.log(valor);
+            // console.log(valor)
             if (valor instanceof Errores_1.Errores) {
                 return valor;
             }
@@ -4018,22 +4031,24 @@ const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
 const Errores_1 = require("../../Ast/Errores");
 class If {
-    constructor(condicion, lista_ifs, lista_elses, fila, columna) {
+    constructor(condicion, lista_ifs, lista_elses, lista_ifelse, fila, columna) {
         this.condicion = condicion;
         this.lista_ifs = lista_ifs;
         this.lista_elses = lista_elses;
+        this.lista_ifelse = lista_ifelse;
         this.columna = columna;
         this.fila = fila;
     }
     ejecutar(table, tree) {
-        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        // let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
         if (valor_condicion instanceof Errores_1.Errores) {
             tree.getErrores().push(valor_condicion);
             tree.updateConsolaPrintln(valor_condicion.toString());
         }
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-            if (valor_condicion) {
+            if (this.getBool(valor_condicion)) {
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
                 // this.lista_ifs.forEach(ins => {
                 for (let ins of this.lista_ifs) {
                     let res = ins.ejecutar(ts_local, tree);
@@ -4061,30 +4076,45 @@ class If {
                 ;
             }
             else {
-                for (let ins of this.lista_elses) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO
-                    if (res instanceof Errores_1.Errores) {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
-                    }
-                    else {
-                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
+                if (this.lista_elses != null) {
+                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                    for (let ins of this.lista_elses) {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, RETORNO
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        if (res instanceof Break_1.Detener) {
                             return res;
                         }
-                        else {
-                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return res;
-                            }
+                        if (res instanceof Continuar_1.Continuar) {
+                            return res;
+                        }
+                        if (res instanceof Return_1.Return) {
+                            return res;
                         }
                     }
                 }
+                else if (this.lista_ifelse != null) {
+                    let result = this.lista_ifelse.ejecutar(table, tree);
+                    if (result instanceof Errores_1.Errores) {
+                        return result;
+                    }
+                    if (result instanceof Break_1.Detener) {
+                        return result;
+                    }
+                    if (result instanceof Continuar_1.Continuar) {
+                        return result;
+                    }
+                    if (result instanceof Return_1.Return) {
+                        return result;
+                    }
+                }
             }
+        }
+        else {
+            return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
         }
         return null;
     }
@@ -4093,6 +4123,9 @@ class If {
     }
     recorrer(table, tree) {
         throw new Error('Method not implemented.');
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
     }
 }
 exports.If = If;
@@ -4306,7 +4339,7 @@ class Declaracion {
                 let valor = variable.valor.ejecutar(table, tree);
                 //Verificando TIPOS de Variable
                 let tipo_valor = variable.valor.tipo;
-                console.log("variable.valor.tipo: " + variable.valor.tipo);
+                // console.log("variable.valor.tipo: " + variable.valor.tipo);
                 if (valor instanceof Errores_1.Errores) {
                     return valor;
                 }
@@ -5187,8 +5220,8 @@ compilar.addEventListener('click', () => {
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
-        $("#textAreaConsola").val(texto);
-        txtConsola.append(texto);
+        // $("#textAreaConsola").val(texto);
+        // txtConsola.append(texto);
         // Swal.fire(
         //     '¡Gramatica correcta!'
         // );

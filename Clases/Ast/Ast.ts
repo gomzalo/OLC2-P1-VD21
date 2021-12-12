@@ -89,8 +89,10 @@ export class Ast  {
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                     break;
-                }
-                let value = instr.ejecutar(this.TSglobal,tree);
+                }else{
+                    let value = instr.ejecutar(this.TSglobal,tree);
+                }   
+                
 
             }
             // instr.ejecutar(this.TSglobal, this);
@@ -140,13 +142,25 @@ export class Ast  {
 
     public updateConsolaPrintln(cadena: string){
         // console.log("cad println: " + cadena);
+        
         this.consola += cadena + '\n';
+        this.printInHtml(cadena + '\n');
         
     }
 
     public updateConsolaPrint(cadena: string){
         // console.log("cad print: " + cadena);
+        // document.getElementById("textAreaConsola")
         this.consola += cadena;
+        this.printInHtml(cadena);
+    }
+
+    public printInHtml(cadena)
+    {
+        let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
+        let value = textarea.value;
+        value += cadena;
+        textarea.value = value;
     }
 
     public getTSGlobal(){

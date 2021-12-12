@@ -18,20 +18,22 @@ export class If implements Instruccion{
     public condicion : any;
     public lista_ifs : Array<Instruccion>;
     public lista_elses : Array<Instruccion>;
+    public lista_ifelse :  Instruccion;
     public fila : number;
     public columna : number;
     arreglo: boolean;
 
-    constructor(condicion, lista_ifs, lista_elses, fila, columna) {
+    constructor(condicion, lista_ifs, lista_elses, lista_ifelse, fila, columna) {
         this.condicion = condicion;
         this.lista_ifs = lista_ifs;
         this.lista_elses = lista_elses;
+        this.lista_ifelse = lista_ifelse;
         this.columna = columna;
         this.fila = fila;
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let ts_local = new TablaSimbolos(table);
+        // let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
         if (valor_condicion instanceof Errores)
             {
@@ -39,7 +41,8 @@ export class If implements Instruccion{
                 tree.updateConsolaPrintln(valor_condicion.toString());
             }
         if(this.condicion.tipo == TIPO.BOOLEANO){
-            if(valor_condicion){
+            if(this.getBool(valor_condicion)){
+                let ts_local = new TablaSimbolos(table);
                 // this.lista_ifs.forEach(ins => {
                 for(let ins of this.lista_ifs){
                     let res = ins.ejecutar(ts_local, tree);
@@ -64,29 +67,47 @@ export class If implements Instruccion{
                     }
                 };
             }else{
-                for(let ins of this.lista_elses){
-                    let res = ins.ejecutar(ts_local, tree);
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO
-                    if (res instanceof Errores)
-                    {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    if(ins instanceof Detener || res instanceof Detener  ){
-                        return res;
-                    }else{
-                        if(ins instanceof Continuar || res instanceof Continuar){
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
+                if (this.lista_elses != null)
+                {
+                    let ts_local = new TablaSimbolos(table);
+                    for(let ins of this.lista_elses){
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, RETORNO
+                        if (res instanceof Errores)
+                        {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        if(res instanceof Detener ){
                             return res;
-                        }else{
-                            if( ins instanceof Return || res instanceof Return){
-                                // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return res;
-                            }
+                        }
+                        if(res instanceof Continuar ){
+                            return res;
+                        }
+                        if(res instanceof Return ){
+                            return res;
                         }
                     }
+                }else if(this.lista_ifelse != null)
+                {
+                    let result = this.lista_ifelse.ejecutar( table, tree);
+                    if(result instanceof Errores ){
+                        return result;
+                    }
+                    if(result instanceof Detener ){
+                        return result;
+                    }
+                    if(result instanceof Continuar ){
+                        return result;
+                    }
+                    if(result instanceof Return ){
+                        return result;
+                    }
                 }
+                
             }
+        }else{
+            return new Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
         }
         return null;
     }
@@ -95,6 +116,9 @@ export class If implements Instruccion{
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         throw new Error('Method not implemented.');
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
     }
 
 }

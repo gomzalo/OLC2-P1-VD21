@@ -76,7 +76,9 @@ class Ast {
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                let value = instr.ejecutar(this.TSglobal, tree);
+                else {
+                    let value = instr.ejecutar(this.TSglobal, tree);
+                }
             }
             // instr.ejecutar(this.TSglobal, this);
         }
@@ -116,10 +118,19 @@ class Ast {
     updateConsolaPrintln(cadena) {
         // console.log("cad println: " + cadena);
         this.consola += cadena + '\n';
+        this.printInHtml(cadena + '\n');
     }
     updateConsolaPrint(cadena) {
         // console.log("cad print: " + cadena);
+        // document.getElementById("textAreaConsola")
         this.consola += cadena;
+        this.printInHtml(cadena);
+    }
+    printInHtml(cadena) {
+        let textarea = document.querySelector('#textAreaConsola');
+        let value = textarea.value;
+        value += cadena;
+        textarea.value = value;
     }
     getTSGlobal() {
         return this.TSglobal;

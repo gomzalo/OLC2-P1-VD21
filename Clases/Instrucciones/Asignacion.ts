@@ -23,7 +23,7 @@ export class Asignacion implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         if (table.existe(this.id)){
             let valor = this.expresion.ejecutar(table,tree );
-            console.log(valor)
+            // console.log(valor)
 
             if (valor instanceof Errores)
             {

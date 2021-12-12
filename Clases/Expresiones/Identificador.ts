@@ -24,7 +24,7 @@ export class Identificador implements Instruccion{
     
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // console.log(table.existeEnActual(this.id));
-        console.log((table));
+        // console.log((table));
         // table.getSymbolTabla(this.id);
         this.symbol = table.getSymbolTabla(this.id);
         // console.log(table.getSymbolTabla(this.id));

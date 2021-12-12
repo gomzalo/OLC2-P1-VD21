@@ -13,7 +13,7 @@ class Identificador {
     }
     ejecutar(table, tree) {
         // console.log(table.existeEnActual(this.id));
-        console.log((table));
+        // console.log((table));
         // table.getSymbolTabla(this.id);
         this.symbol = table.getSymbolTabla(this.id);
         // console.log(table.getSymbolTabla(this.id));

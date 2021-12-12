@@ -15,7 +15,7 @@ class Asignacion {
     ejecutar(table, tree) {
         if (table.existe(this.id)) {
             let valor = this.expresion.ejecutar(table, tree);
-            console.log(valor);
+            // console.log(valor)
             if (valor instanceof Errores_1.Errores) {
                 return valor;
             }

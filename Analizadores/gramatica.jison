@@ -278,15 +278,15 @@ println_instr:
 if_llav_instr:
     // If
         RIF PARA expr PARC
-        LLAVA instrucciones LLAVC           { $$ = new If($3, $6, [], @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new If($3, $6, null,null, @1.first_line, @1.first_column); }
     // If-else
     |   RIF PARA expr PARC
         LLAVA instrucciones LLAVC
-        RELSE LLAVA instrucciones LLAVC     { $$ = new If($3, $6, $10, @1.first_line, @1.first_column); }
+        RELSE LLAVA instrucciones LLAVC     { $$ = new If($3, $6, $10,null, @1.first_line, @1.first_column); }
     // If-elseif
     |   RIF PARA expr PARC
         LLAVA instrucciones LLAVC
-        RELSE if_llav_instr                 { $$ = new If($3, $6, [$9], @1.first_line, @1.first_column); }
+        RELSE if_llav_instr                 { $$ = new If($3, $6,null, $9, @1.first_line, @1.first_column); }
     ;
 /*..............     If sin llave     ...............*/
 if_instr:

@@ -207,8 +207,8 @@ compilar.addEventListener('click', () => {
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
-        $("#textAreaConsola").val(texto);
-        txtConsola.append(texto);
+        // $("#textAreaConsola").val(texto);
+        // txtConsola.append(texto);
         // Swal.fire(
         //     '¡Gramatica correcta!'
         // );
