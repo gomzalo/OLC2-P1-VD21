@@ -16,8 +16,8 @@ class TablaSimbolos {
             // this.tabla[simbolo.getId()] = simbolo;
             this.tabla.set(simbolo.getId(), simbolo);
             console.log("set simbolo " + simbolo.getId() + " " + simbolo.getValor());
+            return null;
         }
-        return null;
     }
     existeEnActual(id) {
         let entorno = this;

@@ -1,15 +1,15 @@
 int ackerman(int m, int n)
 {   
-    // println("ACKERMANNNNNNNNNNNNNNN-",m," ",n);
+    println("ACKERMAN ENTRA -> ",m,", ",n);
     if (m == 0){
+        println("ACKERMAN- if -> ",m,", ",n);
         return n + 1;
-        // println("ACKERMANNNNNNNNNNNNNNN- if",m," ",n);
     }else if (m > 0 && n == 0){
+        println("ACKERMAN- else if -> ",m,", ",n);
         return ackerman(m - 1, 1);
-        // println("ACKERMANNNNNNNNNNNNNNN- else if",m," ",n);
     }else{
+        println("ACKERMAN- else -> ",m,", ",n);
         return ackerman(m - 1, ackerman(m, n - 1));
-        // println("ACKERMANNNNNNNNNNNNNNN- else",m," ",n);
     }
 }
 
@@ -46,7 +46,6 @@ void Main()
     println(factorial(5));
     println("===============ACKERMAN==============================");
     // println(ackerman(3, 5));
-    println(ackerman(3, 0));
     println("===============HANOI=================================");
     hanoi(3, 1, 2, 3);
 }

@@ -11,11 +11,12 @@ class Return {
     }
     ejecutar(table, tree) {
         if (this.expresion != null) {
-            this.valor = this.expresion.ejecutar(table, tree);
-            if (this.valor instanceof Errores_1.Errores) {
-                return this.valor;
+            let valor = this.expresion.ejecutar(table, tree);
+            if (valor instanceof Errores_1.Errores) {
+                return valor;
             }
             this.tipo = this.expresion.tipo;
+            this.valor = valor;
             return this;
         }
         else {

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
+const DeclararStruct_1 = require("./../Instrucciones/Struct/DeclararStruct");
 const Asignacion_1 = require("../Instrucciones/Asignacion");
 const Declaracion_1 = require("../Instrucciones/Declaracion");
 const Main_1 = require("../Instrucciones/Metodos/Main");
@@ -11,6 +12,8 @@ const Return_1 = require("../Instrucciones/Transferencia/Return");
 const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 const Errores_1 = require("./Errores");
 const Struct_1 = require("../Instrucciones/Struct/Struct");
+const DeclaracionArr_1 = require("../Instrucciones/Arreglos/DeclaracionArr");
+const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 class Ast {
     constructor() {
         this.consola = "";
@@ -31,37 +34,38 @@ class Ast {
     }
     ejecutar() {
         let tree = this;
+        tree.setTSGlobal(new TablaSimbolos_1.TablaSimbolos(null));
         // 1ERA PASADA: 
         // GUARDAR FUNCIONES  Y METODOS
         for (let instr of this.instrucciones) {
-            let value = null;
+            // let value = null;
             if (instr instanceof Funcion_1.Funcion) {
                 this.addFunction(instr);
             }
             if (instr instanceof Struct_1.Struct) {
                 this.addStruct(instr);
             }
-            if (value instanceof Declaracion_1.Declaracion || value instanceof Asignacion_1.Asignacion) {
-                value = instr.ejecutar(this.TSglobal, tree);
-            }
-            if (value instanceof Errores_1.Errores) {
-                this.getErrores().push(value);
-                this.updateConsolaPrintln(value.toString());
-            }
-            if (value instanceof Break_1.Detener) {
-                let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
-                this.getErrores().push(error);
-                this.updateConsolaPrintln(error.toString());
-            }
-            if (value instanceof Continuar_1.Continuar) {
-                let error = new Errores_1.Errores("Semantico", "Sentencia Continue fuera de Instruccion Ciclo", instr.fila, instr.columna);
-                this.getErrores().push(error);
-                this.updateConsolaPrintln(error.toString());
-            }
-            if (value instanceof Return_1.Return) {
-                let error = new Errores_1.Errores("Semantico", "Sentencia Return fuera de Metodos/Control/Ciclos", instr.fila, instr.columna);
-                this.getErrores().push(error);
-                this.updateConsolaPrintln(error.toString());
+            if (instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof DeclaracionArr_1.DeclaracionArr || instr instanceof DeclararStruct_1.DeclararStruct || instr instanceof ModificacionArr_1.ModificacionArr) {
+                let value = instr.ejecutar(this.TSglobal, tree);
+                if (value instanceof Errores_1.Errores) {
+                    this.getErrores().push(value);
+                    this.updateConsolaPrintln(value.toString());
+                }
+                if (value instanceof Break_1.Detener) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+                if (value instanceof Continuar_1.Continuar) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Continue fuera de Instruccion Ciclo", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+                if (value instanceof Return_1.Return) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Return fuera de Metodos/Control/Ciclos", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
             }
         }
         // 2DA PASADA
@@ -70,14 +74,27 @@ class Ast {
             let countMain = 0;
             if (instr instanceof Main_1.Main) {
                 countMain++;
-                if (countMain > 2) {
+                if (countMain == 2) {
                     let error = new Errores_1.Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                else {
-                    let value = instr.ejecutar(this.TSglobal, tree);
+                let value = instr.ejecutar(this.TSglobal, tree);
+                if (value instanceof Break_1.Detener) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+                if (value instanceof Continuar_1.Continuar) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Continue fuera de Instruccion Ciclo", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+                if (value instanceof Return_1.Return) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Return fuera de Metodos/Control/Ciclos", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
                 }
             }
             // instr.ejecutar(this.TSglobal, this);
@@ -86,7 +103,7 @@ class Ast {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for (let instr of this.instrucciones) {
-            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion || instr instanceof Struct_1.Struct)) {
+            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion || instr instanceof Struct_1.Struct || instr instanceof DeclaracionArr_1.DeclaracionArr || instr instanceof ModificacionArr_1.ModificacionArr)) {
                 let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());

@@ -17,27 +17,30 @@ class Funcion {
     }
     ejecutar(table, tree) {
         let newTable = new TablaSimbolos_1.TablaSimbolos(table);
-        for (let instr of this.instructions) {
-            let result = instr.ejecutar(newTable, tree);
-            if (result instanceof Errores_1.Errores) {
-                tree.getErrores().push(result);
-                tree.updateConsolaPrintln(result.toString());
-            }
-            if (result instanceof Break_1.Detener) {
-                let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
-                tree.getErrores().push(error);
-                tree.updateConsolaPrintln(error.toString());
-            }
-            if (result instanceof Continuar_1.Continuar) {
-                let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo", this.fila, this.columna);
-                tree.getErrores().push(error);
-                tree.updateConsolaPrintln(error.toString());
-            }
-            if (result instanceof Return_1.Return) {
-                this.tipo = result.tipo;
-                return result.valor;
+        if (this.instructions.length > 0) {
+            for (let instr of this.instructions) {
+                let result = instr.ejecutar(newTable, tree);
+                if (result instanceof Errores_1.Errores) {
+                    tree.getErrores().push(result);
+                    tree.updateConsolaPrintln(result.toString());
+                }
+                if (result instanceof Break_1.Detener) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
+                    tree.getErrores().push(error);
+                    tree.updateConsolaPrintln(error.toString());
+                }
+                if (result instanceof Continuar_1.Continuar) {
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo", this.fila, this.columna);
+                    tree.getErrores().push(error);
+                    tree.updateConsolaPrintln(error.toString());
+                }
+                if (result instanceof Return_1.Return) {
+                    this.tipo = result.tipo;
+                    return result.valor;
+                }
             }
         }
+        return null;
     }
     translate3d(table, tree) {
         throw new Error("Method not implemented.");

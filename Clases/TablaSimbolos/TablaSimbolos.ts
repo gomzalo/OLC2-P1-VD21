@@ -20,8 +20,8 @@ export class TablaSimbolos{
             // this.tabla[simbolo.getId()] = simbolo;
             this.tabla.set(simbolo.getId(),simbolo);
             console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
+            return null;
         }
-        return null;
     }
 
     public existeEnActual(id: string): boolean{
@@ -41,7 +41,7 @@ export class TablaSimbolos{
             cadena = this.anterior.toStringTable();
             return cadena;
         }
-          JSON.stringify((this.tabla.forEach((key ,value)=>{
+            JSON.stringify((this.tabla.forEach((key ,value)=>{
             // console.log(value)
             // console.log( key['valor'] +"," )
             cadena +=  key['valor'] +",";

@@ -20,12 +20,12 @@ class Llamada {
             return new Errores_1.Errores("Semantico", "Funcion no encontrada en asignacion", this.fila, this.columna);
         }
         // Ejecutando parametros
-        let newTable = new TablaSimbolos_1.TablaSimbolos(table);
+        let newTable = new TablaSimbolos_1.TablaSimbolos(tree.getTSGlobal());
         // valido tama;o de   parametros parameters de funcion y parametros de llamada
         if (this.parameters.length == resultFunc.parameters.length) {
             let count = 0;
             for (let expr of this.parameters) {
-                let valueExpr = expr.ejecutar(newTable, tree);
+                let valueExpr = expr.ejecutar(table, tree);
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
@@ -33,6 +33,7 @@ class Llamada {
                  {
                     let symbol;
                     if (resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) {
+                        alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
                     }
                     else {

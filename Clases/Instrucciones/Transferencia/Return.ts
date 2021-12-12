@@ -23,12 +23,13 @@ export class Return implements Instruccion{
     
     ejecutar(table: TablaSimbolos, tree: Ast) {
         if(this.expresion != null){
-            this.valor =  this.expresion.ejecutar(table, tree);
-            if(this.valor instanceof Errores)
+            let valor =  this.expresion.ejecutar(table, tree);
+            if(valor instanceof Errores)
             {
-                return this.valor;
+                return valor;
             }
             this.tipo = this.expresion.tipo;
+            this.valor = valor;
             return this;
         }else{
             return null;

@@ -35,37 +35,36 @@ export class If implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
+        console.log("if cond: " + valor_condicion);
         if (valor_condicion instanceof Errores)
             {
                 tree.getErrores().push(valor_condicion);
                 tree.updateConsolaPrintln(valor_condicion.toString());
             }
         if(this.condicion.tipo == TIPO.BOOLEANO){
-            if(this.getBool(valor_condicion)){
-                let ts_local = new TablaSimbolos(table);
-                // this.lista_ifs.forEach(ins => {
-                for(let ins of this.lista_ifs){
-                    let res = ins.ejecutar(ts_local, tree);
-                    if (res instanceof Errores)
-                    {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if(ins instanceof Detener || res instanceof Detener  ){
-                        return res;
-                    }else{
-                        if(ins instanceof Continuar || res instanceof Continuar){
+            if(valor_condicion == true){
+                // if(this.lista_ifs != null){
+                    let ts_local = new TablaSimbolos(table);
+                    // this.lista_ifs.forEach(ins => {
+                    for(let ins of this.lista_ifs){
+                        let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores)
+                        {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if(ins instanceof Detener || res instanceof Detener  ){
+                            return res;
+                        }else if(ins instanceof Continuar || res instanceof Continuar){
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                break;
+                        }else if( ins instanceof Return || res instanceof Return){
                             // controlador.graficarEntornos(controlador,ts_local," (case)");
                             return res;
-                        }else{
-                            if( ins instanceof Return || res instanceof Return){
-                                // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return res;
-                            }
                         }
                     }
-                };
+                // }
             }else{
                 if (this.lista_elses != null)
                 {
@@ -82,7 +81,7 @@ export class If implements Instruccion{
                             return res;
                         }
                         if(res instanceof Continuar ){
-                            return res;
+                            break;
                         }
                         if(res instanceof Return ){
                             return res;
@@ -98,7 +97,7 @@ export class If implements Instruccion{
                         return result;
                     }
                     if(result instanceof Continuar ){
-                        return result;
+                        return null;
                     }
                     if(result instanceof Return ){
                         return result;
@@ -109,7 +108,7 @@ export class If implements Instruccion{
         }else{
             return new Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
         }
-        return null;
+        // return null;
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
         throw new Error('Method not implemented.');
