@@ -1,14 +1,14 @@
-import { Ast } from "../../../../Ast/Ast";
-import { Errores } from "../../../../Ast/Errores";
-import { Instruccion } from "../../../../Interfaces/Instruccion";
-import { TablaSimbolos } from "../../../../TablaSimbolos/TablaSimbolos";
-import { TIPO } from "../../../../TablaSimbolos/Tipo";
-import { Detener } from "../../../../Instrucciones/Transferencia/Break";
-import { Continuar } from "../../../../Instrucciones/Transferencia/Continuar";
-import { Return } from "../../../../Instrucciones/Transferencia/Return";
-import { Funcion } from "../../../../Instrucciones/Metodos/Funcion";
+import { Ast } from "../../../Ast/Ast";
+import { Errores } from "../../../Ast/Errores";
+import { Instruccion } from "../../../Interfaces/Instruccion";
+import { TablaSimbolos } from "../../../TablaSimbolos/TablaSimbolos";
+import { TIPO } from "../../../TablaSimbolos/Tipo";
+import { Detener } from "../../Transferencia/Break";
+import { Continuar } from "../../Transferencia/Continuar";
+import { Return } from "../../Transferencia/Return";
+import { Funcion } from "../Funcion";
 
-export class LengthArr implements Funcion{
+export class Length implements Funcion{
     public fila: number;
     public columna: number;
     public tipo : TIPO;
@@ -28,11 +28,11 @@ export class LengthArr implements Funcion{
         let arr = table.getSymbolTabla(this.id);
         // console.log("pop type: " + arr.tipo);
         if(arr != null){
-            if(arr.getArreglo()){
+            if(arr.getArreglo() || arr.getTipo() == TIPO.CADENA ){
                 this.tipo = arr.getTipo();
                 return arr.getValor().length;
             }else{
-                return new Errores("Semantico", `Nativa LENGTH no puede utilizase en variable con ID ${this.id}, porque no es un arreglo.`, this.fila, this.columna);
+                return new Errores("Semantico", `Nativa LENGTH no puede utilizase en variable con ID ${this.id}, porque no es un arreglo o string.`, this.fila, this.columna);
             }
         }else{
             return new Errores("Semantico", `La variable con ID ${this.id}, no existe.`, this.fila, this.columna);

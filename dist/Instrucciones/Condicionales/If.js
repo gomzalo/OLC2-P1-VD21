@@ -26,29 +26,29 @@ class If {
         }
         if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
             if (valor_condicion == true) {
-                if (this.lista_ifs != null) {
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    // this.lista_ifs.forEach(ins => {
-                    for (let ins of this.lista_ifs) {
-                        let res = ins.ejecutar(ts_local, tree);
-                        if (res instanceof Errores_1.Errores) {
-                            tree.getErrores().push(res);
-                            tree.updateConsolaPrintln(res.toString());
-                        }
-                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                            return res;
-                        }
-                        else if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            break;
-                        }
-                        else if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return res;
-                        }
+                // if(this.lista_ifs != null){
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                // this.lista_ifs.forEach(ins => {
+                for (let ins of this.lista_ifs) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return res;
+                    }
+                    else if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        // controlador.graficarEntornos(controlador,ts_local," (case)");
+                        break;
+                    }
+                    else if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        // controlador.graficarEntornos(controlador,ts_local," (case)");
+                        return res;
                     }
                 }
+                // }
             }
             else {
                 if (this.lista_elses != null) {
