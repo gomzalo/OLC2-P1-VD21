@@ -33,6 +33,9 @@ export class CharOfPos implements Funcion{
             if(cadena.getTipo() == TIPO.CADENA && !cadena.getArreglo()){
                 this.tipo = cadena.getTipo();
                 let pos = this.expresion.ejecutar(table, tree);
+                if(pos != null){
+                    return new Errores("Semantico", `No se obtuvo una posicion ${pos}.`, this.fila, this.columna);
+                }
                 console.log("charofpos tipo cadena: " + cadena.getTipo());
                 console.log("charofpos tipo pos: " + this.expresion);
                 let tam = cadena.getValor().length;

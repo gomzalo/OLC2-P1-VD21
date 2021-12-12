@@ -29,8 +29,12 @@ export class Length implements Funcion{
         // console.log("pop type: " + arr.tipo);
         if(arr != null){
             if(arr.getArreglo() || arr.getTipo() == TIPO.CADENA ){
-                this.tipo = arr.getTipo();
-                return arr.getValor().length;
+                if(arr.getValor().length > 0){
+                    this.tipo = arr.getTipo();
+                    return arr.getValor().length;
+                }else{
+                    return new Errores("Semantico", `El arreglo con ID ${this.id}, esta vacio.`, this.fila, this.columna);
+                }
             }else{
                 return new Errores("Semantico", `Nativa LENGTH no puede utilizase en variable con ID ${this.id}, porque no es un arreglo o string.`, this.fila, this.columna);
             }

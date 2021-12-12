@@ -74,6 +74,7 @@ BSL                                 "\\".
 "lenght"                    { return 'RLENGTH' };
 /* -------- Arreglos */
 "caracterOfPosition"        { return 'RCHAROFPOS' };
+"subString"                 { return 'RSUBSTRING' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -192,6 +193,7 @@ BSL                                 "\\".
     const { Push } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Push");
     /* -------- String */
     const { CharOfPos } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos");
+    const { subString } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/subString");
 %}
 /*
 ###################################################
@@ -514,7 +516,7 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   expr PUNTO expr             {   if($3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos){
+    |   expr PUNTO expr             {   if($3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos || $3 instanceof subString){
                                             $$ = $3;
                                             $$.id = $1.id;
                                         }else{
@@ -525,4 +527,5 @@ expr:
     |   RPOP PARA PARC              { $$ = new Pop(null, @1.first_line, @1.first_column); }
     |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); }
     |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); }
+    |   RSUBSTRING PARA expr COMA expr PARC   { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }
     ;

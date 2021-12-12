@@ -280,7 +280,7 @@
         println("");
         println(":::::::::::::   Arreglos  :::::::::::::");
         println("");
-        println("************   POP arreglos  **************");
+        println("************   Pop arreglos  **************");
         println("");
         println(arr.pop()); // A
         String t = arr.pop(); // T
@@ -303,12 +303,18 @@
         println("");
         println(":::::::::::::   String  :::::::::::::");
         println("");
-        println("************   LENGTH String  **************");
+        println("************   Length String  **************");
         println("");
         String var_str = "Cadena";
         int var_int = 7;
         println(var_str.lenght()); // 6
         println(var_int.lenght()); // Error variable no es Arreglo o String
+        println("");
+        println("************   Substring  **************");
+        println("");
+        println(var_str.subString(2,4)); // den
+        println(var_str.subString(-2,4)); // Error inicio no puede ser negativo
+        println(var_str.subString(1,8)); // Error inicio no puede ser negativo
         println("");
         println("************   caracterOfPosition  **************");
         println("");
