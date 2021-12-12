@@ -140,8 +140,8 @@ class Ast {
     }
     getFunction(name) {
         let tree = this;
-        console.log(name);
-        console.log(this.funciones);
+        // console.log(name);
+        // console.log(this.funciones);
         // this.funciones.forEach(function (func) {
         for (let func of tree.funciones) {
             // console.log(func);
@@ -152,10 +152,10 @@ class Ast {
         return null;
     }
     addFunction(funcion) {
-        console.log(funcion.id);
+        // console.log(funcion.id);
         this.funciones.push(funcion);
-        console.log(this.funciones);
-        console.log("entre funciont add");
+        // console.log(this.funciones)
+        // console.log("entre funciont add");
     }
     getStruct(name) {
         let tree = this;

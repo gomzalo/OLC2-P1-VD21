@@ -1942,8 +1942,8 @@ class Ast {
     }
     getFunction(name) {
         let tree = this;
-        console.log(name);
-        console.log(this.funciones);
+        // console.log(name);
+        // console.log(this.funciones);
         // this.funciones.forEach(function (func) {
         for (let func of tree.funciones) {
             // console.log(func);
@@ -1954,10 +1954,10 @@ class Ast {
         return null;
     }
     addFunction(funcion) {
-        console.log(funcion.id);
+        // console.log(funcion.id);
         this.funciones.push(funcion);
-        console.log(this.funciones);
-        console.log("entre funciont add");
+        // console.log(this.funciones)
+        // console.log("entre funciont add");
     }
     getStruct(name) {
         let tree = this;
@@ -2317,7 +2317,7 @@ class Identificador {
             return new Errores_1.Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);
         }
         this.tipo = this.symbol.getTipo();
-        console.log(`tipo id: ${this.tipo}`);
+        // console.log(`tipo id: ${this.tipo}`)
         if (this.tipo == Tipo_1.TIPO.STRUCT) {
             this.tipoStruct = this.symbol.getTipoStruct();
             return this.symbol;
@@ -4582,8 +4582,8 @@ class Print {
             if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
                 let temp;
                 temp = valor;
-                console.log("print STRUCT");
-                console.log(valor);
+                // console.log("print STRUCT")
+                // console.log(valor);
                 valor = temp.toStringStruct();
             }
             if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {
@@ -4937,7 +4937,7 @@ class TablaSimbolos {
     }
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {
-            console.log("Entreeeeee");
+            // console.log("Entreeeeee")
             return new Errores_1.Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
         }
         else {
@@ -4962,7 +4962,7 @@ class TablaSimbolos {
             return cadena;
         }
         JSON.stringify((this.tabla.forEach((key, value) => {
-            console.log(value);
+            // console.log(value)
             // console.log( key['valor'] +"," )
             cadena += key['valor'] + ",";
         })));
@@ -4998,7 +4998,7 @@ class TablaSimbolos {
         return null;
     }
     updateSymbolTabla(simbolo) {
-        console.log(`update id: ${simbolo.id}`);
+        // console.log(`update id: ${simbolo.id}`);
         let tablaActual = this;
         while (tablaActual != null) {
             let existe = tablaActual.tabla.get(simbolo.id);

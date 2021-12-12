@@ -27,8 +27,8 @@ class Print {
             if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
                 let temp;
                 temp = valor;
-                console.log("print STRUCT");
-                console.log(valor);
+                // console.log("print STRUCT")
+                // console.log(valor);
                 valor = temp.toStringStruct();
             }
             if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {

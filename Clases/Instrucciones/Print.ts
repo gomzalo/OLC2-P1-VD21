@@ -44,8 +44,8 @@ export class Print implements Instruccion{
             {
                 let temp : Simbolo;
                 temp = valor;
-                console.log("print STRUCT")
-                console.log(valor);
+                // console.log("print STRUCT")
+                // console.log(valor);
                 valor = temp.toStringStruct()
             }
             if (expresion.tipo == TIPO.ARREGLO)

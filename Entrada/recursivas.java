@@ -1,22 +1,25 @@
 int ackerman(int m, int n)
 {   
-    println("ACKERMANNNNNNNNNNNNNNN-",m," ",n);
+    // println("ACKERMANNNNNNNNNNNNNNN-",m," ",n);
     if (m == 0){
         return n + 1;
+        // println("ACKERMANNNNNNNNNNNNNNN- if",m," ",n);
     }else if (m > 0 && n == 0){
         return ackerman(m - 1, 1);
+        // println("ACKERMANNNNNNNNNNNNNNN- else if",m," ",n);
     }else{
         return ackerman(m - 1, ackerman(m, n - 1));
+        // println("ACKERMANNNNNNNNNNNNNNN- else",m," ",n);
     }
 }
 
 void hanoi(int discos, int origen, int auxiliar, int destino)
 {
-    println(discos," ",origen," ",auxiliar, " ",destino);
+    // println(discos," ",origen," ",auxiliar, " ",destino);
     if (discos == 1){
         println("Mover de ", origen, " a ", destino);
     }else{
-      	println("else: ",discos," ",origen," ",auxiliar, " ",destino);
+      	// println("else: ",discos," ",origen," ",auxiliar, " ",destino);
         hanoi(discos - 1, origen, destino, auxiliar);
         println("Mover de ", origen, " a ", destino);
         hanoi(discos - 1, auxiliar, origen, destino);
@@ -42,7 +45,8 @@ void Main()
     println("==============FACTORIAL==============================");
     println(factorial(5));
     println("===============ACKERMAN==============================");
-    //println(ackerman(3, 5));
+    // println(ackerman(3, 5));
+    println(ackerman(3, 0));
     println("===============HANOI=================================");
     hanoi(3, 1, 2, 3);
 }

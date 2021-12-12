@@ -203,7 +203,7 @@ BSL                                 "\\".
     %left   'POTENCIA'
     %right  'UMINUS'
     %right  'INCRE' 'DECRE'
-    %right  'PARA' 'PARC'
+    %right 'PARA' 'CORA'
     // %nonassoc 'IGUAL'
 /*
 ###################################################

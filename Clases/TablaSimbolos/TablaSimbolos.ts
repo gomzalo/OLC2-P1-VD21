@@ -14,7 +14,7 @@ export class TablaSimbolos{
 
     public setSymbolTabla(simbolo: Simbolo){
         if (this.existeEnActual(simbolo.id)){
-            console.log("Entreeeeee")
+            // console.log("Entreeeeee")
             return new Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
         }else{
             // this.tabla[simbolo.getId()] = simbolo;
@@ -42,7 +42,7 @@ export class TablaSimbolos{
             return cadena;
         }
           JSON.stringify((this.tabla.forEach((key ,value)=>{
-            console.log(value)
+            // console.log(value)
             // console.log( key['valor'] +"," )
             cadena +=  key['valor'] +",";
         })));
@@ -83,7 +83,7 @@ export class TablaSimbolos{
     }
 
     public updateSymbolTabla(simbolo){
-        console.log(`update id: ${simbolo.id}`);
+        // console.log(`update id: ${simbolo.id}`);
         let tablaActual: TablaSimbolos = this;
         while(tablaActual != null){
             let existe = tablaActual.tabla.get(simbolo.id);
