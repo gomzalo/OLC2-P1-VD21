@@ -7,7 +7,7 @@ export class Simbolo{
     public fila: number;
     public columna: number;
     public valor : any; // if is Struct = TablaSibolos
-    public arreglo : any;
+    public arreglo : boolean;
     public structEnv: any; // ENTORNO STRUCT
     public variables ; // instructions de STRUCT
     

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
-const Errores_1 = require("../../../Ast/Errores");
+const Errores_1 = require("../../../../Ast/Errores");
 class Pop {
     constructor(id, fila, columna) {
         this.id = id;

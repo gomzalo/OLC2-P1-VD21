@@ -184,7 +184,7 @@ BSL                                 "\\".
     /* ..............      Nativas      ...............*/
     /* -------- Arreglos */
     // const { LengthArr } = require("../dist/Expresiones/Arreglos/Nativas/LengthArr");
-    const { Pop } = require("../dist/Expresiones/Arreglos/Nativas/Pop");
+    const { Pop } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop");
 %}
 /*
 ###################################################
@@ -497,6 +497,13 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   expr PUNTO expr             { $$ = new AccesoStruct($1,$3,@1.first_line, @1.first_column); }
+    |   expr PUNTO expr             {   if($3 instanceof Pop){
+                                            $$ = $3;
+                                            $$.id = $1.id;
+                                        }else{
+                                            $$ = new AccesoStruct($1,$3,@1.first_line, @1.first_column);
+                                        }
+                                    }
     |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
+    |   RPOP PARA PARC              { $$ = new Pop(null, @1.first_line, @1.first_column); }
     ;

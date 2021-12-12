@@ -30,17 +30,14 @@ export class Llamada implements Instruccion{
         }
 
         // Ejecutando parametros
-        let newTable = new TablaSimbolos(tree.getTSGlobal());
+        let newTable = new TablaSimbolos(table);
         // valido tama;o de   parametros parameters de funcion y parametros de llamada
         if (this.parameters.length == resultFunc.parameters.length)
         {
             let count=0;
             for (let expr of this.parameters)
             {
-                
-                let valueExpr = expr.ejecutar(table,tree);
-                
-                // tree.updateConsolaPrint(resultFunc.parameters[count].id + ": " + expr.id + " " + valueExpr + ", ");
+                let valueExpr = expr.ejecutar(newTable,tree);
 
                 if( valueExpr instanceof Errores ){
                     return new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
@@ -50,9 +47,9 @@ export class Llamada implements Instruccion{
                     let symbol;
                     if (resultFunc.parameters[count].tipo == TIPO.ANY)
                     {
-                        symbol = new Simbolo(resultFunc.parameters[count].id.toString(),expr.tipo, this.arreglo, this.fila, this.columna, valueExpr ); // seteo para variables nativas
+                        symbol = new Simbolo(String(resultFunc.parameters[count].id),expr.tipo, this.arreglo, this.fila, this.columna, valueExpr ); // seteo para variables nativas
                     }else{
-                        symbol = new Simbolo(String(resultFunc.parameters[count].id.toString()),resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr );
+                        symbol = new Simbolo(String(resultFunc.parameters[count].id),resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr );
                     }
                     let resultTable = newTable.setSymbolTabla(symbol)
                     if (resultTable instanceof Errores)
@@ -63,7 +60,6 @@ export class Llamada implements Instruccion{
 
                 count++;
             }
-            tree.updateConsolaPrint("");
         }else{
             console.log(`tam param call: ${this.parameters.length} func ${resultFunc.parameters.length}`);
             return new Errores("Semantico", "Tamaño de Tipo de Parametros no coincide", this.fila, this.columna);

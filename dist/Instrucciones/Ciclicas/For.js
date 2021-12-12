@@ -24,7 +24,7 @@ class For {
             tree.getErrores().push(declaracion_asignacion);
             tree.updateConsolaPrintln(declaracion_asignacion.toString());
         }
-        console.log("declaracion_asignacion: " + declaracion_asignacion);
+        // console.log("declaracion_asignacion: " + declaracion_asignacion);
         if (declaracion_asignacion instanceof Errores_1.Errores) {
             return declaracion_asignacion;
         }
@@ -34,7 +34,7 @@ class For {
                 tree.getErrores().push(condicion);
                 tree.updateConsolaPrintln(condicion.toString());
             }
-            console.log("condicion: " + condicion);
+            // console.log("condicion: " + condicion);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 if (this.getBool(condicion)) {
                     let ts_local = new TablaSimbolos_1.TablaSimbolos(tabla_intermedia);
@@ -60,7 +60,7 @@ class For {
                         tree.getErrores().push(actualizacion);
                         tree.updateConsolaPrintln(actualizacion.toString());
                     }
-                    console.log("actualizacion: " + actualizacion);
+                    // console.log("actualizacion: " + actualizacion);
                     if (actualizacion instanceof Errores_1.Errores) {
                         return actualizacion;
                     }

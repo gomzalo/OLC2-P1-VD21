@@ -42,7 +42,7 @@ export class AccesoStruct implements Instruccion{
 
         // Acceso atributos
         // let value = this.accesoAttribute(this.expresiones, simboloStruct.valor)
-        console.log(this.expresiones)
+        console.log(this.expresiones);
         let resultAcceso = this.expresiones.ejecutar(simboloStruct.getValor(),tree);
         return resultAcceso;
 

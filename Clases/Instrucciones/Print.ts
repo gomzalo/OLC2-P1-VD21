@@ -33,7 +33,7 @@ export class Print implements Instruccion{
         {
             let valor = expresion.ejecutar(table,tree);
             // console.log("print exp val: " + String(valor));
-            console.log(valor);
+            // console.log(valor);
 
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores)
@@ -44,7 +44,7 @@ export class Print implements Instruccion{
             {
                 let temp : Simbolo;
                 temp = valor;
-                // console.log("print STRUCT")
+                // console.log("print STRUCT");
                 // console.log(valor);
                 valor = temp.toStringStruct()
             }

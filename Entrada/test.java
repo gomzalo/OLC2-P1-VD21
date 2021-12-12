@@ -164,10 +164,16 @@
         for (int i = 0; i < 5; i++) {
             println(i);
         }
-        println("************   For-In  **************");
+        println("************   For-In cadena **************");
         for letra in "Hola Mundo!"  // Recorre las letras de la cadena
         {
             print(letra, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
+        
+        }
+        println("************   For-In arreglo x **************");
+        for ts in ["2", "3", "5"]  // Recorre las letras de la cadena
+        {
+            print(ts, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
         
         }
         println("");
@@ -180,6 +186,12 @@
         println("************   Declaracion de arreglos  **************");
         String[] arr = ["H","O","L","A"];
         // String[] arr = ["H",["O","O"],"L","A"];
+        println("************   For-In arreglo declarado **************");
+        for t in arr[0:2]  // Recorre las letras de la cadena
+        {
+            print(t, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
+        
+        }
         println("************   Acceso de arreglos  **************");
         String a = arr[0];
         println(a);

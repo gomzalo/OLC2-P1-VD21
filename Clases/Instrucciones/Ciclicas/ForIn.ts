@@ -12,6 +12,7 @@ import { timingSafeEqual } from 'crypto';
 import { Errores } from '../../Ast/Errores';
 import { isInt16Array } from 'util/types';
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
+import { AccesoArr } from '../../Expresiones/Arreglos/AccesoArr';
 
 export class ForIn implements Instruccion{
 
@@ -66,8 +67,8 @@ export class ForIn implements Instruccion{
                     }
                 }
             }
-        }else if (this.rango.tipo == TIPO.ARREGLO || this.rango instanceof Array) {
-            console.log("FOR IN ARR");
+        }else if (this.rango.tipo == TIPO.ARREGLO || this.rango instanceof Array ) {
+            console.log("FOR IN ARR XD");
             this.rango.forEach(e => {
                 let element = e.ejecutar(table, tree);
                 if (element instanceof Errores)
@@ -108,8 +109,51 @@ export class ForIn implements Instruccion{
                     }
                 }
             });
+        }else if(this.rango instanceof AccesoArr){
+            console.log("FOR IN ARR DEC");
+            // console.log(this.rango.);
+            let arr = table.getSymbolTabla(this.rango.id.toString());
+            if(arr != null){
+                if(arr.getArreglo()){
+                    arr.getValor().forEach(element => {
+                        let nuevo_simb = new Simbolo(this.iterador, TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                        let ts_local = new TablaSimbolos(table);
+                        let result = ts_local.updateSymbolTabla(nuevo_simb);
+                        if (result instanceof Errores)
+                        {
+                            result = ts_local.setSymbolTabla(nuevo_simb);
+                            if (result instanceof Errores)
+                            {
+                                tree.getErrores().push(result);
+                                tree.updateConsolaPrintln(result.toString());
+                            }
+                        }
+                        for(let ins of this.lista_instrucciones){
+                            let res = ins.ejecutar(ts_local, tree);
+                            if (res instanceof Errores)
+                            {
+                                tree.getErrores().push(res);
+                                tree.updateConsolaPrintln(res.toString());
+                            }
+                            if(ins instanceof Detener || res instanceof Detener ){
+                                return null;
+                            }
+                            if(ins instanceof Continuar || res instanceof Continuar){
+                                break;
+                            }
+                            if(ins instanceof Return || res instanceof Return){
+                                return res;
+                            }
+                        }
+                    });
+                }else{
+                    return new Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no es un arreglo.", this.fila, this.columna);
+                }
+            }else{
+                return new Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);
+            }
         }else{
-            console.log("ForIn xd");
+            return new Errores("Semantico", "For-in no valido.", this.fila, this.columna);
         }
     }
 

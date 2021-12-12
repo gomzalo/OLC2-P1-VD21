@@ -40,7 +40,7 @@ export class For implements Instruccion{
             tree.getErrores().push(declaracion_asignacion);
             tree.updateConsolaPrintln(declaracion_asignacion.toString());
         }
-        console.log("declaracion_asignacion: " + declaracion_asignacion);
+        // console.log("declaracion_asignacion: " + declaracion_asignacion);
         if( declaracion_asignacion instanceof Errores){
             return declaracion_asignacion;
         }
@@ -51,7 +51,7 @@ export class For implements Instruccion{
                 tree.getErrores().push(condicion);
                 tree.updateConsolaPrintln(condicion.toString());
             }
-            console.log("condicion: " + condicion);
+            // console.log("condicion: " + condicion);
             if(this.condicion.tipo == TIPO.BOOLEANO){
                 if(this.getBool(condicion)){
                     let ts_local = new TablaSimbolos(tabla_intermedia);
@@ -80,7 +80,7 @@ export class For implements Instruccion{
                         tree.getErrores().push(actualizacion);
                         tree.updateConsolaPrintln(actualizacion.toString());
                     }
-                    console.log("actualizacion: " + actualizacion);
+                    // console.log("actualizacion: " + actualizacion);
                     if( actualizacion instanceof Errores){
                         return actualizacion;
                     }

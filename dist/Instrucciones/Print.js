@@ -19,7 +19,7 @@ class Print {
         for (let expresion of this.parametros) {
             let valor = expresion.ejecutar(table, tree);
             // console.log("print exp val: " + String(valor));
-            console.log(valor);
+            // console.log(valor);
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores_1.Errores) {
                 return valor;
@@ -27,7 +27,11 @@ class Print {
             if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
                 let temp;
                 temp = valor;
+<<<<<<< Updated upstream
                 // console.log("print STRUCT")
+=======
+                // console.log("print STRUCT");
+>>>>>>> Stashed changes
                 // console.log(valor);
                 valor = temp.toStringStruct();
             }

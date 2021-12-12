@@ -20,13 +20,12 @@ class Llamada {
             return new Errores_1.Errores("Semantico", "Funcion no encontrada en asignacion", this.fila, this.columna);
         }
         // Ejecutando parametros
-        let newTable = new TablaSimbolos_1.TablaSimbolos(tree.getTSGlobal());
+        let newTable = new TablaSimbolos_1.TablaSimbolos(table);
         // valido tama;o de   parametros parameters de funcion y parametros de llamada
         if (this.parameters.length == resultFunc.parameters.length) {
             let count = 0;
             for (let expr of this.parameters) {
-                let valueExpr = expr.ejecutar(table, tree);
-                // tree.updateConsolaPrint(resultFunc.parameters[count].id + ": " + expr.id + " " + valueExpr + ", ");
+                let valueExpr = expr.ejecutar(newTable, tree);
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
@@ -34,10 +33,10 @@ class Llamada {
                  {
                     let symbol;
                     if (resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) {
-                        symbol = new Simbolo_1.Simbolo(resultFunc.parameters[count].id.toString(), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
+                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
                     }
                     else {
-                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id.toString()), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);
+                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);
                     }
                     let resultTable = newTable.setSymbolTabla(symbol);
                     if (resultTable instanceof Errores_1.Errores)
@@ -48,7 +47,6 @@ class Llamada {
                 }
                 count++;
             }
-            tree.updateConsolaPrint("");
         }
         else {
             console.log(`tam param call: ${this.parameters.length} func ${resultFunc.parameters.length}`);

@@ -23,7 +23,7 @@ class DeclaracionArr {
             return new Errores_1.Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
         }
         // Creando arreglo
-        this.crearDimensiones(table, tree, this.expresiones); // Devuelve el arreglo de dimensiones
+        this.crearDimensiones(table, tree, this.expresiones[0]); // Devuelve el arreglo de dimensiones
         // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
         let value = this.arr;
         // console.log("value declArr: " + value);
