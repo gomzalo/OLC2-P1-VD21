@@ -5399,6 +5399,7 @@ exports.To = To;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringN = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class StringN {
     constructor(expresion, fila, columna) {
         this.expresion = expresion;
@@ -5409,8 +5410,8 @@ class StringN {
         let valor = this.expresion.ejecutar(table, tree);
         // console.log("pop type: " + valor.tipo);
         if (valor != null) {
-            this.tipo = valor.tipo;
             try {
+                this.tipo = Tipo_1.TIPO.CADENA;
                 return valor.toString();
             }
             catch (error) {
@@ -5430,7 +5431,7 @@ class StringN {
 }
 exports.StringN = StringN;
 
-},{"../../../Ast/Errores":6}],45:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":55}],45:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;

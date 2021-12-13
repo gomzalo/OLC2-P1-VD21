@@ -29,8 +29,8 @@ export class StringN implements Funcion{
         let valor = this.expresion.ejecutar(table, tree);
         // console.log("pop type: " + valor.tipo);
         if(valor != null){
-            this.tipo = valor.tipo;
             try {
+                this.tipo = TIPO.CADENA;
                 return valor.toString();
             } catch (error) {
                 return new Errores("Semantico", `No fue posible castear a String el valor '${valor.toString()}'.`, this.fila, this.columna);
