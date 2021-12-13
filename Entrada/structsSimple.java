@@ -66,5 +66,9 @@ void main()
     println(abuelo.c);
     println(abuelo.estado);
     println(abuelo.next);
+  println("--------ACCESSOOO Y EDICION  3------");
+  	abuelo.next.name = "Acceso desde abuelo";
+  println(abuelo.next);
+  println(PapaEstudiante.next);
 
 }
