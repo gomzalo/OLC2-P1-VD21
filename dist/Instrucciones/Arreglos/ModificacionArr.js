@@ -24,7 +24,7 @@ class ModificacionArr {
                 if (simbolo.getTipo() != this.valor.tipo) {
                     return new Errores_1.Errores("Semantico", "Tipos de datos diferentes en modificacion de arreglo: \'" + this.id + "\'.", this.fila, this.columna);
                 }
-                console.log("modArr simb.tipo: " + simbolo.getTipo());
+                // console.log("modArr simb.tipo: " + simbolo.getTipo());
                 this.tipo_arr = simbolo.getTipo();
                 let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
                 if (result instanceof Errores_1.Errores) {
@@ -65,8 +65,8 @@ class ModificacionArr {
         if (exp_tmp.tipo != Tipo_1.TIPO.ENTERO) {
             return new Errores_1.Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
-        console.log("modArr exp: " + valor);
-        console.log("modArr tipo exp: " + this.valor.tipo);
+        // console.log("modArr exp: " + valor);
+        // console.log("modArr tipo exp: " + this.valor.tipo);
         if (this.valor.tipo != this.tipo_arr) {
             // console.log("Tipo distinto al tipo del arreglo");
             // console.log(tree);

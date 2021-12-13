@@ -374,6 +374,33 @@
         println("");
         println(log10(3)); // 0.47712125471966244
         println("");
+        println(":::::::::::::   Numericas  :::::::::::::");
+        println("");
+        println("************   Parse a int  **************");
+        println("");
+        String a = "3";
+        println(int.parse("8200")); // 8200
+        println(int.parse(a)); // 3
+        println("");
+        println("************   Parse a double  **************");
+        println("");
+        println(double.parse("3.13159")); // 3
+        println("");
+        println("************   Parse a boolean  **************");
+        println("");
+        println(boolean.parse(a)); // Error, valor no puede convertirse a booleano
+        println(boolean.parse("tRuE")); // true
+        println(boolean.parse("0")); // false
+        println("");
+        println("************   ToInt  **************");
+        println(toDouble(55)); // 55
+        println("");
+        println("************   ToDouble  **************");
+        println(toInt(2.223)); // 2
+        println("");
+        println("************   String  **************");
+        println(String(218128)); // 2
+        println("");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         println(":::::::::::::   FUNCIONES  :::::::::::::");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");

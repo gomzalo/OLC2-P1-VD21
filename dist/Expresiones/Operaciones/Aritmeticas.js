@@ -289,13 +289,12 @@ class Aritmetica {
                 }
                 break;
             case Tipo_1.OperadorAritmetico.AMPERSON:
-                if (this.exp1.tipo == Tipo_1.TIPO.CADENA && this.exp2.tipo == Tipo_1.TIPO.CADENA) {
-                    this.tipo = Tipo_1.TIPO.CADENA;
-                    return valor_exp1.toString() + valor_exp2.toString();
-                }
-                else {
-                    return new Errores_1.Errores("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
-                }
+                // if (this.exp1.tipo == TIPO.CADENA && this.exp2.tipo == TIPO.CADENA ){
+                this.tipo = Tipo_1.TIPO.CADENA;
+                return valor_exp1.toString() + valor_exp2.toString();
+                // }else{
+                // return new Errores("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
+                // }
                 // if(typeof valor_exp1 === 'number'){
                 //     if(typeof valor_exp2 === 'number'){
                 //         return Math.pow(valor_exp1, valor_exp2);

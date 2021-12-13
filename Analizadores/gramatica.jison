@@ -85,6 +85,13 @@ BSL                                 "\\".
 /* Otras */
 "log10"                     { return 'RLOG' };
 "sqrt"                      { return 'RSQRT' };
+/* -------- Numericas */
+"parse"                     { return 'RPARSE' };
+"toInt"                     { return 'RTOINT' };
+"toDouble"                  { return 'RTODOUBLE' };
+/* -------- Generales */
+"string"                    { return 'RSTRING_N' };
+"typeof"                    { return 'RTYPEOF' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -209,6 +216,12 @@ BSL                                 "\\".
     const { toLower } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower");
     /* -------- Matematicas */
     const { Matematicas } = require("../dist/Instrucciones/Metodos/Nativas/Matematicas");
+    /* -------- Numericas */
+    const { Parse } = require("../dist/Instrucciones/Metodos/Nativas/Numericas/Parse");
+    const { To } = require("../dist/Instrucciones/Metodos/Nativas/Numericas/To");
+    /* -------- Generales */
+    const { StringN } = require("../dist/Instrucciones/Metodos/Nativas/StringN");
+    const { TypeOfN } = require("../dist/Instrucciones/Metodos/Nativas/TypeOfN");
 %}
 /*
 ###################################################
@@ -504,6 +517,21 @@ nat_matematicas:
     |   RSQRT                               { $$ = $1; }
     |   RLOG                                { $$ = $1; }
     ;
+// ------------     Numericas -> [PARSE]
+nat_parse:
+        tipo PUNTO RPARSE
+        PARA expr PARC                      { $$ = new Parse($1, $5, @1.first_line, @1.last_column); }
+    ;
+// ------------     Numericas -> [toInt - toDouble]
+nat_conversion:
+        nat_conversion_tipos
+        PARA expr PARC                      { $$ = new To($1, $3, @1.first_line, @1.last_column); }
+    ;
+// Tipos
+nat_conversion_tipos:
+        RTOINT                              { $$ = $1; }
+    |   RTODOUBLE                           { $$ = $1; }
+    ;
 /*..............     Tipos      ...............*/
 tipo : 
         RINT                        { $$ = TIPO.ENTERO; }
@@ -549,7 +577,7 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   ID PUNTO expr             {   if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
+    |   ID PUNTO expr               {   if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
                                             $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
                                             let identifica =new Identificador($1 , @1.first_line, @1.last_column);
@@ -566,4 +594,8 @@ expr:
     |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); }
     |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); }
     |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); }
+    |   nat_parse                   { $$ = $1; }
+    |   nat_conversion              { $$ = $1; }
+    |   RSTRING_N PARA expr PARC    { $$ = new StringN($3, @1.first_line, @1.first_column); }
+    |   RTYPEOF PARA expr PARC      { $$ = new TypeOfN($3, @1.first_line, @1.first_column); }
     ;

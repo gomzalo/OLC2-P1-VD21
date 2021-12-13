@@ -352,12 +352,12 @@ export class Aritmetica implements Instruccion {
                 }
                 break;
             case OperadorAritmetico.AMPERSON:
-                    if (this.exp1.tipo == TIPO.CADENA && this.exp2.tipo == TIPO.CADENA ){
-                        this.tipo = TIPO.CADENA;
-                        return valor_exp1.toString() + valor_exp2.toString()
-                    }else{
-                        return new Errores("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
-                    }
+                    // if (this.exp1.tipo == TIPO.CADENA && this.exp2.tipo == TIPO.CADENA ){
+                    this.tipo = TIPO.CADENA;
+                    return valor_exp1.toString() + valor_exp2.toString()
+                    // }else{
+                        // return new Errores("Semantico", "Concatenacion - Error de tipo ", this.fila, this.columna);
+                    // }
                     // if(typeof valor_exp1 === 'number'){
                     //     if(typeof valor_exp2 === 'number'){
                     //         return Math.pow(valor_exp1, valor_exp2);

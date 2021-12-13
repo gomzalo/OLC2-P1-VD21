@@ -10,7 +10,7 @@ class Copiar {
         this.columna = columna;
     }
     ejecutar(table, tree) {
-        console.log("COPARR: " + this.id);
+        // console.log("COPARR: " + this.id);
         let simbolo = table.getSymbolTabla(this.id.toString());
         if (simbolo != null) {
             if (simbolo.getArreglo()) {
