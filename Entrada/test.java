@@ -352,6 +352,28 @@
         println(mayus);
         println(mayus.toLowercase()); // maytomin
         println("");
+        println(":::::::::::::   Matematicas  :::::::::::::");
+        println("");
+        println("************   Sin  **************");
+        println("");
+        println(sin(3)); // 0.1411200080598672
+        println("");
+        println("************   Cos  **************");
+        println("");
+        println(cos(3)); // -0.9899924966004454
+        println("");
+        println("************   Tan  **************");
+        println("");
+        println(tan(3)); // -0.1425465430742778
+        println("");
+        println("************   Sqrt  **************");
+        println("");
+        println(sqrt(3)); // 1.7320508075688772
+        println("");
+        println("************   Log10  **************");
+        println("");
+        println(log10(3)); // 0.47712125471966244
+        println("");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         println(":::::::::::::   FUNCIONES  :::::::::::::");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");

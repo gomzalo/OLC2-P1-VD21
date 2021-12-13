@@ -72,11 +72,19 @@ BSL                                 "\\".
 "pop"                       { return 'RPOP' };
 "push"                      { return 'RPUSH' };
 "lenght"                    { return 'RLENGTH' };
-/* -------- Arreglos */
+/* -------- Cadenas */
 "caracterOfPosition"        { return 'RCHAROFPOS' };
 "subString"                 { return 'RSUBSTRING' };
 "toUppercase"               { return 'RTOUPPER' };
 "toLowercase"               { return 'RTOLOWER' };
+/* -------- Matematicas */
+/* Trigonometricas */
+"sin"                       { return 'RSIN' };
+"cos"                       { return 'RCOS' };
+"tan"                       { return 'RTAN' };
+/* Otras */
+"log10"                     { return 'RLOG' };
+"sqrt"                      { return 'RSQRT' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -193,11 +201,13 @@ BSL                                 "\\".
     const { Length } = require("../dist/Instrucciones/Metodos/Nativas/Length");
     const { Pop } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop");
     const { Push } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Push");
-    /* -------- String */
+    /* -------- Cadenas */
     const { CharOfPos } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos");
     const { subString } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/subString");
     const { toUpper } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper");
     const { toLower } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower");
+    /* -------- Matematicas */
+    const { Matematicas } = require("../dist/Instrucciones/Metodos/Nativas/Matematicas");
 %}
 /*
 ###################################################
@@ -475,6 +485,14 @@ nat_push_instr:
         expr PUNTO RPUSH
         PARA expr PARC                      { $$ = new Push($1, $5, @1.first_line, @1.first_column); }
     ;
+// ------------     Matematicas
+nat_matematicas:
+        RSIN                                { $$ = $1; }
+    |   RCOS                                { $$ = $1; }
+    |   RTAN                                { $$ = $1; }
+    |   RSQRT                               { $$ = $1; }
+    |   RLOG                                { $$ = $1; }
+    ;
 /*..............     Tipos      ...............*/
 tipo : 
         RINT                        { $$ = TIPO.ENTERO; }
@@ -535,4 +553,5 @@ expr:
     |   RSUBSTRING PARA expr COMA expr PARC   { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }
     |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); }
     |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); }
+    |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); }
     ;

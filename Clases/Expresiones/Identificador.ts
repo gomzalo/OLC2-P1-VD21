@@ -32,11 +32,11 @@ export class Identificador implements Instruccion{
         if (this.symbol == null){
             return new Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);
         }
-        this.tipo = this.symbol.getTipo()
+        this.tipo = this.symbol.getTipo();
         // console.log(`tipo id: ${this.tipo}`)
         if (this.tipo == TIPO.STRUCT)
         {
-            this.tipoStruct = this.symbol.getTipoStruct()
+            this.tipoStruct = this.symbol.getTipoStruct();
             return this.symbol;
         }
         return this.symbol.getValor()
