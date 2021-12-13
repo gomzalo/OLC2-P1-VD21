@@ -3,9 +3,14 @@
 ###############  Definicion lexica  ###############
 ###################################################
 */
+%{
+    let errores = [];
+%}
+
 %lex
 
 %options case-sensitive
+
 
 escapechar                          [\'\"\\bfnrtv]
 escape                              \\{escapechar}
@@ -293,6 +298,8 @@ instruccion:
     | error         { console.log("Error Sintactico" + yytext 
                                     + "linea: " + this._$.first_line 
                                     + "columna: " + this._$.first_column); 
+                                    
+                        errores.push(new Errores("Sintactico ", yytext + " <-- Error Sintactico ", this.fila,this.columna));
                         $$ =null;
                                 // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
                                 //                 this._$.first_line ,this._$.first_column);            

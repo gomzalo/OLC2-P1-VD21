@@ -201,7 +201,8 @@ compilar.addEventListener('click', () => {
     $("#textAreaConsola").val("");
 
     try{
-        result = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        result = gramatica.parse(editores[indexTab].codeEditor.getValue()); // return ast
+        result.Errores = gramatica.errores.slice()
         result.ejecutar();
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
