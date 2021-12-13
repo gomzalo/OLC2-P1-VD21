@@ -38,7 +38,7 @@ export class AccesoStruct implements Instruccion{
         let simboloStruct = this.idStruct.ejecutar(table,tree);
         // this.id= this.idStruct.id; 
         if (simboloStruct == null){
-            return new Errores("Semantico", "Struct " + this.idStruct.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
+            return new Errores("Semantico", "AccesoStruct " + this.idStruct.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
         }
         // if (simboloStruct.tipo != TIPO.STRUCT)
         // {
@@ -52,10 +52,10 @@ export class AccesoStruct implements Instruccion{
         console.log(this.expresiones);
         console.log(simboloStruct);
         if(!(this.expresiones instanceof Identificador || this.expresiones instanceof AccesoStruct || this.expresiones instanceof Struct )){
-            return new Errores("Semantico", "Struct " + this.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
+            return new Errores("Semantico", "AccesoStruct " + this.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
         }
         if(!(simboloStruct.valor instanceof TablaSimbolos)){
-            return new Errores("Semantico", "Struct " + this.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
+            return new Errores("Semantico", "AccesoStruct " + this.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
         }
         let resultAcceso = this.expresiones.ejecutar(simboloStruct.valor,tree);
         return resultAcceso;

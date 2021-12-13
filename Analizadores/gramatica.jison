@@ -493,8 +493,8 @@ rango:
     /*..............     Nativas      ...............*/
 // ------------     ARR -> [Push]
 nat_push_instr:
-        expr PUNTO RPUSH
-        PARA expr PARC                      { $$ = new Push($1, $5, @1.first_line, @1.first_column); }
+        ID PUNTO RPUSH
+        PARA expr PARC                      { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); }
     ;
 // ------------     Matematicas
 nat_matematicas:
@@ -549,10 +549,11 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   expr PUNTO expr             {   if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
+    |   ID PUNTO expr             {   if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
                                             $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
-                                            $$.id = $1.id;
+                                            let identifica =new Identificador($1 , @1.first_line, @1.last_column);
+                                            $$.id = identifica.id;
                                         }else{
                                             $$ = new AccesoStruct(new Identificador($1 , @1.first_line, @1.last_column),$3,@1.first_line, @1.first_column);
                                         }
