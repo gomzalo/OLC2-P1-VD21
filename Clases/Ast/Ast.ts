@@ -211,7 +211,7 @@ export class Ast  {
         let tree =this;
         // this.structs.forEach(struct => {
         for(let struct of tree.structs){
-            if (struct.id = name){
+            if (struct.id == name){
                 return struct;
             }
         }

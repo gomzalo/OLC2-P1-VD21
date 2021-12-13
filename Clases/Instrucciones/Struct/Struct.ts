@@ -11,6 +11,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { DeclararStruct } from "./DeclararStruct";
+import { StructInStruct } from "./StructInStruct";
 
 export class Struct implements Instruccion{
     fila: number;
@@ -19,9 +20,10 @@ export class Struct implements Instruccion{
     public id: string;
     public idSimbolo :string;
     public tipo : TIPO;
-    public attributes: TablaSimbolos;
+    
     public instructions: Array<Instruccion|any>;
     public variables :Array<any>;
+    public attributes: TablaSimbolos;
 
     constructor(id,instructions,fila,columna){
         this.id = id;
@@ -35,25 +37,26 @@ export class Struct implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        
+        // let attributes = new TablaSimbolos(null);
+        // let variables = new Array();
         console.log(this.instructions);
         for(let instr of this.instructions)
         {
             
             let result = null;
             // Validando Declaraciones Asignaciones 
-            if (instr instanceof Declaracion /*|| instr instanceof Asignacion */|| instr instanceof DeclaracionArr || instr instanceof DeclararStruct/**AGREGAR DECLA STRUCT */)
+            if (instr instanceof Declaracion || instr instanceof StructInStruct || instr instanceof DeclaracionArr || instr instanceof DeclararStruct/**AGREGAR DECLA STRUCT */)
             {
                 console.log(instr);
                 result = instr.ejecutar(this.attributes,tree);
                 if (instr instanceof Declaracion){
                     for(let simbolo of instr.simbolos){
-                        tree.updateConsolaPrintln(" simbolo: " + simbolo.id);
+                        // tree.updateConsolaPrintln(" simbolo: " + simbolo.id);
                         this.variables.push({"tipo" : instr.tipo, "arreglo": false, "id": simbolo.id});
                     }
                 }
-                if (instr instanceof DeclararStruct){
-
+                if (instr instanceof StructInStruct){
+                    this.variables.push({"tipo" : instr.tipo, "arreglo": false, "id": instr.id});
                 }
             }
             // Validando Errores
@@ -83,31 +86,31 @@ export class Struct implements Instruccion{
             }
         }
         // Guardo Simbolo: id, tipoStruct(el Struct que es), TIPO.STRUCT, variables, Attributes: TablaSimbolos(null)
-        let nuevo_simb = new Simbolo(this.idSimbolo, this.tipo, false, this.fila, this.columna, this.attributes);
-        nuevo_simb.tipoStruct = this.id;
-        nuevo_simb.variables = this.variables;
-        tree.updateConsolaPrintln(" tamano variables: struct; " + this.variables.length);
-        tree.updateConsolaPrintln(" tamano instruccines: struct; " + this.instructions.length);
-        table.setSymbolTabla(nuevo_simb);
-        return nuevo_simb;
-        
+        // return variables;
+        // return [table, variables];
     }
 
-    ejecutarUpdate(table: TablaSimbolos, tree: Ast) {
-        
-
+    executeEnvironment(table: TablaSimbolos, tree: Ast, variables) {
+        // let attributes = new TablaSimbolos(null);
+        // let variables = new Array();
+        console.log(this.instructions);
         for(let instr of this.instructions)
         {
             
             let result = null;
             // Validando Declaraciones Asignaciones 
-            if (instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof DeclaracionArr || DeclararStruct/**AGREGAR DECLA STRUCT */)
+            if (instr instanceof Declaracion || instr instanceof StructInStruct || instr instanceof DeclaracionArr || instr instanceof DeclararStruct/**AGREGAR DECLA STRUCT */)
             {
-                result = instr.ejecutar(this.attributes,tree);
+                console.log(instr);
+                result = instr.ejecutar(table,tree);
                 if (instr instanceof Declaracion){
                     for(let simbolo of instr.simbolos){
-                        this.variables.push({"tipo" : instr.tipo, "arreglo": false, "id": simbolo.id});
+                        // tree.updateConsolaPrintln(" simbolo: " + simbolo.id);
+                        variables.push({"tipo" : instr.tipo, "arreglo": false, "id": simbolo.id});
                     }
+                }
+                if (instr instanceof StructInStruct){
+                    variables.push({"tipo" : instr.tipo, "arreglo": false, "id": instr.id, "tipoStruct":instr.tipoStruct});
                 }
             }
             // Validando Errores
@@ -137,11 +140,8 @@ export class Struct implements Instruccion{
             }
         }
         // Guardo Simbolo: id, tipoStruct(el Struct que es), TIPO.STRUCT, variables, Attributes: TablaSimbolos(null)
-        let nuevo_simb = new Simbolo(this.idSimbolo, this.tipo, false, this.fila, this.columna, this.attributes);
-        nuevo_simb.tipoStruct = this.id;
-        nuevo_simb.variables = this.variables;
-        table.setSymbolTabla(nuevo_simb);
-        
+        // return variables;
+        // return [table, variables];
     }
 
     getTipoStruct()

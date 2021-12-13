@@ -1,5 +1,6 @@
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Struct } from "../../Instrucciones/Struct/Struct";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
@@ -14,7 +15,7 @@ export class AccesoStruct implements Instruccion{
     public idStruct;
     public tipo : TIPO;
     // public simboloStruct :Simbolo;
-    public expresiones: Identificador; // OBjeto de objetos Identificador
+    public expresiones: Identificador | AccesoStruct | Struct; // OBjeto de objetos Identificador
     // { expresiones: [],
     // identificador:
     //  }
@@ -30,24 +31,37 @@ export class AccesoStruct implements Instruccion{
     }
     
     ejecutar(table: TablaSimbolos, tree: Ast) {
+        if(!(this.idStruct instanceof Identificador)){
+            return new Errores("Semantico", "AccesoStruct " + this.id + " NO es TIPO ID", this.fila, this.columna);
+        }
+        console.log("acceso")
         let simboloStruct = this.idStruct.ejecutar(table,tree);
-        this.id= this.idStruct.id; 
+        // this.id= this.idStruct.id; 
         if (simboloStruct == null){
-            return new Errores("Semantico", "Struct " + this.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
+            return new Errores("Semantico", "Struct " + this.idStruct.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
         }
-        if (simboloStruct.tipo != TIPO.STRUCT)
-        {
-            return new Errores("Semantico", "Struct " + this.id + " NO es TIPO STRUCT", this.fila, this.columna);
-        }
+        // if (simboloStruct.tipo != TIPO.STRUCT)
+        // {
+        //     return new Errores("Semantico", "Struct " + this.id + " NO es TIPO STRUCT", this.fila, this.columna);
+        // }
 
         // Acceso atributos
         // let value = this.accesoAttribute(this.expresiones, simboloStruct.valor)
+
+        console.log(this.idStruct)
         console.log(this.expresiones);
-        let resultAcceso = this.expresiones.ejecutar(simboloStruct.getValor(),tree);
+        console.log(simboloStruct);
+        if(!(this.expresiones instanceof Identificador || this.expresiones instanceof AccesoStruct || this.expresiones instanceof Struct )){
+            return new Errores("Semantico", "Struct " + this.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
+        }
+        if(!(simboloStruct.valor instanceof TablaSimbolos)){
+            return new Errores("Semantico", "Struct " + this.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
+        }
+        let resultAcceso = this.expresiones.ejecutar(simboloStruct.valor,tree);
         return resultAcceso;
 
 
-        let entornoAttributes = simboloStruct.getValor();
+        // let entornoAttributes = simboloStruct.getValor();
         
         // if (this.expresiones.expresiones.length >0)
         // {

@@ -32,6 +32,7 @@ export class DeclararStruct implements Instruccion{
         {
             let nuevo_simb = new Simbolo(this.id, TIPO.STRUCT, false, this.fila, this.columna, null);
             nuevo_simb.tipoStruct = this.tipoStruct;
+            nuevo_simb.variables =[]
             let resultStruct = table.setSymbolTabla(nuevo_simb);
             if (resultStruct instanceof Errores)
                 return resultStruct
@@ -40,14 +41,15 @@ export class DeclararStruct implements Instruccion{
             // SI NO, ES ASIGNACION CON DECLARACION=
             //1 Obtenemos Struct
             let struct = tree.getStruct(this.tipoStruct); // Struct
-            console.log(struct);
+            // console.log(struct);
             if (struct == null){
                 return new Errores("Semantico", "Struct " + this.tipoStruct + ": NO coincide con la busqueda", this.fila, this.columna);
             }
-            //2 Ejecutamos struct
+
+
+            //2 EJECUTAMOS  STRUCT
             // struct.idSimbolo =this.id;
-            let entonrnoStruct = new TablaSimbolos(null);
-            let nuevo_simb = new Simbolo(this.id, TIPO.STRUCT, false, this.fila, this.columna, null);
+            let nuevo_simb = new Simbolo(this.id, TIPO.STRUCT, false, this.fila, this.columna, new TablaSimbolos(null));
             nuevo_simb.tipoStruct = this.tipoStruct;
             
             // tree.updateConsolaPrintln(" tamano variables: struct; " + this.variables.length);
@@ -56,14 +58,14 @@ export class DeclararStruct implements Instruccion{
             /**
              * GUARDAMOS SIMBOLO STRUCT
              */
-            let resultStruct = struct.ejecutar(table,tree); // retorna variables
-            // console.log(nuevo_simb.valor)
-            // struct.valor =entonrnoStruct; // set entorno
+            let entornoAttributes = new TablaSimbolos(null);
+            let varSTemps = [];
+            let resultStruct = struct.executeEnvironment(entornoAttributes,tree,varSTemps); // retorna variables
             if (resultStruct instanceof Errores)
                 return resultStruct
-            // nuevo_simb.variables = resultStruct[1];  // variables
-            // nuevo_simb.valor = resultStruct[0];      // valor entorno TABLA SIMOBOLOS
             table.setSymbolTabla(nuevo_simb);
+            
+            
             // 
             // console.log(table.getSymbolTabla(this.id));
             // 2.1 if es nulo, solo declara
@@ -74,51 +76,58 @@ export class DeclararStruct implements Instruccion{
 
             
             // Ejecutando parametros
-            let newTable = struct.attributes;
-            console.log("STRUCTTTTTTTTTTTTTTTTTTTTTTT")
-            console.log(struct)
+            let SymbolStructNow = table.getSymbolTabla(this.id);
+            SymbolStructNow.valor =  new TablaSimbolos(null);
+            SymbolStructNow.valor = entornoAttributes;
+            SymbolStructNow.variables = varSTemps;
+            // tree.updateConsolaPrintln(`to strinng Struct: ${SymbolStructNow.valor.toStringTable()}`);
+
+            // let newTable = nuevo_simb.getValor();
+            // console.log("STRUCTTTTTTTTTTTTTTTTTTTTTTT")
+            // console.log(SymbolStructNow)
             // valido tama;o de   parametros parameters de funcion y parametros de llamada
-            if (this.llamada.parameters.length == struct.instructions.length)
+            if (this.llamada.parameters.length == SymbolStructNow.variables.length)
             {
                 let count=0;
                 for (let expr of this.llamada.parameters) 
                 {
-                    let valueExpr = expr.ejecutar(struct.attributes,tree);
+                    let valueExpr = expr.ejecutar(table,tree);
 
                     if( valueExpr instanceof Errores ){
                         return new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.llamada.fila, this.llamada.columna);
                     }
-                    if (struct.variables[count].tipo == expr.tipo || struct.variables[count].tipo == TIPO.ANY)  //Valida Tipos
+                    if (SymbolStructNow.variables[count].tipo == expr.tipo || SymbolStructNow.variables[count].tipo == TIPO.ANY)  //Valida Tipos
                     {
                         let symbol;
-                        if (struct.variables[count].tipo == TIPO.ANY)
+                        if (SymbolStructNow.variables[count].tipo == TIPO.ANY)
                         {
-                            symbol = new Simbolo(String(struct.variables[count].id),expr.tipo, false, this.llamada.fila, this.llamada.columna, valueExpr ); // seteo para variables nativas
+                            symbol = new Simbolo(String(SymbolStructNow.variables[count].id),expr.tipo, false, this.llamada.fila, this.llamada.columna, valueExpr ); // seteo para variables nativas
                             
-                        }else if (struct.variables[count].tipo == TIPO.STRUCT)
+                        }else if (SymbolStructNow.variables[count].tipo == TIPO.STRUCT)
                         {
                             // Dos formas 1: struct intanciado|| null
                             // IF el nuevo parametro es de tipo struct
-                            if(expr.tipo == TIPO.STRUCT && expr.getTipoStruct() == this.tipoStruct)
+                            if(expr.tipo == TIPO.STRUCT && expr.tipoStruct == this.tipoStruct)
                             {
-                                symbol = new Simbolo(struct.variables[count].id,TIPO.STRUCT, false, this.llamada.fila, this.llamada.columna, valueExpr.valor);
+                                symbol = new Simbolo(SymbolStructNow.variables[count].id,TIPO.STRUCT, false, this.llamada.fila, this.llamada.columna, valueExpr.valor);
                                 symbol.variables = valueExpr.variables;
                                 symbol.tipoStruct = this.tipoStruct;
                             }
                             if(expr.tipo == TIPO.NULO )
                             {
-                                symbol = new Simbolo(struct.variables[count].id,TIPO.STRUCT, false, this.llamada.fila, this.llamada.columna, null);
+                                symbol = new Simbolo(SymbolStructNow.variables[count].id,TIPO.STRUCT, false, this.llamada.fila, this.llamada.columna, null);
                                 // symbol.variables = valueExpr.variables;
+                                symbol.variables = [];
                                 symbol.tipoStruct = this.tipoStruct
                             }
                             // symbol = new Simbolo(String(struct.variables[count].id),expr.tipo, true, this.llamada.fila, this.llamada.columna, valueExpr ); // seteo para variables nativas
                             
                         }else{
-                            symbol = new Simbolo(struct.variables[count].id,struct.variables[count].tipo, false, this.llamada.fila, this.llamada.columna, valueExpr );
+                            symbol = new Simbolo(SymbolStructNow.variables[count].id,SymbolStructNow.variables[count].tipo, false, this.llamada.fila, this.llamada.columna, valueExpr );
                         }
-                        console.log(struct)
-                        console.log(symbol)
-                        let resultTable = struct.attributes.updateSymbolTabla(symbol)
+                        // console.log(struct)
+                        // console.log(symbol)
+                        let resultTable = SymbolStructNow.valor.updateSymbolTabla(symbol)
                         if (resultTable instanceof Errores)
                             return resultTable
                     }else{
@@ -127,6 +136,10 @@ export class DeclararStruct implements Instruccion{
 
                     count++;
                 }
+                // let resultStruct = table.updateSymbolTabla(SymbolStructNow); // Update Struct Actual
+                // if (resultStruct instanceof Errores)
+                //     return resultStruct
+                // return null;
             }else{
                 console.log(`tam param call: ${this.llamada.parameters.length} func ${struct.instructions.length}`);
                 return new Errores("Semantico", "Tamaño de Tipo de Parametros no coincide", this.fila, this.columna);

@@ -196,6 +196,7 @@ BSL                                 "\\".
     const { Struct } = require("../dist/Instrucciones/Struct/Struct");
     const { DeclararStruct } = require("../dist/Instrucciones/Struct/DeclararStruct");
     const { AccesoStruct } = require("../dist/Expresiones/Struct/AccesoStruct");
+    const { StructInStruct } = require("../dist/Instrucciones/Struct/StructInStruct");
     /* ..............      Nativas      ...............*/
     /* -------- Arreglos */
     const { Length } = require("../dist/Instrucciones/Metodos/Nativas/Length");
@@ -273,7 +274,7 @@ instruccion:
     |   llamada PUNTOCOMA                   { $$ = $1 }
     |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
     |   structs PUNTOCOMA                   { $$ = $1 }
-    |   ID ID   PUNTOCOMA                            { console.log("declarar STRUCT"); $$ = new DeclararStruct($1,$2,null,@1.first_line, @1.last_column); }
+    
     |   nat_push_instr PUNTOCOMA            { $$ = $1 }
     ;
 /*..............     Declaracion      ...............*/
@@ -282,8 +283,18 @@ declaracion:
     ; 
 /*..............     STRUCTS      ...............*/
 structs:
-        RSTRUCT ID LLAVA instrucciones LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); }
-    |   RSTRUCT ID LLAVA  LLAVC                 { $$ = new Struct($2,[].first_line, @1.last_column); }
+        RSTRUCT ID LLAVA instrucciones_struct LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); }
+    // |   RSTRUCT ID LLAVA  LLAVC                 { $$ = new Struct($2,[].first_line, @1.last_column); }
+    ;
+
+instrucciones_struct:
+        instrucciones_struct attribute      { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
+	|   attribute                           { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
+    ;
+
+attribute:
+    |   ID ID   PUNTOCOMA                   {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); }
+    |   declaracion PUNTOCOMA               { $$ = $1 }
     ;
 
 // Lista simbolos
@@ -479,7 +490,7 @@ rango:
     |   expr DOSPUNTOS REND                 { $$ = {"inicio": $1, "fin": $3}; }
     |   RBEGIN DOSPUNTOS expr               { $$ = {"inicio": $1, "fin": $3}; }
     ;
-/*..............     Nativas      ...............*/
+    /*..............     Nativas      ...............*/
 // ------------     ARR -> [Push]
 nat_push_instr:
         expr PUNTO RPUSH
@@ -543,7 +554,7 @@ expr:
                                             $$ = $3;
                                             $$.id = $1.id;
                                         }else{
-                                            $$ = new AccesoStruct($1,$3,@1.first_line, @1.first_column);
+                                            $$ = new AccesoStruct(new Identificador($1 , @1.first_line, @1.last_column),$3,@1.first_line, @1.first_column);
                                         }
                                     }
     |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
