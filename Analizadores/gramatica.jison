@@ -263,8 +263,8 @@ start :
 ::::::::::::::::::      Instrucciones     ::::::::::::::::::
 */
 instrucciones:
-        instrucciones instruccion           { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
-	|   instruccion                         { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
+        instrucciones instruccion           { $$ = $1;if($2!=null){ $$.push($2);} } //{ $1.push($2); $$ = $1;}
+	|   instruccion                         { $$= new Array(); if($1!=null){$$.push($1); }} /*{ $$ = [$1]; } */
     ;
 /*..............     Instruccion      ...............*/
 instruccion:
@@ -290,6 +290,13 @@ instruccion:
     |   structs PUNTOCOMA                   { $$ = $1 }
     
     |   nat_push_instr PUNTOCOMA            { $$ = $1 }
+    | error         { console.log("Error Sintactico" + yytext 
+                                    + "linea: " + this._$.first_line 
+                                    + "columna: " + this._$.first_column); 
+                        $$ =null;
+                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
+                                //                 this._$.first_line ,this._$.first_column);            
+                            }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
@@ -442,7 +449,15 @@ main_:
         LLAVA instrucciones LLAVC           {$$ = new Main($6,@1.first_line, @1.first_column); }
     |   RVOID RMAIN PARA PARC 
         LLAVA LLAVC                         {$$ = new Main([],@1.first_line, @1.first_column); }
+    | error         { console.log("Error Sintactico" + yytext 
+                                    + "linea: " + this._$.first_line 
+                                    + "columna: " + this._$.first_column); 
+                        $$=null;
+                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
+                                //                 this._$.first_line ,this._$.first_column);            
+                            }
     ;
+    
 /*..............     Funciones      ...............*/
 funciones:
         tipo ID PARA PARC
@@ -450,6 +465,13 @@ funciones:
     |   tipo ID
         PARA lista_parametros_func
         PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); }
+    | error         { console.log("Error Sintactico" + yytext 
+                                    + "linea: " + this._$.first_line 
+                                    + "columna: " + this._$.first_column); 
+                        $$=null;
+                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
+                                //                 this._$.first_line ,this._$.first_column);            
+                            }
     ;
 /*..............     Lista parametros      ...............*/
 lista_parametros_func: 
