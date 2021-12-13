@@ -75,6 +75,8 @@ BSL                                 "\\".
 /* -------- Arreglos */
 "caracterOfPosition"        { return 'RCHAROFPOS' };
 "subString"                 { return 'RSUBSTRING' };
+"toUppercase"               { return 'RTOUPPER' };
+"toLowercase"               { return 'RTOLOWER' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
 "++"                        { return 'INCRE'};
@@ -194,6 +196,8 @@ BSL                                 "\\".
     /* -------- String */
     const { CharOfPos } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos");
     const { subString } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/subString");
+    const { toUpper } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper");
+    const { toLower } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower");
 %}
 /*
 ###################################################
@@ -516,7 +520,8 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   expr PUNTO expr             {   if($3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos || $3 instanceof subString){
+    |   expr PUNTO expr             {   if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
+                                            $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
                                             $$.id = $1.id;
                                         }else{
@@ -528,4 +533,6 @@ expr:
     |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); }
     |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); }
     |   RSUBSTRING PARA expr COMA expr PARC   { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }
+    |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); }
+    |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); }
     ;

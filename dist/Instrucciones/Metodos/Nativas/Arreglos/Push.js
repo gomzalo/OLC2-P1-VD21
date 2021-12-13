@@ -16,6 +16,9 @@ class Push {
             if (arr.getArreglo()) {
                 this.tipo = arr.getTipo();
                 let val = this.expresion.ejecutar(table, tree);
+                if (val == null) {
+                    return new Errores_1.Errores("Semantico", `No se obtuvo ningun valor a ingresar.`, this.fila, this.columna);
+                }
                 console.log("push tipo arr: " + arr.getTipo());
                 console.log("push tipo val: " + this.expresion);
                 if (this.expresion.tipo == arr.getTipo()) {

@@ -5,12 +5,12 @@
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         println("");
         // CADENAS
-        println("repeticion-"^3);
-        println("Amperson-"&"Amperson-"&"Amperson-" );
+        println("repeticion-"^3); // repeticion-repeticion-repeticion-
+        println("Amperson-"&"Amperson-"&"Amperson-" ); // Amperson-Amperson-Amperson-
         println("");
         println("************   Print  **************");
         println("");
-        //PARTE DE RUEBA AUX
+        //PARTE DE PRUEBA AUX
         println("Probando Manejo de Entornos");
         println("El valor de var1 global es $a");  //10
         // int var1 = 5*5;
@@ -36,67 +36,68 @@
         println("************   If con {}  **************");
         println("");
         if(true){
-            println("puñeta xd");
+            println("entro a if simple xd"); // entro a if simple xd
         }
         println("");
         println("************   If-Else  con {} **************");
         println("");
         if(false){
-            println("puñeta xd");
+            println("no entra xd");
         }else{
-            println("no puñeta xd");
+            println("entro a else en if-else xd"); // entro a else en if-else xd
         }
         println("");
-        println("************   If-ElseIf-Else Anidados  con {} **************");
+        println("************   If-ElseIf-Else con {} **************");
         println("");
         if(false){
-            println("puñeta xd");
+            println("no entra xd");
         }else if(true){
-            println("elsif puñeta xd");
+            println("entro a elsif en if-else-elseif xd"); // entro a elsif en if-else-elseif xd
         }else{
-            println("no puñeta xd");
+            println("no entra xd");
         }
+        println("************   If-ElseIf-Else Anidados con {} **************");
         if(false){
-            println("puñeta xd");
+            println("no entra xd");
         }else if(true){
-            println("elsif puñeta xd");
+            println("entro a elsif xd"); // entro a elsif xd
             if(true){
-                println("if dentro de elseif");
+                println("if dentro de elseif"); // if dentro de elseif
                 if(true){
-                    println("if dentro de elseif x2");
+                    println("if dentro de elseif x2"); // if dentro de elseif x2
                 }
             }else{
-                println("else dentro de elseif");
+                println("no entra xd");
             }
         }else{
-            println("no puñeta xd");
+            println("no entra xd");
         }
         println("");
         println("************   If sin {}  **************");
         println("");
         if(true)
-            println("puñeta xd");
+            println("entro a if simple xd");
         println("");
         println("************   If-Else sin {} **************");
         println("");
         if(false)
-            println("puñeta xd");
+            println("no entra xd"); // entro a if simple xd
         else
-            println("no puñeta xd");
+            println("entro a else en if-else xd"); // entro a else en if-else xd
         println("");
-        println("************   If-ElseIf  sin {} **************");
+        println("************   If-ElseIf-Else  sin {} **************");
         println("");
         if(false)
-            println("puñeta xd");
+            println("no entra xd");
         else if(true)
-            println("elsif puñeta xd");
+            println("entro a elsif en if-else-elseif xd"); // entro a elsif en if-else-elseif xd
         else
-            println("no puñeta xd");
+            println("no entra xd");
         println("");
         println("************   Switch-C-D **************");
         println("");
-        char c = '+';
-        switch('+') {
+        char c = '*';
+        switch(c) {
             case '+':
                 println('+');
                 break;
@@ -104,7 +105,7 @@
                 println('-');
                 break;
             case '*':
-                println('*');
+                println('*'); // '*'
                 break;
             case '/':
                 println('/');
@@ -117,7 +118,7 @@
         println("");
         switch('+') {
             case '+':
-                println('+');
+                println('+'); // '+'
                 break;
             case '-':
                 println('-');
@@ -134,17 +135,15 @@
         println("");
         switch('+') {
             default:
-                println('0');
+                println('0'); // 0
         }
         println("");
         println("************   Ternario  **************");
         println("");
         int edad =56;
         String respuesta, animal = "Perro";
-
         respuesta = edad >= 50 ? "Puede vacunarse" : "No puede vacunarse";
-        println(respuesta);
-
+        println(respuesta); // No puede vacunarse
         println(animal == "Perro" ? 15 : 10);
         println(animal == "Perro" ? (animal == "Perro" ? "adentro" : 10) : 10); //adentro
         println("");
@@ -157,16 +156,16 @@
         int test1, test2 = 56, test3;
         char cprueba;
         int test;
-        println(test);
-        println(test2);
-        println(cprueba);
+        println(test); // 0
+        println(test2); // 56
+        println(cprueba); // 0
         println("");
         println("************   Incrementos  **************");
         println("");
         test1++;
         test1++;
         test1--;
-        println(test1); //1
+        println(test1); // 1
         test=-25*(69-33*2)+22-32*2-33*(-48+48);
         println(test); // -117
         println("");
@@ -176,38 +175,58 @@
         println("");
         println("************   While  **************");
         println("");
+        //while
         int i = 0;
         while (i < 5) {
-            println(i);
+            print(i,"|"); // 0|1|2|3|4
             i++;
         }
-            //while
+        println("");
+        println("");
+        println("************   While anidado **************");
+        println("");
         i = 0;
         while (i < 5) {
-            println(i);
+            println(i,":"); // i:
             i=i+1;
             int h =0;
             while (h < 5) {
-                println(h);
+                print(h,"|"); // 0|1|2|3|4
                 h=h+1;
             }
+            println("");
         }
+        /*  0:
+            0|1|2|3|4|
+            1:
+            0|1|2|3|4|
+            2:
+            0|1|2|3|4|
+            3:
+            0|1|2|3|4|
+            4:
+            0|1|2|3|4|
+        */
+        // 
+        println("");
         println("");
         println("************   Do-While  **************");
         println("");
         //do while
         int i_do = 0;
         do {
-            println(i_do);
+            print(i_do,":");
             i_do=i_do+1;
         }
-        while (i_do < 5);
+        while (i_do < 5); // 0:1:2:3:4
+        println("");
         println("");
         println("************   For  **************");
         println("");
         for (int i = 0; i < 5; i++) {
-            println(i);
+            print(i," "); // 0 1 2 3 4
         }
+        println("");
         println("");
         println("************   For-In cadena x **************");
         println("");
@@ -220,9 +239,9 @@
         println("");
         println("************   For-In arreglo x **************");
         println("");
-        for ts in ["2", "3", "5"]  // Recorre las letras de la cadena
+        for ts in ["2", "3", "5"]  // Recorre los valores del arreglo
         {
-            print(ts, "-");      // Imprime H-o-l-a-M-u-n-d-o-!
+            print(ts, "-");      // Imprime 2-3-5
         
         }
         println("");
@@ -241,6 +260,7 @@
         println("************   Declaracion de arreglos  **************");
         println("");
         String[] arr = ["H","O","L","A"];
+        println("Nuevo arreglo declarado: " & arr); // Nuevo arreglo declarado: H-O-L-A
         // String[] arr = ["H",["O","O"],"L","A"];
         println("");
         println("************   For-In arreglo declarado con rango **************");
@@ -263,7 +283,7 @@
         println("");
         println("************   Acceso de arreglos  **************");
         println("");
-        String a = arr[0]; // H
+        String a = arr[0];
         println(a); // H
         println(arr); // H-O-L-A
         println(arr[2]); // L
@@ -321,6 +341,17 @@
         println(var_str.caracterOfPosition(2)); // d
         println(var_str.caracterOfPosition(2.5)); // Error posicion no es un entero
         println("");
+        println("************   toUpper  **************");
+        println("");
+        String minus = "mintomay";
+        println(minus);
+        println(minus.toUppercase()); // MINTOMAY
+        println("************   toLower  **************");
+        println("");
+        String mayus = "MAYTOMIN";
+        println(mayus);
+        println(mayus.toLowercase()); // maytomin
+        println("");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         println(":::::::::::::   FUNCIONES  :::::::::::::");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
@@ -331,9 +362,6 @@
         println(operacionMatematica('*',90,5)); // 450
         metodo("hola"); // Hola
     }
-
-    // errorr revisar
-
     /*
         Comentario multilinea
     */

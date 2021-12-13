@@ -14,8 +14,13 @@ class Length {
         // console.log("pop type: " + arr.tipo);
         if (arr != null) {
             if (arr.getArreglo() || arr.getTipo() == Tipo_1.TIPO.CADENA) {
-                this.tipo = arr.getTipo();
-                return arr.getValor().length;
+                if (arr.getValor().length > 0) {
+                    this.tipo = arr.getTipo();
+                    return arr.getValor().length;
+                }
+                else {
+                    return new Errores_1.Errores("Semantico", `El arreglo con ID ${this.id}, esta vacio.`, this.fila, this.columna);
+                }
             }
             else {
                 return new Errores_1.Errores("Semantico", `Nativa LENGTH no puede utilizase en variable con ID ${this.id}, porque no es un arreglo o string.`, this.fila, this.columna);

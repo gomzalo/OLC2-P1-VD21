@@ -18,10 +18,19 @@ class subString {
             if (cadena.getTipo() == Tipo_1.TIPO.CADENA && !cadena.getArreglo()) {
                 this.tipo = cadena.getTipo();
                 let inicio = this.inicio.ejecutar(table, tree);
+                if (inicio == null) {
+                    return new Errores_1.Errores("Semantico", `No se obtuvo una posicion ${inicio}.`, this.fila, this.columna);
+                }
                 let fin = this.fin.ejecutar(table, tree);
+                if (fin == null) {
+                    return new Errores_1.Errores("Semantico", `No se obtuvo una posicion ${fin}.`, this.fila, this.columna);
+                }
                 console.log("charofpos tipo cadena: " + cadena.getTipo());
                 console.log("charofpos tipo inicio: " + this.inicio);
                 let tam = cadena.getValor().length;
+                if (!(tam > 0)) {
+                    return new Errores_1.Errores("Semantico", `La cadena en la variable con ID: '${this.id} es vacia'.`, this.fila, this.columna);
+                }
                 if (this.inicio.tipo == Tipo_1.TIPO.ENTERO && this.fin.tipo == Tipo_1.TIPO.ENTERO) {
                     if (fin < tam) {
                         if (inicio >= 0) {

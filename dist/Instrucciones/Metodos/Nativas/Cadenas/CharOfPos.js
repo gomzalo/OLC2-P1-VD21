@@ -16,7 +16,13 @@ class CharOfPos {
         if (cadena != null) {
             if (cadena.getTipo() == Tipo_1.TIPO.CADENA && !cadena.getArreglo()) {
                 this.tipo = cadena.getTipo();
+                if (!(cadena.getValor().length > 0)) {
+                    return new Errores_1.Errores("Semantico", `La cadena en la variable con ID: '${this.id} es vacia'.`, this.fila, this.columna);
+                }
                 let pos = this.expresion.ejecutar(table, tree);
+                if (pos == null) {
+                    return new Errores_1.Errores("Semantico", `No se obtuvo una posicion ${pos}.`, this.fila, this.columna);
+                }
                 console.log("charofpos tipo cadena: " + cadena.getTipo());
                 console.log("charofpos tipo pos: " + this.expresion);
                 let tam = cadena.getValor().length;

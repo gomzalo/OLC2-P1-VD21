@@ -13,8 +13,13 @@ class Pop {
         // console.log("pop type: " + arr.tipo);
         if (arr != null) {
             if (arr.getArreglo()) {
-                this.tipo = arr.getTipo();
-                return arr.getValor().pop();
+                if (arr.getValor().length > 0) {
+                    this.tipo = arr.getTipo();
+                    return arr.getValor().pop();
+                }
+                else {
+                    return new Errores_1.Errores("Semantico", `El arreglo con ID ${this.id}, esta vacio.`, this.fila, this.columna);
+                }
             }
             else {
                 return new Errores_1.Errores("Semantico", `Nativa POP no puede utilizase en variable con ID ${this.id}, porque no es un arreglo.`, this.fila, this.columna);

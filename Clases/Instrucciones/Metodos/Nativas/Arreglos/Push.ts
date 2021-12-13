@@ -33,7 +33,7 @@ export class Push implements Funcion{
             if(arr.getArreglo()){
                 this.tipo = arr.getTipo();
                 let val = this.expresion.ejecutar(table, tree);
-                if(val != null){
+                if(val == null){
                     return new Errores("Semantico", `No se obtuvo ningun valor a ingresar.`, this.fila, this.columna);
                 }
                 console.log("push tipo arr: " + arr.getTipo());
