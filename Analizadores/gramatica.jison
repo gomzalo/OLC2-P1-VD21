@@ -204,6 +204,7 @@ BSL                                 "\\".
     const { DeclararStruct } = require("../dist/Instrucciones/Struct/DeclararStruct");
     const { AccesoStruct } = require("../dist/Expresiones/Struct/AccesoStruct");
     const { StructInStruct } = require("../dist/Instrucciones/Struct/StructInStruct");
+    const { AsignaVariable } = require("../dist/Instrucciones/Struct/AsignaVariable");
     /* ..............      Nativas      ...............*/
     /* -------- Arreglos */
     const { Length } = require("../dist/Instrucciones/Metodos/Nativas/Length");
@@ -318,6 +319,7 @@ lista_simbolos:
     |   ID IGUAL expr                       { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
     ; 
 /*..............     Asignacion      ...............*/
+//    ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
 asignacion:
         ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
     |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
@@ -325,6 +327,7 @@ asignacion:
     |   ID ID IGUAL expr                    { $$ = new DeclararStruct($1,$2,$4,@1.first_line, @1.last_column); }
     
     ;
+
 /*..............     Print      ...............*/
 print_instr:
         RPRINT PARA lista_parametros PARC   { $$ = new Print($3, @1.first_line, @1.first_column, false); }
@@ -507,8 +510,26 @@ rango:
 // ------------     ARR -> [Push]
 nat_push_instr:
         ID PUNTO RPUSH
-        PARA expr PARC                      { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); }
+        PARA expr PARC        { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); }
+    |   ID PUNTO accesoAsignaStruct IGUAL  expr      {  
+                                                // let first = $1;
+                                                // if (first instanceof Identificador)
+                                                // {
+                                                //     $$ = new Asignacion(first.id ,$3, @1.first_line, @1.last_column);
+                                                // }else{
+                                                    $$ = new AsignaVariable(new Identificador($1 , @1.first_line, @1.last_column),$3,@1.first_line, @1.first_column);
+                                                    // $$ = $1;
+                                                    $$.instruccion = new Asignacion(null ,$5, @1.first_line, @1.last_column); 
+                                                // }
+                                            }
     ;
+
+    // |   accesoAsignaStruct IGUAL  expr  {}
+accesoAsignaStruct:
+        accesoAsignaStruct PUNTO ID     {   $$ = new AsignaVariable($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
+    |   ID                              {   $$ = new Identificador($1 , @1.first_line, @1.last_column);}
+    ;
+
 // ------------     Matematicas
 nat_matematicas:
         RSIN                                { $$ = $1; }
