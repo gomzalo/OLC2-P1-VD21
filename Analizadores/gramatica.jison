@@ -90,7 +90,7 @@ BSL                                 "\\".
 "toInt"                     { return 'RTOINT' };
 "toDouble"                  { return 'RTODOUBLE' };
 /* -------- Generales */
-"string"                    { return 'RSTRING_N' };
+// "string"                    { return 'RSTRING_N' };
 "typeof"                    { return 'RTYPEOF' };
 /*::::::::::::::::::     Simbolos      ::::::::::::::::::*/
 /*..............     Aumento-decremento      ...............*/
@@ -596,6 +596,6 @@ expr:
     |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); }
     |   nat_parse                   { $$ = $1; }
     |   nat_conversion              { $$ = $1; }
-    |   RSTRING_N PARA expr PARC    { $$ = new StringN($3, @1.first_line, @1.first_column); }
+    |   RSTRING PARA expr PARC    { $$ = new StringN($3, @1.first_line, @1.first_column); }
     |   RTYPEOF PARA expr PARC      { $$ = new TypeOfN($3, @1.first_line, @1.first_column); }
     ;

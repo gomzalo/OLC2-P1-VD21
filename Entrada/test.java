@@ -399,7 +399,17 @@
         println(toInt(2.223)); // 2
         println("");
         println("************   String  **************");
-        println(String(218128)); // 2
+        println("");
+        println(string(218128)); // 2
+        println("");
+        println("************   TypeOf  **************");
+        println("");
+        println(typeOf("a")); // string
+        println(typeOf(2)); // int
+        println(typeOf(2.5)); // double
+        println(typeOf('e')); // char
+        println(typeOf(a)); // int
+        println(typeOf([2,2,2])); // array
         println("");
         println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         println(":::::::::::::   FUNCIONES  :::::::::::::");
