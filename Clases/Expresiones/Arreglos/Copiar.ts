@@ -21,7 +21,7 @@ export class Copiar implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        console.log("COPARR: " + this.id);
+        // console.log("COPARR: " + this.id);
         let simbolo = table.getSymbolTabla(this.id.toString());
         if(simbolo != null){
             if(simbolo.getArreglo()){

@@ -39,7 +39,7 @@ export  class Declaracion implements Instruccion{
                 }
                 if(tipo_valor == this.tipo )
                 {
-                    console.log("entree tipo declaracion");
+                    console.log("entre tipo declaracion");
                     //--> Lo agregamos a la tabla de simbolos 
                     let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,valor);
                     table.setSymbolTabla(nuevo_simb);

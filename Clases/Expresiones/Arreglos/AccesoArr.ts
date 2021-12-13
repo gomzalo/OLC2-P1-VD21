@@ -65,8 +65,8 @@ export  class AccesoArr implements Instruccion{
             if(end instanceof Errores){
                 return end;
             }
-            console.log("begin: " + begin);
-            console.log("end: " + end);
+            // console.log("begin: " + begin);
+            // console.log("end: " + end);
             let array = [];
             let contador = begin;
             while(contador <= end){
@@ -75,9 +75,9 @@ export  class AccesoArr implements Instruccion{
             }
             return array;
         }else{
-            console.log("AccArr NOT RANK");
+            // console.log("AccArr NOT RANK");
             let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
-            console.log("val acc arr: " + value);
+            // console.log("val acc arr: " + value);
             if(value instanceof Errores){
                 return value;
             }
