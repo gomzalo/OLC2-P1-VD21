@@ -15,7 +15,7 @@ class TablaSimbolos {
         else {
             // this.tabla[simbolo.getId()] = simbolo;
             this.tabla.set(simbolo.getId(), simbolo);
-            console.log("set simbolo " + simbolo.getId() + " " + simbolo.getValor());
+            // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }
     }
@@ -82,7 +82,7 @@ class TablaSimbolos {
                     // AGREGAR STRUCT ACA
                     return null;
                 }
-                console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
+                // console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
                 return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }
             else {

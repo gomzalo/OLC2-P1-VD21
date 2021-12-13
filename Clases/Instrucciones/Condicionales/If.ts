@@ -35,7 +35,7 @@ export class If implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
-        console.log("if cond: " + valor_condicion);
+        // console.log("if cond: " + valor_condicion);
         if (valor_condicion instanceof Errores)
             {
                 tree.getErrores().push(valor_condicion);

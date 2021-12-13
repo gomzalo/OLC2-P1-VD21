@@ -19,7 +19,7 @@ export class TablaSimbolos{
         }else{
             // this.tabla[simbolo.getId()] = simbolo;
             this.tabla.set(simbolo.getId(),simbolo);
-            console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
+            // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }
     }
@@ -97,7 +97,7 @@ export class TablaSimbolos{
 
                     return null;
                 }
-                console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
+                // console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
                 return new Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
             }else{
                 tablaActual = tablaActual.anterior
