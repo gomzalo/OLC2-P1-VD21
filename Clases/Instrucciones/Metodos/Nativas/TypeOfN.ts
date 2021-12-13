@@ -48,7 +48,7 @@ export class TypeOfN implements Funcion{
     getTipo(tipo){
         switch(tipo){
             case TIPO.CADENA:
-                return "string";
+                return "String";
             case TIPO.ENTERO:
                 return "int";
             case TIPO.DECIMAL:

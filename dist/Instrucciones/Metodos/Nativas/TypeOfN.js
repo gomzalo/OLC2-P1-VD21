@@ -32,7 +32,7 @@ class TypeOfN {
     getTipo(tipo) {
         switch (tipo) {
             case Tipo_1.TIPO.CADENA:
-                return "string";
+                return "String";
             case Tipo_1.TIPO.ENTERO:
                 return "int";
             case Tipo_1.TIPO.DECIMAL:

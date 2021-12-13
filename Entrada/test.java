@@ -1,4 +1,4 @@
-void Main()
+void main()
 {
     println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
     println(":::::::::::::   PRIMITIVOS  :::::::::::::");
@@ -12,9 +12,10 @@ void Main()
     println("");
     //PARTE DE PRUEBA AUX
     println("Probando Manejo de Entornos");
-    println("El valor de var1 global es $a");  //10
-    // int var1 = 5*5;
-    println("El valor de var1 local es $a");  //25
+    int var11 = 10;
+    println("El valor de var1 global es $var11");  //10
+    int var1 = 5*5;
+    println("El valor de var1 local es $var1");  //25
     println("");
     println("************   Expresiones  **************");
     println("");
@@ -52,7 +53,7 @@ void Main()
     if(false){
         println("no entra xd");
     }else if(true){
-        println("entro a elsif en if-else-elseif xd"); // entro a elsif en if-else-elseif xd
+        println("entro a elsif en if-else-elseif xd"); // entro a elsif en if-elseif-else xd
     }else{
         println("no entra xd");
     }
@@ -90,7 +91,7 @@ void Main()
     if(false)
         println("no entra xd");
     else if(true)
-        println("entro a elsif en if-else-elseif xd"); // entro a elsif en if-else-elseif xd
+        println("entro a elsif en if-else-elseif xd"); // entro a elsif en if-elseif-else xd
     else
         println("no entra xd");
     println("");
@@ -143,9 +144,9 @@ void Main()
     int edad =56;
     String respuesta, animal = "Perro";
     respuesta = edad >= 50 ? "Puede vacunarse" : "No puede vacunarse";
-    println(respuesta); // No puede vacunarse
-    println(animal == "Perro" ? 15 : 10);
-    println(animal == "Perro" ? (animal == "Perro" ? "adentro" : 10) : 10); //adentro
+    println(respuesta); // Puede vacunarse
+    println(animal == "Perro" ? 15 : 10); // 15
+    println(animal == "Perro" ? (animal == "Perro" ? "adentro" : 10) : 10); // adentro
     println("");
     println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
     println(":::::::::::::   VARIABLES  :::::::::::::");
@@ -168,6 +169,7 @@ void Main()
     println(test1); // 1
     test=-25*(69-33*2)+22-32*2-33*(-48+48);
     println(test); // -117
+    println(test++); // -116
     println("");
     println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
     println(":::::::::::::   LOOPS  :::::::::::::");
@@ -303,7 +305,7 @@ void Main()
     println("************   Pop arreglos  **************");
     println("");
     println(arr.pop()); // A
-    String t = arr.pop(); // T
+    String t = arr.pop();
     println(t); // T
     println(arr); // H,O
     println("");
@@ -315,6 +317,7 @@ void Main()
     println("");
     arr.push("S");
     println(arr); // H,O,S
+    println(arr.lenght()); // 3
     println("");
     println("************   Copia de arreglos  **************");
     println("");
@@ -383,10 +386,10 @@ void Main()
     println("");
     String a = "3";
     println(int.parse("8200")); // 8200
-    println(typeOf(a)); // string
+    println(typeof(a)); // string
     int a_int = int.parse(a);
     println(int.parse(a)); // 3
-    println(typeOf(a_int)); // int
+    println(typeof(a_int)); // int
     println("");
     println("************   Parse a double  **************");
     println("");
@@ -411,12 +414,12 @@ void Main()
     println("");
     println("************   TypeOf  **************");
     println("");
-    println(typeOf("a")); // string
-    println(typeOf(2)); // int
-    println(typeOf(2.5)); // double
-    println(typeOf('e')); // char
-    println(typeOf(a)); // int
-    println(typeOf([2,2,2])); // array
+    println(typeof("a")); // string
+    println(typeof(2)); // int
+    println(typeof(2.5)); // double
+    println(typeof('e')); // char
+    println(typeof(a)); // int
+    println(typeof([2,2,2])); // array
     println("");
     println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
     println(":::::::::::::   FUNCIONES  :::::::::::::");
@@ -427,6 +430,7 @@ void Main()
     println(operacionMatematica('+',90,5)); // 95
     println(operacionMatematica('*',90,5)); // 450
     metodo("hola"); // Hola
+    return;
 }
 /*
     Comentario multilinea
@@ -452,7 +456,7 @@ double operacionMatematica(char operador, int valor1, int valor2){
     }
 } 
 
-void metodo (string hola)
+void metodo (String hola)
 {
     println(hola);
 }

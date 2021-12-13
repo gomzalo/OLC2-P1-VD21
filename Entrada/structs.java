@@ -1,6 +1,6 @@
 struct Actor
 {
-    string nombre;
+    String nombre;
     int edad;
     double deciaml;
     char c;
@@ -10,7 +10,7 @@ struct Actor
 
 struct Estudiante
 {
-    string name;
+    String name;
     int clases;
     double promedio;
     char c;
@@ -66,9 +66,9 @@ void main()
     println(abuelo.c);
     println(abuelo.estado);
     println(abuelo.next);
-  println("--------ACCESSOOO Y EDICION  3------");
-  	abuelo.next.name = "Acceso desde abuelo";
-  println(abuelo.next);
-  println(PapaEstudiante.next);
-
+    println("--------ACCESSOOO Y EDICION  3------");
+    abuelo.next.name = "Acceso desde abuelo";
+    println(abuelo.next);
+    println(PapaEstudiante.next);
+    return;
 }

@@ -104,11 +104,6 @@ export class Ast  {
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                 }
-                if( value instanceof Return){
-                    let error = new Errores("Semantico", "Sentencia Return fuera de Metodos/Control/Ciclos", instr.fila, instr.columna);
-                    this.getErrores().push(error);
-                    this.updateConsolaPrintln(error.toString());
-                }
             }
             // instr.ejecutar(this.TSglobal, this);
         };
