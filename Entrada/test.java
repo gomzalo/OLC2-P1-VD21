@@ -262,8 +262,16 @@ void main()
     println("************   Declaracion de arreglos  **************");
     println("");
     String[] arr = ["H","O","L","A"];
-    println("Nuevo arreglo declarado: " & arr); // Nuevo arreglo declarado: H-O-L-A
-    // String[] arr = ["H",["O","O"],"L","A"];
+    println(arr.lenght()); // 4
+    println("Nuevo arreglo arr declarado y asignado: " & arr); // Nuevo arreglo declarado: H-O-L-A
+    int[] arrd;
+    println("Nuevo arreglo arrd declarado: " & arrd); // Nuevo arreglo declarado: 
+    arrd = [1,2,5,6];
+    println("Nuevo arreglo arrd asignado: " & arrd); // Nuevo arreglo asignado: 1,2,5,6
+	println(typeof(arr));
+    println(typeof(arrd));
+    String[] arr3 = ["H",["O","O"],"L","A"];
+    println("Nuevo arreglo arr3 declarado: " & arr3); // Nuevo arreglo declarado: H-[O-O]-L-A    
     println("");
     println("************   For-In arreglo declarado con rango **************");
     println("");
@@ -321,7 +329,7 @@ void main()
     println("");
     println("************   Copia de arreglos  **************");
     println("");
-    String []arr2 = #arr;
+    String[] arr2 = #arr;
     println(arr2); // H,O,S
     println("");
     println(":::::::::::::   String  :::::::::::::");
@@ -430,7 +438,7 @@ void main()
     println(operacionMatematica('+',90,5)); // 95
     println(operacionMatematica('*',90,5)); // 450
     metodo("hola"); // Hola
-    return;
+    // return;
 }
 /*
     Comentario multilinea

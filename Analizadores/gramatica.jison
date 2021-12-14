@@ -352,7 +352,15 @@ lista_simbolos:
 /*..............     Asignacion      ...............*/
 //    ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
 asignacion:
-        ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
+        ID IGUAL expr                       {
+                                                if($3 instanceof Array){
+                                                    // console.log("asignacion arreglo");
+                                                    $$ = new DeclaracionArr(null, null, $1, $3, @1.first_line, @1.last_column);
+                                                }else{
+                                                    // console.log("asignacion normal");
+                                                    $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column);
+                                                }
+                                            }
     |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
     |   ID ID IGUAL expr                    { $$ = new DeclararStruct($1,$2,$4,@1.first_line, @1.last_column); }
@@ -519,6 +527,8 @@ llamada :
 decl_arr_instr:
         tipo lista_dim ID
         IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column); }
+    |   ID IGUAL lista_exp_arr              { $$ = new DeclaracionArr(null, null, $1, $2, @1.first_line, @1.last_column); }
+    |   tipo lista_dim ID                   { $$ = new DeclaracionArr($1, $2, $3, null, @1.first_line, @1.last_column); }
     ;
 // ------------     Dimensiones
 lista_dim:
@@ -557,8 +567,9 @@ rango:
 // ------------     ARR -> [Push]
 nat_push_instr:
         ID PUNTO RPUSH
-        PARA expr PARC        { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); }
-    |   ID PUNTO accesoAsignaStruct IGUAL  expr      {  
+        PARA expr PARC                      { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); }
+    |   ID PUNTO
+        accesoAsignaStruct IGUAL expr       {  
                                                 // let first = $1;
                                                 // if (first instanceof Identificador)
                                                 // {

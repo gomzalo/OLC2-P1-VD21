@@ -13,14 +13,16 @@ class TypeOfN {
         if (this.expresion instanceof Array) {
             return "array";
         }
-        let valor = this.expresion.ejecutar(table, tree);
-        // console.log("pop type: " + valor.tipo);
-        if (valor != null) {
-            this.tipo = valor.tipo;
-            return this.getTipo(this.expresion.tipo);
-        }
         else {
-            return new Errores_1.Errores("Semantico", `Valor nulo.`, this.fila, this.columna);
+            let valor = this.expresion.ejecutar(table, tree);
+            // console.log("pop type: " + valor.tipo);
+            if (valor != null) {
+                this.tipo = valor.tipo;
+                return this.getTipo(this.expresion.tipo);
+            }
+            else {
+                return new Errores_1.Errores("Semantico", `Valor nulo.`, this.fila, this.columna);
+            }
         }
     }
     translate3d(table, tree) {

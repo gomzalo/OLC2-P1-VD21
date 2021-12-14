@@ -202,8 +202,7 @@ compilar.addEventListener('click', () => {
 
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue()); // return ast
-        // result.Errores = gramatica.errores;
-        
+        // result.Errores = gramatica.errores.slice()
         result.ejecutar();
     
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";

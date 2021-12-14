@@ -24,7 +24,7 @@ export class Main implements Instruccion{
 
         for(let instr of this.instructions)
         {
-            console.log(instr)
+            // console.log(instr)
             let result = instr.ejecutar(newTable,tree);
             if (result instanceof Errores)
             {

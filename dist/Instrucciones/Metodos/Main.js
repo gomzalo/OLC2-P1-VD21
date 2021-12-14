@@ -15,7 +15,7 @@ class Main {
     ejecutar(table, tree) {
         let newTable = new TablaSimbolos_1.TablaSimbolos(table);
         for (let instr of this.instructions) {
-            console.log(instr);
+            // console.log(instr)
             let result = instr.ejecutar(newTable, tree);
             if (result instanceof Errores_1.Errores) {
                 tree.getErrores().push(result);
