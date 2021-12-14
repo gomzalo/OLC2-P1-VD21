@@ -1,21 +1,21 @@
 struct Actor
 {
-    String nombre;
-    int edad;
-    double deciaml;
-    char c;
-    boolean bandera;
+    String nombre,
+    int edad,
+    double deciaml,
+    char c,
+    boolean bandera//,
     // Actor actor;
 };
 
 struct Estudiante
 {
-    String name;
-    int clases;
-    double promedio;
-    char c;
-    boolean estado;
-    Estudiante next;
+    String name,
+    int clases,
+    double promedio,
+    char c,
+    boolean estado,
+    Estudiante next
 };
 
 void main()
@@ -70,5 +70,9 @@ void main()
     abuelo.next.name = "Acceso desde abuelo";
     println(abuelo.next);
     println(PapaEstudiante.next);
+
+    println("--------ASIGNANDO STRUCT A STRUCT CON ACCESO Y EDICION  3------");
+    abuelo.next = null;
+    println(abuelo.next);
     return;
 }

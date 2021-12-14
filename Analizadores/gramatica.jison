@@ -163,6 +163,7 @@ BSL                                 "\\".
 
     /*::::::::::::::::::     AST      ::::::::::::::::::*/
     const { Ast } = require("../dist/Ast/Ast");
+    const { Errores } = require("../dist/Ast/Errores");
     /*::::::::::::::::::     ENUMs      ::::::::::::::::::*/
     const { TIPO, OperadorAritmetico, OperadorLogico, OperadorRelacional } = require("../dist/TablaSimbolos/Tipo");
     /*::::::::::::::::::     Expresiones      ::::::::::::::::::*/
@@ -228,6 +229,7 @@ BSL                                 "\\".
     /* -------- Generales */
     const { StringN } = require("../dist/Instrucciones/Metodos/Nativas/StringN");
     const { TypeOfN } = require("../dist/Instrucciones/Metodos/Nativas/TypeOfN");
+
 %}
 /*
 ###################################################
@@ -262,7 +264,13 @@ BSL                                 "\\".
 ::::::::::::::::::      Gramatica     ::::::::::::::::::
 *//*{ $$ = $1; return $$; }*/
 start : 
-        instrucciones EOF                   { console.log($1); $$ = new Ast();  $$.instrucciones = $1; return $$; }
+        instrucciones EOF                   {   console.log($1); $$ = new Ast();  $$.instrucciones = $1; $$.Errores = errores.slice();
+                                                // errores.forEach((error)=>{
+                                                //     // $$.Errores.push(error);
+                                                //     console.log("eeeerrrrrrrorrrres")
+                                                //     console.log(error);
+                                                // });
+                                                return $$; }
     ;
 /*
 ::::::::::::::::::      Instrucciones     ::::::::::::::::::
@@ -316,15 +324,24 @@ structs:
     ;
 
 instrucciones_struct:
-        instrucciones_struct attribute      { $$ = $1; $$.push($2); } //{ $1.push($2); $$ = $1;}
-	|   attribute                           { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
+        instrucciones_struct COMA attribute      { $$ = $1; $$.push($3); } //{ $1.push($2); $$ = $1;}
+	|   attribute                            { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
     ;
 
-attribute:
-    |   ID ID   PUNTOCOMA                   {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); }
-    |   declaracion PUNTOCOMA               { $$ = $1 }
+//    |   declaracion                { $$ = $1 }
+attribute:  ID ID                       {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); }
+
+    |   tipo  attributeDeclaStruct      { $$ = new Declaracion($1, [$2], @1.first_line, @1.last_column); }
+    ;
+    
+attributeDeclaStruct: 
+        ID                                  { $$=new Simbolo($1,null,null,@1.first_line, @1.first_column,null); }
+    |   ID IGUAL expr                       { $$=new Simbolo($1,null,null,@1.first_line, @1.first_column,$3); }
     ;
 
+// isComaMaybe :           {$$=null;}
+//             |  COMA     {$$=null;}
+//                 ;
 // Lista simbolos
 lista_simbolos:
         lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
@@ -419,6 +436,7 @@ continue_instr:
 // ------------     Return
 return_instr:
         RRETURN expr                        { $$ = new Return($2,@1.first_line, @1.first_column); }
+    |   RRETURN                             { $$ = new Return(new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column),@1.first_line, @1.first_column); }
     ;
 /*..............     While      ...............*/
 while_instr:

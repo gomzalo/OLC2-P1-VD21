@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
 const Errores_1 = require("../Ast/Errores");
+const Tipo_1 = require("./Tipo");
 class TablaSimbolos {
     constructor(anterior) {
         this.anterior = anterior;
@@ -29,14 +30,18 @@ class TablaSimbolos {
     }
     toStringTable() {
         let cadena = "";
-        if (this.anterior != null) {
-            cadena = this.anterior.toStringTable();
-            return cadena;
+        if (this.tabla == null) {
+            return "null";
         }
         JSON.stringify((this.tabla.forEach((key, value) => {
             // console.log(value)
             // console.log( key['valor'] +"," )
-            cadena += key['valor'] + ",";
+            if (key != null && key['valor'] instanceof TablaSimbolos) {
+                cadena += key.toStringStruct();
+            }
+            else {
+                cadena += key['valor'] + ",";
+            }
         })));
         return cadena;
     }
@@ -76,7 +81,9 @@ class TablaSimbolos {
             let existe = tablaActual.tabla.get(simbolo.id);
             if (existe != null) {
                 // validacion DE TIPO
-                if (existe.getTipo() == simbolo.getTipo()) {
+                if (existe.getTipo() == simbolo.getTipo()
+                    || (simbolo.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == existe.getTipo())
+                    || (existe.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == Tipo_1.TIPO.NULO)) {
                     existe.setValor(simbolo.getValor());
                     existe.setTipo(simbolo.getTipo());
                     // AGREGAR STRUCT ACA

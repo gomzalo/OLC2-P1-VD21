@@ -1,3 +1,4 @@
+import { traceDeprecation } from "process";
 import { Errores } from "../Ast/Errores";
 import { Simbolo } from "./Simbolo";
 import { TIPO } from "./Tipo";
@@ -36,15 +37,19 @@ export class TablaSimbolos{
 
     public toStringTable(){
         let cadena = "";
-        if (this.anterior != null)
+        if(this.tabla == null)
         {
-            cadena = this.anterior.toStringTable();
-            return cadena;
+            return "null";
         }
-            JSON.stringify((this.tabla.forEach((key ,value)=>{
+        JSON.stringify((this.tabla.forEach((key ,value)=>{
             // console.log(value)
             // console.log( key['valor'] +"," )
-            cadena +=  key['valor'] +",";
+            if (key != null && key['valor'] instanceof TablaSimbolos)
+            {
+                    cadena += key.toStringStruct()
+            }else{
+                cadena +=  key['valor'] +",";
+            }
         })));
         return cadena;
     }
@@ -89,7 +94,10 @@ export class TablaSimbolos{
             let existe = tablaActual.tabla.get(simbolo.id);
             if(existe != null){
                 // validacion DE TIPO
-                if(existe.getTipo() == simbolo.getTipo() ){
+                if(existe.getTipo() == simbolo.getTipo() 
+                    || (simbolo.getTipo() == TIPO.STRUCT && simbolo.getTipo() == existe.getTipo())
+                    || (existe.getTipo() ==  TIPO.STRUCT && simbolo.getTipo() == TIPO.NULO ))
+                {
                     existe.setValor(simbolo.getValor());
                     existe.setTipo(simbolo.getTipo());
 

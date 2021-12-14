@@ -96,7 +96,7 @@ export class DeclararStruct implements Instruccion{
                     if( valueExpr instanceof Errores ){
                         return new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.llamada.fila, this.llamada.columna);
                     }
-                    if (SymbolStructNow.variables[count].tipo == expr.tipo || SymbolStructNow.variables[count].tipo == TIPO.ANY)  //Valida Tipos
+                    if (SymbolStructNow.variables[count].tipo == expr.tipo || SymbolStructNow.variables[count].tipo == TIPO.ANY || expr.tipo == TIPO.NULO)  //Valida Tipos
                     {
                         let symbol;
                         if (SymbolStructNow.variables[count].tipo == TIPO.ANY)

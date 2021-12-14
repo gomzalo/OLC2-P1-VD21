@@ -65,15 +65,17 @@ export class Simbolo{
 
     public toStringStruct()
     {
-        // return this.id + " - " + this.descripcion + " [" + String(this.fila) + "," + String(this.columna) + "]";
-        console.log("entre a to string struct")
         let cadena =""
         
-        if (this.valor instanceof TablaSimbolos)
-        {
-            console.log(this.valor.tabla)
-            cadena = this.valor.toStringTable();
-        }
-        return this.id + "(" +`${cadena}` +")"; 
+        // if (this.valor instanceof TablaSimbolos)
+        // {
+            if(this.valor !=null){
+                // console.log(this.valor.tabla)
+                cadena += this.valor.toStringTable();
+            }else{
+                return this.id + "(null)"; 
+            }
+        // }
+        return this.id + "(" + cadena +")"; 
     }
 }

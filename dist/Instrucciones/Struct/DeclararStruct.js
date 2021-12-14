@@ -71,7 +71,7 @@ class DeclararStruct {
                     if (valueExpr instanceof Errores_1.Errores) {
                         return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.llamada.fila, this.llamada.columna);
                     }
-                    if (SymbolStructNow.variables[count].tipo == expr.tipo || SymbolStructNow.variables[count].tipo == Tipo_1.TIPO.ANY) //Valida Tipos
+                    if (SymbolStructNow.variables[count].tipo == expr.tipo || SymbolStructNow.variables[count].tipo == Tipo_1.TIPO.ANY || expr.tipo == Tipo_1.TIPO.NULO) //Valida Tipos
                      {
                         let symbol;
                         if (SymbolStructNow.variables[count].tipo == Tipo_1.TIPO.ANY) {
