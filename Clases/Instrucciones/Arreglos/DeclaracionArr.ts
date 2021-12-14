@@ -42,7 +42,7 @@ export  class DeclaracionArr implements Instruccion{
                 if(this.expresiones instanceof Copiar){
                     // console.log("AS ARR COPIAR");
                     value = this.expresiones.ejecutar(table, tree);
-                    console.log("AS ARR COPIAR VAL: " + value);
+                    // console.log("AS ARR COPIAR VAL: " + value);
                     if(value == null){
                         return new Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
                     }
@@ -107,8 +107,8 @@ export  class DeclaracionArr implements Instruccion{
             }else{
                 // console.log("DECL Y AS ARR ");
                 value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
-                console.log("crearArr value: " + value);
-                console.log("crearArr size: " + value.length);
+                // console.log("crearArr value: " + value);
+                // console.log("crearArr size: " + value.length);
                 // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
                 // value = this.arr;
                 // console.log("value declArr: " + value);

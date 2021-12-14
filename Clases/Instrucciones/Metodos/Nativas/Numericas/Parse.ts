@@ -30,9 +30,9 @@ export class Parse implements Funcion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        console.log("parse params: " + this.parameters);
+        // console.log("parse params: " + this.parameters);
         let cadena = this.parameters.ejecutar(table, tree);
-        console.log("parse cadena: " + this.parameters.tipo);
+        // console.log("parse cadena: " + this.parameters.tipo);
         if(cadena != null){
             if(this.parameters.tipo == TIPO.CADENA){
                 this.tipo = this.tipo_funcion;

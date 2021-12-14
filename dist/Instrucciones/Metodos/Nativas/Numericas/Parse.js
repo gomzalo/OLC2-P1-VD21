@@ -11,9 +11,9 @@ class Parse {
         this.columna = columna;
     }
     ejecutar(table, tree) {
-        console.log("parse params: " + this.parameters);
+        // console.log("parse params: " + this.parameters);
         let cadena = this.parameters.ejecutar(table, tree);
-        console.log("parse cadena: " + this.parameters.tipo);
+        // console.log("parse cadena: " + this.parameters.tipo);
         if (cadena != null) {
             if (this.parameters.tipo == Tipo_1.TIPO.CADENA) {
                 this.tipo = this.tipo_funcion;

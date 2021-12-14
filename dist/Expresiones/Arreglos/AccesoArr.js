@@ -67,14 +67,16 @@ class AccesoArr {
         }
         else {
             // console.log("AccArr NOT RANK");
+            console.log("AccArr exp val: " + this.expresiones);
+            console.log("AccArr exp size: " + this.expresiones.length);
             let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
             // console.log("val acc arr: " + value);
             if (value instanceof Errores_1.Errores) {
                 return value;
             }
-            if (value instanceof Array) {
-                return new Errores_1.Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
-            }
+            // if(value instanceof Array){
+            //     return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
+            // }
             return value;
         }
     }
@@ -85,23 +87,33 @@ class AccesoArr {
         throw new Error("Method not implemented.");
     }
     buscarDimensiones(table, tree, expresiones, arreglo) {
-        let value = null;
+        // let value = null;
         if (expresiones.length == 0) {
             return arreglo;
         }
         if (!(arreglo instanceof Array)) {
             return new Errores_1.Errores("Semantico", "Acceso de mas en el arreglo.", this.fila, this.columna);
         }
-        let dimension = expresiones.pop();
+        // Obteniendo las dimensiones
+        let dimension = expresiones.shift();
+        console.log("accArr exp: " + expresiones);
+        // Posicion en dimension
         let num = dimension.ejecutar(table, tree);
+        console.log("accArr num dim: " + num);
+        console.log("accArr arr: " + arreglo);
         if (num instanceof Errores_1.Errores) {
             return num;
         }
         if (dimension.tipo != Tipo_1.TIPO.ENTERO) {
             return new Errores_1.Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
-        value = this.buscarDimensiones(tree, table, expresiones, arreglo[num]);
-        return value;
+        if (Array.isArray(arreglo[num])) {
+            console.log("es arr");
+            this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+        }
+        else {
+            return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num]);
+        }
     }
 }
 exports.AccesoArr = AccesoArr;

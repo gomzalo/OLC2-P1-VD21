@@ -15,7 +15,7 @@ class Matematicas {
         if (expresion != null) {
             let valor;
             if (this.expresion instanceof Identificador_1.Identificador) {
-                console.log("es id");
+                // console.log("es id");
                 valor = expresion;
             }
             else {

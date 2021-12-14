@@ -23,8 +23,8 @@ class CharOfPos {
                 if (pos == null) {
                     return new Errores_1.Errores("Semantico", `No se obtuvo una posicion ${pos}.`, this.fila, this.columna);
                 }
-                console.log("charofpos tipo cadena: " + cadena.getTipo());
-                console.log("charofpos tipo pos: " + this.expresion);
+                // console.log("charofpos tipo cadena: " + cadena.getTipo());
+                // console.log("charofpos tipo pos: " + this.expresion);
                 let tam = cadena.getValor().length;
                 if (this.expresion.tipo == Tipo_1.TIPO.ENTERO) {
                     if (pos < tam) {

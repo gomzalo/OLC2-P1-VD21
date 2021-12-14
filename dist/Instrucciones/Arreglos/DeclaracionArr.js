@@ -33,7 +33,7 @@ class DeclaracionArr {
                 if (this.expresiones instanceof Copiar_1.Copiar) {
                     // console.log("AS ARR COPIAR");
                     value = this.expresiones.ejecutar(table, tree);
-                    console.log("AS ARR COPIAR VAL: " + value);
+                    // console.log("AS ARR COPIAR VAL: " + value);
                     if (value == null) {
                         return new Errores_1.Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
                     }
@@ -102,8 +102,8 @@ class DeclaracionArr {
             else {
                 // console.log("DECL Y AS ARR ");
                 value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
-                console.log("crearArr value: " + value);
-                console.log("crearArr size: " + value.length);
+                // console.log("crearArr value: " + value);
+                // console.log("crearArr size: " + value.length);
                 // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
                 // value = this.arr;
                 // console.log("value declArr: " + value);
@@ -130,7 +130,6 @@ class DeclaracionArr {
         throw new Error("Method not implemented.");
     }
     crearDimensiones(table, tree, expresiones) {
-        // console.log("expr crearD arr: " + expresiones);
         let arr = Array();
         while (true) {
             if (!(expresiones.length == 0)) {
@@ -141,11 +140,7 @@ class DeclaracionArr {
                 }
                 else {
                     let num = dimension.ejecutar(table, tree);
-                    // console.log("crearArr: num.tipo " + dimension.tipo);
-                    // console.log("crearArr: this.tipo_arr " + this.tipo_arr);
                     if (dimension.tipo != this.tipo_arr) {
-                        // console.log("Tipo distinto al tipo del arreglo");
-                        // console.log(tree);
                         let res = new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
                         tree.Errores.push(res);
                         tree.updateConsolaPrintln(res.toString());

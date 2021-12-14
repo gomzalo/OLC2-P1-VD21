@@ -15,8 +15,8 @@ class Case {
     }
     ejecutar(table, tree) {
         let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        console.log("cs valcs: " + this.valor_case);
-        console.log("cs valorsw: " + this.valor_sw);
+        // console.log("cs valcs: " + this.valor_case);
+        // console.log("cs valorsw: " + this.valor_sw);
         if (this.valor_sw == this.valor_case.ejecutar(table, tree)) {
             for (let res of this.lista_instrucciones) {
                 let ins = res.ejecutar(ts_local, tree);

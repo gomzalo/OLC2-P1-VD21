@@ -36,8 +36,8 @@ export class Push implements Funcion{
                 if(val == null){
                     return new Errores("Semantico", `No se obtuvo ningun valor a ingresar.`, this.fila, this.columna);
                 }
-                console.log("push tipo arr: " + arr.getTipo());
-                console.log("push tipo val: " + this.expresion);
+                // console.log("push tipo arr: " + arr.getTipo());
+                // console.log("push tipo val: " + this.expresion);
                 if(this.expresion.tipo == arr.getTipo()){
                     return arr.getValor().push(val);
                 }else{

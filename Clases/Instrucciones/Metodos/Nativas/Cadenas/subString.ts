@@ -43,8 +43,8 @@ export class subString implements Funcion{
                 if(fin == null){
                     return new Errores("Semantico", `No se obtuvo una posicion ${fin}.`, this.fila, this.columna);
                 }
-                console.log("charofpos tipo cadena: " + cadena.getTipo());
-                console.log("charofpos tipo inicio: " + this.inicio);
+                // console.log("charofpos tipo cadena: " + cadena.getTipo());
+                // console.log("charofpos tipo inicio: " + this.inicio);
                 let tam = cadena.getValor().length;
                 if(!(tam > 0)){
                     return new Errores("Semantico", `La cadena en la variable con ID: '${this.id} es vacia'.`, this.fila, this.columna);

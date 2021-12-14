@@ -33,7 +33,7 @@ export class Matematicas implements Funcion{
         if(expresion != null){
             let valor;
             if(this.expresion instanceof Identificador){
-                console.log("es id");
+                // console.log("es id");
                 valor = expresion;
             }else{
                 valor = this.expresion.valor;
