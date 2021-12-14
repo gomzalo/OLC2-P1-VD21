@@ -351,14 +351,15 @@ case 98:
                                                 // {
                                                 //     this.$ = new Asignacion(first.id ,$$[$0-2], _$[$0-4].first_line, _$[$0-4].last_column);
                                                 // }else{
-                                                    this.$ = new AsignaVariable(new Identificador($$[$0-4] , _$[$0-4].first_line, _$[$0-4].last_column),$$[$0-2],_$[$0-4].first_line, _$[$0-4].first_column);
+                                                    let accesoPadre = new AccesoStruct(new Identificador($$[$0-4] , _$[$0-4].first_line, _$[$0-4].last_column),$$[$0-2],_$[$0-4].first_line, _$[$0-4].first_column);
+                                                    this.$ = new AsignaVariable(accesoPadre,$$[$0], _$[$0-4].first_line, _$[$0-4].last_column);
                                                     // this.$ = $$[$0-4];
-                                                    this.$.instruccion = new Asignacion(null ,$$[$0], _$[$0-4].first_line, _$[$0-4].last_column); 
+                                                    // this.$.instruccion = new Asignacion(null ,$$[$0], _$[$0-4].first_line, _$[$0-4].last_column); 
                                                 // }
                                             
 break;
 case 99:
-   this.$ = new AsignaVariable($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
+   this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
 break;
 case 100:
    this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column);

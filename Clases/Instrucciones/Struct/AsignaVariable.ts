@@ -3,6 +3,7 @@ import { Errores } from "../../Ast/Errores";
 import { Identificador } from "../../Expresiones/Identificador";
 import { AccesoStruct } from "../../Expresiones/Struct/AccesoStruct";
 import { Instruccion } from "../../Interfaces/Instruccion";
+import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Asignacion } from "../Asignacion";
@@ -20,67 +21,107 @@ export class AsignaVariable implements Instruccion{
     // public ultimo : boolean;
     // public simboloStruct :Simbolo;
     public instruccion: Instruccion | Asignacion ;
+    public entornoPadre;
 
     constructor( idStruct, idAcceso, fila, columna){
-        this.idStruct = idStruct;
-        this.idAcceso =idAcceso;
+        this.idStruct = idStruct; // Acceso | ID
+        this.instruccion =idAcceso;    // Acceso | ID
         this.fila = fila;
         this.columna =columna;
-        this.instruccion = null;
+        // this.instruccion = null;
     }
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        if(!(this.idStruct instanceof Identificador)){
-            return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO es TIPO ID", this.fila, this.columna);
-        }
-        // console.log("acceso")
-        let simboloStruct = this.idStruct.ejecutar(table,tree);
-        // this.id= this.idStruct.id; 
-        if (simboloStruct == null){
-            return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
-        }
-        // if (simboloStruct.tipo != TIPO.STRUCT)
-        // {
-        //     return new Errores("Semantico", "Struct " + this.id + " NO es TIPO STRUCT", this.fila, this.columna);
-        // }
-
-        // Acceso atributos
-        // let value = this.accesoAttribute(this.expresiones, simboloStruct.valor)
-
-        // console.log(this.idStruct)
-        // console.log(this.expresiones);
-        // console.log(simboloStruct);
-        if(!(this.idAcceso instanceof Identificador || this.idAcceso instanceof AsignaVariable || this.idAcceso instanceof Struct )){
-            return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
-        }
-        if (this.idAcceso instanceof AsignaVariable)
+        let resultAcceso = null;
+        resultAcceso =  this.idStruct.ejecutar(table,tree);
+        if (resultAcceso instanceof Errores)
+                return resultAcceso;
+        if (this.idStruct instanceof Simbolo)
         {
-            this.idAcceso.instruccion = this.instruccion
+            resultAcceso = this.idStruct;
         }
-        // if(!(simboloStruct.valor instanceof TablaSimbolos)){
-        //     return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO es TIPO /Struct ", this.fila, this.columna);
-        // }else{
+          // let resultAcceso = this.idAcceso.ejecutar(simboloStruct.valor,tree); //devuelve un Simbolo
+        // //retorno el simbolo si este ya fue 
 
-        // }
         
-        if (this.instruccion !=null /*&& this.ultimo==true*/ && this.instruccion instanceof Asignacion && this.idAcceso instanceof Identificador )
-        {
-            this.instruccion.id =  this.idAcceso.id ;
-            if (this.idAcceso instanceof Identificador && this.idStruct instanceof Identificador){
-                let result = this.instruccion.ejecutar(simboloStruct.valor,tree);
-                if (result instanceof Errores)
-                    return result;
-                return result;
+        // EJCUTANDO CAMBIO 
+        if (this.instruccion instanceof Asignacion){
+            let valorExpr = this.instruccion.expresion.ejecutar(table,tree); // Ejecutando ID, o Primitivo, Acceso
+            if (valorExpr instanceof Errores)
+                return valorExpr;
+            if (valorExpr instanceof Simbolo) // es un id (struct, o Variable normal)
+            {
+                /**
+                 * Puede venir:
+                 * struct -> struct
+                 * struct -> nulo
+                 * var -> primitivo
+                 * --- tipo = tipo
+                 */
+                if (resultAcceso.tipo =TIPO.STRUCT && this.instruccion.expresion.tipo == resultAcceso.tipo && (valorExpr.tipoStruct == resultAcceso.tipoStruct)) // validando Simbolo struct = struct
+                {
+                    resultAcceso.valor = valorExpr;
+                }else if (this.instruccion.expresion.tipo  == TIPO.NULO)
+                {
+                    resultAcceso.valor = null;
+                }else if (resultAcceso.tipo == this.instruccion.expresion.tipo )
+                {
+                    resultAcceso.valor = valorExpr
+                }else{
+                    return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " Error en asignacion ", this.fila, this.columna);
+                }
             }
-            
         }
-        let resultAcceso = this.idAcceso.ejecutar(simboloStruct.valor,tree);
         return resultAcceso;
     }
+
+
     translate3d(table: TablaSimbolos, tree: Ast) {
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         throw new Error("Method not implemented.");
+    }
+
+    
+    queondaaparte():any
+    {
+        // if(!(this.idStruct instanceof Identificador)){
+        //     return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO es TIPO ID", this.fila, this.columna);
+        // }
+        // // console.log("acceso")
+        // let simboloStruct = this.idStruct.ejecutar(table,tree);
+        // // this.id= this.idStruct.id; 
+        // if (simboloStruct == null){
+        //     return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO coincide con la busqueda Struct", this.fila, this.columna);
+        // }
+         
+
+        // if(!(this.idAcceso instanceof Identificador || this.idAcceso instanceof AsignaVariable || this.idAcceso instanceof Struct )){
+        //     return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " NO es TIPO Identificador/AccesoStruct/Struct", this.fila, this.columna);
+        // }
+        // // if (this.idAcceso instanceof AsignaVariable)
+        // // {
+        // //     this.idAcceso.instruccion = this.instruccion
+        // // }
+        
+
+        // // if (this.instruccion !=null /*&& this.ultimo==true*/ && this.instruccion instanceof Asignacion && this.idAcceso instanceof Identificador )
+        // // {
+        // //     this.instruccion.id =  this.idAcceso.id ;
+        // //     if (this.idAcceso instanceof Identificador && this.idStruct instanceof Identificador){
+        // //         let result = this.instruccion.ejecutar(simboloStruct.valor,tree);
+        // //         if (result instanceof Errores)
+        // //             return result;
+        // //         return result;
+        // //     }
+            
+        // // }
+        // let resultAcceso = this.idAcceso.ejecutar(simboloStruct.valor,tree); //devuelve un Simbolo
+        // //retorno el simbolo si este ya fue 
+        // if (resultAcceso instanceof Simbolo && (this.idAcceso instanceof Identificador || this.idAcceso instanceof AsignaVariable)){
+        //     return resultAcceso;
+        // }  
+        console.log("");
     }
 
 }

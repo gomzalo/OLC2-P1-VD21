@@ -575,16 +575,17 @@ nat_push_instr:
                                                 // {
                                                 //     $$ = new Asignacion(first.id ,$3, @1.first_line, @1.last_column);
                                                 // }else{
-                                                    $$ = new AsignaVariable(new Identificador($1 , @1.first_line, @1.last_column),$3,@1.first_line, @1.first_column);
+                                                    let accesoPadre = new AccesoStruct(new Identificador($1 , @1.first_line, @1.last_column),$3,@1.first_line, @1.first_column);
+                                                    $$ = new AsignaVariable(accesoPadre,$5, @1.first_line, @1.last_column);
                                                     // $$ = $1;
-                                                    $$.instruccion = new Asignacion(null ,$5, @1.first_line, @1.last_column); 
+                                                    // $$.instruccion = new Asignacion(null ,$5, @1.first_line, @1.last_column); 
                                                 // }
                                             }
     ;
 
     // |   accesoAsignaStruct IGUAL  expr  {}
 accesoAsignaStruct:
-        accesoAsignaStruct PUNTO ID     {   $$ = new AsignaVariable($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
+        accesoAsignaStruct PUNTO ID     {   $$ = new AccesoStruct($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
     |   ID                              {   $$ = new Identificador($1 , @1.first_line, @1.last_column);}
     ;
 
