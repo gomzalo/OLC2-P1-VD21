@@ -323,13 +323,8 @@ case 100:
                                                 // }
                                             
 break;
-<<<<<<< Updated upstream
-case 99:
-   this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
-=======
 case 101:
-   this.$ = new AsignaVariable($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
->>>>>>> Stashed changes
+   this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
 break;
 case 102:
    this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column);

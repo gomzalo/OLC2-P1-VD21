@@ -339,20 +339,20 @@ void main()
     String var_str = "Cadena";
     int var_int = 7;
     println(var_str.lenght()); // 6
-    println("Error a proposito: ");
+    println("<--- Error a proposito: --->");
     println(var_int.lenght()); // Error variable no es Arreglo o String
     println("");
     println("************   Substring  **************");
     println("");
     println(var_str.subString(2,4)); // den
-    println("Errores a proposito: ");
+    println("<--- Errores a proposito: --->");
     println(var_str.subString(-2,4)); // Error inicio no puede ser negativo
     println(var_str.subString(1,8)); // Error inicio no puede ser negativo
     println("");
     println("************   caracterOfPosition  **************");
     println("");
     println(var_str.caracterOfPosition(2)); // d
-    println("Error a proposito: ");
+    println("<--- Error a proposito: --->");
     println(var_str.caracterOfPosition(2.5)); // Error posicion no es un entero
     println("");
     println("************   toUpper  **************");
@@ -405,7 +405,7 @@ void main()
     println("");
     println("************   Parse a boolean  **************");
     println("");
-    println("Error a proposito: ");
+    println("<--- Error a proposito: --->");
     println(boolean.parse(a)); // Error, valor no puede convertirse a booleano
     println(boolean.parse("tRuE")); // true
     println(boolean.parse("0")); // false
