@@ -1,3 +1,4 @@
+import { Arreglo } from './Arreglo';
 import exp from "constants";
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
@@ -76,8 +77,8 @@ export  class AccesoArr implements Instruccion{
             return array;
         }else{
             // console.log("AccArr NOT RANK");
-            console.log("AccArr exp val: " + this.expresiones);
-            console.log("AccArr exp size: " + this.expresiones.length);
+            // console.log("AccArr exp val: " + this.expresiones);
+            // console.log("AccArr exp size: " + this.expresiones.length);
             let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
             // console.log("val acc arr: " + value);
             if(value instanceof Errores){
@@ -108,23 +109,24 @@ export  class AccesoArr implements Instruccion{
         }
         // Obteniendo las dimensiones
         let dimension = expresiones.shift();
-        console.log("accArr exp: " + expresiones);
+        // console.log("accArr exp: " + expresiones);
         // Posicion en dimension
         let num = dimension.ejecutar(table, tree);
-        console.log("accArr num dim: " + num);
-        console.log("accArr arr: " + arreglo);
+        // console.log("accArr num dim: " + num);
+        // console.log("accArr arr: " + arreglo);
         if(num instanceof Errores){
             return num;
         }
         if(dimension.tipo != TIPO.ENTERO){
             return new Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
-        
-        if(Array.isArray(arreglo[num])){
-            console.log("es arr");
-            this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+        // console.log("arreglo[num]: " + arreglo[num][0].toString());
+        if(arreglo[num] != undefined){
+            // console.log("no null");
+            return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice());
         }else{
-            return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num]);
+            // console.log("null");
+            return new Errores("Semantico", "Posicion inexistente en el arreglo.", this.fila, this.columna);
         }
     }
 

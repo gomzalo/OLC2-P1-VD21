@@ -15,7 +15,7 @@ int ackerman(int m, int n)
     }
 }
 
-void Main()
+void main()
 {
     println("===============ACKERMAN==============================");
     // println("ackerman(0, 0) = 1");
@@ -53,10 +53,14 @@ void Main()
     // println(ackerman(3, 4)); // 125
     // println("ackerman(3, 5) = 253");
     // println(ackerman(3, 5)); // 253
-    println("ackerman(3,6) = 509");
-    println(ackerman(3,6)); // 509
+    // println("ackerman(3,6) = 509");
+    // println(ackerman(3,6)); // 509
     println("ackerman(3,7) = 1021");
     println(ackerman(3,7)); // 1021
+    // println("ackerman(3,8) = F");
+    // println(ackerman(3,8)); // 1021
+    // println("ackerman(3,9) = F");
+    // println(ackerman(3,9)); // 1021
     println("ackerman(4, 0) = 13");
     println(ackerman(4, 0)); // 13
     // println("ackerman(4, 1) = 65533"); // muere xdnt

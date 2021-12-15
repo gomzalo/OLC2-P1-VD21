@@ -297,6 +297,10 @@ void main()
     println(arr_por_cero); // H
     println(arr); // H-O-L-A
     println(arr[2]); // L
+    String[] arr_AN = ["H",["K","O",["Z","Y"]],"L","A"];
+    // println("Nuevo arreglo arr3 declarado: " & arr3); // Nuevo arreglo declarado: H-[O-O]-L-A    
+    // println(arr3[1]); // H
+    println(arr_AN[1][2][0]); // Z
     println("");
     println("************   Modificacion de arreglos  **************");
     println("");

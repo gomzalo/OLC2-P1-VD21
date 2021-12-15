@@ -7,6 +7,7 @@ class ModificacionArr {
     //ID lista_exp IGUAL expr
     constructor(id, expresiones, valor, fila, columna) {
         this.arreglo = true;
+        this.dim = 0;
         this.id = id;
         this.expresiones = expresiones;
         this.valor = valor;
@@ -30,6 +31,8 @@ class ModificacionArr {
                 if (result instanceof Errores_1.Errores) {
                     return result;
                 }
+                // result = this.valor;
+                // return result;
             }
             else {
                 return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
@@ -47,7 +50,7 @@ class ModificacionArr {
         throw new Error("Method not implemented.");
     }
     modificarDimensiones(table, tree, expresiones, arreglo, valor) {
-        let value = null;
+        // let value = null;
         if (expresiones.length == 0) {
             if (arreglo instanceof Array) {
                 return new Errores_1.Errores("Semantico", "Modificacion de arreglo incompleto.", this.fila, this.columna);
@@ -57,7 +60,7 @@ class ModificacionArr {
         if (!(arreglo instanceof Array)) {
             return new Errores_1.Errores("Semantico", "Acceso de mas en el arreglo.", this.fila, this.columna);
         }
-        let exp_tmp = expresiones.pop();
+        let exp_tmp = expresiones.shift();
         let num = exp_tmp.ejecutar(table, tree);
         if (num instanceof Errores_1.Errores) {
             return num;
@@ -70,17 +73,22 @@ class ModificacionArr {
         if (this.valor.tipo != this.tipo_arr) {
             // console.log("Tipo distinto al tipo del arreglo");
             // console.log(tree);
-            let res = new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
-            tree.Errores.push(res);
-            tree.updateConsolaPrintln(res.toString());
+            return new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
         }
         else {
-            value = this.modificarDimensiones(tree, table, expresiones, arreglo[num], valor);
-            if (value instanceof Errores_1.Errores) {
-                return value;
+            if (arreglo[num] != undefined) {
+                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice(), valor);
+                if (value instanceof Errores_1.Errores) {
+                    return value;
+                }
+                // console.log("arreglo[num]: " + arreglo[num].toString());
+                if (value != null) {
+                    arreglo[num] = valor;
+                }
             }
-            if (value != null) {
-                arreglo[num] = value;
+            else {
+                // console.log("null");
+                return new Errores_1.Errores("Semantico", "Posicion inexistente en el arreglo.", this.fila, this.columna);
             }
         }
         return null;
