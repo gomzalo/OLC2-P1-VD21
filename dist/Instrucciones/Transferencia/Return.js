@@ -31,7 +31,7 @@ class Return {
         let padre = new Nodo_1.Nodo("RETURN", "");
         padre.addChildNode(new Nodo_1.Nodo("return", ""));
         if (this.valor != null) {
-            // padre.addChildNode(this.valor.recorrer());
+            padre.addChildNode(this.expresion.recorrer());
         }
         return padre;
     }

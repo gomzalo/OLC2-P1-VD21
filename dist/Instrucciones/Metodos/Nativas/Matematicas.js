@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
 const Identificador_1 = require("./../../../Expresiones/Identificador");
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 class Matematicas {
     constructor(tipo_funcion, expresion, fila, columna) {
         this.tipo_funcion = tipo_funcion;
@@ -50,7 +51,16 @@ class Matematicas {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Matematicas", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, "")); //this.tipo_funcion.toString()
+        let tipoN = new Nodo_1.Nodo("TIPO_FUNCION", "");
+        tipoN.addChildNode(new Nodo_1.Nodo(this.tipo_funcion.toString(), ""));
+        let instruccion = new Nodo_1.Nodo("INSTRUCCION", "");
+        instruccion.addChildNode(this.expresion.recorrer(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(tipoN);
+        padre.addChildNode(instruccion);
+        return padre;
     }
 }
 exports.Matematicas = Matematicas;

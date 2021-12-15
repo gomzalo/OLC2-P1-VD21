@@ -1,5 +1,6 @@
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
+import { Nodo } from "../Ast/Nodo";
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
@@ -46,6 +47,12 @@ export class Ternario implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("TERNARIO","");
+        padre.addChildNode(this.condicion.recorrer(table, tree));
+        padre.addChildNode(new Nodo("?",""));
+        padre.addChildNode(this.instTrue.recorrer(table, tree));
+        padre.addChildNode(new Nodo(":",""));
+        padre.addChildNode(this.instFalse.recorrer(table, tree));
+        return padre;
     }
 }

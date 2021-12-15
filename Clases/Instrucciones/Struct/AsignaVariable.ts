@@ -1,5 +1,6 @@
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Identificador } from "../../Expresiones/Identificador";
 import { AccesoStruct } from "../../Expresiones/Struct/AccesoStruct";
 import { Instruccion } from "../../Interfaces/Instruccion";
@@ -79,7 +80,10 @@ export class AsignaVariable implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("AsignaVariableStruct","");
+        padre.addChildNode(this.idStruct.ejecutar(table,tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 
     

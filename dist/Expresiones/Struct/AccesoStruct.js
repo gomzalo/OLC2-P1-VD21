@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoStruct = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Struct_1 = require("../../Instrucciones/Struct/Struct");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
@@ -95,7 +96,14 @@ class AccesoStruct {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("ACCESO STRUCT", "");
+        if (this.idStruct != null) {
+            padre.addChildNode(this.idStruct.recorrer(table, tree));
+        }
+        if (this.expresiones != null) {
+            padre.addChildNode(this.expresiones.recorrer(table, tree));
+        }
+        return padre;
     }
 }
 exports.AccesoStruct = AccesoStruct;

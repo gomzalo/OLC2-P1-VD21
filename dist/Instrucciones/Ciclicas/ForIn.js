@@ -4,6 +4,7 @@ exports.ForIn = void 0;
 const Identificador_1 = require("./../../Expresiones/Identificador");
 const Return_1 = require("../Transferencia/Return");
 const Continuar_1 = require("../Transferencia/Continuar");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Break_1 = require("../Transferencia/Break");
@@ -252,7 +253,19 @@ class ForIn {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("FOR-IN", "");
+        let iterador = new Nodo_1.Nodo("ITERADOR", "");
+        iterador.addChildNode(new Nodo_1.Nodo(this.iterador, ""));
+        let rango = new Nodo_1.Nodo("RANGO", "");
+        rango.addChildNode(this.rango.recorrer(table, tree));
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(iterador);
+        padre.addChildNode(rango);
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
     getBool(val) {
         return !!JSON.parse(String(val).toLowerCase());

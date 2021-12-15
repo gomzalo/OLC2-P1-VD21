@@ -272,7 +272,22 @@ export class ForIn implements Instruccion{
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("FOR-IN","");
+        let iterador = new Nodo("ITERADOR","");
+        iterador.addChildNode(new Nodo(this.iterador,""))
+        let rango = new Nodo("RANGO","");
+        
+        rango.addChildNode(this.rango.recorrer(table,tree));
+        let NodoInstr = new Nodo("INSTRUCCIONES","");
+        for(let instr of this.lista_instrucciones)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(iterador);
+        padre.addChildNode(rango);
+        padre.addChildNode(NodoInstr);
+
+        return padre;
     }
 
     getBool(val) {

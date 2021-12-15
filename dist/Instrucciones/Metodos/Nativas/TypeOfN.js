@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class TypeOfN {
     constructor(expresion, fila, columna) {
@@ -29,7 +30,11 @@ class TypeOfN {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("TypeOfN", "");
+        // padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(this.expresion.ejecutar(table, tree));
+        6;
+        return padre;
     }
     getTipo(tipo) {
         switch (tipo) {

@@ -38,8 +38,9 @@ export class Rango implements Instruccion{
         throw new Error("Method not implemented.");
     }
 
-    recorrer(): Nodo {
+    recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("Rango","");
+        padre.addChildNode(this.valor.join());
         return padre;
     }
 }

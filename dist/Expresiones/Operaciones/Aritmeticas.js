@@ -342,8 +342,8 @@ class Aritmetica {
             return Tipo_1.TIPO.ENTERO;
         }
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Exp. Aritmetica", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("ARITMETICAS", "");
         if (this.expU) {
             padre.addChildNode(new Nodo_1.Nodo(this.operador.toString(), ""));
             padre.addChildNode(this.exp1.recorrer());

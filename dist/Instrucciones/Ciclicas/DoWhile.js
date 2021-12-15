@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -50,7 +51,16 @@ class DoWhile {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("DO WHILE", "");
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        padre.addChildNode(condicion);
+        return padre;
     }
 }
 exports.DoWhile = DoWhile;

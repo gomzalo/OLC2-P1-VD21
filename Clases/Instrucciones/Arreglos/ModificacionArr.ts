@@ -1,6 +1,7 @@
 import exp from "constants";
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
@@ -57,7 +58,7 @@ export  class ModificacionArr implements Instruccion{
     }
 
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        return new Nodo("Modificacion Array","");
     }
     dim = 0;
     public modificarDimensiones(table, tree, expresiones, arreglo, valor){

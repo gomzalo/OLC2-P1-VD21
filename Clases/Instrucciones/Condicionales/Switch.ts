@@ -81,7 +81,28 @@ export class Switch implements Instruccion{
         throw new Error('Method not implemented.');
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("SWITCH", "");
+
+        let condicion = new Nodo("CONDICION","");
+        condicion.addChildNode(this.valor_sw.ejecutar(table,tree));
+        
+        let listaCase = new Nodo("LISTA CASE","");
+        for(let instr of this.lista_case)
+        {
+            listaCase.addChildNode(instr.recorrer(table,tree));
+        }
+
+        let listaDefault = new Nodo("LISTA DEFAULT","");
+        if (this.lista_default != null)
+        {
+            for(let instr of this.lista_default)
+            {
+                listaDefault.addChildNode(instr.recorrer(table,tree));
+            }
+        }
+
+
+        return padre;
     }
 
 }

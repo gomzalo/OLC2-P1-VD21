@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharOfPos = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class CharOfPos {
     constructor(id, expresion, fila, columna) {
         this.id = id;
@@ -50,7 +51,13 @@ class CharOfPos {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("CharOfPos", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        let instruccion = new Nodo_1.Nodo("INSTRUCCION", "");
+        instruccion.addChildNode(this.expresion.recorrer(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(instruccion);
+        return padre;
     }
 }
 exports.CharOfPos = CharOfPos;

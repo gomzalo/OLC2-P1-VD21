@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoArr = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Rango_1 = require("./Rango");
 class AccesoArr {
@@ -87,7 +88,10 @@ class AccesoArr {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Acceso ARR", "");
+        // padre.addChildNode(new Nodo(this.id,""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
     buscarDimensiones(table, tree, expresiones, arreglo) {
         // let value = null;

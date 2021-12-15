@@ -56,16 +56,17 @@ class While {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("CICLO", "");
+        let padre = new Nodo_1.Nodo("WHILE", "");
         padre.addChildNode(new Nodo_1.Nodo("while", ""));
-        padre.addChildNode(new Nodo_1.Nodo("(", ""));
+        // padre.addChildNode(new Nodo("(",""));
         padre.addChildNode(this.condicion.recorrer(table, tree));
-        padre.addChildNode(new Nodo_1.Nodo(")", ""));
-        padre.addChildNode(new Nodo_1.Nodo("{", ""));
+        // padre.addChildNode(new Nodo(")",""));
+        // padre.addChildNode(new Nodo("{",""));
+        padre.addChildNode(new Nodo_1.Nodo("INSTRUCCIONES", ""));
         for (let ins of this.lista_instrucciones) {
             padre.addChildNode(ins.recorrer(table, tree));
         }
-        padre.addChildNode(new Nodo_1.Nodo("}", ""));
+        // padre.addChildNode(new Nodo("}",""));
         return padre;
     }
     getBool(val) {

@@ -69,16 +69,17 @@ export class While implements Instruccion{
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {
-        let padre = new Nodo("CICLO","");
+        let padre = new Nodo("WHILE","");
         padre.addChildNode(new Nodo("while",""));
-        padre.addChildNode(new Nodo("(",""));
+        // padre.addChildNode(new Nodo("(",""));
         padre.addChildNode(this.condicion.recorrer(table, tree));
-        padre.addChildNode(new Nodo(")",""));
-        padre.addChildNode(new Nodo("{",""));
+        // padre.addChildNode(new Nodo(")",""));
+        // padre.addChildNode(new Nodo("{",""));
+        padre.addChildNode(new Nodo("INSTRUCCIONES",""));
         for(let ins of this.lista_instrucciones){
             padre.addChildNode(ins.recorrer(table, tree));
         }
-        padre.addChildNode(new Nodo("}",""));
+        // padre.addChildNode(new Nodo("}",""));
         return padre;
     }
 

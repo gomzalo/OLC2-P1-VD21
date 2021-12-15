@@ -81,16 +81,19 @@ export class Print implements Instruccion{
         
     }
 
-    recorrer(): Nodo {
+    recorrer(table: TablaSimbolos, tree: Ast){
         let padre = new Nodo("Print",""); 
-        padre.addChildNode(new Nodo("print",""));
-        padre.addChildNode(new Nodo("(",""));
+        // padre.addChildNode(new Nodo("print",""));
+        // padre.addChildNode(new Nodo("(",""));
 
-        let hijo = new Nodo("exp","");
-        // hijo.addChildNode(this.parametros.recorrer());
+        let hijo = new Nodo("EXPRESIONES","");
+        for (let par of this.parametros)
+        {   
+            hijo.addChildNode(par.recorrer(table, tree));
+        }
         
         padre.addChildNode(hijo);
-        padre.addChildNode(new Nodo(")",""));
+        // padre.addChildNode(new Nodo(")",""));
         
         return padre;
     }

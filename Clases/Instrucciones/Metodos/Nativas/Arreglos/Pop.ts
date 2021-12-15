@@ -7,6 +7,7 @@ import { Detener } from "../../../../Instrucciones/Transferencia/Break";
 import { Continuar } from "../../../../Instrucciones/Transferencia/Continuar";
 import { Return } from "../../../../Instrucciones/Transferencia/Return";
 import { Funcion } from "../../../../Instrucciones/Metodos/Funcion";
+import { Nodo } from "../../../../Ast/Nodo";
 
 export class Pop implements Funcion{
     public fila: number;
@@ -46,7 +47,9 @@ export class Pop implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("POP","");
+        padre.addChildNode(new Nodo(this.id,""));
+        return padre;
     }
 
 }

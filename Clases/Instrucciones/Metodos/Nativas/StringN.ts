@@ -1,5 +1,6 @@
 import { Ast } from "../../../Ast/Ast";
 import { Errores } from "../../../Ast/Errores";
+import { Nodo } from "../../../Ast/Nodo";
 import { Instruccion } from "../../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../../TablaSimbolos/Tipo";
@@ -43,7 +44,10 @@ export class StringN implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("StringN","");
+        // padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 
 }

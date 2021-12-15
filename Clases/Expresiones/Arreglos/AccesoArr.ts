@@ -2,6 +2,7 @@ import { Arreglo } from './Arreglo';
 import exp from "constants";
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
@@ -101,7 +102,10 @@ export  class AccesoArr implements Instruccion{
     }
 
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("Acceso ARR","");
+        // padre.addChildNode(new Nodo(this.id,""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 
     public buscarDimensiones(table, tree, expresiones, arreglo){

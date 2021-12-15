@@ -7,6 +7,7 @@ import { Detener } from "../../../Transferencia/Break";
 import { Continuar } from "../../../Transferencia/Continuar";
 import { Return } from "../../../Transferencia/Return";
 import { Funcion } from "../../Funcion";
+import { Nodo } from '../../../../Ast/Nodo';
 
 export class toUpper implements Funcion{
     public fila: number;
@@ -46,7 +47,11 @@ export class toUpper implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("toLower","");
+        padre.addChildNode(new Nodo(this.id,""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
+    
 
 }

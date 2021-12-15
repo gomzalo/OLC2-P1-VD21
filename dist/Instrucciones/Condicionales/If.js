@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -97,7 +98,28 @@ class If {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("IF", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        // LISTA IFS
+        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
+        for (let instr of this.lista_ifs) {
+            listaIfs.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.lista_elses != null) {
+            let listaElse = new Nodo_1.Nodo("INSTRUCCIONES Else", "");
+            for (let instr of this.lista_elses) {
+                listaElse.addChildNode(instr.recorrer(table, tree));
+            }
+            padre.addChildNode(listaElse);
+        }
+        // LISTA IFS
+        if (this.lista_ifelse != null) {
+            padre.addChildNode(this.lista_ifelse.recorrer(table, tree));
+        }
+        return padre;
     }
     getBool(val) {
         return !!JSON.parse(String(val).toLowerCase());

@@ -1,5 +1,6 @@
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
+import { Nodo } from "../Ast/Nodo";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { Simbolo } from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
@@ -86,7 +87,12 @@ export  class Declaracion implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("DECLARACION","");
+        for (let sim of this.simbolos)
+        {
+            sim.valor.recorrer(table, tree);
+        }
+        return padre;
     }
 
 }

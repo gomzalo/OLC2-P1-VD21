@@ -6,6 +6,7 @@ const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 class Case {
     constructor(valor_case, lista_instrucciones, fila, columna) {
         this.valor_case = valor_case;
@@ -47,7 +48,16 @@ class Case {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("CASE", "");
+        let expresion = new Nodo_1.Nodo("EXPRESION", "");
+        expresion.addChildNode(this.valor_case.recorrer(table, tree));
+        padre.addChildNode(expresion);
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Case = Case;

@@ -22,8 +22,9 @@ export class Detener implements Instruccion{
         throw new Error("Method not implemented.");
     }
 
-    recorrer(): Nodo {
-        throw new Error("Method not implemented.");
+    recorrer(table: TablaSimbolos, tree: Ast) {
+        let padre = new Nodo("Break","");
+        return padre;
     }
 
 }

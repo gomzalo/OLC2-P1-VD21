@@ -114,7 +114,37 @@ export class Ifsinllave implements Instruccion{
         throw new Error('Method not implemented.');
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("IF","");
+
+        let condicion = new Nodo("CONDICION","");
+        condicion.addChildNode(this.condicion.ejecutar(table,tree));
+
+        // LISTA IFS
+        let listaIfs = new Nodo("INSTRUCCIONES IFS","");
+        // for(let instr of this.lista_ifs)
+        // {
+        //     listaIfs.addChildNode(instr.recorrer(table,tree));
+        // }
+        // padre.addChildNode(listaIfs);
+
+
+        // LISTA IFS
+        if (this.ins_ifs !=null ){
+            listaIfs.addChildNode(this.ins_ifs.recorrer(table,tree));
+        }
+        padre.addChildNode(condicion);
+        padre.addChildNode(listaIfs);
+        
+        // LISTA IFS
+        if (this.ins_elses !=null ){
+            
+            padre.addChildNode(this.ins_elses.recorrer(table,tree));
+        }
+
+
+
+        return padre;
     }
+
 
 }

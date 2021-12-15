@@ -120,8 +120,8 @@ export class Logica implements Instruccion{
     }
 
 
-    recorrer(): Nodo {
-        let padre = new Nodo("Exp. Logica","");
+    recorrer(table: TablaSimbolos, tree: Ast){
+        let padre = new Nodo("EXP LOGICAS","");
 
         if(this.expU){
             padre.addChildNode(new Nodo(this.operador,""));

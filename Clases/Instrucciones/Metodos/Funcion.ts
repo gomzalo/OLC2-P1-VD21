@@ -1,5 +1,6 @@
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
@@ -59,7 +60,26 @@ export class Funcion implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("FUNCION","");
+        
+        padre.addChildNode( new Nodo(this.id,""));
+        let params = new Nodo("PARAMETROS","");
+        for(let par of this.parameters)
+        {
+            let parametro = new Nodo("PARAMETRO","");
+            parametro.addChildNode(par["tipo"]);
+            parametro.addChildNode(par["id"]);
+            params.addChildNode(parametro);
+        }
+        padre.addChildNode(params);
+
+        let NodoInstr = new Nodo("INSTRUCCIONES","");
+        for(let instr of this.instructions)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 
 }

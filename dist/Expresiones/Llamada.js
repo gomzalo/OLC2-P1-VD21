@@ -5,6 +5,7 @@ const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
+const Nodo_1 = require("../Ast/Nodo");
 class Llamada {
     constructor(id, parameters, fila, columna, arreglo = false) {
         this.arreglo = false;
@@ -64,7 +65,14 @@ class Llamada {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("LLAMADA FUNCION", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id.toString(), ""));
+        let params = new Nodo_1.Nodo("PARAMETROS", "");
+        for (let param of this.parameters) {
+            params.addChildNode(new Nodo_1.Nodo(param.id, ""));
+        }
+        padre.addChildNode(params);
+        return padre;
     }
 }
 exports.Llamada = Llamada;

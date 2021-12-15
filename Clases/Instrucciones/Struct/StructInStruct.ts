@@ -4,6 +4,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 
 export class StructInStruct implements Instruccion {
     fila: number;
@@ -34,7 +35,17 @@ export class StructInStruct implements Instruccion {
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("StructInStruct","");
+
+        let NodoInstr = new Nodo("TIPO STRUCT","");
+        NodoInstr.addChildNode(new Nodo(this.tipoStruct,""));
+        let id = new Nodo("ID","");
+        id.addChildNode(new Nodo(this.id,""));
+
+        
+        padre.addChildNode(NodoInstr);
+        padre.addChildNode(id);
+        return padre;
     }
 
 }

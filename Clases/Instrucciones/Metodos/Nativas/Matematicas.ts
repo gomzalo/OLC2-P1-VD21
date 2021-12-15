@@ -8,6 +8,7 @@ import { Detener } from "../../Transferencia/Break";
 import { Continuar } from "../../Transferencia/Continuar";
 import { Return } from "../../Transferencia/Return";
 import { Funcion } from "../Funcion";
+import { Nodo } from '../../../Ast/Nodo';
 
 export class Matematicas implements Funcion{
     public fila: number;
@@ -65,6 +66,17 @@ export class Matematicas implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("Matematicas","");
+        padre.addChildNode(new Nodo(this.id,"")); //this.tipo_funcion.toString()
+
+        let tipoN =  new Nodo("TIPO_FUNCION","");
+        tipoN.addChildNode(new Nodo(this.tipo_funcion.toString(),""));
+
+        let instruccion =  new Nodo("INSTRUCCION","");
+        instruccion.addChildNode(this.expresion.recorrer(table,tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(tipoN);
+        padre.addChildNode(instruccion);
+        return padre;
     }
 }

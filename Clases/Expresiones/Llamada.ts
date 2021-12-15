@@ -5,6 +5,7 @@ import { Simbolo } from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
 import { Funcion } from "../Instrucciones/Metodos/Funcion";
+import { Nodo } from "../Ast/Nodo";
 
 export class Llamada implements Instruccion{
     public id: string;
@@ -77,7 +78,15 @@ export class Llamada implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("LLAMADA FUNCION","");
+        padre.addChildNode(new Nodo(this.id.toString(),""));
+        let params = new Nodo("PARAMETROS","");
+        for (let param of this.parameters)
+        {   
+            params.addChildNode(new Nodo(param.id,""))
+        }
+        padre.addChildNode(params);
+        return padre;
     }
 
 }

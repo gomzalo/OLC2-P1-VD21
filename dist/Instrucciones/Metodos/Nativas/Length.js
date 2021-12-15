@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Length {
     constructor(id, fila, columna) {
@@ -34,7 +35,10 @@ class Length {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Length", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 }
 exports.Length = Length;

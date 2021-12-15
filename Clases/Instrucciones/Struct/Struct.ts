@@ -12,6 +12,7 @@ import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { DeclararStruct } from "./DeclararStruct";
 import { StructInStruct } from "./StructInStruct";
+import { Nodo } from "../../Ast/Nodo";
 
 export class Struct implements Instruccion{
     fila: number;
@@ -152,7 +153,15 @@ export class Struct implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("STRUCTS","");
+
+        let NodoInstr = new Nodo("DECLARACIONES","");
+        for(let instr of this.instructions)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 
 }

@@ -21,8 +21,9 @@ class Rango {
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
     }
-    recorrer() {
+    recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Rango", "");
+        padre.addChildNode(this.valor.join());
         return padre;
     }
 }

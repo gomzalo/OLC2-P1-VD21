@@ -105,8 +105,8 @@ class Logica {
             return Tipo_1.TIPO.ENTERO;
         }
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Exp. Logica", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("EXP LOGICAS", "");
         if (this.expU) {
             padre.addChildNode(new Nodo_1.Nodo(this.operador, ""));
             padre.addChildNode(this.exp1.recorrer());

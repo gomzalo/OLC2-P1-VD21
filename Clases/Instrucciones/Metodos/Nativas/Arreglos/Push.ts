@@ -7,6 +7,7 @@ import { Detener } from "../../../../Instrucciones/Transferencia/Break";
 import { Continuar } from "../../../../Instrucciones/Transferencia/Continuar";
 import { Return } from "../../../../Instrucciones/Transferencia/Return";
 import { Funcion } from "../../../../Instrucciones/Metodos/Funcion";
+import { Nodo } from '../../../../Ast/Nodo';
 
 export class Push implements Funcion{
     public fila: number;
@@ -56,7 +57,10 @@ export class Push implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("PUSH","");
+        padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 
 }

@@ -7,6 +7,7 @@ import { Detener } from '../Transferencia/Break';
 import { Continuar } from '../Transferencia/Continuar';
 import { Return } from '../Transferencia/Return';
 import { Errores } from '../../Ast/Errores';
+import { Nodo } from '../../Ast/Nodo';
 
 export class Case implements Instruccion{
     public valor_case : Instruccion;
@@ -56,6 +57,17 @@ export class Case implements Instruccion{
         throw new Error('Method not implemented.');
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("CASE","");
+        let expresion = new Nodo("EXPRESION","");
+        expresion.addChildNode(this.valor_case.recorrer(table,tree));
+
+        padre.addChildNode(expresion);
+        let NodoInstr = new Nodo("INSTRUCCIONES","");
+        for(let instr of this.lista_instrucciones)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }

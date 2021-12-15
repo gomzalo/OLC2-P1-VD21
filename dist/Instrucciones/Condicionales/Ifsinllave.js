@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -103,7 +104,27 @@ class Ifsinllave {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("IF", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        // LISTA IFS
+        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
+        // for(let instr of this.lista_ifs)
+        // {
+        //     listaIfs.addChildNode(instr.recorrer(table,tree));
+        // }
+        // padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.ins_ifs != null) {
+            listaIfs.addChildNode(this.ins_ifs.recorrer(table, tree));
+        }
+        padre.addChildNode(condicion);
+        padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.ins_elses != null) {
+            padre.addChildNode(this.ins_elses.recorrer(table, tree));
+        }
+        return padre;
     }
 }
 exports.Ifsinllave = Ifsinllave;

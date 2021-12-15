@@ -56,14 +56,16 @@ class Print {
     }
     translate3d(table, tree) {
     }
-    recorrer() {
+    recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Print", "");
-        padre.addChildNode(new Nodo_1.Nodo("print", ""));
-        padre.addChildNode(new Nodo_1.Nodo("(", ""));
-        let hijo = new Nodo_1.Nodo("exp", "");
-        // hijo.addChildNode(this.parametros.recorrer());
+        // padre.addChildNode(new Nodo("print",""));
+        // padre.addChildNode(new Nodo("(",""));
+        let hijo = new Nodo_1.Nodo("EXPRESIONES", "");
+        for (let par of this.parametros) {
+            hijo.addChildNode(par.recorrer(table, tree));
+        }
         padre.addChildNode(hijo);
-        padre.addChildNode(new Nodo_1.Nodo(")", ""));
+        // padre.addChildNode(new Nodo(")",""));
         return padre;
     }
 }

@@ -1,5 +1,6 @@
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
+import { Nodo } from "../Ast/Nodo";
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { Simbolo } from "../TablaSimbolos/Simbolo";
@@ -64,7 +65,12 @@ export class Asignacion implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("ASIGNACION","");
+        padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(this.expresion.recorrer(table,tree));
+         
+        return padre;
     }
+
 
 }

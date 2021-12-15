@@ -66,7 +66,19 @@ export class DoWhile implements Instruccion{
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("DO WHILE","");
+        let NodoInstr = new Nodo("INSTRUCCIONES","");
+        for(let instr of this.lista_instrucciones)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(NodoInstr);
+
+        let condicion = new Nodo("CONDICION","");
+        condicion.addChildNode(this.condicion.ejecutar(table,tree));
+        padre.addChildNode(condicion);
+        
+        return padre;
     }
 
 }

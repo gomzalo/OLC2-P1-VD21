@@ -349,8 +349,8 @@ export class Relacional implements Instruccion{
         }
     }
 
-    recorrer(): Nodo {
-        let padre = new Nodo("Exp. Relacional","");
+    recorrer(table: TablaSimbolos, tree: Ast){
+        let padre = new Nodo("EXP RELACIONAL","");
 
         if(this.expU){
             padre.addChildNode(new Nodo(this.operador,""));

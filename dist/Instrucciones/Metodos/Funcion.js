@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -46,7 +47,22 @@ class Funcion {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("FUNCION", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        let params = new Nodo_1.Nodo("PARAMETROS", "");
+        for (let par of this.parameters) {
+            let parametro = new Nodo_1.Nodo("PARAMETRO", "");
+            parametro.addChildNode(par["tipo"]);
+            parametro.addChildNode(par["id"]);
+            params.addChildNode(parametro);
+        }
+        padre.addChildNode(params);
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.instructions) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Funcion = Funcion;

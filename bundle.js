@@ -2028,7 +2028,7 @@ case 84:return 117;
 break;
 case 85:
             // console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column);
-            errores.push(new Errores("Lexico", `Error lexico '${yy_.yytext}'`, yy_.yylloc.first_line, yy_.yylloc.first_column));
+            errores.push(new Errores("Lexico", `Error lexico '${yy_.yytext}'.`, yy_.yylloc.first_line, yy_.yylloc.first_column));
         
 break;
 case 86:/* skip whitespace */
@@ -2366,6 +2366,7 @@ exports.Nodo = Nodo;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoArr = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Rango_1 = require("./Rango");
 class AccesoArr {
@@ -2451,7 +2452,10 @@ class AccesoArr {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Acceso ARR", "");
+        // padre.addChildNode(new Nodo(this.id,""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
     buscarDimensiones(table, tree, expresiones, arreglo) {
         // let value = null;
@@ -2497,7 +2501,7 @@ class AccesoArr {
 }
 exports.AccesoArr = AccesoArr;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Tipo":56,"./Rango":11}],9:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56,"./Rango":11}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Arreglo = void 0;
@@ -2515,8 +2519,10 @@ class Arreglo {
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Rango", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("Arreglo", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.valor.join(), ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
         return padre;
     }
 }
@@ -2554,8 +2560,10 @@ class Copiar {
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Rango", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("Copiar", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
         return padre;
     }
 }
@@ -2585,8 +2593,9 @@ class Rango {
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
     }
-    recorrer() {
+    recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Rango", "");
+        padre.addChildNode(this.valor.join());
         return padre;
     }
 }
@@ -2642,6 +2651,7 @@ const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
+const Nodo_1 = require("../Ast/Nodo");
 class Llamada {
     constructor(id, parameters, fila, columna, arreglo = false) {
         this.arreglo = false;
@@ -2701,12 +2711,19 @@ class Llamada {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("LLAMADA FUNCION", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id.toString(), ""));
+        let params = new Nodo_1.Nodo("PARAMETROS", "");
+        for (let param of this.parameters) {
+            params.addChildNode(new Nodo_1.Nodo(param.id, ""));
+        }
+        padre.addChildNode(params);
+        return padre;
     }
 }
 exports.Llamada = Llamada;
 
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/TablaSimbolos":55,"../TablaSimbolos/Tipo":56}],14:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/TablaSimbolos":55,"../TablaSimbolos/Tipo":56}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
@@ -3051,8 +3068,8 @@ class Aritmetica {
             return Tipo_1.TIPO.ENTERO;
         }
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Exp. Aritmetica", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("ARITMETICAS", "");
         if (this.expU) {
             padre.addChildNode(new Nodo_1.Nodo(this.operador.toString(), ""));
             padre.addChildNode(this.exp1.recorrer());
@@ -3192,8 +3209,8 @@ class Logica {
             return Tipo_1.TIPO.ENTERO;
         }
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Exp. Logica", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("EXP LOGICAS", "");
         if (this.expU) {
             padre.addChildNode(new Nodo_1.Nodo(this.operador, ""));
             padre.addChildNode(this.exp1.recorrer());
@@ -3599,8 +3616,8 @@ class Relacional {
             return Tipo_1.TIPO.ENTERO;
         }
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Exp. Relacional", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("EXP RELACIONAL", "");
         if (this.expU) {
             padre.addChildNode(new Nodo_1.Nodo(this.operador, ""));
             padre.addChildNode(this.exp1.recorrer());
@@ -3646,6 +3663,7 @@ exports.Primitivo = Primitivo;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoStruct = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Struct_1 = require("../../Instrucciones/Struct/Struct");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
@@ -3739,16 +3757,24 @@ class AccesoStruct {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("ACCESO STRUCT", "");
+        if (this.idStruct != null) {
+            padre.addChildNode(this.idStruct.recorrer(table, tree));
+        }
+        if (this.expresiones != null) {
+            padre.addChildNode(this.expresiones.recorrer(table, tree));
+        }
+        return padre;
     }
 }
 exports.AccesoStruct = AccesoStruct;
 
-},{"../../Ast/Errores":6,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Identificador":12}],19:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Identificador":12}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ternario = void 0;
 const Errores_1 = require("../Ast/Errores");
+const Nodo_1 = require("../Ast/Nodo");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Ternario {
     constructor(condicion, True, False, fila, columna) {
@@ -3783,12 +3809,18 @@ class Ternario {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("TERNARIO", "");
+        padre.addChildNode(this.condicion.recorrer(table, tree));
+        padre.addChildNode(new Nodo_1.Nodo("?", ""));
+        padre.addChildNode(this.instTrue.recorrer(table, tree));
+        padre.addChildNode(new Nodo_1.Nodo(":", ""));
+        padre.addChildNode(this.instFalse.recorrer(table, tree));
+        return padre;
     }
 }
 exports.Ternario = Ternario;
 
-},{"../Ast/Errores":6,"../TablaSimbolos/Tipo":56}],20:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":56}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionArr = void 0;
@@ -3957,6 +3989,7 @@ exports.DeclaracionArr = DeclaracionArr;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModificacionArr = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class ModificacionArr {
     //ID lista_exp IGUAL expr
@@ -4002,7 +4035,7 @@ class ModificacionArr {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        return new Nodo_1.Nodo("Modificacion Array", "");
     }
     modificarDimensiones(table, tree, expresiones, arreglo, valor) {
         // let value = null;
@@ -4051,11 +4084,12 @@ class ModificacionArr {
 }
 exports.ModificacionArr = ModificacionArr;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Tipo":56}],22:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56}],22:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
 const Errores_1 = require("../Ast/Errores");
+const Nodo_1 = require("../Ast/Nodo");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const Return_1 = require("./Transferencia/Return");
 class Asignacion {
@@ -4105,15 +4139,19 @@ class Asignacion {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("ASIGNACION", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        padre.addChildNode(this.expresion.recorrer(table, tree));
+        return padre;
     }
 }
 exports.Asignacion = Asignacion;
 
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":54,"./Transferencia/Return":53}],23:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"./Transferencia/Return":53}],23:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -4163,17 +4201,27 @@ class DoWhile {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("DO WHILE", "");
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        padre.addChildNode(condicion);
+        return padre;
     }
 }
 exports.DoWhile = DoWhile;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
 const Return_1 = require("./../Transferencia/Return");
 const Continuar_1 = require("./../Transferencia/Continuar");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Break_1 = require("../Transferencia/Break");
@@ -4249,7 +4297,22 @@ class For {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("FOR", "");
+        let decla = new Nodo_1.Nodo("DECLARACION", "");
+        decla.addChildNode(this.declaracion_asignacion.recorrer(table, tree));
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        let actualizacion = new Nodo_1.Nodo("ACTUALIZACION", "");
+        actualizacion.addChildNode(this.actualizacion.ejecutar(table, tree));
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(decla);
+        padre.addChildNode(condicion);
+        padre.addChildNode(actualizacion);
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
     getBool(val) {
         return !!JSON.parse(String(val).toLowerCase());
@@ -4257,13 +4320,14 @@ class For {
 }
 exports.For = For;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForIn = void 0;
 const Identificador_1 = require("./../../Expresiones/Identificador");
 const Return_1 = require("../Transferencia/Return");
 const Continuar_1 = require("../Transferencia/Continuar");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Break_1 = require("../Transferencia/Break");
@@ -4512,7 +4576,19 @@ class ForIn {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("FOR-IN", "");
+        let iterador = new Nodo_1.Nodo("ITERADOR", "");
+        iterador.addChildNode(new Nodo_1.Nodo(this.iterador, ""));
+        let rango = new Nodo_1.Nodo("RANGO", "");
+        rango.addChildNode(this.rango.recorrer(table, tree));
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(iterador);
+        padre.addChildNode(rango);
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
     getBool(val) {
         return !!JSON.parse(String(val).toLowerCase());
@@ -4520,7 +4596,7 @@ class ForIn {
 }
 exports.ForIn = ForIn;
 
-},{"../../Ast/Errores":6,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.While = void 0;
@@ -4579,16 +4655,17 @@ class While {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("CICLO", "");
+        let padre = new Nodo_1.Nodo("WHILE", "");
         padre.addChildNode(new Nodo_1.Nodo("while", ""));
-        padre.addChildNode(new Nodo_1.Nodo("(", ""));
+        // padre.addChildNode(new Nodo("(",""));
         padre.addChildNode(this.condicion.recorrer(table, tree));
-        padre.addChildNode(new Nodo_1.Nodo(")", ""));
-        padre.addChildNode(new Nodo_1.Nodo("{", ""));
+        // padre.addChildNode(new Nodo(")",""));
+        // padre.addChildNode(new Nodo("{",""));
+        padre.addChildNode(new Nodo_1.Nodo("INSTRUCCIONES", ""));
         for (let ins of this.lista_instrucciones) {
             padre.addChildNode(ins.recorrer(table, tree));
         }
-        padre.addChildNode(new Nodo_1.Nodo("}", ""));
+        // padre.addChildNode(new Nodo("}",""));
         return padre;
     }
     getBool(val) {
@@ -4606,6 +4683,7 @@ const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 class Case {
     constructor(valor_case, lista_instrucciones, fila, columna) {
         this.valor_case = valor_case;
@@ -4647,16 +4725,26 @@ class Case {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("CASE", "");
+        let expresion = new Nodo_1.Nodo("EXPRESION", "");
+        expresion.addChildNode(this.valor_case.recorrer(table, tree));
+        padre.addChildNode(expresion);
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Case = Case;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -4752,7 +4840,28 @@ class If {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("IF", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        // LISTA IFS
+        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
+        for (let instr of this.lista_ifs) {
+            listaIfs.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.lista_elses != null) {
+            let listaElse = new Nodo_1.Nodo("INSTRUCCIONES Else", "");
+            for (let instr of this.lista_elses) {
+                listaElse.addChildNode(instr.recorrer(table, tree));
+            }
+            padre.addChildNode(listaElse);
+        }
+        // LISTA IFS
+        if (this.lista_ifelse != null) {
+            padre.addChildNode(this.lista_ifelse.recorrer(table, tree));
+        }
+        return padre;
     }
     getBool(val) {
         return !!JSON.parse(String(val).toLowerCase());
@@ -4760,11 +4869,12 @@ class If {
 }
 exports.If = If;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],29:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],29:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -4866,15 +4976,36 @@ class Ifsinllave {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("IF", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        // LISTA IFS
+        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
+        // for(let instr of this.lista_ifs)
+        // {
+        //     listaIfs.addChildNode(instr.recorrer(table,tree));
+        // }
+        // padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.ins_ifs != null) {
+            listaIfs.addChildNode(this.ins_ifs.recorrer(table, tree));
+        }
+        padre.addChildNode(condicion);
+        padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.ins_elses != null) {
+            padre.addChildNode(this.ins_elses.recorrer(table, tree));
+        }
+        return padre;
     }
 }
 exports.Ifsinllave = Ifsinllave;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],30:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],30:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Return_1 = require("../Transferencia/Return");
@@ -4939,16 +5070,30 @@ class Switch {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("SWITCH", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.valor_sw.ejecutar(table, tree));
+        let listaCase = new Nodo_1.Nodo("LISTA CASE", "");
+        for (let instr of this.lista_case) {
+            listaCase.addChildNode(instr.recorrer(table, tree));
+        }
+        let listaDefault = new Nodo_1.Nodo("LISTA DEFAULT", "");
+        if (this.lista_default != null) {
+            for (let instr of this.lista_default) {
+                listaDefault.addChildNode(instr.recorrer(table, tree));
+            }
+        }
+        return padre;
     }
 }
 exports.Switch = Switch;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
 const Errores_1 = require("../Ast/Errores");
+const Nodo_1 = require("../Ast/Nodo");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
 class Declaracion {
@@ -5017,16 +5162,21 @@ class Declaracion {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("DECLARACION", "");
+        for (let sim of this.simbolos) {
+            sim.valor.recorrer(table, tree);
+        }
+        return padre;
     }
 }
 exports.Declaracion = Declaracion;
 
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56}],32:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56}],32:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -5071,16 +5221,32 @@ class Funcion {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("FUNCION", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        let params = new Nodo_1.Nodo("PARAMETROS", "");
+        for (let par of this.parameters) {
+            let parametro = new Nodo_1.Nodo("PARAMETRO", "");
+            parametro.addChildNode(par["tipo"]);
+            parametro.addChildNode(par["id"]);
+            params.addChildNode(parametro);
+        }
+        padre.addChildNode(params);
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.instructions) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Funcion = Funcion;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
@@ -5119,16 +5285,23 @@ class Main {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("MAIN", "");
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.instructions) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Main = Main;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class Pop {
     constructor(id, fila, columna) {
         this.id = id;
@@ -5160,16 +5333,19 @@ class Pop {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("POP", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        return padre;
     }
 }
 exports.Pop = Pop;
 
-},{"../../../../Ast/Errores":6}],35:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Push = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class Push {
     constructor(id, expresion, fila, columna) {
         this.expresion = expresion;
@@ -5210,17 +5386,21 @@ class Push {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("PUSH", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        padre.addChildNode(this.expresion.ejecutar(table, tree));
+        return padre;
     }
 }
 exports.Push = Push;
 
-},{"../../../../Ast/Errores":6}],36:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7}],36:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharOfPos = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class CharOfPos {
     constructor(id, expresion, fila, columna) {
         this.id = id;
@@ -5268,17 +5448,24 @@ class CharOfPos {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("CharOfPos", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        let instruccion = new Nodo_1.Nodo("INSTRUCCION", "");
+        instruccion.addChildNode(this.expresion.recorrer(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(instruccion);
+        return padre;
     }
 }
 exports.CharOfPos = CharOfPos;
 
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":56}],37:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subString = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class subString {
     constructor(id, inicio, fin, fila, columna) {
         this.id = id;
@@ -5347,17 +5534,27 @@ class subString {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("CharOfPos", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        let instruccion = new Nodo_1.Nodo("INICIO", "");
+        instruccion.addChildNode(this.inicio.recorrer(table, tree));
+        let fin = new Nodo_1.Nodo("FIN", "");
+        fin.addChildNode(this.fin.recorrer(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(instruccion);
+        padre.addChildNode(fin);
+        return padre;
     }
 }
 exports.subString = subString;
 
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":56}],38:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],38:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class toLower {
     constructor(id, fila, columna) {
         this.id = id;
@@ -5389,17 +5586,21 @@ class toLower {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("toLower", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 }
 exports.toLower = toLower;
 
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":56}],39:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toUpper = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class toUpper {
     constructor(id, fila, columna) {
         this.id = id;
@@ -5431,16 +5632,20 @@ class toUpper {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("toLower", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 }
 exports.toUpper = toUpper;
 
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":56}],40:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Length {
     constructor(id, fila, columna) {
@@ -5473,17 +5678,21 @@ class Length {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Length", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
 }
 exports.Length = Length;
 
-},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":56}],41:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
 const Identificador_1 = require("./../../../Expresiones/Identificador");
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 class Matematicas {
     constructor(tipo_funcion, expresion, fila, columna) {
         this.tipo_funcion = tipo_funcion;
@@ -5531,17 +5740,27 @@ class Matematicas {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Matematicas", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, "")); //this.tipo_funcion.toString()
+        let tipoN = new Nodo_1.Nodo("TIPO_FUNCION", "");
+        tipoN.addChildNode(new Nodo_1.Nodo(this.tipo_funcion.toString(), ""));
+        let instruccion = new Nodo_1.Nodo("INSTRUCCION", "");
+        instruccion.addChildNode(this.expresion.recorrer(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(tipoN);
+        padre.addChildNode(instruccion);
+        return padre;
     }
 }
 exports.Matematicas = Matematicas;
 
-},{"../../../Ast/Errores":6,"./../../../Expresiones/Identificador":12}],42:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"./../../../Expresiones/Identificador":12}],42:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parse = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class Parse {
     constructor(tipo_funcion, parameters, fila, columna) {
         this.tipo_funcion = tipo_funcion;
@@ -5602,16 +5821,20 @@ class Parse {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Parse", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        padre.addChildNode(this.parameters.ejecutar(table, tree));
+        return padre;
     }
 }
 exports.Parse = Parse;
 
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":56}],43:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],43:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class To {
     constructor(tipo_conversion, parameters, fila, columna) {
         this.tipo_conversion = tipo_conversion;
@@ -5663,16 +5886,20 @@ class To {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("toLower", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.tipo_conversion.toString(), ""));
+        padre.addChildNode(this.parameters.ejecutar(table, tree));
+        return padre;
     }
 }
 exports.To = To;
 
-},{"../../../../Ast/Errores":6}],44:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7}],44:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringN = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class StringN {
     constructor(expresion, fila, columna) {
@@ -5700,16 +5927,20 @@ class StringN {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("StringN", "");
+        // padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(this.expresion.ejecutar(table, tree));
+        return padre;
     }
 }
 exports.StringN = StringN;
 
-},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":56}],45:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],45:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class TypeOfN {
     constructor(expresion, fila, columna) {
@@ -5737,7 +5968,11 @@ class TypeOfN {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("TypeOfN", "");
+        // padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(this.expresion.ejecutar(table, tree));
+        6;
+        return padre;
     }
     getTipo(tipo) {
         switch (tipo) {
@@ -5766,7 +6001,7 @@ class TypeOfN {
 }
 exports.TypeOfN = TypeOfN;
 
-},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":56}],46:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],46:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -5825,14 +6060,16 @@ class Print {
     }
     translate3d(table, tree) {
     }
-    recorrer() {
+    recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Print", "");
-        padre.addChildNode(new Nodo_1.Nodo("print", ""));
-        padre.addChildNode(new Nodo_1.Nodo("(", ""));
-        let hijo = new Nodo_1.Nodo("exp", "");
-        // hijo.addChildNode(this.parametros.recorrer());
+        // padre.addChildNode(new Nodo("print",""));
+        // padre.addChildNode(new Nodo("(",""));
+        let hijo = new Nodo_1.Nodo("EXPRESIONES", "");
+        for (let par of this.parametros) {
+            hijo.addChildNode(par.recorrer(table, tree));
+        }
         padre.addChildNode(hijo);
-        padre.addChildNode(new Nodo_1.Nodo(")", ""));
+        // padre.addChildNode(new Nodo(")",""));
         return padre;
     }
 }
@@ -5843,6 +6080,7 @@ exports.Print = Print;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsignaVariable = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Asignacion_1 = require("../Asignacion");
@@ -5899,7 +6137,10 @@ class AsignaVariable {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("AsignaVariableStruct", "");
+        padre.addChildNode(this.idStruct.ejecutar(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
     queondaaparte() {
         // if(!(this.idStruct instanceof Identificador)){
@@ -5938,11 +6179,12 @@ class AsignaVariable {
 }
 exports.AsignaVariable = AsignaVariable;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56,"../Asignacion":22}],48:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56,"../Asignacion":22}],48:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclararStruct = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Llamada_1 = require("../../Expresiones/Llamada");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
@@ -6066,12 +6308,17 @@ class DeclararStruct {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("DECLARAR STRUCT", "");
+        let tipoStruct = new Nodo_1.Nodo("TIPO STRUCT", "");
+        tipoStruct.addChildNode(new Nodo_1.Nodo(this.tipoStruct, ""));
+        padre.addChildNode(tipoStruct);
+        padre.addChildNode(this.llamada.recorrer(table, tree));
+        return padre;
     }
 }
 exports.DeclararStruct = DeclararStruct;
 
-},{"../../Ast/Errores":6,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56}],49:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56}],49:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Struct = void 0;
@@ -6085,6 +6332,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const DeclararStruct_1 = require("./DeclararStruct");
 const StructInStruct_1 = require("./StructInStruct");
+const Nodo_1 = require("../../Ast/Nodo");
 class Struct {
     constructor(id, instructions, fila, columna) {
         this.id = id;
@@ -6201,18 +6449,25 @@ class Struct {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("STRUCTS", "");
+        let NodoInstr = new Nodo_1.Nodo("DECLARACIONES", "");
+        for (let instr of this.instructions) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Struct = Struct;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructInStruct = void 0;
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 class StructInStruct {
     constructor(tipoStruct, id, fila, columna) {
         this.tipo = Tipo_1.TIPO.STRUCT;
@@ -6234,15 +6489,23 @@ class StructInStruct {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("StructInStruct", "");
+        let NodoInstr = new Nodo_1.Nodo("TIPO STRUCT", "");
+        NodoInstr.addChildNode(new Nodo_1.Nodo(this.tipoStruct, ""));
+        let id = new Nodo_1.Nodo("ID", "");
+        id.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        padre.addChildNode(NodoInstr);
+        padre.addChildNode(id);
+        return padre;
     }
 }
 exports.StructInStruct = StructInStruct;
 
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],51:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],51:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
 class Detener {
     constructor(fila, columna) {
         this.fila = fila;
@@ -6254,13 +6517,14 @@ class Detener {
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
     }
-    recorrer() {
-        throw new Error("Method not implemented.");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("Break", "");
+        return padre;
     }
 }
 exports.Detener = Detener;
 
-},{}],52:[function(require,module,exports){
+},{"../../Ast/Nodo":7}],52:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Continuar = void 0;
@@ -6317,7 +6581,7 @@ class Return {
         let padre = new Nodo_1.Nodo("RETURN", "");
         padre.addChildNode(new Nodo_1.Nodo("return", ""));
         if (this.valor != null) {
-            // padre.addChildNode(this.valor.recorrer());
+            padre.addChildNode(this.expresion.recorrer());
         }
         return padre;
     }

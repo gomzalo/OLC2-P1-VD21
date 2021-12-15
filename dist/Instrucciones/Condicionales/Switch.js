@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Break_1 = require("../Transferencia/Break");
 const Return_1 = require("../Transferencia/Return");
@@ -65,7 +66,20 @@ class Switch {
         throw new Error('Method not implemented.');
     }
     recorrer(table, tree) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo_1.Nodo("SWITCH", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.valor_sw.ejecutar(table, tree));
+        let listaCase = new Nodo_1.Nodo("LISTA CASE", "");
+        for (let instr of this.lista_case) {
+            listaCase.addChildNode(instr.recorrer(table, tree));
+        }
+        let listaDefault = new Nodo_1.Nodo("LISTA DEFAULT", "");
+        if (this.lista_default != null) {
+            for (let instr of this.lista_default) {
+                listaDefault.addChildNode(instr.recorrer(table, tree));
+            }
+        }
+        return padre;
     }
 }
 exports.Switch = Switch;

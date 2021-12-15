@@ -40,8 +40,10 @@ export class Copiar implements Instruccion{
         throw new Error("Method not implemented.");
     }
 
-    recorrer(): Nodo {
-        let padre = new Nodo("Rango","");
+    recorrer(table: TablaSimbolos, tree: Ast) {
+        let padre =  new Nodo("Copiar","");
+        padre.addChildNode(new Nodo(this.id,""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
         return padre;
     }
 }

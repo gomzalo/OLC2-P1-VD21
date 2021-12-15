@@ -114,8 +114,41 @@ export class If implements Instruccion{
         throw new Error('Method not implemented.');
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("IF","");
+
+        let condicion = new Nodo("CONDICION","");
+        condicion.addChildNode(this.condicion.ejecutar(table,tree));
+
+        // LISTA IFS
+        let listaIfs = new Nodo("INSTRUCCIONES IFS","");
+        for(let instr of this.lista_ifs)
+        {
+            listaIfs.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(listaIfs);
+
+
+        // LISTA IFS
+        if (this.lista_elses !=null ){
+            let listaElse = new Nodo("INSTRUCCIONES Else","");
+            for(let instr of this.lista_elses)
+            {
+                listaElse.addChildNode(instr.recorrer(table,tree));
+            }
+            padre.addChildNode(listaElse);
+        }
+
+        // LISTA IFS
+        if (this.lista_ifelse !=null ){
+            
+            padre.addChildNode(this.lista_ifelse.recorrer(table,tree));
+        }
+
+
+        return padre;
     }
+
+
     getBool(val) {
         return !!JSON.parse(String(val).toLowerCase());
     }

@@ -1,5 +1,6 @@
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { Detener } from "../Transferencia/Break";
@@ -50,7 +51,15 @@ export class Main implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("MAIN","");
+
+        let NodoInstr = new Nodo("INSTRUCCIONES","");
+        for(let instr of this.instructions)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 
 }

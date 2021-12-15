@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsignaVariable = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Asignacion_1 = require("../Asignacion");
@@ -58,7 +59,10 @@ class AsignaVariable {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("AsignaVariableStruct", "");
+        padre.addChildNode(this.idStruct.ejecutar(table, tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        return padre;
     }
     queondaaparte() {
         // if(!(this.idStruct instanceof Identificador)){

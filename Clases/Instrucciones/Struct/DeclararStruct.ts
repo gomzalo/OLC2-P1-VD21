@@ -1,5 +1,6 @@
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Identificador } from "../../Expresiones/Identificador";
 import { Llamada } from "../../Expresiones/Llamada";
 import { Instruccion } from "../../Interfaces/Instruccion";
@@ -156,7 +157,15 @@ export class DeclararStruct implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("DECLARAR STRUCT","");
+
+        let tipoStruct = new Nodo("TIPO STRUCT","");
+        tipoStruct.addChildNode(new Nodo(this.tipoStruct,""))
+        padre.addChildNode(tipoStruct);
+
+        padre.addChildNode(this.llamada.recorrer(table, tree));
+        return padre;
     }
+
     
 }

@@ -10,6 +10,7 @@ import { Return } from "../../../Transferencia/Return";
 import { Funcion } from "../../Funcion";
 import { resourceUsage } from 'process';
 import { Identificador } from '../../../../Expresiones/Identificador';
+import { Nodo } from '../../../../Ast/Nodo';
 
 export class To implements Funcion{
     public fila: number;
@@ -68,7 +69,10 @@ export class To implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("toLower","");
+        padre.addChildNode(new Nodo(this.tipo_conversion.toString(),""));
+        padre.addChildNode(this.parameters.ejecutar(table,tree));
+        return padre;
     }
 
 }

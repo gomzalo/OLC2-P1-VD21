@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parse = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class Parse {
     constructor(tipo_funcion, parameters, fila, columna) {
         this.tipo_funcion = tipo_funcion;
@@ -63,7 +64,10 @@ class Parse {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("Parse", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        padre.addChildNode(this.parameters.ejecutar(table, tree));
+        return padre;
     }
 }
 exports.Parse = Parse;

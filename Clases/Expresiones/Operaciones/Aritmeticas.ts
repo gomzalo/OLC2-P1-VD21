@@ -408,8 +408,8 @@ export class Aritmetica implements Instruccion {
     }
 
     
-    recorrer(): Nodo {
-        let padre = new Nodo("Exp. Aritmetica","");
+    recorrer(table: TablaSimbolos, tree: Ast) {
+        let padre = new Nodo("ARITMETICAS","");
 
         if(this.expU){
             padre.addChildNode(new Nodo(this.operador.toString(),""));

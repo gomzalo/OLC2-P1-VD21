@@ -15,8 +15,10 @@ class Arreglo {
     translate3d(table, tree) {
         throw new Error("Method not implemented.");
     }
-    recorrer() {
-        let padre = new Nodo_1.Nodo("Rango", "");
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("Arreglo", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.valor.join(), ""));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
         return padre;
     }
 }

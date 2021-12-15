@@ -45,7 +45,7 @@ export class Return implements Instruccion{
         let padre = new Nodo("RETURN","");
         padre.addChildNode(new Nodo("return",""));
         if(this.valor != null){
-            // padre.addChildNode(this.valor.recorrer());
+            padre.addChildNode(this.expresion.recorrer());
         }
         return padre;
     }

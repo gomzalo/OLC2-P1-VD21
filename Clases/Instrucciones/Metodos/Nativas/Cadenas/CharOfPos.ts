@@ -7,6 +7,7 @@ import { Detener } from "../../../Transferencia/Break";
 import { Continuar } from "../../../Transferencia/Continuar";
 import { Return } from "../../../Transferencia/Return";
 import { Funcion } from "../../Funcion";
+import { Nodo } from '../../../../Ast/Nodo';
 
 export class CharOfPos implements Funcion{
     public fila: number;
@@ -62,7 +63,13 @@ export class CharOfPos implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("CharOfPos","");
+        padre.addChildNode(new Nodo(this.id,""));
+        let instruccion =  new Nodo("INSTRUCCION","");
+        instruccion.addChildNode(this.expresion.recorrer(table,tree));
+        // padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(instruccion);
+        return padre;
     }
 
 }

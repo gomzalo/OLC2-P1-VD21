@@ -11,6 +11,7 @@ const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const DeclararStruct_1 = require("./DeclararStruct");
 const StructInStruct_1 = require("./StructInStruct");
+const Nodo_1 = require("../../Ast/Nodo");
 class Struct {
     constructor(id, instructions, fila, columna) {
         this.id = id;
@@ -127,7 +128,13 @@ class Struct {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("STRUCTS", "");
+        let NodoInstr = new Nodo_1.Nodo("DECLARACIONES", "");
+        for (let instr of this.instructions) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
     }
 }
 exports.Struct = Struct;

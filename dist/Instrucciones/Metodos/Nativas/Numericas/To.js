@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
+const Nodo_1 = require("../../../../Ast/Nodo");
 class To {
     constructor(tipo_conversion, parameters, fila, columna) {
         this.tipo_conversion = tipo_conversion;
@@ -53,7 +54,10 @@ class To {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("toLower", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.tipo_conversion.toString(), ""));
+        padre.addChildNode(this.parameters.ejecutar(table, tree));
+        return padre;
     }
 }
 exports.To = To;

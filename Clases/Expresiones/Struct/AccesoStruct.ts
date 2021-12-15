@@ -1,5 +1,6 @@
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
+import { Nodo } from "../../Ast/Nodo";
 import { Struct } from "../../Instrucciones/Struct/Struct";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
@@ -124,7 +125,15 @@ export class AccesoStruct implements Instruccion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("ACCESO STRUCT","");
+
+        if(this.idStruct != null){
+            padre.addChildNode(this.idStruct.recorrer(table,tree));
+        }
+        if(this.expresiones != null){
+            padre.addChildNode(this.expresiones.recorrer(table,tree) as Nodo);
+        }
+        return padre;
     }
 
 }

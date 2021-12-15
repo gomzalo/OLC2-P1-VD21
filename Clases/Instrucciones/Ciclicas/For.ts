@@ -98,7 +98,27 @@ export class For implements Instruccion{
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        let padre = new Nodo("FOR","");
+        let decla = new Nodo("DECLARACION","");
+        decla.addChildNode(this.declaracion_asignacion.recorrer(table,tree));
+
+        let condicion = new Nodo("CONDICION","");
+        condicion.addChildNode(this.condicion.ejecutar(table,tree));
+
+        let actualizacion = new Nodo("ACTUALIZACION","");
+        actualizacion.addChildNode(this.actualizacion.ejecutar(table,tree));
+
+        let NodoInstr = new Nodo("INSTRUCCIONES","");
+        for(let instr of this.lista_instrucciones)
+        {
+            NodoInstr.addChildNode(instr.recorrer(table,tree));
+        }
+        padre.addChildNode(decla);
+        padre.addChildNode(condicion);
+        padre.addChildNode(actualizacion);
+        padre.addChildNode(NodoInstr);
+
+        return padre;
     }
 
     getBool(val) {
