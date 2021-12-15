@@ -39,6 +39,7 @@ export class Ast  {
         this.contador = 0;
         this.strEntorno= "";
         this.TSglobal = new TablaSimbolos(null);
+        this.generadorC3d=GeneradorC3D.getInstancia();
     }
 
     public ejecutar(){
