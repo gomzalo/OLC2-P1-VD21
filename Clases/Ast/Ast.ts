@@ -12,6 +12,8 @@ import { Errores } from "./Errores";
 import { Struct } from "../Instrucciones/Struct/Struct";
 import { DeclaracionArr } from "../Instrucciones/Arreglos/DeclaracionArr";
 import { ModificacionArr } from '../Instrucciones/Arreglos/ModificacionArr';
+import { Nodo } from './Nodo';
+import { GeneradorC3D } from '../Instrucciones/G3D/GeneradorC3D';
 
 export class Ast  {
     public instrucciones:Array<Instruccion>;
@@ -23,6 +25,7 @@ export class Ast  {
     public dot : string = "";
     public contador : number = 0;
     public strEntorno : string = "";
+    public generadorC3d : GeneradorC3D;
 
 
     constructor(){
@@ -31,10 +34,12 @@ export class Ast  {
         this.structs =  new Array();
         this.Errores = new Array();
         this.consola = "";
+        // this.TSglobal =  null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno= "";
         this.TSglobal = new TablaSimbolos(null);
+        this.generadorC3d=GeneradorC3D.getInstancia();
     }
 
     public ejecutar(){
@@ -119,6 +124,8 @@ export class Ast  {
         }
 
     }
+
+
 
     public getInstrucciones(){
         return this.instrucciones;
@@ -214,6 +221,15 @@ export class Ast  {
 
     public addStruct(struct){
         this.structs.push(struct);
+    }
+
+    recorrer() {
+        let raiz = new Nodo("INICIO","");
+
+        for(let inst of this.instrucciones){
+            raiz.addChildNode(inst.recorrer(this.TSglobal,this));
+        }
+        return raiz;    
     }
 
     // public getDot(raiz){
