@@ -25,7 +25,7 @@ const compilar = document.getElementById('compilarProyecto');
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "javascript",
-    theme:"ttcn",
+    theme: "night",
     lineNumbers:true,
     autoCloseBrackets: true
 });
@@ -83,37 +83,50 @@ itemAbrir.addEventListener('click', async () => {
         reader.readAsText(file);
     }
     else{
-        alert('Error al cargar Archivo.');
+        // alert('Error al cargar Archivo.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al cargar Archivo.'
+        });
     }
 
 });
 
-function agregarNuevoTab() {
+agregarNuevoTab.addEventListener('click', async () => {
 
     var i, tabcontent, tablinks;
     tabcontent = document.getElementById('#myTab');
     tablinks = document.getElementById('#myTabContent');
     cantTabs = cantTabs + 1;
 
-    $('#myTab').append('<li class = "nav-item"> <a class="nav-link" id = "tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>   </li>');
+    $('#myTab').append('\
+    <li class = "nav-item">\
+    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
+    </li>');
     $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
 
     var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
         mode: "javascript",
-        theme: "ttcn",
+        theme: "night",
         lineNumbers: true
     });
     editorActual.setSize(null, 520);
     var nuevoEditor = new Editor(editorActual);
     editores.push(nuevoEditor);
     
-}
+});
 
-function eliminarTab() {
+eliminarTab.addEventListener('click', async () => {
 
 
     if( cantTabs == 1 ){
-        alert('No se puede eliminar todas las pestañas de trabajo.')
+        // alert('No se puede eliminar todas las pestañas de trabajo.')
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se puede eliminar todas las pestañas de trabajo.'
+        });
         return;
     }
 
@@ -150,10 +163,9 @@ function eliminarTab() {
 
     editores.splice(indexTab,1);
     cantTabs = cantTabs - 1;
+});
 
-}
-
-function limpiarTab(){
+limpiarTab.addEventListener('click', async () => {
 
     var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
@@ -176,7 +188,7 @@ function limpiarTab(){
 
     editores[indexTab].codeEditor.setValue('');
     
-}
+});
 
 compilar.addEventListener('click', () => {
 
@@ -217,13 +229,17 @@ compilar.addEventListener('click', () => {
         texto += result.getConsola();
         // $("#textAreaConsola").val(texto);
         // txtConsola.append(texto);
-        // Swal.fire(
-        //     '¡Gramatica correcta!'
-        // );
-    }catch(e){
         Swal.fire(
-            'Gramatica incorrecta\n:' + e
-        );
+            '¡Muy bien!',
+            '¡Se completo la ejecución!',
+            'success'
+        )
+    }catch(e){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Gramatica incorrecta\n:' + e
+        });
         // alert(e);
     }
 
@@ -272,29 +288,29 @@ function traducirProyecto(){
     });
 
     try{
-        //listaImprimir.length = 0;
         listaErrores.length = 0;
         astTraduccion = traduccion.parse(editores[indexTab].codeEditor.getValue());
         let entorno = new Entorno(null);
         entorno.setGlobal(entorno);
         entorno.setPadre(null);
-        //astTraduccion.entornoGlobal.setGlobal(result.entornoGlobal);
-        //astTraduccion.entornoGlobal.setPadre(null);
         let textoTraduccion = astTraduccion.traducir(entorno);
-    
         agregarNuevoTab();
         let tam =  editores.length;
         editores[tam-1].codeEditor.setValue(textoTraduccion);
-        //txtConsola.append(texto);
-        //listaImprimir = [];
-        
-
-        
-
-        alert('Gramatica Correcta');
+        // alert('Gramatica Correcta');
+        Swal.fire(
+            '¡Muy bien!',
+            '¡Se completo la traducción!',
+            'success'
+        )
     }catch(e){
-        alert('Grmatica Incorrecta');
-        alert(e);
+        // alert('Grmatica Incorrecta');
+        // alert(e);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Gramatica incorrecta\n:' + e
+        });
     }
 
 }

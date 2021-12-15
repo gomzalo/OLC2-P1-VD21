@@ -2499,11 +2499,7 @@ class AccesoArr {
 }
 exports.AccesoArr = AccesoArr;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56,"./Rango":11}],9:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Tipo":57,"./Rango":11}],9:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":57,"./Rango":11}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Arreglo = void 0;
@@ -2725,11 +2721,7 @@ class Llamada {
 }
 exports.Llamada = Llamada;
 
-<<<<<<< Updated upstream
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/TablaSimbolos":55,"../TablaSimbolos/Tipo":56}],14:[function(require,module,exports){
-=======
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/TablaSimbolos":56,"../TablaSimbolos/Tipo":57}],14:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/TablaSimbolos":56,"../TablaSimbolos/Tipo":57}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
@@ -3775,11 +3767,7 @@ class AccesoStruct {
 }
 exports.AccesoStruct = AccesoStruct;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Identificador":12}],19:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Identificador":12}],19:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Identificador":12}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ternario = void 0;
@@ -3830,11 +3818,7 @@ class Ternario {
 }
 exports.Ternario = Ternario;
 
-<<<<<<< Updated upstream
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":56}],20:[function(require,module,exports){
-=======
-},{"../Ast/Errores":6,"../TablaSimbolos/Tipo":57}],20:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":57}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionArr = void 0;
@@ -4098,11 +4082,7 @@ class ModificacionArr {
 }
 exports.ModificacionArr = ModificacionArr;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56}],22:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Tipo":57}],22:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":57}],22:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
@@ -4165,11 +4145,7 @@ class Asignacion {
 }
 exports.Asignacion = Asignacion;
 
-<<<<<<< Updated upstream
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"./Transferencia/Return":53}],23:[function(require,module,exports){
-=======
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":55,"./Transferencia/Return":53}],23:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":55,"./Transferencia/Return":53}],23:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
@@ -4237,11 +4213,7 @@ class DoWhile {
 }
 exports.DoWhile = DoWhile;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
@@ -4346,11 +4318,7 @@ class For {
 }
 exports.For = For;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForIn = void 0;
@@ -4626,11 +4594,7 @@ class ForIn {
 }
 exports.ForIn = ForIn;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.While = void 0;
@@ -4773,11 +4737,7 @@ class Case {
 }
 exports.Case = Case;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
@@ -4907,11 +4867,7 @@ class If {
 }
 exports.If = If;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],29:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":57}],29:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":57}],29:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
@@ -5043,11 +4999,7 @@ class Ifsinllave {
 }
 exports.Ifsinllave = Ifsinllave;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],30:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":57}],30:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":57}],30:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
@@ -5134,11 +5086,7 @@ class Switch {
 }
 exports.Switch = Switch;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -5221,11 +5169,7 @@ class Declaracion {
 }
 exports.Declaracion = Declaracion;
 
-<<<<<<< Updated upstream
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56}],32:[function(require,module,exports){
-=======
-},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57}],32:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57}],32:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
@@ -5295,11 +5239,7 @@ class Funcion {
 }
 exports.Funcion = Funcion;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
@@ -5354,11 +5294,7 @@ class Main {
 }
 exports.Main = Main;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
@@ -5521,11 +5457,7 @@ class CharOfPos {
 }
 exports.CharOfPos = CharOfPos;
 
-<<<<<<< Updated upstream
-},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],37:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],37:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":57}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subString = void 0;
@@ -5614,11 +5546,7 @@ class subString {
 }
 exports.subString = subString;
 
-<<<<<<< Updated upstream
-},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],38:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],38:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":57}],38:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
@@ -5664,11 +5592,7 @@ class toLower {
 }
 exports.toLower = toLower;
 
-<<<<<<< Updated upstream
-},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],39:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],39:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":57}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toUpper = void 0;
@@ -5714,11 +5638,7 @@ class toUpper {
 }
 exports.toUpper = toUpper;
 
-<<<<<<< Updated upstream
-},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],40:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],40:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":57}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
@@ -5764,11 +5684,7 @@ class Length {
 }
 exports.Length = Length;
 
-<<<<<<< Updated upstream
-},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],41:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":57}],41:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":57}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
@@ -5911,11 +5827,7 @@ class Parse {
 }
 exports.Parse = Parse;
 
-<<<<<<< Updated upstream
-},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],43:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],43:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":57}],43:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
@@ -6021,11 +5933,7 @@ class StringN {
 }
 exports.StringN = StringN;
 
-<<<<<<< Updated upstream
-},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],45:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":57}],45:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":57}],45:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
@@ -6091,11 +5999,7 @@ class TypeOfN {
 }
 exports.TypeOfN = TypeOfN;
 
-<<<<<<< Updated upstream
-},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],46:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":57}],46:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":57}],46:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -6273,11 +6177,7 @@ class AsignaVariable {
 }
 exports.AsignaVariable = AsignaVariable;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56,"../Asignacion":22}],48:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57,"../Asignacion":22}],48:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57,"../Asignacion":22}],48:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclararStruct = void 0;
@@ -6416,11 +6316,7 @@ class DeclararStruct {
 }
 exports.DeclararStruct = DeclararStruct;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56}],49:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57}],49:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57}],49:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Struct = void 0;
@@ -6562,11 +6458,7 @@ class Struct {
 }
 exports.Struct = Struct;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructInStruct = void 0;
@@ -6607,11 +6499,7 @@ class StructInStruct {
 }
 exports.StructInStruct = StructInStruct;
 
-<<<<<<< Updated upstream
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],51:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57}],51:[function(require,module,exports){
->>>>>>> Stashed changes
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57}],51:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
@@ -6987,7 +6875,7 @@ const compilar = document.getElementById('compilarProyecto');
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "javascript",
-    theme:"ttcn",
+    theme: "night",
     lineNumbers:true,
     autoCloseBrackets: true
 });
@@ -7045,37 +6933,50 @@ itemAbrir.addEventListener('click', async () => {
         reader.readAsText(file);
     }
     else{
-        alert('Error al cargar Archivo.');
+        // alert('Error al cargar Archivo.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error al cargar Archivo.'
+        });
     }
 
 });
 
-function agregarNuevoTab() {
+agregarNuevoTab.addEventListener('click', async () => {
 
     var i, tabcontent, tablinks;
     tabcontent = document.getElementById('#myTab');
     tablinks = document.getElementById('#myTabContent');
     cantTabs = cantTabs + 1;
 
-    $('#myTab').append('<li class = "nav-item"> <a class="nav-link" id = "tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>   </li>');
+    $('#myTab').append('\
+    <li class = "nav-item">\
+    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
+    </li>');
     $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
 
     var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
         mode: "javascript",
-        theme: "ttcn",
+        theme: "night",
         lineNumbers: true
     });
     editorActual.setSize(null, 520);
     var nuevoEditor = new Editor(editorActual);
     editores.push(nuevoEditor);
     
-}
+});
 
-function eliminarTab() {
+eliminarTab.addEventListener('click', async () => {
 
 
     if( cantTabs == 1 ){
-        alert('No se puede eliminar todas las pestañas de trabajo.')
+        // alert('No se puede eliminar todas las pestañas de trabajo.')
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se puede eliminar todas las pestañas de trabajo.'
+        });
         return;
     }
 
@@ -7112,10 +7013,9 @@ function eliminarTab() {
 
     editores.splice(indexTab,1);
     cantTabs = cantTabs - 1;
+});
 
-}
-
-function limpiarTab(){
+limpiarTab.addEventListener('click', async () => {
 
     var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
@@ -7138,7 +7038,7 @@ function limpiarTab(){
 
     editores[indexTab].codeEditor.setValue('');
     
-}
+});
 
 compilar.addEventListener('click', () => {
 
@@ -7179,13 +7079,17 @@ compilar.addEventListener('click', () => {
         texto += result.getConsola();
         // $("#textAreaConsola").val(texto);
         // txtConsola.append(texto);
-        // Swal.fire(
-        //     '¡Gramatica correcta!'
-        // );
-    }catch(e){
         Swal.fire(
-            'Gramatica incorrecta\n:' + e
-        );
+            '¡Muy bien!',
+            '¡Se completo la ejecución!',
+            'success'
+        )
+    }catch(e){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Gramatica incorrecta\n:' + e
+        });
         // alert(e);
     }
 
@@ -7234,29 +7138,29 @@ function traducirProyecto(){
     });
 
     try{
-        //listaImprimir.length = 0;
         listaErrores.length = 0;
         astTraduccion = traduccion.parse(editores[indexTab].codeEditor.getValue());
         let entorno = new Entorno(null);
         entorno.setGlobal(entorno);
         entorno.setPadre(null);
-        //astTraduccion.entornoGlobal.setGlobal(result.entornoGlobal);
-        //astTraduccion.entornoGlobal.setPadre(null);
         let textoTraduccion = astTraduccion.traducir(entorno);
-    
         agregarNuevoTab();
         let tam =  editores.length;
         editores[tam-1].codeEditor.setValue(textoTraduccion);
-        //txtConsola.append(texto);
-        //listaImprimir = [];
-        
-
-        
-
-        alert('Gramatica Correcta');
+        // alert('Gramatica Correcta');
+        Swal.fire(
+            '¡Muy bien!',
+            '¡Se completo la traducción!',
+            'success'
+        )
     }catch(e){
-        alert('Grmatica Incorrecta');
-        alert(e);
+        // alert('Grmatica Incorrecta');
+        // alert(e);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Gramatica incorrecta\n:' + e
+        });
     }
 
 }

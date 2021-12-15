@@ -23,7 +23,7 @@
     <!-- Create a simple CodeMirror instance -->
     <script src="codemirror/lib/codemirror.js"></script>
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="codemirror/theme/ttcn.css"> 
+    <link rel="stylesheet" href="codemirror/theme/night.css"> 
     <script src="codemirror/mode/javascript/javascript.js"></script>
     <script src="codemirror/addon/edit/closebrackets.js"></script>
 
@@ -80,9 +80,9 @@
                 Edición
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" onclick="agregarNuevoTab()" id="nuevo" ><i class="fa fa-square"></i> Nuevo</a>
-                <a class="dropdown-item" onclick="eliminarTab()" id="eliminar"><i class="fa fa-minus-square"></i> Eliminar</a>
-                <a class="dropdown-item" onclick="limpiarTab()"><i class="fa fa-eraser"></i> Limpiar</a>
+                <a class="dropdown-item" id="agregarNuevoTab"><i class="fa fa-square"></i> Nuevo</a>
+                <a class="dropdown-item" id="eliminarTab"><i class="fa fa-minus-square"></i> Eliminar</a>
+                <a class="dropdown-item" id="limpiarTab"><i class="fa fa-eraser"></i> Limpiar</a>
             </div>
         </li>
 
@@ -102,14 +102,13 @@
 </nav>
 <br>
 <br>
-
+<h2>Entrada</h2>
 <div class="container">
     <div class="row">
         <div class="col">
-        
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs active" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    <a class="nav-link bg-primary" id="tab1" data-toggle="tab" href="#home" role="tab" aria-controls="home"
                         aria-selected="true">Tab 1</a>
                 </li>
             </ul>
@@ -124,7 +123,7 @@
         
         </div>
         <div class="col1">
-            <h2> Consola Traducción </h2>
+            <h2>Consola</h2>
             <textarea class="form-control1" id="textAreaConsola"
                 wrap='off' readonly>Solamente de lectura</textarea>
         </div>
@@ -134,7 +133,7 @@
         <h3>Reporte Ast</h3>
     </div>
     <div>
-        <table class="table table-hover table-dark">
+        <table class="table table-hover table-secondary">
             <h3>Reporte de Errores</h3>
             <thead>
             <tr>
@@ -150,7 +149,7 @@
         </table>
     </div>
     <div>
-        <table class="table table-hover table-dark">
+        <table class="table table-hover table-active">
             <h3>Tabla de Simbolos</h3>
             <thead>
                 <tr>
@@ -173,5 +172,14 @@
 
 <script src="./bundle.js"></script>
 </body>
-
+<center>
+<footer class="btn btn-outline-primary">
+    
+    <p>Universidad de San Carlos de Guatemala - Facultad de Ingeníeria</p>
+    <p>Laboratorio de Organización de Lenguajes y Compiladores 2</p>
+    <p><a href="https://github.com/gomzalo">Gonzalo García - 20131852</a></p>
+    <p><a href="https://github.com/Ebenja">Erick López - 201504530</a></p>
+    
+</footer>
+</center>
 </html>
