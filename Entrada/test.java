@@ -301,6 +301,18 @@ void main()
     // println("Nuevo arreglo arr3 declarado: " & arr3); // Nuevo arreglo declarado: H-[O-O]-L-A    
     // println(arr3[1]); // H
     println(arr_AN[1][2][0]); // Z
+    int[] arrint = [0, [2, 1], 3];
+    char[] arrch = ['a', ['b', 'c'], 'd'];
+    double[] arrd = [0.5, [2.6, 1.7], 3.8];
+    boolean[] arrb = [true, [false, true], false];
+    println(arrb[1][1]);
+    println(arrint);
+    println(arrint[1][0]);
+    println(arrint[0]);
+    println(arrd[1][0]);
+    println(arrd[0]);
+    println(arrch[1][1]);
+    println(arrstr[1][0]);
     println("");
     println("************   Modificacion de arreglos  **************");
     println("");

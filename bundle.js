@@ -2449,10 +2449,13 @@ class AccesoArr {
             if (value instanceof Errores_1.Errores) {
                 return value;
             }
+            // if(!isNaN(value)){
+            //     return parseInt(value);
+            // }
+            return value;
             // if(value instanceof Array){
             //     return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
             // }
-            return value;
         }
     }
     translate3d(table, tree) {
@@ -2476,16 +2479,26 @@ class AccesoArr {
         let num = dimension.ejecutar(table, tree);
         // console.log("accArr num dim: " + num);
         // console.log("accArr arr: " + arreglo);
-        if (num instanceof Errores_1.Errores) {
-            return num;
-        }
+        // if(num instanceof Errores){
+        //     return num;
+        // }
         if (dimension.tipo != Tipo_1.TIPO.ENTERO) {
             return new Errores_1.Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
-        // console.log("arreglo[num]: " + arreglo[num][0].toString());
-        if (arreglo[num] != undefined) {
+        if (!isNaN(arreglo[num])) {
+            // console.log("aaaaaaaa");
+            return arreglo[num];
+        }
+        console.log("arreglo[num]: " + arreglo[num]);
+        if (arreglo[num] != undefined || arreglo[num] != null) {
             // console.log("no null");
-            return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice());
+            if (this.tipo == Tipo_1.TIPO.CADENA || this.tipo == Tipo_1.TIPO.CHARACTER) {
+                return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+            }
+            else {
+                // console.log("no str");
+                return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+            }
         }
         else {
             // console.log("null");

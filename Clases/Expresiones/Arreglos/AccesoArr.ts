@@ -84,10 +84,15 @@ export  class AccesoArr implements Instruccion{
             if(value instanceof Errores){
                 return value;
             }
+            // if(!isNaN(value)){
+            //     return parseInt(value);
+            // }
+            return value;
+        
             // if(value instanceof Array){
             //     return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
             // }
-            return value;
+            
         }
     }
 
@@ -114,16 +119,25 @@ export  class AccesoArr implements Instruccion{
         let num = dimension.ejecutar(table, tree);
         // console.log("accArr num dim: " + num);
         // console.log("accArr arr: " + arreglo);
-        if(num instanceof Errores){
-            return num;
-        }
+        // if(num instanceof Errores){
+        //     return num;
+        // }
         if(dimension.tipo != TIPO.ENTERO){
             return new Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
-        // console.log("arreglo[num]: " + arreglo[num][0].toString());
-        if(arreglo[num] != undefined){
+        if(!isNaN( arreglo[num])){
+            // console.log("aaaaaaaa");
+            return arreglo[num];
+        }
+        console.log("arreglo[num]: " + arreglo[num]);
+        if(arreglo[num] != undefined || arreglo[num] != null){
             // console.log("no null");
-            return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice());
+            if(this.tipo == TIPO.CADENA || this.tipo == TIPO.CHARACTER){
+                return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+            }else{
+                // console.log("no str");
+                return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+            }
         }else{
             // console.log("null");
             return new Errores("Semantico", "Posicion inexistente en el arreglo.", this.fila, this.columna);
