@@ -84,12 +84,7 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
-   console.log($$[$0-1]); this.$ = new Ast();  this.$.instrucciones = $$[$0-1]; this.$.Errores = errores.slice();
-                                                // errores.forEach((error)=>{
-                                                //     // this.$.Errores.push(error);
-                                                //     console.log("eeeerrrrrrrorrrres")
-                                                //     console.log(error);
-                                                // });
+   this.$ = new Ast();  this.$.instrucciones = $$[$0-1]; this.$.Errores = errores.slice();
                                                 return this.$; 
 break;
 case 2:
@@ -105,15 +100,10 @@ case 6: case 7: case 10: case 11: case 12: case 16: case 17: case 19:
  this.$ = $$[$0] 
 break;
 case 25:
- console.log("Error Sintactico" + yytext 
-                                    + "linea: " + this._$.first_line 
-                                    + "columna: " + this._$.first_column); 
-                                    
-                        errores.push(new Errores("Sintactico ", yytext + " <-- Error Sintactico ", this.fila,this.columna));
-                        this.$ =null;
-                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
-                                //                 this._$.first_line ,this._$.first_column);            
-                            
+ 
+                                                errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
+                                                this.$ =null;
+                                            
 break;
 case 26:
  this.$ = new Declaracion($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].last_column); 
@@ -241,25 +231,26 @@ case 69:
  this.$ = new ForIn($$[$0-5], $$[$0-3], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
 case 70:
-this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); 
 break;
 case 71:
-this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); 
 break;
-case 72: case 75:
- console.log("Error Sintactico" + yytext 
-                                    + "linea: " + this._$.first_line 
-                                    + "columna: " + this._$.first_column); 
-                        this.$=null;
-                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
-                                //                 this._$.first_line ,this._$.first_column);            
-                            
+case 72:
+   errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
+                                                this.$=null;
+                                            
 break;
 case 73:
  this.$ = new Funcion($$[$0-5], $$[$0-6], [], $$[$0-1], _$[$0-6].first_line, _$[$0-6].last_column); 
 break;
 case 74:
  this.$ = new Funcion($$[$0-6], $$[$0-7], $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column); 
+break;
+case 75:
+   errores.push(new Errores("Sintactico", `No hay instrucciones en la funcion.`, this._$.first_line, this._$.first_column));
+                                                this.$=null;
+                                            
 break;
 case 77: case 91:
  this.$ = new Array(); this.$.push($$[$0]); 
@@ -324,10 +315,10 @@ case 100:
                                             
 break;
 case 101:
-   this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
 break;
-case 102:
-   this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column);
+case 102: case 144:
+ this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); 
 break;
 case 103: case 104: case 105: case 106: case 107: case 110: case 111: case 149: case 161: case 162:
  this.$ = $$[$0]; 
@@ -433,9 +424,6 @@ case 142:
 break;
 case 143:
  this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
-break;
-case 144:
- this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); 
 break;
 case 145:
 this.$ = new Ternario($$[$0-4], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].first_column);
@@ -1316,8 +1304,9 @@ break;
 case 84:return 117;
 break;
 case 85:
-                                        console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column);
-                                    
+            // console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column);
+            errores.push(new Errores("Lexico", `Error lexico '${yy_.yytext}'.`, yy_.yylloc.first_line, yy_.yylloc.first_column));
+        
 break;
 case 86:/* skip whitespace */
 break;

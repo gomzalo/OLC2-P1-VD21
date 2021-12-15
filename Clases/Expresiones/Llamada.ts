@@ -47,7 +47,7 @@ export class Llamada implements Instruccion{
                     let symbol;
                     if (resultFunc.parameters[count].tipo == TIPO.ANY)
                     {
-                        alert("valexp ll: " + valueExpr);
+                        // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),expr.tipo, this.arreglo, this.fila, this.columna, valueExpr ); // seteo para variables nativas
                     }else{
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr );

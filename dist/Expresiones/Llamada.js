@@ -33,7 +33,7 @@ class Llamada {
                  {
                     let symbol;
                     if (resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) {
-                        alert("valexp ll: " + valueExpr);
+                        // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
                     }
                     else {

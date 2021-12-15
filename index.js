@@ -203,8 +203,8 @@ compilar.addEventListener('click', () => {
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue()); // return ast
         // result.Errores = gramatica.errores.slice()
+        console.log(result);
         result.ejecutar();
-    
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
@@ -223,7 +223,7 @@ compilar.addEventListener('click', () => {
 
 });
 
-function reporteAST(){  
+reporteAST.addEventListener('click', () => {  
 
     let arbol = new Arbol();
     
@@ -241,7 +241,7 @@ function reporteAST(){
     .catch((error) => {
         console.error(error);
     });
-}
+});
 
 function traducirProyecto(){
 
@@ -292,25 +292,25 @@ function traducirProyecto(){
 
 }
 
-function reporteErrores(){
+reporteErrores.addEventListener('click', () => {
     
     CuerpoTablaErrores.innerHTML = '';
     numero = 1     
     
     let aux = 1;
     //alert("Tam: "+listaErrores.length);
-    listaErrores.forEach(
+    result.Errores.forEach(
         element =>{
             let textoAuxilarTipo = "";
-            if( element.isErrorLexico() ){
-                textoAuxilarTipo = "Error Léxico";
+            if( element.tipo == "Lexico" ){
+                textoAuxilarTipo = "Lexico";
                 //texto += "\n--Error Lexico "+"Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
-            }else if(element.isErrorSintactico()){
-                textoAuxilarTipo = "Error Sintáctico";
+            }else if(element.tipo == "Sintactico"){
+                textoAuxilarTipo = "Sintactico";
                 //texto += "\n--Error Sintactico "+"Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
             }
             else{
-                textoAuxilarTipo = "Error Semántico";
+                textoAuxilarTipo = "Semantico";
                 //texto += "\n--Error Semántico "+" Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
             }
 
@@ -318,18 +318,17 @@ function reporteErrores(){
             <tr>
             <th scope="row">${aux}</th>
             <td>${textoAuxilarTipo}</td>
-            <td>${element.getMensaje()}</td>
-            <td>${element.getFila()}</td>
-            <td>${element.getColumna()}</td>
+            <td>${element.descripcion}</td>
+            <td>${element.fila}</td>
+            <td>${element.columna}</td>
             </tr>
             `
-
             aux++;
             
         }
     );
 
-}
+});
 
 function reporteTablaSimbolos(){
     CuerpoTablaSimbolos.innerHTML = '';

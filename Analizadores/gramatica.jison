@@ -145,9 +145,10 @@ BSL                                 "\\".
 {stringliteral}                     return 'CADENA';
 {charliteral}                       return 'CHAR';
 /*..............     Error lexico      ...............*/
-.                                   {
-                                        console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
-                                    }
+.       {
+            // console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
+            errores.push(new Errores("Lexico", `Error lexico '${yytext}'.`, yylloc.first_line, yylloc.first_column));
+        }
 /*..............     Espacios      ...............*/
 [\r\n\t]                  {/* skip whitespace */}
 
@@ -264,12 +265,7 @@ BSL                                 "\\".
 ::::::::::::::::::      Gramatica     ::::::::::::::::::
 *//*{ $$ = $1; return $$; }*/
 start : 
-        instrucciones EOF                   {   console.log($1); $$ = new Ast();  $$.instrucciones = $1; $$.Errores = errores.slice();
-                                                // errores.forEach((error)=>{
-                                                //     // $$.Errores.push(error);
-                                                //     console.log("eeeerrrrrrrorrrres")
-                                                //     console.log(error);
-                                                // });
+        instrucciones EOF                   {   $$ = new Ast();  $$.instrucciones = $1; $$.Errores = errores.slice();
                                                 return $$; }
     ;
 /*
@@ -303,35 +299,32 @@ instruccion:
     |   structs PUNTOCOMA                   { $$ = $1 }
     
     |   nat_push_instr PUNTOCOMA            { $$ = $1 }
-    | error         { console.log("Error Sintactico" + yytext 
-                                    + "linea: " + this._$.first_line 
-                                    + "columna: " + this._$.first_column); 
-                                    
-                        errores.push(new Errores("Sintactico ", yytext + " <-- Error Sintactico ", this.fila,this.columna));
-                        $$ =null;
-                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
-                                //                 this._$.first_line ,this._$.first_column);            
-                            }
+    | error                                 { 
+                                                errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
+                                                $$ =null;
+                                            }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
-        tipo  lista_simbolos                 { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
+        tipo  lista_simbolos                { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
     ; 
 /*..............     STRUCTS      ...............*/
 structs:
-        RSTRUCT ID LLAVA instrucciones_struct LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); }
+        RSTRUCT ID 
+        LLAVA instrucciones_struct LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); }
     // |   RSTRUCT ID LLAVA  LLAVC                 { $$ = new Struct($2,[].first_line, @1.last_column); }
     ;
 
 instrucciones_struct:
-        instrucciones_struct COMA attribute      { $$ = $1; $$.push($3); } //{ $1.push($2); $$ = $1;}
-	|   attribute                            { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
+        instrucciones_struct 
+        COMA attribute                      { $$ = $1; $$.push($3); } //{ $1.push($2); $$ = $1;}
+	|   attribute                           { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
     ;
 
 //    |   declaracion                { $$ = $1 }
-attribute:  ID ID                       {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); }
+attribute:  ID ID                           {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); }
 
-    |   tipo  attributeDeclaStruct      { $$ = new Declaracion($1, [$2], @1.first_line, @1.last_column); }
+    |   tipo  attributeDeclaStruct          { $$ = new Declaracion($1, [$2], @1.first_line, @1.last_column); }
     ;
     
 attributeDeclaStruct: 
@@ -479,16 +472,12 @@ for_in_instr:
 /*..............     Main      ...............*/
 main_:
         RVOID RMAIN PARA PARC 
-        LLAVA instrucciones LLAVC           {$$ = new Main($6,@1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new Main($6,@1.first_line, @1.first_column); }
     |   RVOID RMAIN PARA PARC 
-        LLAVA LLAVC                         {$$ = new Main([],@1.first_line, @1.first_column); }
-    | error         { console.log("Error Sintactico" + yytext 
-                                    + "linea: " + this._$.first_line 
-                                    + "columna: " + this._$.first_column); 
-                        $$=null;
-                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
-                                //                 this._$.first_line ,this._$.first_column);            
-                            }
+        LLAVA LLAVC                         { $$ = new Main([],@1.first_line, @1.first_column); }
+    | error                                 {   errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
+                                                $$=null;
+                                            }
     ;
     
 /*..............     Funciones      ...............*/
@@ -498,13 +487,9 @@ funciones:
     |   tipo ID
         PARA lista_parametros_func
         PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); }
-    | error         { console.log("Error Sintactico" + yytext 
-                                    + "linea: " + this._$.first_line 
-                                    + "columna: " + this._$.first_column); 
-                        $$=null;
-                                // new errores.default("Lexico", "No se esperaba el caracter "+ yytext , 
-                                //                 this._$.first_line ,this._$.first_column);            
-                            }
+    | error                                 {   errores.push(new Errores("Sintactico", `No hay instrucciones en la funcion.`, this._$.first_line, this._$.first_column));
+                                                $$=null;
+                                            }
     ;
 /*..............     Lista parametros      ...............*/
 lista_parametros_func: 
@@ -585,8 +570,8 @@ nat_push_instr:
 
     // |   accesoAsignaStruct IGUAL  expr  {}
 accesoAsignaStruct:
-        accesoAsignaStruct PUNTO ID     {   $$ = new AccesoStruct($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
-    |   ID                              {   $$ = new Identificador($1 , @1.first_line, @1.last_column);}
+        accesoAsignaStruct PUNTO ID         { $$ = new AccesoStruct($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
+    |   ID                                  { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
     ;
 
 // ------------     Matematicas

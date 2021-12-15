@@ -129,7 +129,7 @@ export  class AccesoArr implements Instruccion{
             // console.log("aaaaaaaa");
             return arreglo[num];
         }
-        console.log("arreglo[num]: " + arreglo[num]);
+        // console.log("arreglo[num]: " + arreglo[num]);
         if(arreglo[num] != undefined || arreglo[num] != null){
             // console.log("no null");
             if(this.tipo == TIPO.CADENA || this.tipo == TIPO.CHARACTER){
