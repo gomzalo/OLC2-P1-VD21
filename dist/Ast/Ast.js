@@ -17,7 +17,6 @@ const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 class Ast {
     constructor() {
         this.consola = "";
-        this.TSglobal = null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
@@ -26,7 +25,6 @@ class Ast {
         this.structs = new Array();
         this.Errores = new Array();
         this.consola = "";
-        // this.TSglobal =  null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
@@ -34,7 +32,7 @@ class Ast {
     }
     ejecutar() {
         let tree = this;
-        tree.setTSGlobal(new TablaSimbolos_1.TablaSimbolos(null));
+        tree.setTSGlobal(this.TSglobal);
         // 1ERA PASADA: 
         // GUARDAR FUNCIONES  Y METODOS
         for (let instr of this.instrucciones) {

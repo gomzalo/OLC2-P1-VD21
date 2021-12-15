@@ -19,7 +19,7 @@ export class Ast  {
     public structs ;
     public Errores ;
     public consola: string = "";
-    public TSglobal : TablaSimbolos =  null;
+    public TSglobal : TablaSimbolos;
     public dot : string = "";
     public contador : number = 0;
     public strEntorno : string = "";
@@ -31,7 +31,6 @@ export class Ast  {
         this.structs =  new Array();
         this.Errores = new Array();
         this.consola = "";
-        // this.TSglobal =  null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno= "";
@@ -40,7 +39,7 @@ export class Ast  {
 
     public ejecutar(){
         let tree = this;
-        tree.setTSGlobal(new TablaSimbolos(null));
+        tree.setTSGlobal(this.TSglobal);
         // 1ERA PASADA: 
         // GUARDAR FUNCIONES  Y METODOS
         for(let instr of this.instrucciones){

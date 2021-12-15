@@ -74,6 +74,27 @@ class TablaSimbolos {
         }
         return null;
     }
+    imprimirTabla() {
+        let content = "";
+        let cont = 1;
+        // console.log("printtable");
+        for (let [k, v] of this.tabla) {
+            let symbol = v;
+            /** DECLARACION */
+            content += `
+                <tr>
+                <th scope="row">${cont}</th>
+                <td>Declaracion</td>
+                <td>Global</td>
+                <td>${k}</td>
+                <td>${symbol.fila}</td>
+                <td>${symbol.columna}</td>
+                </tr>
+                `;
+            cont++;
+        }
+        return content;
+    }
     updateSymbolTabla(simbolo) {
         // console.log(`update id: ${simbolo.id}`);
         let tablaActual = this;
@@ -97,6 +118,26 @@ class TablaSimbolos {
             }
         }
         return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+    }
+    getTipoStr(tipo) {
+        switch (tipo) {
+            case Tipo_1.TIPO.ENTERO:
+                return "int";
+            case Tipo_1.TIPO.DECIMAL:
+                return "double";
+            case Tipo_1.TIPO.CADENA:
+                return "String";
+            case Tipo_1.TIPO.CHARACTER:
+                return "char";
+            case Tipo_1.TIPO.ARREGLO:
+                return "array";
+            case Tipo_1.TIPO.STRUCT:
+                return "struct";
+            case Tipo_1.TIPO.BOOLEANO:
+                return "boolean";
+            default:
+                return "invalido";
+        }
     }
 }
 exports.TablaSimbolos = TablaSimbolos;

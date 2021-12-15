@@ -2068,7 +2068,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 }
 }).call(this)}).call(this,require('_process'))
-},{"../dist/Ast/Ast":5,"../dist/Ast/Errores":6,"../dist/Expresiones/Arreglos/AccesoArr":8,"../dist/Expresiones/Arreglos/Arreglo":9,"../dist/Expresiones/Arreglos/Copiar":10,"../dist/Expresiones/Arreglos/Rango":11,"../dist/Expresiones/Identificador":12,"../dist/Expresiones/Llamada":13,"../dist/Expresiones/Operaciones/Aritmeticas":14,"../dist/Expresiones/Operaciones/Logicas":15,"../dist/Expresiones/Operaciones/Relacionales":16,"../dist/Expresiones/Primitivo":17,"../dist/Expresiones/Struct/AccesoStruct":18,"../dist/Expresiones/Ternario":19,"../dist/Instrucciones/Arreglos/DeclaracionArr":20,"../dist/Instrucciones/Arreglos/ModificacionArr":21,"../dist/Instrucciones/Asignacion":22,"../dist/Instrucciones/Ciclicas/DoWhile":23,"../dist/Instrucciones/Ciclicas/For":24,"../dist/Instrucciones/Ciclicas/ForIn":25,"../dist/Instrucciones/Ciclicas/While":26,"../dist/Instrucciones/Condicionales/Case":27,"../dist/Instrucciones/Condicionales/If":28,"../dist/Instrucciones/Condicionales/Ifsinllave":29,"../dist/Instrucciones/Condicionales/Switch":30,"../dist/Instrucciones/Declaracion":31,"../dist/Instrucciones/Metodos/Funcion":32,"../dist/Instrucciones/Metodos/Main":33,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":34,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":35,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":36,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":37,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":39,"../dist/Instrucciones/Metodos/Nativas/Length":40,"../dist/Instrucciones/Metodos/Nativas/Matematicas":41,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":42,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":43,"../dist/Instrucciones/Metodos/Nativas/StringN":44,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":45,"../dist/Instrucciones/Print":46,"../dist/Instrucciones/Struct/AsignaVariable":47,"../dist/Instrucciones/Struct/DeclararStruct":48,"../dist/Instrucciones/Struct/Struct":49,"../dist/Instrucciones/Struct/StructInStruct":50,"../dist/Instrucciones/Transferencia/Break":51,"../dist/Instrucciones/Transferencia/Continuar":52,"../dist/Instrucciones/Transferencia/Return":53,"../dist/TablaSimbolos/Simbolo":54,"../dist/TablaSimbolos/Tipo":56,"_process":3,"fs":1,"path":2}],5:[function(require,module,exports){
+},{"../dist/Ast/Ast":5,"../dist/Ast/Errores":6,"../dist/Expresiones/Arreglos/AccesoArr":8,"../dist/Expresiones/Arreglos/Arreglo":9,"../dist/Expresiones/Arreglos/Copiar":10,"../dist/Expresiones/Arreglos/Rango":11,"../dist/Expresiones/Identificador":12,"../dist/Expresiones/Llamada":13,"../dist/Expresiones/Operaciones/Aritmeticas":14,"../dist/Expresiones/Operaciones/Logicas":15,"../dist/Expresiones/Operaciones/Relacionales":16,"../dist/Expresiones/Primitivo":17,"../dist/Expresiones/Struct/AccesoStruct":18,"../dist/Expresiones/Ternario":19,"../dist/Instrucciones/Arreglos/DeclaracionArr":20,"../dist/Instrucciones/Arreglos/ModificacionArr":21,"../dist/Instrucciones/Asignacion":22,"../dist/Instrucciones/Ciclicas/DoWhile":23,"../dist/Instrucciones/Ciclicas/For":24,"../dist/Instrucciones/Ciclicas/ForIn":25,"../dist/Instrucciones/Ciclicas/While":26,"../dist/Instrucciones/Condicionales/Case":27,"../dist/Instrucciones/Condicionales/If":28,"../dist/Instrucciones/Condicionales/Ifsinllave":29,"../dist/Instrucciones/Condicionales/Switch":30,"../dist/Instrucciones/Declaracion":31,"../dist/Instrucciones/Metodos/Funcion":32,"../dist/Instrucciones/Metodos/Main":33,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":34,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":35,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":36,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":37,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":39,"../dist/Instrucciones/Metodos/Nativas/Length":40,"../dist/Instrucciones/Metodos/Nativas/Matematicas":41,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":42,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":43,"../dist/Instrucciones/Metodos/Nativas/StringN":44,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":45,"../dist/Instrucciones/Print":46,"../dist/Instrucciones/Struct/AsignaVariable":47,"../dist/Instrucciones/Struct/DeclararStruct":48,"../dist/Instrucciones/Struct/Struct":49,"../dist/Instrucciones/Struct/StructInStruct":50,"../dist/Instrucciones/Transferencia/Break":51,"../dist/Instrucciones/Transferencia/Continuar":52,"../dist/Instrucciones/Transferencia/Return":53,"../dist/TablaSimbolos/Simbolo":55,"../dist/TablaSimbolos/Tipo":57,"_process":3,"fs":1,"path":2}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
@@ -2088,7 +2088,6 @@ const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 class Ast {
     constructor() {
         this.consola = "";
-        this.TSglobal = null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
@@ -2097,7 +2096,6 @@ class Ast {
         this.structs = new Array();
         this.Errores = new Array();
         this.consola = "";
-        // this.TSglobal =  null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
@@ -2105,7 +2103,7 @@ class Ast {
     }
     ejecutar() {
         let tree = this;
-        tree.setTSGlobal(new TablaSimbolos_1.TablaSimbolos(null));
+        tree.setTSGlobal(this.TSglobal);
         // 1ERA PASADA: 
         // GUARDAR FUNCIONES  Y METODOS
         for (let instr of this.instrucciones) {
@@ -2256,7 +2254,7 @@ class Ast {
 }
 exports.Ast = Ast;
 
-},{"../Instrucciones/Arreglos/DeclaracionArr":20,"../Instrucciones/Arreglos/ModificacionArr":21,"../Instrucciones/Asignacion":22,"../Instrucciones/Declaracion":31,"../Instrucciones/Metodos/Funcion":32,"../Instrucciones/Metodos/Main":33,"../Instrucciones/Struct/Struct":49,"../Instrucciones/Transferencia/Break":51,"../Instrucciones/Transferencia/Continuar":52,"../Instrucciones/Transferencia/Return":53,"../TablaSimbolos/TablaSimbolos":55,"./../Instrucciones/Struct/DeclararStruct":48,"./Errores":6}],6:[function(require,module,exports){
+},{"../Instrucciones/Arreglos/DeclaracionArr":20,"../Instrucciones/Arreglos/ModificacionArr":21,"../Instrucciones/Asignacion":22,"../Instrucciones/Declaracion":31,"../Instrucciones/Metodos/Funcion":32,"../Instrucciones/Metodos/Main":33,"../Instrucciones/Struct/Struct":49,"../Instrucciones/Transferencia/Break":51,"../Instrucciones/Transferencia/Continuar":52,"../Instrucciones/Transferencia/Return":53,"../TablaSimbolos/TablaSimbolos":56,"./../Instrucciones/Struct/DeclararStruct":48,"./Errores":6}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Errores = void 0;
@@ -2501,7 +2499,11 @@ class AccesoArr {
 }
 exports.AccesoArr = AccesoArr;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56,"./Rango":11}],9:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/Tipo":57,"./Rango":11}],9:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Arreglo = void 0;
@@ -2643,7 +2645,7 @@ class Identificador {
 }
 exports.Identificador = Identificador;
 
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":56}],13:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":57}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Llamada = void 0;
@@ -2723,7 +2725,11 @@ class Llamada {
 }
 exports.Llamada = Llamada;
 
+<<<<<<< Updated upstream
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/TablaSimbolos":55,"../TablaSimbolos/Tipo":56}],14:[function(require,module,exports){
+=======
+},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/TablaSimbolos":56,"../TablaSimbolos/Tipo":57}],14:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
@@ -3101,7 +3107,7 @@ class Aritmetica {
 }
 exports.Aritmetica = Aritmetica;
 
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56}],15:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":57}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logica = void 0;
@@ -3225,7 +3231,7 @@ class Logica {
 }
 exports.Logica = Logica;
 
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56}],16:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":57}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relacional = void 0;
@@ -3632,7 +3638,7 @@ class Relacional {
 }
 exports.Relacional = Relacional;
 
-},{"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56}],17:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":57}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
@@ -3769,7 +3775,11 @@ class AccesoStruct {
 }
 exports.AccesoStruct = AccesoStruct;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Identificador":12}],19:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Identificador":12}],19:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ternario = void 0;
@@ -3820,7 +3830,11 @@ class Ternario {
 }
 exports.Ternario = Ternario;
 
+<<<<<<< Updated upstream
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":56}],20:[function(require,module,exports){
+=======
+},{"../Ast/Errores":6,"../TablaSimbolos/Tipo":57}],20:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionArr = void 0;
@@ -3984,7 +3998,7 @@ class DeclaracionArr {
 }
 exports.DeclaracionArr = DeclaracionArr;
 
-},{"../../Ast/Errores":6,"../../Expresiones/Arreglos/Copiar":10,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],21:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Expresiones/Arreglos/Copiar":10,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57}],21:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModificacionArr = void 0;
@@ -4084,7 +4098,11 @@ class ModificacionArr {
 }
 exports.ModificacionArr = ModificacionArr;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":56}],22:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/Tipo":57}],22:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
@@ -4147,7 +4165,11 @@ class Asignacion {
 }
 exports.Asignacion = Asignacion;
 
+<<<<<<< Updated upstream
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"./Transferencia/Return":53}],23:[function(require,module,exports){
+=======
+},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":55,"./Transferencia/Return":53}],23:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
@@ -4215,7 +4237,11 @@ class DoWhile {
 }
 exports.DoWhile = DoWhile;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
@@ -4320,7 +4346,11 @@ class For {
 }
 exports.For = For;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForIn = void 0;
@@ -4596,7 +4626,11 @@ class ForIn {
 }
 exports.ForIn = ForIn;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":12}],26:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.While = void 0;
@@ -4674,7 +4708,7 @@ class While {
 }
 exports.While = While;
 
-},{"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Ast/Errores":6}],27:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Ast/Errores":6}],27:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Case = void 0;
@@ -4739,7 +4773,11 @@ class Case {
 }
 exports.Case = Case;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
@@ -4869,7 +4907,11 @@ class If {
 }
 exports.If = If;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],29:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":57}],29:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
@@ -5001,7 +5043,11 @@ class Ifsinllave {
 }
 exports.Ifsinllave = Ifsinllave;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],30:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":57}],30:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
@@ -5088,7 +5134,11 @@ class Switch {
 }
 exports.Switch = Switch;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -5171,7 +5221,11 @@ class Declaracion {
 }
 exports.Declaracion = Declaracion;
 
+<<<<<<< Updated upstream
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56}],32:[function(require,module,exports){
+=======
+},{"../Ast/Errores":6,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57}],32:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
@@ -5241,7 +5295,11 @@ class Funcion {
 }
 exports.Funcion = Funcion;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
@@ -5296,7 +5354,11 @@ class Main {
 }
 exports.Main = Main;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
@@ -5459,7 +5521,11 @@ class CharOfPos {
 }
 exports.CharOfPos = CharOfPos;
 
+<<<<<<< Updated upstream
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],37:[function(require,module,exports){
+=======
+},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],37:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subString = void 0;
@@ -5548,7 +5614,11 @@ class subString {
 }
 exports.subString = subString;
 
+<<<<<<< Updated upstream
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],38:[function(require,module,exports){
+=======
+},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],38:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
@@ -5594,7 +5664,11 @@ class toLower {
 }
 exports.toLower = toLower;
 
+<<<<<<< Updated upstream
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],39:[function(require,module,exports){
+=======
+},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],39:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toUpper = void 0;
@@ -5640,7 +5714,11 @@ class toUpper {
 }
 exports.toUpper = toUpper;
 
+<<<<<<< Updated upstream
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],40:[function(require,module,exports){
+=======
+},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],40:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
@@ -5686,7 +5764,11 @@ class Length {
 }
 exports.Length = Length;
 
+<<<<<<< Updated upstream
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],41:[function(require,module,exports){
+=======
+},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":57}],41:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
@@ -5829,7 +5911,11 @@ class Parse {
 }
 exports.Parse = Parse;
 
+<<<<<<< Updated upstream
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":56}],43:[function(require,module,exports){
+=======
+},{"../../../../Ast/Errores":6,"../../../../TablaSimbolos/Tipo":57}],43:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
@@ -5935,7 +6021,11 @@ class StringN {
 }
 exports.StringN = StringN;
 
+<<<<<<< Updated upstream
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],45:[function(require,module,exports){
+=======
+},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":57}],45:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
@@ -6001,7 +6091,11 @@ class TypeOfN {
 }
 exports.TypeOfN = TypeOfN;
 
+<<<<<<< Updated upstream
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":56}],46:[function(require,module,exports){
+=======
+},{"../../../Ast/Errores":6,"../../../TablaSimbolos/Tipo":57}],46:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -6075,7 +6169,7 @@ class Print {
 }
 exports.Print = Print;
 
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56,"./Transferencia/Return":53}],47:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57,"./Transferencia/Return":53}],47:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsignaVariable = void 0;
@@ -6179,7 +6273,11 @@ class AsignaVariable {
 }
 exports.AsignaVariable = AsignaVariable;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56,"../Asignacion":22}],48:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57,"../Asignacion":22}],48:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclararStruct = void 0;
@@ -6318,7 +6416,11 @@ class DeclararStruct {
 }
 exports.DeclararStruct = DeclararStruct;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56}],49:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57}],49:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Struct = void 0;
@@ -6460,7 +6562,11 @@ class Struct {
 }
 exports.Struct = Struct;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructInStruct = void 0;
@@ -6501,7 +6607,11 @@ class StructInStruct {
 }
 exports.StructInStruct = StructInStruct;
 
+<<<<<<< Updated upstream
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],51:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57}],51:[function(require,module,exports){
+>>>>>>> Stashed changes
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
@@ -6591,6 +6701,10 @@ exports.Return = Return;
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7}],54:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+
+},{}],55:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Simbolo = void 0;
 class Simbolo {
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false) {
@@ -6650,7 +6764,7 @@ class Simbolo {
 }
 exports.Simbolo = Simbolo;
 
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
@@ -6727,6 +6841,27 @@ class TablaSimbolos {
         }
         return null;
     }
+    imprimirTabla() {
+        let content = "";
+        let cont = 1;
+        // console.log("printtable");
+        for (let [k, v] of this.tabla) {
+            let symbol = v;
+            /** DECLARACION */
+            content += `
+                <tr>
+                <th scope="row">${cont}</th>
+                <td>Declaracion</td>
+                <td>Global</td>
+                <td>${k}</td>
+                <td>${symbol.fila}</td>
+                <td>${symbol.columna}</td>
+                </tr>
+                `;
+            cont++;
+        }
+        return content;
+    }
     updateSymbolTabla(simbolo) {
         // console.log(`update id: ${simbolo.id}`);
         let tablaActual = this;
@@ -6751,10 +6886,30 @@ class TablaSimbolos {
         }
         return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
     }
+    getTipoStr(tipo) {
+        switch (tipo) {
+            case Tipo_1.TIPO.ENTERO:
+                return "int";
+            case Tipo_1.TIPO.DECIMAL:
+                return "double";
+            case Tipo_1.TIPO.CADENA:
+                return "String";
+            case Tipo_1.TIPO.CHARACTER:
+                return "char";
+            case Tipo_1.TIPO.ARREGLO:
+                return "array";
+            case Tipo_1.TIPO.STRUCT:
+                return "struct";
+            case Tipo_1.TIPO.BOOLEANO:
+                return "boolean";
+            default:
+                return "invalido";
+        }
+    }
 }
 exports.TablaSimbolos = TablaSimbolos;
 
-},{"../Ast/Errores":6,"./Tipo":56}],56:[function(require,module,exports){
+},{"../Ast/Errores":6,"./Tipo":57}],57:[function(require,module,exports){
 "use strict";
 /**
  * @enum de Tipo nos permite enumerar los tipos del lenguaje
@@ -6804,7 +6959,7 @@ var OperadorLogico;
     OperadorLogico[OperadorLogico["OR"] = 2] = "OR";
 })(OperadorLogico = exports.OperadorLogico || (exports.OperadorLogico = {}));
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 // const { TablaSimbolos } = require("./Clases/TablaSimbolos/TablaSimbolos");
 
 // import Nodo from "../../Ast/Nodo";
@@ -6815,11 +6970,17 @@ let result;
 let astTraduccion;
 let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
-const {Ast} = require("./dist/Ast/Ast");
+const { Ast } = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
-const {Primitivo} = require("./dist/Expresiones/Primitivo");
-const {TablaSimbolos} = require("./dist/TablaSimbolos/TablaSimbolos");
-// import {Instruccion} from("./dist/Interfaces/Instruccion");
+const { Primitivo } = require("./dist/Expresiones/Primitivo");
+const { TablaSimbolos } = require("./dist/TablaSimbolos/TablaSimbolos");
+const { Instruccion } = require("./dist/Interfaces/Instruccion");
+const { Declaracion } = require("./dist/Instrucciones/Declaracion");
+const { Funcion } = require("./dist/Instrucciones/Metodos/Funcion");
+const { Main } = require("./dist/Instrucciones/Metodos/Main");
+const { Asignacion } = require("./dist/Instrucciones/Asignacion");
+const { DeclaracionArr } = require("./dist/Instrucciones/Arreglos/DeclaracionArr");
+const { Struct } = require("./dist/Instrucciones/Struct/Struct");
 // const Lista_Imprimir = require("./dist/Lista_imprimir");
 
 const compilar = document.getElementById('compilarProyecto');
@@ -7012,6 +7173,7 @@ compilar.addEventListener('click', () => {
         // result.Errores = gramatica.errores.slice()
         console.log(result);
         result.ejecutar();
+        entornoAnalizar = result.TSglobal;
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
@@ -7137,12 +7299,188 @@ reporteErrores.addEventListener('click', () => {
 
 });
 
-function reporteTablaSimbolos(){
+reporteTablaSimbolos.addEventListener('click', () => {
     CuerpoTablaSimbolos.innerHTML = '';
-    let texto = entornoAnalizar.imprimirEntorno();
-    CuerpoTablaSimbolos.innerHTML += tetxto;
+    let content = "";
+    let contador = 1;
+    result.instrucciones.forEach(instruccion => {
+        // :::::::::::::::::::  FUNCIONES    :::::::::::::::::::
+        if(instruccion instanceof Funcion){
+            content += `
+            <tr>
+            <th scope="row">${contador}</th>
+            <td>Función</td>
+            <td>Global</td>
+            <td>${instruccion.id}</td>
+            <td>${instruccion.fila}</td>
+            <td>${instruccion.columna}</td>
+            </tr>
+            `
+            contador++;
+            // ________     Parametros main  ________
+            if(instruccion.parameters != null){
+                instruccion.parameters.forEach(parametros_funcion => {
+                    // .........    Arreglo de parametros     .........
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Parametro</td>
+                        <td>Funcion ${instruccion.id}</td>
+                        <td>${parametros_funcion.id}</td>
+                        <td>${instruccion.fila}</td>
+                        <td>${instruccion.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                });
+            }
+            // ________     Instrucciones funciones  ________
+            if(instruccion.instructions != null){
+                instruccion.instructions.forEach(instrucciones_funcion => {
+                    // .........    Declaracion     .........
+                    if(instrucciones_funcion instanceof Declaracion){
+                        instrucciones_funcion.simbolos.forEach(simbolo_decl =>{
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Declaracion</td>
+                            <td>Funcion ${instruccion.id}</td>
+                            <td>${simbolo_decl.id}</td>
+                            <td>${simbolo_decl.fila}</td>
+                            <td>${simbolo_decl.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                        });
+                    } // .........    Asignacion     .........
+                    else if(instrucciones_funcion instanceof Asignacion){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Asignacion</td>
+                        <td>Funcion ${instruccion.id}</td>
+                        <td>${instrucciones_funcion.id}</td>
+                        <td>${instrucciones_funcion.fila}</td>
+                        <td>${instrucciones_funcion.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                    } // .........    Declaracion arreglo     .........
+                    else if(instrucciones_funcion instanceof DeclaracionArr){
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Arreglo</td>
+                            <td>Funcion ${instruccion.id}</td>
+                            <td>${instrucciones_funcion.id}</td>
+                            <td>${instrucciones_funcion.fila}</td>
+                            <td>${instrucciones_funcion.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                    }
+                });
+            }
+        }
+        // :::::::::::::::::::      STRUCTS    :::::::::::::::::::
+        else if(instruccion instanceof Struct){
+            content += `
+            <tr>
+            <th scope="row">${contador}</th>
+            <td>Struct</td>
+            <td>${instruccion.id}</td>
+            <td>${instruccion.fila}</td>
+            <td>${instruccion.columna}</td>
+            </tr>
+            `
+            contador++; 
+            // ________     Instrucciones structs  ________
+            if(instruccion.instructions != null){
+                instruccion.instructions.forEach(instrucciones_struct => {
+                    // .........    Declaracion     .........
+                    if(instrucciones_struct instanceof Declaracion){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Declaracion</td>
+                        <td>Struct ${instruccion.id}</td>
+                        <td>${instrucciones_struct.simbolos[0].id}</td>
+                        <td>${instrucciones_struct.fila}</td>
+                        <td>${instrucciones_struct.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                    } // .........    Declaracion arreglo     .........
+                    else if(instrucciones_struct instanceof DeclaracionArr){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Arreglo</td>
+                        <td>Struct ${instruccion.id}</td>
+                        <td>${instrucciones_struct.id}</td>
+                        <td>${instrucciones_struct.fila}</td>
+                        <td>${instrucciones_struct.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                }
+                });
+            }
+        }
+        // :::::::::::::::::::      MAIN    :::::::::::::::::::
+        else if(instruccion instanceof  Main){
+            // ________     Instrucciones main  ________
+            instruccion.instructions.forEach(instruccion_main => {
+                // .........    Declaracion     .........
+                if(instruccion_main instanceof Declaracion){
+                    instruccion_main.simbolos.forEach(simbolo_decl =>{
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Declaracion</td>
+                        <td>Main</td>
+                        <td>${simbolo_decl.id}</td>
+                        <td>${simbolo_decl.fila}</td>
+                        <td>${simbolo_decl.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                    });
+                } // .........    Asignacion     .........
+                else if(instruccion_main instanceof Asignacion){
+                    content += `
+                    <tr>
+                    <th scope="row">${contador}</th>
+                    <td>Asignacion</td>
+                    <td>Main</td>
+                    <td>${instruccion_main.id}</td>
+                    <td>${instruccion_main.fila}</td>
+                    <td>${instruccion_main.columna}</td>
+                    </tr>
+                    `
+                    contador++;
+                } // .........    Declaracion arreglo     .........
+                else if(instruccion_main instanceof DeclaracionArr){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Arreglo</td>
+                        <td>Main</td>
+                        <td>${instruccion_main.id}</td>
+                        <td>${instruccion_main.fila}</td>
+                        <td>${instruccion_main.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                }
+            });
+        }
+    });
+    content += entornoAnalizar.imprimirTabla();
 
-}
+    // let texto = entornoAnalizar.imprimirEntorno();
+    CuerpoTablaSimbolos.innerHTML += content;
+});
 
 function reporteAST_Traduccion(){
     let arbol = new Arbol();
@@ -7171,5 +7509,5 @@ viz.renderSVGElement(text).then(function (element) {
         console.error(error);
     });*/
 //
-},{"./Analizadores/gramatica":4,"./dist/Ast/Ast":5,"./dist/Expresiones/Primitivo":17,"./dist/TablaSimbolos/TablaSimbolos":55}]},{},[57])(57)
+},{"./Analizadores/gramatica":4,"./dist/Ast/Ast":5,"./dist/Expresiones/Primitivo":17,"./dist/Instrucciones/Arreglos/DeclaracionArr":20,"./dist/Instrucciones/Asignacion":22,"./dist/Instrucciones/Declaracion":31,"./dist/Instrucciones/Metodos/Funcion":32,"./dist/Instrucciones/Metodos/Main":33,"./dist/Instrucciones/Struct/Struct":49,"./dist/Interfaces/Instruccion":54,"./dist/TablaSimbolos/TablaSimbolos":56}]},{},[58])(58)
 });

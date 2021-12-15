@@ -1,7 +1,13 @@
+import { Struct } from './../Instrucciones/Struct/Struct';
+import { DeclararStruct } from './../Instrucciones/Struct/DeclararStruct';
+import { Asignacion } from './../Instrucciones/Asignacion';
 import { traceDeprecation } from "process";
 import { Errores } from "../Ast/Errores";
+import { Declaracion } from "../Instrucciones/Declaracion";
+import { Funcion } from "../Instrucciones/Metodos/Funcion";
 import { Simbolo } from "./Simbolo";
 import { TIPO } from "./Tipo";
+import { DeclaracionArr } from '../Instrucciones/Arreglos/DeclaracionArr';
 
 export class TablaSimbolos{
 
@@ -87,6 +93,28 @@ export class TablaSimbolos{
         return null;
     }
 
+    public imprimirTabla():string{
+        let content = "";
+        let cont = 1;
+        // console.log("printtable");
+        for(let [k,v] of this.tabla){
+            let symbol = <Simbolo>v;
+            /** DECLARACION */
+            content += `
+                <tr>
+                <th scope="row">${cont}</th>
+                <td>Declaracion</td>
+                <td>Global</td>
+                <td>${k}</td>
+                <td>${symbol.fila}</td>
+                <td>${symbol.columna}</td>
+                </tr>
+                `
+            cont++;
+        }
+        return content;
+    }
+
     public updateSymbolTabla(simbolo){
         // console.log(`update id: ${simbolo.id}`);
         let tablaActual: TablaSimbolos = this;
@@ -112,5 +140,26 @@ export class TablaSimbolos{
             }
         }
         return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+    }
+
+    getTipoStr(tipo:TIPO):string{
+        switch(tipo){
+            case TIPO.ENTERO:
+                return "int";
+            case TIPO.DECIMAL:
+                return "double";
+            case TIPO.CADENA:
+                return "String";
+            case TIPO.CHARACTER:
+                return "char";
+            case TIPO.ARREGLO:
+                return "array";
+            case TIPO.STRUCT:
+                return "struct";
+            case TIPO.BOOLEANO:
+                return "boolean";
+            default:
+                return "invalido";
+        }
     }
 }

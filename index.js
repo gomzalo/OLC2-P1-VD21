@@ -8,11 +8,17 @@ let result;
 let astTraduccion;
 let entornoAnalizar;
 // let listaErrores = Lista_Error.getInstancia();
-const {Ast} = require("./dist/Ast/Ast");
+const { Ast } = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
-const {Primitivo} = require("./dist/Expresiones/Primitivo");
-const {TablaSimbolos} = require("./dist/TablaSimbolos/TablaSimbolos");
-// import {Instruccion} from("./dist/Interfaces/Instruccion");
+const { Primitivo } = require("./dist/Expresiones/Primitivo");
+const { TablaSimbolos } = require("./dist/TablaSimbolos/TablaSimbolos");
+const { Instruccion } = require("./dist/Interfaces/Instruccion");
+const { Declaracion } = require("./dist/Instrucciones/Declaracion");
+const { Funcion } = require("./dist/Instrucciones/Metodos/Funcion");
+const { Main } = require("./dist/Instrucciones/Metodos/Main");
+const { Asignacion } = require("./dist/Instrucciones/Asignacion");
+const { DeclaracionArr } = require("./dist/Instrucciones/Arreglos/DeclaracionArr");
+const { Struct } = require("./dist/Instrucciones/Struct/Struct");
 // const Lista_Imprimir = require("./dist/Lista_imprimir");
 
 const compilar = document.getElementById('compilarProyecto');
@@ -205,6 +211,7 @@ compilar.addEventListener('click', () => {
         // result.Errores = gramatica.errores.slice()
         console.log(result);
         result.ejecutar();
+        entornoAnalizar = result.TSglobal;
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
@@ -330,12 +337,188 @@ reporteErrores.addEventListener('click', () => {
 
 });
 
-function reporteTablaSimbolos(){
+reporteTablaSimbolos.addEventListener('click', () => {
     CuerpoTablaSimbolos.innerHTML = '';
-    let texto = entornoAnalizar.imprimirEntorno();
-    CuerpoTablaSimbolos.innerHTML += tetxto;
+    let content = "";
+    let contador = 1;
+    result.instrucciones.forEach(instruccion => {
+        // :::::::::::::::::::  FUNCIONES    :::::::::::::::::::
+        if(instruccion instanceof Funcion){
+            content += `
+            <tr>
+            <th scope="row">${contador}</th>
+            <td>Función</td>
+            <td>Global</td>
+            <td>${instruccion.id}</td>
+            <td>${instruccion.fila}</td>
+            <td>${instruccion.columna}</td>
+            </tr>
+            `
+            contador++;
+            // ________     Parametros main  ________
+            if(instruccion.parameters != null){
+                instruccion.parameters.forEach(parametros_funcion => {
+                    // .........    Arreglo de parametros     .........
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Parametro</td>
+                        <td>Funcion ${instruccion.id}</td>
+                        <td>${parametros_funcion.id}</td>
+                        <td>${instruccion.fila}</td>
+                        <td>${instruccion.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                });
+            }
+            // ________     Instrucciones funciones  ________
+            if(instruccion.instructions != null){
+                instruccion.instructions.forEach(instrucciones_funcion => {
+                    // .........    Declaracion     .........
+                    if(instrucciones_funcion instanceof Declaracion){
+                        instrucciones_funcion.simbolos.forEach(simbolo_decl =>{
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Declaracion</td>
+                            <td>Funcion ${instruccion.id}</td>
+                            <td>${simbolo_decl.id}</td>
+                            <td>${simbolo_decl.fila}</td>
+                            <td>${simbolo_decl.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                        });
+                    } // .........    Asignacion     .........
+                    else if(instrucciones_funcion instanceof Asignacion){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Asignacion</td>
+                        <td>Funcion ${instruccion.id}</td>
+                        <td>${instrucciones_funcion.id}</td>
+                        <td>${instrucciones_funcion.fila}</td>
+                        <td>${instrucciones_funcion.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                    } // .........    Declaracion arreglo     .........
+                    else if(instrucciones_funcion instanceof DeclaracionArr){
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Arreglo</td>
+                            <td>Funcion ${instruccion.id}</td>
+                            <td>${instrucciones_funcion.id}</td>
+                            <td>${instrucciones_funcion.fila}</td>
+                            <td>${instrucciones_funcion.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                    }
+                });
+            }
+        }
+        // :::::::::::::::::::      STRUCTS    :::::::::::::::::::
+        else if(instruccion instanceof Struct){
+            content += `
+            <tr>
+            <th scope="row">${contador}</th>
+            <td>Struct</td>
+            <td>${instruccion.id}</td>
+            <td>${instruccion.fila}</td>
+            <td>${instruccion.columna}</td>
+            </tr>
+            `
+            contador++; 
+            // ________     Instrucciones structs  ________
+            if(instruccion.instructions != null){
+                instruccion.instructions.forEach(instrucciones_struct => {
+                    // .........    Declaracion     .........
+                    if(instrucciones_struct instanceof Declaracion){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Declaracion</td>
+                        <td>Struct ${instruccion.id}</td>
+                        <td>${instrucciones_struct.simbolos[0].id}</td>
+                        <td>${instrucciones_struct.fila}</td>
+                        <td>${instrucciones_struct.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                    } // .........    Declaracion arreglo     .........
+                    else if(instrucciones_struct instanceof DeclaracionArr){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Arreglo</td>
+                        <td>Struct ${instruccion.id}</td>
+                        <td>${instrucciones_struct.id}</td>
+                        <td>${instrucciones_struct.fila}</td>
+                        <td>${instrucciones_struct.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                }
+                });
+            }
+        }
+        // :::::::::::::::::::      MAIN    :::::::::::::::::::
+        else if(instruccion instanceof  Main){
+            // ________     Instrucciones main  ________
+            instruccion.instructions.forEach(instruccion_main => {
+                // .........    Declaracion     .........
+                if(instruccion_main instanceof Declaracion){
+                    instruccion_main.simbolos.forEach(simbolo_decl =>{
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Declaracion</td>
+                        <td>Main</td>
+                        <td>${simbolo_decl.id}</td>
+                        <td>${simbolo_decl.fila}</td>
+                        <td>${simbolo_decl.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                    });
+                } // .........    Asignacion     .........
+                else if(instruccion_main instanceof Asignacion){
+                    content += `
+                    <tr>
+                    <th scope="row">${contador}</th>
+                    <td>Asignacion</td>
+                    <td>Main</td>
+                    <td>${instruccion_main.id}</td>
+                    <td>${instruccion_main.fila}</td>
+                    <td>${instruccion_main.columna}</td>
+                    </tr>
+                    `
+                    contador++;
+                } // .........    Declaracion arreglo     .........
+                else if(instruccion_main instanceof DeclaracionArr){
+                        content += `
+                        <tr>
+                        <th scope="row">${contador}</th>
+                        <td>Arreglo</td>
+                        <td>Main</td>
+                        <td>${instruccion_main.id}</td>
+                        <td>${instruccion_main.fila}</td>
+                        <td>${instruccion_main.columna}</td>
+                        </tr>
+                        `
+                        contador++;
+                }
+            });
+        }
+    });
+    content += entornoAnalizar.imprimirTabla();
 
-}
+    // let texto = entornoAnalizar.imprimirEntorno();
+    CuerpoTablaSimbolos.innerHTML += content;
+});
 
 function reporteAST_Traduccion(){
     let arbol = new Arbol();

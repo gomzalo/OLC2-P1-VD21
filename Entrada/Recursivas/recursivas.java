@@ -1,14 +1,10 @@
 int ackerman(int m, int n)
 {   
-    println("ACKERMAN ENTRA -> ",m,", ",n);
     if (m == 0){
-        println("ACKERMAN- if -> ",m,", ",n);
         return n + 1;
     }else if (m > 0 && n == 0){
-        println("ACKERMAN- else if -> ",m,", ",n);
         return ackerman(m - 1, 1);
     }else{
-        println("ACKERMAN- else -> ",m,", ",n);
         return ackerman(m - 1, ackerman(m, n - 1));
     }
 }
@@ -35,7 +31,7 @@ int factorial(int num)
     }
 }
 
-void Main()
+void main()
 {
     println("=====================================================");
     println("===========FUNCIONES RECURSIVAS======================");
@@ -45,7 +41,8 @@ void Main()
     println("==============FACTORIAL==============================");
     println(factorial(5));
     println("===============ACKERMAN==============================");
-    // println(ackerman(3, 5));
+    println(ackerman(3, 5));
     println("===============HANOI=================================");
     hanoi(3, 1, 2, 3);
+
 }

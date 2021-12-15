@@ -475,7 +475,7 @@ main_:
         LLAVA instrucciones LLAVC           { $$ = new Main($6,@1.first_line, @1.first_column); }
     |   RVOID RMAIN PARA PARC 
         LLAVA LLAVC                         { $$ = new Main([],@1.first_line, @1.first_column); }
-    | error                                 {   errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
+    |   error                               {   errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
                                                 $$=null;
                                             }
     ;
