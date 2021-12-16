@@ -121,8 +121,10 @@ class Ifsinllave {
         padre.addChildNode(condicion);
         padre.addChildNode(listaIfs);
         // LISTA IFS
-        if (this.ins_elses != null) {
-            padre.addChildNode(this.ins_elses.recorrer(table, tree));
+        if (this.ins_elses != null && this.ins_elses instanceof Array) {
+            for (let nodo of this.ins_elses) {
+                padre.addChildNode(nodo.recorrer(table, tree));
+            }
         }
         return padre;
     }

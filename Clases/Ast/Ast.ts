@@ -23,7 +23,7 @@ export class Ast  {
     public consola: string = "";
     public TSglobal : TablaSimbolos;
     public dot : string = "";
-    public contador : number = 0;
+    public contador : number;
     public strEntorno : string = "";
     public generadorC3d : GeneradorC3D;
 
@@ -229,16 +229,58 @@ export class Ast  {
         this.structs.push(struct);
     }
 
-    recorrer() {
-        let raiz = new Nodo("INICIO","");
+    graphAst():string {
+
+        /**
+         * ----AGREGANDO---- 
+         * INSTRUCCIONES
+         * START
+         */
+        let raiz = new Nodo("START","");
+        let instrucciones = new Nodo("INSTRUCCIONES","");
 
         for(let inst of this.instrucciones){
-            raiz.addChildNode(inst.recorrer(this.TSglobal,this));
+            instrucciones.addChildNode(inst.recorrer(this.TSglobal,this));
         }
-        return raiz;    
+        raiz.addChildNode(instrucciones);
+
+        /**
+         * -----RECORRIENDO---- 
+         * >>> GRAFICANDO
+         */
+        this.dot = ""
+        this.dot += "digraph {\n" 
+        this.dot += "n0[label=\"" +raiz.getToken().replace("\"","")  + "\"];\n";
+        this.contador = 1;
+        console.log(raiz);
+        this.recorrer("n0", raiz);
+        this.dot += "}"
+
+        let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
+        let value = "";
+        value += this.dot;
+        textarea.value = value;
+
+        return this.dot;    
     }
 
-    // public getDot(raiz){
+    public recorrer(idPadre, nodoPadre)
+    {
+        for(let nodo of nodoPadre.getChilds())
+        {
+            // console.log(nodo);
+            if(nodo instanceof Nodo &&  nodo.getToken() != null){
+                let nameHijo = "n" + this.contador.toString();
+                let token = nodo.getToken().toString().replace("\"","")
+                console.log(token)
+                this.dot += nameHijo + "[label=\"" + token + "\"];\n";
+                this.dot += idPadre + "->" + nameHijo + ";\n"
+                this.contador++;
+                this.recorrer(nameHijo, nodo)
+            }
+        }
+    }
+
         
-    // }
+
 }

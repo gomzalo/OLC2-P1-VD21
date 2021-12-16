@@ -89,7 +89,7 @@ class AccesoArr {
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Acceso ARR", "");
-        // padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
         // padre.addChildNode(this.expresion.ejecutar(table,tree));
         return padre;
     }

@@ -45,7 +45,7 @@ class Push {
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("PUSH", "");
         padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
-        padre.addChildNode(this.expresion.ejecutar(table, tree));
+        padre.addChildNode(this.expresion.recorrer(table, tree));
         return padre;
     }
 }

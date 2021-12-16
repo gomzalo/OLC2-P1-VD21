@@ -66,7 +66,7 @@ class Parse {
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Parse", "");
         padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
-        padre.addChildNode(this.parameters.ejecutar(table, tree));
+        padre.addChildNode(this.parameters.recorrer(table, tree));
         return padre;
     }
 }

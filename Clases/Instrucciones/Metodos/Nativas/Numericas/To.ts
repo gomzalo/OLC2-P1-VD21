@@ -71,7 +71,7 @@ export class To implements Funcion{
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("toLower","");
         padre.addChildNode(new Nodo(this.tipo_conversion.toString(),""));
-        padre.addChildNode(this.parameters.ejecutar(table,tree));
+        padre.addChildNode(this.parameters.recorrer(table,tree));
         return padre;
     }
 

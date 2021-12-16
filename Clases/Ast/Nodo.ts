@@ -20,7 +20,7 @@ export class Nodo{
      * @function getChilds retorna array de childs 
      * @returns retorna array de nodos
      */
-    public getChilds(){
+    public getChilds():Array<Nodo>{
         return this.hijos;
     }
 

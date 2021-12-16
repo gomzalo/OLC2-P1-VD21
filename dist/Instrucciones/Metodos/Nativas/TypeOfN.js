@@ -32,8 +32,12 @@ class TypeOfN {
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("TypeOfN", "");
         // padre.addChildNode(new Nodo(this.id,""));
-        padre.addChildNode(this.expresion.ejecutar(table, tree));
-        6;
+        if (this.expresion instanceof Array) {
+            padre.addChildNode(new Nodo_1.Nodo("array", ""));
+        }
+        else {
+            padre.addChildNode(this.expresion.recorrer(table, tree));
+        }
         return padre;
     }
     getTipo(tipo) {

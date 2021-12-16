@@ -73,7 +73,7 @@ class Declaracion {
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("DECLARACION", "");
         for (let sim of this.simbolos) {
-            sim.valor.recorrer(table, tree);
+            padre.addChildNode(new Nodo_1.Nodo(sim.id, ""));
         }
         return padre;
     }

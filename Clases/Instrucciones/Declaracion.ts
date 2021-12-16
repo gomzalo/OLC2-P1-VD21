@@ -90,7 +90,7 @@ export  class Declaracion implements Instruccion{
         let padre = new Nodo("DECLARACION","");
         for (let sim of this.simbolos)
         {
-            sim.valor.recorrer(table, tree);
+            padre.addChildNode(new Nodo(sim.id,""));
         }
         return padre;
     }

@@ -261,19 +261,25 @@ compilar.addEventListener('click', () => {
 
 });
 
+/**
+ *  REPORTE DE AST
+ * Graficando el ast
+ */
 reporteAST.addEventListener('click', () => {  
 
-    let arbol = new Arbol();
+    // let arbol = new Arbol();
     
     //parse(editores[indexTab].codeEditor.getValue());
-    let result = arbol.generarDot(result);
+    // let result = arbol.generarDot(result);
     //console.log(result);
+    let dot = result.graphAst();
+
 
     var clickedTab = document.getElementById("clickedTab");
     clickedTab.innerHTML = "";
     clickedTab.innerHTML = "<h3>Reporte AST</h3>"
     var viz = new Viz();
-    viz.renderSVGElement(result).then(function (element) {
+    viz.renderSVGElement(dot).then(function (element) {
         clickedTab.appendChild(element);
     })
     .catch((error) => {

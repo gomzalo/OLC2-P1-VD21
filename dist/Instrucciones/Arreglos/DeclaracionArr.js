@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionArr = void 0;
 const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
 const Copiar_1 = require("../../Expresiones/Arreglos/Copiar");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
@@ -127,7 +128,7 @@ class DeclaracionArr {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        return new Nodo_1.Nodo("Modificacion Array", "");
     }
     crearDimensiones(table, tree, expresiones) {
         let arr = Array();

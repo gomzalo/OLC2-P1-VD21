@@ -56,7 +56,7 @@ class To {
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("toLower", "");
         padre.addChildNode(new Nodo_1.Nodo(this.tipo_conversion.toString(), ""));
-        padre.addChildNode(this.parameters.ejecutar(table, tree));
+        padre.addChildNode(this.parameters.recorrer(table, tree));
         return padre;
     }
 }

@@ -59,7 +59,7 @@ export class Push implements Funcion{
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("PUSH","");
         padre.addChildNode(new Nodo(this.id,""));
-        padre.addChildNode(this.expresion.ejecutar(table,tree));
+        padre.addChildNode(this.expresion.recorrer(table,tree));
         return padre;
     }
 

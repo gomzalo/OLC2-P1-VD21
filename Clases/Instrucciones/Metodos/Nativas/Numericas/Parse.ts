@@ -78,7 +78,7 @@ export class Parse implements Funcion{
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("Parse","");
         padre.addChildNode(new Nodo(this.id,""));
-        padre.addChildNode(this.parameters.ejecutar(table,tree));
+        padre.addChildNode(this.parameters.recorrer(table,tree));
         return padre;
     }
 

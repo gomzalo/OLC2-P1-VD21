@@ -276,8 +276,20 @@ export class ForIn implements Instruccion{
         let iterador = new Nodo("ITERADOR","");
         iterador.addChildNode(new Nodo(this.iterador,""))
         let rango = new Nodo("RANGO","");
+        // recorriendo rango
+        if(this.rango.tipo == TIPO.CADENA || this.rango instanceof Identificador){
+            rango.addChildNode(this.rango.recorrer(table, tree));
+        }else if(this.rango.tipo == TIPO.ARREGLO || this.rango instanceof Array){
+            for (let r of this.rango )
+            {
+                rango.addChildNode(r.recorrer(table, tree));
+            }
+        }else if (this.rango instanceof AccesoArr)
+        {
+            rango.addChildNode(this.rango.recorrer(table, tree));
+        }
         
-        rango.addChildNode(this.rango.recorrer(table,tree));
+        // rango.addChildNode(this.rango.recorrer(table,tree));
         let NodoInstr = new Nodo("INSTRUCCIONES","");
         for(let instr of this.lista_instrucciones)
         {

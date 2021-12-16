@@ -20,7 +20,6 @@ class Ast {
     constructor() {
         this.consola = "";
         this.dot = "";
-        this.contador = 0;
         this.strEntorno = "";
         this.instrucciones = new Array();
         this.funciones = new Array();
@@ -191,12 +190,48 @@ class Ast {
     addStruct(struct) {
         this.structs.push(struct);
     }
-    recorrer() {
-        let raiz = new Nodo_1.Nodo("INICIO", "");
+    graphAst() {
+        /**
+         * ----AGREGANDO----
+         * INSTRUCCIONES
+         * START
+         */
+        let raiz = new Nodo_1.Nodo("START", "");
+        let instrucciones = new Nodo_1.Nodo("INSTRUCCIONES", "");
         for (let inst of this.instrucciones) {
-            raiz.addChildNode(inst.recorrer(this.TSglobal, this));
+            instrucciones.addChildNode(inst.recorrer(this.TSglobal, this));
         }
-        return raiz;
+        raiz.addChildNode(instrucciones);
+        /**
+         * -----RECORRIENDO----
+         * >>> GRAFICANDO
+         */
+        this.dot = "";
+        this.dot += "digraph {\n";
+        this.dot += "n0[label=\"" + raiz.getToken().replace("\"", "") + "\"];\n";
+        this.contador = 1;
+        console.log(raiz);
+        this.recorrer("n0", raiz);
+        this.dot += "}";
+        let textarea = document.querySelector('#textAreaConsola');
+        let value = "";
+        value += this.dot;
+        textarea.value = value;
+        return this.dot;
+    }
+    recorrer(idPadre, nodoPadre) {
+        for (let nodo of nodoPadre.getChilds()) {
+            // console.log(nodo);
+            if (nodo instanceof Nodo_1.Nodo && nodo.getToken() != null) {
+                let nameHijo = "n" + this.contador.toString();
+                let token = nodo.getToken().toString().replace("\"", "");
+                console.log(token);
+                this.dot += nameHijo + "[label=\"" + token + "\"];\n";
+                this.dot += idPadre + "->" + nameHijo + ";\n";
+                this.contador++;
+                this.recorrer(nameHijo, nodo);
+            }
+        }
     }
 }
 exports.Ast = Ast;

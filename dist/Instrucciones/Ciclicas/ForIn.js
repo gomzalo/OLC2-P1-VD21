@@ -257,7 +257,19 @@ class ForIn {
         let iterador = new Nodo_1.Nodo("ITERADOR", "");
         iterador.addChildNode(new Nodo_1.Nodo(this.iterador, ""));
         let rango = new Nodo_1.Nodo("RANGO", "");
-        rango.addChildNode(this.rango.recorrer(table, tree));
+        // recorriendo rango
+        if (this.rango.tipo == Tipo_1.TIPO.CADENA || this.rango instanceof Identificador_1.Identificador) {
+            rango.addChildNode(this.rango.recorrer(table, tree));
+        }
+        else if (this.rango.tipo == Tipo_1.TIPO.ARREGLO || this.rango instanceof Array) {
+            for (let r of this.rango) {
+                rango.addChildNode(r.recorrer(table, tree));
+            }
+        }
+        else if (this.rango instanceof AccesoArr_1.AccesoArr) {
+            rango.addChildNode(this.rango.recorrer(table, tree));
+        }
+        // rango.addChildNode(this.rango.recorrer(table,tree));
         let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
         for (let instr of this.lista_instrucciones) {
             NodoInstr.addChildNode(instr.recorrer(table, tree));

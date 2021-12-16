@@ -103,7 +103,7 @@ export  class AccesoArr implements Instruccion{
 
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("Acceso ARR","");
-        // padre.addChildNode(new Nodo(this.id,""));
+        padre.addChildNode(new Nodo(this.id,""));
         // padre.addChildNode(this.expresion.ejecutar(table,tree));
         return padre;
     }

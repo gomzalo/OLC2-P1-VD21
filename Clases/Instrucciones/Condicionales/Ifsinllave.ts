@@ -136,9 +136,11 @@ export class Ifsinllave implements Instruccion{
         padre.addChildNode(listaIfs);
         
         // LISTA IFS
-        if (this.ins_elses !=null ){
+        if (this.ins_elses !=null && this.ins_elses instanceof Array  ){
+            for (let nodo of this.ins_elses){
+                padre.addChildNode(nodo.recorrer(table,tree));
+            }
             
-            padre.addChildNode(this.ins_elses.recorrer(table,tree));
         }
 
 
