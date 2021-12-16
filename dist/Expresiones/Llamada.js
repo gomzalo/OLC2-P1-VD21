@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Llamada = void 0;
+const Identificador_1 = require("./Identificador");
 const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
@@ -27,15 +28,24 @@ class Llamada {
             let count = 0;
             for (let expr of this.parameters) {
                 let valueExpr = expr.ejecutar(table, tree);
+                // console.log("expr: ");
+                // console.log(expr);
+                // console.log("valueExpr: " + valueExpr);
+                // console.log("resultFunc.parameters[count]: ");
+                // console.log(resultFunc.parameters[count]);
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
-                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) //Valida Tipos
+                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY || (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo)) //Valida Tipos
                  {
                     let symbol;
+                    // console.log(resultFunc.parameters[count]);
                     if (resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) {
                         // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
+                    }
+                    else if (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo) {
+                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, true, this.fila, this.columna, valueExpr);
                     }
                     else {
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);

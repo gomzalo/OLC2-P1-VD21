@@ -30,12 +30,13 @@ class Declaracion {
                 if (tipo_valor == this.tipo) {
                     // console.log("entre tipo declaracion");
                     //--> Lo agregamos a la tabla de simbolos 
+                    // console.log("SI tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
                     let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, valor);
                     table.setSymbolTabla(nuevo_simb);
                 }
                 else {
                     // console.log("errorrr tipo declaracion");
-                    // console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
+                    console.log("NO tipo actual: " + tipo_valor + " tipo var es: " + this.tipo);
                     //Error no se puede declarar por incopatibilidad de simbolos
                     return new Errores_1.Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 }

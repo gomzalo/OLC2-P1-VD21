@@ -262,7 +262,7 @@ void main()
     println("************   Declaracion de arreglos  **************");
     println("");
     String[] arr = ["H","O","L","A"];
-    println(arr.lenght()); // 4
+    println(arr.length()); // 4
     println("Nuevo arreglo arr declarado y asignado: " & arr); // Nuevo arreglo declarado: H-O-L-A
     int[] arrd;
     println("Nuevo arreglo arrd declarado: " & arrd); // Nuevo arreglo declarado: 
@@ -303,14 +303,17 @@ void main()
     println(arr_AN[1][2][0]); // Z
     int[] arrint = [0, [2, 1], 3];
     char[] arrch = ['a', ['b', 'c'], 'd'];
-    double[] arrd = [0.5, [2.6, 1.7], 3.8];
+    double[] arrd2 = [0.5, [2.6, 1.7], 3.8];
     boolean[] arrb = [true, [false, true], false];
+    println(arr.length()); // 4
+    println(arrint.length()); // 3
     println(arrb[1][1]);
     println(arrint);
     println(arrint[1][0]);
     println(arrint[0]);
-    println(arrd[1][0]);
-    println(arrd[0]);
+    println(arrd2[1][0]);
+    println(arrd2[0]);
+    println(arrd2[2]);
     println(arrch[1][1]);
     println(arrstr[1][0]);
     println("");
@@ -337,13 +340,16 @@ void main()
     println("");
     println("************   Length arreglos  **************");
     println("");
-    println(arr.lenght()); // 2
+    arrint.push(3);
+    arrint.push(4);
+    println(arr.length()); // 2
+    println(arrint.length()); // 2
     println("");
     println("************   Push  **************");
     println("");
     arr.push("S");
     println(arr); // H,O,S
-    println(arr.lenght()); // 3
+    println(arr.length()); // 3
     println("");
     println("************   Copia de arreglos  **************");
     println("");
@@ -356,9 +362,9 @@ void main()
     println("");
     String var_str = "Cadena";
     int var_int = 7;
-    println(var_str.lenght()); // 6
+    println(var_str.length()); // 6
     println("<--- Error a proposito: --->");
-    println(var_int.lenght()); // Error variable no es Arreglo o String
+    println(var_int.length()); // Error variable no es Arreglo o String
     println("");
     println("************   Substring  **************");
     println("");
@@ -423,10 +429,10 @@ void main()
     println("");
     println("************   Parse a boolean  **************");
     println("");
-    println("<--- Error a proposito: --->");
-    println(boolean.parse(a)); // Error, valor no puede convertirse a booleano
     println(boolean.parse("tRuE")); // true
     println(boolean.parse("0")); // false
+    println("<--- Error a proposito: --->");
+    println(boolean.parse(a)); // Error, valor no puede convertirse a booleano
     println("");
     println("************   ToInt  **************");
     println(toDouble(55)); // 55

@@ -389,7 +389,7 @@ export class Aritmetica implements Instruccion {
 
         switch (this.operador){
             case OperadorAritmetico.MAS:
-                console.log("entre a suma");
+                // console.log("entre a suma");
                 return this.suma3D(valor_exp1,valor_exp2,tree);
             case OperadorAritmetico.MENOS:
                 return this.resta3D(valor_exp1,valor_exp2,tree);

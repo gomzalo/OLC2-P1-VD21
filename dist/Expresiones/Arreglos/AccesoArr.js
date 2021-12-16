@@ -20,15 +20,18 @@ class AccesoArr {
         if (simbolo == null) {
             return new Errores_1.Errores("Semantico", "No se encontro la variable " + this.id + ".", this.fila, this.columna);
         }
-        this.tipo = simbolo.getTipo();
+        // this.tipo = simbolo.getTipo();
         if (!simbolo.getArreglo()) {
             return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
         }
+        this.tipo = simbolo.getTipo();
+        // console.log("this.tipo: " + this.tipo);
         // console.log("AccArr exp val: " + this.expresiones[0]);
         // console.log("AccArr exp size: " + this.expresiones[0].length);
         // console.log("AccArr exp type: " + (this.expresiones[0].tipo));
         if (this.expresiones[0] instanceof Rango_1.Rango) {
             // console.log("AccArr RANK");
+            // console.log("TIPO acc: " + this.tipo);
             let rank = this.expresiones[0].ejecutar(table, tree);
             // console.log("AccArr rank type: " + (rank instanceof Array));
             // console.log("rank[0] type: " + (typeof(rank[0]) == "string"));
@@ -116,11 +119,18 @@ class AccesoArr {
         }
         if (!isNaN(arreglo[num])) {
             // console.log("aaaaaaaa");
+            // this.tipo = arreglo[num].tipo;
+            // console.log("TIPO acc: " + this.tipo);
             return arreglo[num];
         }
         // console.log("arreglo[num]: " + arreglo[num]);
         if (arreglo[num] != undefined || arreglo[num] != null) {
             // console.log("no null");
+            // this.tipo = arreglo[num].tipo;
+            // console.log("TIPO acc: " + this.tipo);
+            if (expresiones == null || expresiones == undefined) {
+                return arreglo[num];
+            }
             if (this.tipo == Tipo_1.TIPO.CADENA || this.tipo == Tipo_1.TIPO.CHARACTER) {
                 return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
             }

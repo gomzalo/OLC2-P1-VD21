@@ -9,8 +9,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 
 export  class DeclaracionArr implements Instruccion{
-    public tipo = TIPO.ARREGLO;
-    public tipo_arr : TIPO;
+    public tipo : TIPO;
     public dimensiones;
     public id;
     public expresiones;
@@ -19,8 +18,8 @@ export  class DeclaracionArr implements Instruccion{
     public arreglo = true;
     public arr = Array<any>();
     //tipo lista_dim ID IGUAL lista_exp_arr
-    constructor(tipo_arr, dimensiones, id, expresiones, fila, columna){
-        this.tipo_arr = tipo_arr;
+    constructor(tipo, dimensiones, id, expresiones, fila, columna){
+        this.tipo = tipo;
         this.dimensiones = dimensiones;
         this.id = id;
         this.expresiones = expresiones;
@@ -35,11 +34,11 @@ export  class DeclaracionArr implements Instruccion{
         // Creando arreglo
         let value;
         // ASIGNACION
-        if(this.tipo_arr == null && this.dimensiones == null){
+        if(this.tipo == null && this.dimensiones == null){
             // Asignando variable de tipo arreglo con su valor
             if(table.existe(this.id)){
                 // Creando arreglo
-                this.tipo_arr = table.getSymbolTabla(this.id).getTipo();
+                this.tipo = table.getSymbolTabla(this.id).getTipo();
                 if(this.expresiones instanceof Copiar){
                     // console.log("AS ARR COPIAR");
                     value = this.expresiones.ejecutar(table, tree);
@@ -55,13 +54,13 @@ export  class DeclaracionArr implements Instruccion{
                     // console.log("value declArr: " + value);
                     // console.log("type declArr: " + typeof(value));
                     // console.log("type declArr: " + typeof(this.arr));
-                    // console.log("tipo declArr: " + this.tipo_arr);
+                    // console.log("tipo declArr: " + this.tipo);
                     if(value instanceof Errores){
                         return value;
                     }
                 }
                 // Creando simbolo
-                let nuevo_simb = new Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
+                let nuevo_simb = new Simbolo(this.id.toString(), this.tipo, true, this.fila, this.columna, value);
                 if(nuevo_simb.arreglo){
                     // Obteniendo variable y asignar valor
                     let result = table.updateSymbolTabla(nuevo_simb);
@@ -84,7 +83,7 @@ export  class DeclaracionArr implements Instruccion{
                 }
             }
             // Creando variable de tipo arreglo
-            let nuevo_simb = new Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, []);
+            let nuevo_simb = new Simbolo(this.id.toString(), this.tipo, true, this.fila, this.columna, []);
             let result = table.setSymbolTabla(nuevo_simb);
             if(result instanceof Errores){
                 return result;
@@ -115,13 +114,13 @@ export  class DeclaracionArr implements Instruccion{
                 // console.log("value declArr: " + value);
                 // console.log("type declArr: " + typeof(value));
                 // console.log("type declArr: " + typeof(this.arr));
-                // console.log("tipo declArr: " + this.tipo_arr);
+                // console.log("tipo declArr: " + this.tipo);
                 if(value instanceof Errores){
                     return value;
                 }
             }
             // Creando variable de tipo arreglo con su valor
-            let nuevo_simb = new Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
+            let nuevo_simb = new Simbolo(this.id.toString(), this.tipo, true, this.fila, this.columna, value);
             let result = table.setSymbolTabla(nuevo_simb);
             if(result instanceof Errores){
                 return result;
@@ -148,12 +147,12 @@ export  class DeclaracionArr implements Instruccion{
                     arr.push([this.crearDimensiones(table, tree, dimension.slice())]);
                 }else{
                     let num = dimension.ejecutar(table, tree);
-                    if(dimension.tipo != this.tipo_arr){
+                    if(dimension.tipo != this.tipo){
                         let res = new Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
                         tree.Errores.push(res);
                         tree.updateConsolaPrintln(res.toString());
                     }else{
-                        dimension.tipo = this.tipo_arr;
+                        dimension.tipo = this.tipo;
                         arr.push(num);
                         this.crearDimensiones(tree, table, expresiones.slice());
                     }

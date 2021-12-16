@@ -38,6 +38,7 @@ export  class ModificacionArr implements Instruccion{
                 }
                 // console.log("modArr simb.tipo: " + simbolo.getTipo());
                 this.tipo_arr = simbolo.getTipo();
+                // console.log("TIPO mod: " + this.tipo_arr);
                 let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
                 if(result instanceof Errores){
                     return result;
@@ -88,7 +89,7 @@ export  class ModificacionArr implements Instruccion{
             return new Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
         }else{
             if(arreglo[num] != undefined){
-                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice(), valor);
+                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0], valor);
                 if(value instanceof Errores){
                     return value;
                 }

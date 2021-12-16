@@ -76,7 +76,7 @@ BSL                                 "\\".
 /* -------- Arreglos */
 "pop"                       { return 'RPOP' };
 "push"                      { return 'RPUSH' };
-"lenght"                    { return 'RLENGTH' };
+"length"                    { return 'RLENGTH' };
 /* -------- Cadenas */
 "caracterOfPosition"        { return 'RCHAROFPOS' };
 "subString"                 { return 'RSUBSTRING' };
@@ -298,7 +298,7 @@ instruccion:
     |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
     |   structs PUNTOCOMA                   { $$ = $1 }
     |   nat_push_instr PUNTOCOMA            { $$ = $1 }
-    |   expr                                { $$ = $1 } // SOLO DE PRUEBAAAAAAAAAAAAAAAAAAAA
+    // |   expr                                { $$ = $1 } // SOLO DE PRUEBAAAAAAAAAAAAAAAAAAAA
     |   error                                 { 
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
                                                 $$ =null;
@@ -500,6 +500,7 @@ lista_parametros_func:
 //------   Parametros Funcion 
 parametro_func:
         tipo ID                             { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; } // EN MEDIO $2 - LISTA DIM
+    |   tipo lista_dim ID                   { $$ = {"tipo" : $1, "arreglo": true, "id": $3}; }
     |   ID                                  { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; }
     ;
 /*..............     Llamada      ...............*/
@@ -642,7 +643,7 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   ID PUNTO expr               {   if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
+    |   ID PUNTO expr               { if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
                                             $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
                                             let identifica =new Identificador($1 , @1.first_line, @1.last_column);

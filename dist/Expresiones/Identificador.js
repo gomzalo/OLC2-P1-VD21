@@ -19,7 +19,7 @@ class Identificador {
         this.symbol = table.getSymbolTabla(this.id);
         // console.log(table.getSymbolTabla(this.id));
         if (this.symbol == null) {
-            return new Errores_1.Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);
+            return new Errores_1.Errores("Semantico", "Variable " + this.id + ", no coincide con la busqueda en Identificador.", this.fila, this.columna);
         }
         this.tipo = this.symbol.getTipo();
         // console.log(`tipo id: ${this.tipo}`)
@@ -37,8 +37,8 @@ class Identificador {
                 return new Retorno_1.Retorno(this.symbol.valor + "", false, Tipo_1.TIPO.DECIMAL);
             }
             else if (typeof this.symbol.valor == "string") {
-                console.log("entre****");
-                console.log(this.symbol);
+                // console.log("entre****");
+                // console.log(this.symbol);
                 const temp = generator.newTemp();
                 generator.genAsignaTemp(temp, "h");
                 for (let i = 0; i < this.symbol.valor.length; i++) {
@@ -50,7 +50,7 @@ class Identificador {
                 return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
             }
             else {
-                console.log("no entre");
+                // console.log("no entre");
             }
         }
     }

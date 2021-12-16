@@ -13,6 +13,7 @@ export class TablaSimbolos{
 
     public anterior: TablaSimbolos;
     public tabla: Map<string, Simbolo>;
+    public pos3d: string;
 
     constructor(anterior : TablaSimbolos){
         this.anterior = anterior;

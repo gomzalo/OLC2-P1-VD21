@@ -1,3 +1,4 @@
+import { Identificador } from './Identificador';
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
 import { Instruccion } from "../Interfaces/Instruccion";
@@ -39,17 +40,24 @@ export class Llamada implements Instruccion{
             for (let expr of this.parameters)
             {
                 let valueExpr = expr.ejecutar(table,tree);
-
+                // console.log("expr: ");
+                // console.log(expr);
+                // console.log("valueExpr: " + valueExpr);
+                // console.log("resultFunc.parameters[count]: ");
+                // console.log(resultFunc.parameters[count]);
                 if( valueExpr instanceof Errores ){
                     return new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
-                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == TIPO.ANY)  //Valida Tipos
+                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == TIPO.ANY || (expr instanceof Identificador && expr.symbol.arreglo))  //Valida Tipos
                 {
                     let symbol;
+                    // console.log(resultFunc.parameters[count]);
                     if (resultFunc.parameters[count].tipo == TIPO.ANY)
                     {
                         // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),expr.tipo, this.arreglo, this.fila, this.columna, valueExpr ); // seteo para variables nativas
+                    }else if(expr instanceof Identificador && expr.symbol.arreglo){
+                        symbol = new Simbolo(String(resultFunc.parameters[count].id),resultFunc.parameters[count].tipo, true, this.fila, this.columna, valueExpr );
                     }else{
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr );
                     }

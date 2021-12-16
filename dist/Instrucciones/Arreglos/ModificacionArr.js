@@ -28,6 +28,7 @@ class ModificacionArr {
                 }
                 // console.log("modArr simb.tipo: " + simbolo.getTipo());
                 this.tipo_arr = simbolo.getTipo();
+                // console.log("TIPO mod: " + this.tipo_arr);
                 let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
                 if (result instanceof Errores_1.Errores) {
                     return result;
@@ -78,7 +79,7 @@ class ModificacionArr {
         }
         else {
             if (arreglo[num] != undefined) {
-                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice(), valor);
+                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0], valor);
                 if (value instanceof Errores_1.Errores) {
                     return value;
                 }

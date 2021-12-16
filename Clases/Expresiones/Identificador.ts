@@ -32,7 +32,7 @@ export class Identificador implements Instruccion{
         // console.log(table.getSymbolTabla(this.id));
 
         if (this.symbol == null){
-            return new Errores("Semantico", "Variable " + this.id + " NO coincide con la busqueda", this.fila, this.columna);
+            return new Errores("Semantico", "Variable " + this.id + ", no coincide con la busqueda en Identificador.", this.fila, this.columna);
         }
         this.tipo = this.symbol.getTipo();
         // console.log(`tipo id: ${this.tipo}`)
@@ -53,8 +53,8 @@ export class Identificador implements Instruccion{
             if (typeof this.symbol.valor == "number") {
             return new Retorno(this.symbol.valor + "", false, TIPO.DECIMAL);
             } else if (typeof this.symbol.valor == "string") {
-            console.log("entre****");
-            console.log(this.symbol);
+            // console.log("entre****");
+            // console.log(this.symbol);
             const temp = generator.newTemp();
             generator.genAsignaTemp(temp, "h");
             for (let i = 0; i < this.symbol.valor.length; i++) {
@@ -65,7 +65,7 @@ export class Identificador implements Instruccion{
             generator.nextHeap();
             return new Retorno(temp, true, TIPO.CADENA);
             } else {
-            console.log("no entre");
+            // console.log("no entre");
             }
         }
     }

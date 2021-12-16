@@ -327,7 +327,7 @@ class Aritmetica {
         }
         switch (this.operador) {
             case Tipo_1.OperadorAritmetico.MAS:
-                console.log("entre a suma");
+                // console.log("entre a suma");
                 return this.suma3D(valor_exp1, valor_exp2, tree);
             case Tipo_1.OperadorAritmetico.MENOS:
                 return this.resta3D(valor_exp1, valor_exp2, tree);
