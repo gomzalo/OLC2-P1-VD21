@@ -35,10 +35,10 @@
     <link rel="stylesheet" href="css/main.css">
 
     <!-- VIZ -->
-    <script
+    <!-- <script
       type="text/javascript"
       src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
-    ></script>
+    ></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha512-vnRdmX8ZxbU+IhA2gLhZqXkX1neJISG10xy0iP0WauuClu3AIMknxyDjYHEpEhi8fTZPyOCWgqUCnEafDB/jVQ==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js" integrity="sha512-1zKK2bG3QY2JaUPpfHZDUMe3dwBwFdCDwXQ01GrKSd+/l0hqPbF+aak66zYPUZtn+o2JYi1mjXAqy5mW04v3iA==" crossorigin="anonymous"></script>
 </head>
@@ -106,8 +106,9 @@
 </nav>
 <br>
 <br>
-<h2>Entrada</h2>
+
 <div class="container">
+    <h2>Entrada</h2>
     <div class="row">
         <div class="col">
             <ul class="nav nav-tabs active" id="myTab" role="tablist">
@@ -126,12 +127,16 @@
             </div>
         
         </div>
-        <div class="col1">
+        <div class="col">
             <h2>Consola</h2>
             <textarea class="form-control1" id="textAreaConsola"
                 wrap='off' readonly>Solamente de lectura</textarea>
         </div>
     </div>
+        <div class="row">
+            <h2>Consola C3D</h2>
+            <textarea class="form-control" id ="textAreaC3d" rows="50"></textarea>
+        </div>
 
     <div id="clickedTab">
         <h3>Reporte Ast</h3>

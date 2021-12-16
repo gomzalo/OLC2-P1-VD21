@@ -4,23 +4,23 @@ exports.Nativas = void 0;
 const GeneradorC3D_1 = require("./GeneradorC3D");
 class Nativas {
     generarNativas() {
-        this.nativa_print_str();
-        //this.nativa_print_integer();
-        this.nativa_compararIgual_str_str();
-        // this.nativa_compararNoIgual_str_str();
-        //this.nativa_ToUpperCase();
-        //this.nativa_ToLowerCase();
-        this.nativa_concat_str_str();
-        //this.nativa_concat_dbl_str();
-        //  this.nativa_concat_str_dbl();
-        this.nativa_concat_int_str();
-        this.nativa_concat_str_int();
-        //this.nativa_concat_str_bol();
-        // this.nativa_concat_bol_str();
-        //this.nativa_lenght_str();
+        this.natPrintStr();
+        this.natCompararIgualStr();
+        this.natConcatStr();
+        this.natConcatInt_str();
+        this.natConcatStr_int();
+        //this.natPrintInteger();
+        // this.natCompararNoIgualStr();
+        //this.natUpperCase();
+        //this.natLowerCase();
+        //this.natConcatDbl_str();
+        //  this.natConcatStr_dbl();
+        //this.natConcatStr_bol();
+        // this.natConcatBol_str();
+        //this.natLenghtStr();
         return GeneradorC3D_1.GeneradorC3D.getInstancia().getCodeNativas();
     }
-    nativa_lenght_str() {
+    natLenghtStr() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -28,7 +28,7 @@ class Nativas {
         let t3 = genC3d.newTemp();
         let next = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_lenght_str');
+        genC3d.gen_Funcion('natLenghtStr');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t0, 'p', '1', '+');
         genC3d.gen_GetStack(t1, t0);
@@ -49,13 +49,13 @@ class Nativas {
         genC3d.freeTemp(t2);
         genC3d.freeTemp(t3);
     }
-    nativa_print_str() {
+    natPrintStr() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t1 = genC3d.newTemp();
         let t2 = genC3d.newTemp();
         let next = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_print_str');
+        genC3d.gen_Funcion('natPrintStr');
         genC3d.isFunc = '\t';
         genC3d.gen_GetStack(t1, 'p');
         genC3d.gen_Label(next);
@@ -72,7 +72,7 @@ class Nativas {
         genC3d.freeTemp(t2);
     }
     /*
-        nativa_print_integer() {
+        natPrintInteger() {
             const genC3d = GeneradorC3D.getInstancia();
             let t1 = genC3d.newTemp();
             let t2 = genC3d.newTemp();
@@ -82,7 +82,7 @@ class Nativas {
             let nextPrt = genC3d.newLabel();
             let fin = genC3d.newLabel();
     
-            genC3d.gen_Funcion('nativa_print_integer');
+            genC3d.gen_Funcion('natPrintInteger');
             genC3d.isFunc = '\t';
             genC3d.gen_GetStack(t1, 'p');
             genC3d.gen_If(t1, '0', '>=', inicio);
@@ -113,7 +113,7 @@ class Nativas {
             genC3d.freeTemp(t2);
             genC3d.freeTemp(t3);
         }*/
-    nativa_compararIgual_str_str() {
+    natCompararIgualStr() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let p1 = genC3d.newTemp();
@@ -126,7 +126,7 @@ class Nativas {
         let inicio = genC3d.newLabel();
         let nextPos = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_compararIgual_str_str');
+        genC3d.gen_Funcion('natCompararIgualStr');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t0, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t0);
@@ -163,7 +163,7 @@ class Nativas {
         genC3d.freeTemp(c1);
         genC3d.freeTemp(c2);
     }
-    nativa_compararNoIgual_str_str() {
+    natCompararNoIgualStr() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t1 = genC3d.newTemp();
         let p1 = genC3d.newTemp();
@@ -176,7 +176,7 @@ class Nativas {
         let inicio = genC3d.newLabel();
         let nextPos = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_compararNoIgual_str_str');
+        genC3d.gen_Funcion('natCompararNoIgualStr');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -214,7 +214,7 @@ class Nativas {
         genC3d.freeTemp(c1);
         genC3d.freeTemp(c2);
     }
-    nativa_ToUpperCase() {
+    natUpperCase() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t1 = genC3d.newTemp();
         let t2 = genC3d.newTemp();
@@ -223,7 +223,7 @@ class Nativas {
         let nextPos = genC3d.newLabel();
         let setChar = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_ToUpperCase');
+        genC3d.gen_Funcion('natUpperCase');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(t2, t1); // carga la referencia del string
@@ -250,7 +250,7 @@ class Nativas {
         genC3d.freeTemp(t3);
         genC3d.freeTemp(t4);
     }
-    nativa_ToLowerCase() {
+    natLowerCase() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t1 = genC3d.newTemp();
         let t2 = genC3d.newTemp();
@@ -259,7 +259,7 @@ class Nativas {
         let nextPos = genC3d.newLabel();
         let setChar = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_ToLowerCase');
+        genC3d.gen_Funcion('natLowerCase');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(t2, t1); // carga la referencia del string
@@ -286,7 +286,7 @@ class Nativas {
         genC3d.freeTemp(t3);
         genC3d.freeTemp(t4);
     }
-    nativa_concat_str_str() {
+    natConcatStr() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t1 = genC3d.newTemp();
         let t2 = genC3d.newTemp();
@@ -295,7 +295,7 @@ class Nativas {
         let str1 = genC3d.newLabel();
         let str2 = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_str_str');
+        genC3d.gen_Funcion('natConcatStr');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -327,7 +327,7 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-    nativa_concat_int_str() {
+    natConcatInt_str() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -340,7 +340,7 @@ class Nativas {
         let str1 = genC3d.newLabel();
         let str2 = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_int_str');
+        genC3d.gen_Funcion('natConcatInt_str');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -394,7 +394,7 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-    nativa_concat_str_int() {
+    natConcatStr_int() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -408,7 +408,7 @@ class Nativas {
         let str1 = genC3d.newLabel();
         let str2 = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_str_int');
+        genC3d.gen_Funcion('natConcatStr_int');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -463,7 +463,7 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-    nativa_concat_dbl_str() {
+    natConcatDbl_str() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -480,7 +480,7 @@ class Nativas {
         let strd = genC3d.newLabel();
         let str2 = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_dbl_str');
+        genC3d.gen_Funcion('natConcatDbl_str');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -551,7 +551,7 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-    nativa_concat_str_dbl() {
+    natConcatStr_dbl() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -569,7 +569,7 @@ class Nativas {
         let strd = genC3d.newLabel();
         let str2 = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_str_dbl');
+        genC3d.gen_Funcion('natConcatStr_dbl');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -641,7 +641,7 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-    nativa_concat_str_bol() {
+    natConcatStr_bol() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -651,7 +651,7 @@ class Nativas {
         let bol = genC3d.newLabel();
         let lblf = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_str_bol');
+        genC3d.gen_Funcion('natConcatStr_bol');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);
@@ -697,7 +697,7 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-    nativa_concat_bol_str() {
+    natConcatBol_str() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
         let t1 = genC3d.newTemp();
@@ -706,7 +706,7 @@ class Nativas {
         let str2 = genC3d.newLabel();
         let lblf = genC3d.newLabel();
         let fin = genC3d.newLabel();
-        genC3d.gen_Funcion('nativa_concat_bol_str');
+        genC3d.gen_Funcion('natConcatBol_str');
         genC3d.isFunc = '\t';
         genC3d.gen_Exp(t1, 'p', '1', '+');
         genC3d.gen_GetStack(p1, t1);

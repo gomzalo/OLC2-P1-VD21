@@ -28,6 +28,8 @@ export class Relacional implements Instruccion{
         this.columna = columna;
         this.expU = expU;
         this.tipo = TIPO.BOOLEANO;
+        this.lblTrue ="";
+        this.lblFalse="";
     }
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;
@@ -365,8 +367,20 @@ export class Relacional implements Instruccion{
         }
         return padre;
     }
+    limpiar() {
+        this.lblFalse='';
+        this.lblTrue='';
+        if(this.expU==false){
+         this.exp1.limpiar();
+         this.exp2.limpiar();
+        }else{
+         this.exp1.limpiar();
+        }
+        
+     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
+        // this.limpiar()
         let valor_exp1;
         let valor_exp2;
         let valor_expU;
@@ -416,9 +430,9 @@ export class Relacional implements Instruccion{
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
 
-                    this.lblTrue = this.lblTrue == '' ? genC3d.newLabel().toString() : this.lblTrue;
+                    this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
                     console.log(this.lblTrue)
-                    this.lblFalse = this.lblFalse == '' ? genC3d.newLabel().toString() : this.lblFalse;
+                    this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
                     console.log(this.lblFalse)
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
                     genC3d.gen_Goto(this.lblFalse);
@@ -508,17 +522,7 @@ export class Relacional implements Instruccion{
         return ret;
     }
 
-    limpiar() {
-        this.lblFalse='';
-        this.lblTrue='';
-        if(this.expU==false){
-         this.exp1.limpiar();
-         this.exp2.limpiar();
-        }else{
-         this.exp1.limpiar();
-        }
-        
-     }
+    
     
 
 }
