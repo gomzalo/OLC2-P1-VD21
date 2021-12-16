@@ -128,11 +128,11 @@ class AccesoArr {
             // console.log("no null");
             // this.tipo = arreglo[num].tipo;
             // console.log("TIPO acc: " + this.tipo);
-            if (expresiones == null || expresiones == undefined) {
-                return arreglo[num];
-            }
-            if (this.tipo == Tipo_1.TIPO.CADENA || this.tipo == Tipo_1.TIPO.CHARACTER) {
-                return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num][0]);
+            // if(expresiones == null || expresiones == undefined){
+            //     return arreglo[num];
+            // }
+            if (this.tipo == Tipo_1.TIPO.CADENA) {
+                return this.buscarDimensiones(tree, table, expresiones.slice(), arreglo[num]);
             }
             else {
                 // console.log("no str");

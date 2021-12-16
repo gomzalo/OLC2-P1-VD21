@@ -307,15 +307,16 @@ void main()
     boolean[] arrb = [true, [false, true], false];
     println(arr.length()); // 4
     println(arrint.length()); // 3
-    println(arrb[1][1]);
-    println(arrint);
-    println(arrint[1][0]);
-    println(arrint[0]);
-    println(arrd2[1][0]);
-    println(arrd2[0]);
-    println(arrd2[2]);
-    println(arrch[1][1]);
-    println(arrstr[1][0]);
+    println(arrb[1][1]); // true
+    println(arrint); // 0, [2, 1], 3
+    println(arrint[1][0]); // 2
+    println(arrint[0]); // 0
+    println(arrd2[1][0]); // 2.6
+    println(arrd2[0]); // 0.5
+    println(arrd2[2]); // 3.8
+    println(arrch[1][1]); // b
+    println("<--- Errores a proposito: --->");
+    println(arrstr[1][0]); // No existe variable arrstr
     println("");
     println("************   Modificacion de arreglos  **************");
     println("");
