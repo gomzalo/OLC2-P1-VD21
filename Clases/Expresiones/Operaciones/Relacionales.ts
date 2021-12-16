@@ -28,6 +28,8 @@ export class Relacional implements Instruccion{
         this.columna = columna;
         this.expU = expU;
         this.tipo = TIPO.BOOLEANO;
+        this.lblTrue ="";
+        this.lblFalse="";
     }
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor_exp1;

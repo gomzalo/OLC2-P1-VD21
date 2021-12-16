@@ -2179,6 +2179,7 @@ class Ast {
     }
     traducir() {
         let tree = this;
+        tree.generadorC3d.clearCode();
         tree.setTSGlobal(this.TSglobal);
         this.instrucciones.forEach(instr => {
             instr.translate3d(this.TSglobal, tree);
@@ -3517,6 +3518,8 @@ class Relacional {
         this.columna = columna;
         this.expU = expU;
         this.tipo = Tipo_1.TIPO.BOOLEANO;
+        this.lblTrue = "";
+        this.lblFalse = "";
     }
     ejecutar(table, tree) {
         let valor_exp1;

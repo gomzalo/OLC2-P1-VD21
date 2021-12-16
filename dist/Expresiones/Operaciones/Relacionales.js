@@ -13,6 +13,8 @@ class Relacional {
         this.columna = columna;
         this.expU = expU;
         this.tipo = Tipo_1.TIPO.BOOLEANO;
+        this.lblTrue = "";
+        this.lblFalse = "";
     }
     ejecutar(table, tree) {
         let valor_exp1;

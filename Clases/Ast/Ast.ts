@@ -127,6 +127,7 @@ export class Ast  {
 
     public traducir(){
         let tree = this;
+        tree.generadorC3d.clearCode();
         tree.setTSGlobal(this.TSglobal);
         this.instrucciones.forEach(instr => {
             instr.translate3d(this.TSglobal, tree)
