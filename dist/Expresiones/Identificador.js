@@ -29,7 +29,7 @@ class Identificador {
         return this.symbol.getValor();
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented en IDENTIFICADOR.");
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("IDENTIFICADOR", "");

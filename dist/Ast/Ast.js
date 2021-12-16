@@ -15,7 +15,7 @@ const Struct_1 = require("../Instrucciones/Struct/Struct");
 const DeclaracionArr_1 = require("../Instrucciones/Arreglos/DeclaracionArr");
 const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 const Nodo_1 = require("./Nodo");
-const GeneradorC3D_1 = require("../Instrucciones/G3D/GeneradorC3D");
+const GeneradorC3D_1 = require("../G3D/GeneradorC3D");
 class Ast {
     constructor() {
         this.consola = "";
@@ -106,6 +106,13 @@ class Ast {
                 this.updateConsolaPrintln(error.toString());
             }
         }
+    }
+    traducir() {
+        let tree = this;
+        tree.setTSGlobal(this.TSglobal);
+        this.instrucciones.forEach(instr => {
+            instr.translate3d(this.TSglobal, tree);
+        });
     }
     getInstrucciones() {
         return this.instrucciones;

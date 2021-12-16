@@ -297,9 +297,9 @@ instruccion:
     |   llamada PUNTOCOMA                   { $$ = $1 }
     |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
     |   structs PUNTOCOMA                   { $$ = $1 }
-    
     |   nat_push_instr PUNTOCOMA            { $$ = $1 }
-    | error                                 { 
+    |   expr                                { $$ = $1 } // SOLO DE PRUEBAAAAAAAAAAAAAAAAAAAA
+    |   error                                 { 
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
                                                 $$ =null;
                                             }

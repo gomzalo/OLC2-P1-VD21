@@ -74,12 +74,12 @@
   }
 */
 var gramatica = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,25],$V1=[1,39],$V2=[1,30],$V3=[1,26],$V4=[1,27],$V5=[1,31],$V6=[1,32],$V7=[1,33],$V8=[1,34],$V9=[1,35],$Va=[1,36],$Vb=[1,38],$Vc=[1,37],$Vd=[1,28],$Ve=[1,40],$Vf=[1,41],$Vg=[1,42],$Vh=[1,43],$Vi=[1,44],$Vj=[2,5,31,32,35,43,47,48,50,52,55,56,57,58,59,60,61,64,93,94,95,96,97],$Vk=[2,5,31,32,35,43,47,48,49,50,52,55,56,57,58,59,60,61,64,93,94,95,96,97],$Vl=[1,56],$Vm=[32,70,78],$Vn=[2,117],$Vo=[1,63],$Vp=[1,66],$Vq=[1,70],$Vr=[1,67],$Vs=[1,68],$Vt=[1,69],$Vu=[1,71],$Vv=[1,74],$Vw=[1,114],$Vx=[1,88],$Vy=[1,79],$Vz=[1,113],$VA=[1,89],$VB=[1,105],$VC=[1,104],$VD=[1,106],$VE=[1,107],$VF=[1,108],$VG=[1,109],$VH=[1,110],$VI=[1,115],$VJ=[1,116],$VK=[1,78],$VL=[1,80],$VM=[1,81],$VN=[1,82],$VO=[1,83],$VP=[1,84],$VQ=[1,85],$VR=[1,86],$VS=[1,87],$VT=[1,93],$VU=[1,94],$VV=[1,95],$VW=[1,96],$VX=[1,97],$VY=[1,98],$VZ=[1,102],$V_=[1,103],$V$=[2,118],$V01=[8,36],$V11=[2,36],$V21=[1,127],$V31=[1,137],$V41=[1,138],$V51=[1,139],$V61=[1,161],$V71=[1,145],$V81=[1,146],$V91=[1,147],$Va1=[1,148],$Vb1=[1,149],$Vc1=[1,150],$Vd1=[1,151],$Ve1=[1,152],$Vf1=[1,153],$Vg1=[1,154],$Vh1=[1,155],$Vi1=[1,156],$Vj1=[1,157],$Vk1=[1,158],$Vl1=[1,159],$Vm1=[1,160],$Vn1=[8,33,35,36,46,53,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$Vo1=[2,144],$Vp1=[1,165],$Vq1=[1,166],$Vr1=[1,168],$Vs1=[2,149],$Vt1=[2,153],$Vu1=[1,171],$Vv1=[1,183],$Vw1=[32,78],$Vx1=[1,194],$Vy1=[36,46],$Vz1=[1,201],$VA1=[32,70],$VB1=[53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VC1=[39,78],$VD1=[1,233],$VE1=[8,33,35,36,46,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VF1=[8,33,35,36,46,71,105,106,121],$VG1=[2,146],$VH1=[2,147],$VI1=[2,150],$VJ1=[1,237],$VK1=[36,71],$VL1=[8,33,35,36,46,53,70,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VM1=[1,261],$VN1=[8,33,35,36,39,46,53,70,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VO1=[1,276],$VP1=[8,33,35,36,46,71,98,99,104,105,106,108,109,110,111,112,113,121],$VQ1=[8,33,35,36,46,71,98,99,100,101,102,104,105,106,108,109,110,111,112,113,121],$VR1=[8,33,35,36,46,71,105,106,108,109,110,111,112,113,121],$VS1=[8,33,35,36,46,71,105,106,112,113,121],$VT1=[8,33,35,36,46,71],$VU1=[35,36],$VV1=[1,312],$VW1=[35,52,55],$VX1=[1,339],$VY1=[8,53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,26],$V1=[1,40],$V2=[1,31],$V3=[1,27],$V4=[1,42],$V5=[1,28],$V6=[1,32],$V7=[1,33],$V8=[1,34],$V9=[1,35],$Va=[1,36],$Vb=[1,37],$Vc=[1,39],$Vd=[1,38],$Ve=[1,29],$Vf=[1,51],$Vg=[1,71],$Vh=[1,70],$Vi=[1,72],$Vj=[1,73],$Vk=[1,74],$Vl=[1,75],$Vm=[1,76],$Vn=[1,78],$Vo=[1,79],$Vp=[1,65],$Vq=[1,66],$Vr=[1,67],$Vs=[1,68],$Vt=[1,69],$Vu=[1,41],$Vv=[1,43],$Vw=[1,44],$Vx=[1,45],$Vy=[1,46],$Vz=[1,47],$VA=[1,48],$VB=[1,49],$VC=[1,50],$VD=[1,54],$VE=[1,55],$VF=[1,56],$VG=[1,57],$VH=[1,58],$VI=[1,59],$VJ=[1,63],$VK=[1,64],$VL=[2,5,32,33,36,43,44,47,48,50,52,55,56,57,58,59,60,61,64,70,73,76,82,83,84,85,86,91,92,93,94,95,96,97,99,107,114,115,116,117,118,119,120,122,123,124,125,126,127,128,129],$VM=[2,5,32,33,36,43,44,47,48,49,50,52,55,56,57,58,59,60,61,64,70,73,76,82,83,84,85,86,91,92,93,94,95,96,97,99,107,114,115,116,117,118,119,120,122,123,124,125,126,127,128,129],$VN=[2,150],$VO=[2,25],$VP=[1,111],$VQ=[1,95],$VR=[1,96],$VS=[1,97],$VT=[1,98],$VU=[1,99],$VV=[1,100],$VW=[1,101],$VX=[1,102],$VY=[1,103],$VZ=[1,104],$V_=[1,105],$V$=[1,106],$V01=[1,107],$V11=[1,108],$V21=[1,109],$V31=[1,110],$V41=[33,70,78],$V51=[2,118],$V61=[1,118],$V71=[2,145],$V81=[1,123],$V91=[1,124],$Va1=[1,127],$Vb1=[1,135],$Vc1=[1,131],$Vd1=[1,134],$Ve1=[2,119],$Vf1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,53,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$Vg1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,53,55,56,57,58,59,60,61,64,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$Vh1=[2,154],$Vi1=[1,146],$Vj1=[1,176],$Vk1=[8,37],$Vl1=[2,37],$Vm1=[1,182],$Vn1=[2,5,8,32,33,36,43,44,47,48,49,50,52,53,55,56,57,58,59,60,61,64,70,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$Vo1=[2,40],$Vp1=[2,41],$Vq1=[2,151],$Vr1=[1,194],$Vs1=[1,202],$Vt1=[1,203],$Vu1=[1,205],$Vv1=[33,78],$Vw1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$Vx1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,105,106,107,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$Vy1=[1,216],$Vz1=[37,71],$VA1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$VB1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$VC1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$VD1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,105,106,107,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$VE1=[2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,107,114,115,116,117,118,119,120,122,123,124,125,126,127,128,129],$VF1=[1,232],$VG1=[37,46],$VH1=[1,239],$VI1=[33,70],$VJ1=[1,266],$VK1=[2,5,8,32,33,34,36,37,40,43,44,46,47,48,49,50,52,53,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$VL1=[1,291],$VM1=[36,37],$VN1=[1,319],$VO1=[36,52,55],$VP1=[1,342];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"start":3,"instrucciones":4,"EOF":5,"instruccion":6,"print_instr":7,"PUNTOCOMA":8,"println_instr":9,"main_":10,"funciones":11,"declaracion":12,"asignacion":13,"if_llav_instr":14,"if_instr":15,"switch_instr":16,"break_instr":17,"continue_instr":18,"return_instr":19,"while_instr":20,"for_instr":21,"dowhile_instr":22,"for_in_instr":23,"decl_arr_instr":24,"llamada":25,"modif_arr_instr":26,"structs":27,"nat_push_instr":28,"tipo":29,"lista_simbolos":30,"RSTRUCT":31,"ID":32,"LLAVA":33,"instrucciones_struct":34,"LLAVC":35,"COMA":36,"attribute":37,"attributeDeclaStruct":38,"IGUAL":39,"expr":40,"INCRE":41,"DECRE":42,"RPRINT":43,"PARA":44,"lista_parametros":45,"PARC":46,"RPRINTLN":47,"RIF":48,"RELSE":49,"RSWITCH":50,"lista_cases":51,"RDEFAULT":52,"DOSPUNTOS":53,"case":54,"RCASE":55,"RBREAK":56,"RCONTINUE":57,"RRETURN":58,"RWHILE":59,"RDO":60,"RFOR":61,"actualizacion":62,"RIN":63,"RVOID":64,"RMAIN":65,"lista_parametros_func":66,"parametro_func":67,"lista_dim":68,"lista_exp_arr":69,"CORA":70,"CORC":71,"lista_exp_arr_c":72,"HASH":73,"lista_exp":74,"rango":75,"RBEGIN":76,"REND":77,"PUNTO":78,"RPUSH":79,"accesoAsignaStruct":80,"nat_matematicas":81,"RSIN":82,"RCOS":83,"RTAN":84,"RSQRT":85,"RLOG":86,"nat_parse":87,"RPARSE":88,"nat_conversion":89,"nat_conversion_tipos":90,"RTOINT":91,"RTODOUBLE":92,"RINT":93,"RDOUBLE":94,"RSTRING":95,"RCHAR":96,"RBOOLEAN":97,"MAS":98,"MENOS":99,"MULTI":100,"DIV":101,"PORCENTAJE":102,"POTENCIA":103,"AMPERSON":104,"AND":105,"OR":106,"NOT":107,"MAYORQUE":108,"MAYORIGUAL":109,"MENORIGUAL":110,"MENORQUE":111,"IGUALIGUAL":112,"DIFERENTE":113,"ENTERO":114,"DECIMAL":115,"CADENA":116,"CHAR":117,"NULL":118,"TRUE":119,"FALSE":120,"INTERROGACION":121,"RPOP":122,"RLENGTH":123,"RCHAROFPOS":124,"RSUBSTRING":125,"RTOUPPER":126,"RTOLOWER":127,"RSTRING_N":128,"RTYPEOF":129,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",8:"PUNTOCOMA",31:"RSTRUCT",32:"ID",33:"LLAVA",35:"LLAVC",36:"COMA",39:"IGUAL",41:"INCRE",42:"DECRE",43:"RPRINT",44:"PARA",46:"PARC",47:"RPRINTLN",48:"RIF",49:"RELSE",50:"RSWITCH",52:"RDEFAULT",53:"DOSPUNTOS",55:"RCASE",56:"RBREAK",57:"RCONTINUE",58:"RRETURN",59:"RWHILE",60:"RDO",61:"RFOR",63:"RIN",64:"RVOID",65:"RMAIN",70:"CORA",71:"CORC",73:"HASH",76:"RBEGIN",77:"REND",78:"PUNTO",79:"RPUSH",82:"RSIN",83:"RCOS",84:"RTAN",85:"RSQRT",86:"RLOG",88:"RPARSE",91:"RTOINT",92:"RTODOUBLE",93:"RINT",94:"RDOUBLE",95:"RSTRING",96:"RCHAR",97:"RBOOLEAN",98:"MAS",99:"MENOS",100:"MULTI",101:"DIV",102:"PORCENTAJE",103:"POTENCIA",104:"AMPERSON",105:"AND",106:"OR",107:"NOT",108:"MAYORQUE",109:"MAYORIGUAL",110:"MENORIGUAL",111:"MENORQUE",112:"IGUALIGUAL",113:"DIFERENTE",114:"ENTERO",115:"DECIMAL",116:"CADENA",117:"CHAR",118:"NULL",119:"TRUE",120:"FALSE",121:"INTERROGACION",122:"RPOP",123:"RLENGTH",124:"RCHAROFPOS",125:"RSUBSTRING",126:"RTOUPPER",127:"RTOLOWER",128:"RSTRING_N",129:"RTYPEOF"},
-productions_: [0,[3,2],[4,2],[4,1],[6,2],[6,2],[6,1],[6,1],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,2],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,2],[6,2],[6,2],[6,2],[6,1],[12,2],[27,5],[34,3],[34,1],[37,2],[37,2],[38,1],[38,3],[30,3],[30,5],[30,1],[30,3],[13,3],[13,2],[13,2],[13,4],[7,4],[9,4],[14,7],[14,11],[14,9],[15,5],[15,7],[15,7],[16,7],[16,9],[16,10],[51,2],[51,1],[54,4],[45,3],[45,1],[17,1],[18,1],[19,2],[19,1],[20,7],[22,8],[21,11],[21,11],[62,3],[62,2],[62,2],[23,7],[10,7],[10,6],[10,1],[11,7],[11,8],[11,1],[66,3],[66,1],[67,2],[67,1],[25,3],[25,4],[24,5],[24,3],[24,3],[68,3],[68,2],[69,4],[69,3],[69,2],[72,3],[72,1],[74,4],[74,3],[26,4],[75,3],[75,3],[75,3],[75,3],[28,6],[28,5],[80,3],[80,1],[81,1],[81,1],[81,1],[81,1],[81,1],[87,6],[89,4],[90,1],[90,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,2],[40,3],[40,3],[40,3],[40,2],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,5],[40,2],[40,2],[40,3],[40,1],[40,2],[40,1],[40,3],[40,1],[40,3],[40,3],[40,4],[40,6],[40,3],[40,3],[40,4],[40,1],[40,1],[40,4],[40,4]],
+symbols_: {"error":2,"start":3,"instrucciones":4,"EOF":5,"instruccion":6,"print_instr":7,"PUNTOCOMA":8,"println_instr":9,"main_":10,"funciones":11,"declaracion":12,"asignacion":13,"if_llav_instr":14,"if_instr":15,"switch_instr":16,"break_instr":17,"continue_instr":18,"return_instr":19,"while_instr":20,"for_instr":21,"dowhile_instr":22,"for_in_instr":23,"decl_arr_instr":24,"llamada":25,"modif_arr_instr":26,"structs":27,"nat_push_instr":28,"expr":29,"tipo":30,"lista_simbolos":31,"RSTRUCT":32,"ID":33,"LLAVA":34,"instrucciones_struct":35,"LLAVC":36,"COMA":37,"attribute":38,"attributeDeclaStruct":39,"IGUAL":40,"INCRE":41,"DECRE":42,"RPRINT":43,"PARA":44,"lista_parametros":45,"PARC":46,"RPRINTLN":47,"RIF":48,"RELSE":49,"RSWITCH":50,"lista_cases":51,"RDEFAULT":52,"DOSPUNTOS":53,"case":54,"RCASE":55,"RBREAK":56,"RCONTINUE":57,"RRETURN":58,"RWHILE":59,"RDO":60,"RFOR":61,"actualizacion":62,"RIN":63,"RVOID":64,"RMAIN":65,"lista_parametros_func":66,"parametro_func":67,"lista_dim":68,"lista_exp_arr":69,"CORA":70,"CORC":71,"lista_exp_arr_c":72,"HASH":73,"lista_exp":74,"rango":75,"RBEGIN":76,"REND":77,"PUNTO":78,"RPUSH":79,"accesoAsignaStruct":80,"nat_matematicas":81,"RSIN":82,"RCOS":83,"RTAN":84,"RSQRT":85,"RLOG":86,"nat_parse":87,"RPARSE":88,"nat_conversion":89,"nat_conversion_tipos":90,"RTOINT":91,"RTODOUBLE":92,"RINT":93,"RDOUBLE":94,"RSTRING":95,"RCHAR":96,"RBOOLEAN":97,"MAS":98,"MENOS":99,"MULTI":100,"DIV":101,"PORCENTAJE":102,"POTENCIA":103,"AMPERSON":104,"AND":105,"OR":106,"NOT":107,"MAYORQUE":108,"MAYORIGUAL":109,"MENORIGUAL":110,"MENORQUE":111,"IGUALIGUAL":112,"DIFERENTE":113,"ENTERO":114,"DECIMAL":115,"CADENA":116,"CHAR":117,"NULL":118,"TRUE":119,"FALSE":120,"INTERROGACION":121,"RPOP":122,"RLENGTH":123,"RCHAROFPOS":124,"RSUBSTRING":125,"RTOUPPER":126,"RTOLOWER":127,"RSTRING_N":128,"RTYPEOF":129,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",8:"PUNTOCOMA",32:"RSTRUCT",33:"ID",34:"LLAVA",36:"LLAVC",37:"COMA",40:"IGUAL",41:"INCRE",42:"DECRE",43:"RPRINT",44:"PARA",46:"PARC",47:"RPRINTLN",48:"RIF",49:"RELSE",50:"RSWITCH",52:"RDEFAULT",53:"DOSPUNTOS",55:"RCASE",56:"RBREAK",57:"RCONTINUE",58:"RRETURN",59:"RWHILE",60:"RDO",61:"RFOR",63:"RIN",64:"RVOID",65:"RMAIN",70:"CORA",71:"CORC",73:"HASH",76:"RBEGIN",77:"REND",78:"PUNTO",79:"RPUSH",82:"RSIN",83:"RCOS",84:"RTAN",85:"RSQRT",86:"RLOG",88:"RPARSE",91:"RTOINT",92:"RTODOUBLE",93:"RINT",94:"RDOUBLE",95:"RSTRING",96:"RCHAR",97:"RBOOLEAN",98:"MAS",99:"MENOS",100:"MULTI",101:"DIV",102:"PORCENTAJE",103:"POTENCIA",104:"AMPERSON",105:"AND",106:"OR",107:"NOT",108:"MAYORQUE",109:"MAYORIGUAL",110:"MENORIGUAL",111:"MENORQUE",112:"IGUALIGUAL",113:"DIFERENTE",114:"ENTERO",115:"DECIMAL",116:"CADENA",117:"CHAR",118:"NULL",119:"TRUE",120:"FALSE",121:"INTERROGACION",122:"RPOP",123:"RLENGTH",124:"RCHAROFPOS",125:"RSUBSTRING",126:"RTOUPPER",127:"RTOLOWER",128:"RSTRING_N",129:"RTYPEOF"},
+productions_: [0,[3,2],[4,2],[4,1],[6,2],[6,2],[6,1],[6,1],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,2],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,2],[6,2],[6,2],[6,2],[6,1],[6,1],[12,2],[27,5],[35,3],[35,1],[38,2],[38,2],[39,1],[39,3],[31,3],[31,5],[31,1],[31,3],[13,3],[13,2],[13,2],[13,4],[7,4],[9,4],[14,7],[14,11],[14,9],[15,5],[15,7],[15,7],[16,7],[16,9],[16,10],[51,2],[51,1],[54,4],[45,3],[45,1],[17,1],[18,1],[19,2],[19,1],[20,7],[22,8],[21,11],[21,11],[62,3],[62,2],[62,2],[23,7],[10,7],[10,6],[10,1],[11,7],[11,8],[11,1],[66,3],[66,1],[67,2],[67,1],[25,3],[25,4],[24,5],[24,3],[24,3],[68,3],[68,2],[69,4],[69,3],[69,2],[72,3],[72,1],[74,4],[74,3],[26,4],[75,3],[75,3],[75,3],[75,3],[28,6],[28,5],[80,3],[80,1],[81,1],[81,1],[81,1],[81,1],[81,1],[87,6],[89,4],[90,1],[90,1],[30,1],[30,1],[30,1],[30,1],[30,1],[30,1],[30,1],[29,3],[29,3],[29,3],[29,3],[29,3],[29,3],[29,3],[29,2],[29,3],[29,3],[29,3],[29,2],[29,3],[29,3],[29,3],[29,3],[29,3],[29,3],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,5],[29,2],[29,2],[29,3],[29,1],[29,2],[29,1],[29,3],[29,1],[29,3],[29,3],[29,4],[29,6],[29,3],[29,3],[29,4],[29,1],[29,1],[29,4],[29,4]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -98,52 +98,52 @@ break;
 case 4: case 5: case 8: case 9: case 13: case 14: case 15: case 18: case 20: case 21: case 22: case 23: case 24:
  this.$ = $$[$0-1] 
 break;
-case 6: case 7: case 10: case 11: case 12: case 16: case 17: case 19:
+case 6: case 7: case 10: case 11: case 12: case 16: case 17: case 19: case 25:
  this.$ = $$[$0] 
 break;
-case 25:
+case 26:
  
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
                                                 this.$ =null;
                                             
 break;
-case 26:
+case 27:
  this.$ = new Declaracion($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].last_column); 
 break;
-case 27:
+case 28:
  this.$ = new Struct($$[$0-3],$$[$0-1],_$[$0-4].first_line, _$[$0-4].last_column); 
 break;
-case 28: case 56: case 76: case 90:
+case 29: case 57: case 77: case 91:
  this.$ = $$[$0-2]; this.$.push($$[$0]); 
 break;
-case 29:
+case 30:
  this.$= new Array(); this.$.push($$[$0]); 
 break;
-case 30:
+case 31:
 this.$ = new StructInStruct($$[$0-1],$$[$0],_$[$0-1].first_line, _$[$0-1].last_column); 
 break;
-case 31:
+case 32:
  this.$ = new Declaracion($$[$0-1], [$$[$0]], _$[$0-1].first_line, _$[$0-1].last_column); 
 break;
-case 32:
+case 33:
  this.$=new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null); 
 break;
-case 33:
+case 34:
  this.$=new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0]); 
 break;
-case 34:
+case 35:
  this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); 
 break;
-case 35:
+case 36:
  this.$ = $$[$0-4]; this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-4].first_line, _$[$0-4].first_column,$$[$0])); 
 break;
-case 36:
+case 37:
  this.$ = new Array(); this.$.push(new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null)); 
 break;
-case 37:
+case 38:
  this.$ = new Array(); this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0])); 
 break;
-case 38:
+case 39:
 
                                                 if($$[$0] instanceof Array){
                                                     // console.log("asignacion arreglo");
@@ -154,155 +154,155 @@ case 38:
                                                 }
                                             
 break;
-case 39: case 67:
+case 40: case 68:
  this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
 break;
-case 40: case 68:
+case 41: case 69:
  this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
 break;
-case 41:
+case 42:
  this.$ = new DeclararStruct($$[$0-3],$$[$0-2],$$[$0],_$[$0-3].first_line, _$[$0-3].last_column); 
 break;
-case 42:
+case 43:
  this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, false); 
 break;
-case 43:
+case 44:
  this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); 
 break;
-case 44:
+case 45:
  this.$ = new If($$[$0-4], $$[$0-1], null,null, _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 45:
+case 46:
  this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1],null, _$[$0-10].first_line, _$[$0-10].first_column); 
 break;
-case 46:
+case 47:
  this.$ = new If($$[$0-6], $$[$0-3],null, $$[$0], _$[$0-8].first_line, _$[$0-8].first_column); 
 break;
-case 47:
+case 48:
  this.$ = new Ifsinllave($$[$0-2], $$[$0], [], _$[$0-4].first_line, _$[$0-4].first_column); 
 break;
-case 48:
+case 49:
  this.$ = new Ifsinllave($$[$0-4], $$[$0-2], $$[$0], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 49:
+case 50:
  this.$ = new Ifsinllave($$[$0-4], $$[$0-2], [$$[$0]], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 50:
+case 51:
  this.$ = new Switch($$[$0-4], $$[$0-1], [], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 51:
+case 52:
  this.$ = new Switch($$[$0-6], [], $$[$0-1], _$[$0-8].first_line, _$[$0-8].first_column); 
 break;
-case 52:
+case 53:
  this.$ = new Switch($$[$0-7], $$[$0-4], $$[$0-1], _$[$0-9].first_line, _$[$0-9].first_column); 
 break;
-case 53:
+case 54:
  this.$ = $$[$0-1]; this.$.push($$[$0]); 
 break;
-case 54: case 57:
+case 55: case 58:
  this.$ = new Array(); this.$.push($$[$0]);
 break;
-case 55:
+case 56:
  this.$ = new Case($$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].first_column); 
 break;
-case 58:
+case 59:
  this.$ = new Detener(_$[$0].first_line, _$[$0].first_column); 
 break;
-case 59:
+case 60:
  this.$ = new Continuar(_$[$0].first_line, _$[$0].first_column); 
 break;
-case 60:
+case 61:
  this.$ = new Return($$[$0],_$[$0-1].first_line, _$[$0-1].first_column); 
 break;
-case 61:
+case 62:
  this.$ = new Return(new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column),_$[$0].first_line, _$[$0].first_column); 
 break;
-case 62:
+case 63:
  this.$ = new While($$[$0-4], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 63:
+case 64:
  this.$ = new DoWhile($$[$0-1], $$[$0-5], _$[$0-7].first_line, _$[$0-7].last_column); 
 break;
-case 64: case 65:
+case 65: case 66:
  this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); 
 break;
-case 66:
+case 67:
  this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column); 
 break;
-case 69:
+case 70:
  this.$ = new ForIn($$[$0-5], $$[$0-3], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 70:
+case 71:
  this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); 
 break;
-case 71:
+case 72:
  this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); 
 break;
-case 72:
+case 73:
    errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
                                                 this.$=null;
                                             
 break;
-case 73:
+case 74:
  this.$ = new Funcion($$[$0-5], $$[$0-6], [], $$[$0-1], _$[$0-6].first_line, _$[$0-6].last_column); 
 break;
-case 74:
+case 75:
  this.$ = new Funcion($$[$0-6], $$[$0-7], $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column); 
 break;
-case 75:
+case 76:
    errores.push(new Errores("Sintactico", `No hay instrucciones en la funcion.`, this._$.first_line, this._$.first_column));
                                                 this.$=null;
                                             
 break;
-case 77: case 91:
+case 78: case 92:
  this.$ = new Array(); this.$.push($$[$0]); 
 break;
-case 78:
+case 79:
  this.$ = {"tipo" : $$[$0-1], "arreglo": false, "id": $$[$0]}; 
 break;
-case 79:
+case 80:
  this.$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $$[$0]}; 
 break;
-case 80:
+case 81:
  this.$ = new Llamada($$[$0-2] , [], _$[$0-2].first_line, _$[$0-2].last_column); 
 break;
-case 81:
+case 82:
  this.$ = new Llamada($$[$0-3] , $$[$0-1] , _$[$0-3].first_line, _$[$0-3].last_column); 
 break;
-case 82:
+case 83:
  this.$ = new DeclaracionArr($$[$0-4], $$[$0-3], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].last_column); 
 break;
-case 83:
+case 84:
  this.$ = new DeclaracionArr(null, null, $$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column); 
 break;
-case 84:
+case 85:
  this.$ = new DeclaracionArr($$[$0-2], $$[$0-1], $$[$0], null, _$[$0-2].first_line, _$[$0-2].last_column); 
 break;
-case 85:
+case 86:
  this.$ = $$[$0-2]; this.$.push($$[$0-1]+1); 
 break;
-case 86:
+case 87:
  this.$ = new Array(); this.$.push(1); 
 break;
-case 87: case 92:
+case 88: case 93:
  this.$ = $$[$0-3]; this.$.push($$[$0-1]); 
 break;
-case 88: case 93:
+case 89: case 94:
  this.$ = new Array(); this.$.push($$[$0-1]); 
 break;
-case 89:
+case 90:
  this.$ = new Copiar($$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
 break;
-case 94:
+case 95:
  this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); 
 break;
-case 95: case 96: case 97: case 98:
+case 96: case 97: case 98: case 99:
  this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; 
 break;
-case 99:
+case 100:
  this.$ = new Push(new Identificador($$[$0-5] , _$[$0-5].first_line, _$[$0-5].last_column), $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
 break;
-case 100:
+case 101:
   
                                                 // let first = $$[$0-4];
                                                 // if (first instanceof Identificador)
@@ -316,133 +316,133 @@ case 100:
                                                 // }
                                             
 break;
-case 101:
+case 102:
  this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
 break;
-case 102: case 144:
+case 103: case 145:
  this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); 
 break;
-case 103: case 104: case 105: case 106: case 107: case 110: case 111: case 149: case 161: case 162:
+case 104: case 105: case 106: case 107: case 108: case 111: case 112: case 150: case 162: case 163:
  this.$ = $$[$0]; 
 break;
-case 108:
+case 109:
  this.$ = new Parse($$[$0-5], $$[$0-1], _$[$0-5].first_line, _$[$0-5].last_column); 
 break;
-case 109:
+case 110:
  this.$ = new To($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].last_column); 
 break;
-case 112:
+case 113:
  this.$ = TIPO.ENTERO; 
 break;
-case 113:
+case 114:
  this.$ = TIPO.DECIMAL; 
 break;
-case 114:
+case 115:
  this.$ = TIPO.CADENA; 
 break;
-case 115:
+case 116:
  this.$ = TIPO.CHARACTER; 
 break;
-case 116:
+case 117:
  this.$ = TIPO.BOOLEANO; 
 break;
-case 117:
+case 118:
  this.$ = TIPO.VOID; 
 break;
-case 118:
+case 119:
  this.$ = TIPO.STRUCT; 
 break;
-case 119:
+case 120:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MAS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 120:
+case 121:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MENOS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 121:
+case 122:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POR,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 122:
+case 123:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.DIV,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 123:
+case 124:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MOD,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 124:
+case 125:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POT,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 125:
+case 126:
  this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.AMPERSON,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
 break;
-case 126:
+case 127:
  this.$ = new Aritmetica($$[$0],OperadorAritmetico.UMENOS,$$[$0], _$[$0-1].first_line, _$[$0-1].first_column, true); 
 break;
-case 127: case 148:
+case 128: case 149:
  this.$ = $$[$0-1]; 
 break;
-case 128:
+case 129:
  this.$ = new Logica($$[$0-2], OperadorLogico.AND, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 129:
+case 130:
  this.$ = new Logica($$[$0-2], OperadorLogico.OR, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 130:
+case 131:
  this.$ = new Logica($$[$0], OperadorLogico.NOT, null, $$[$0-1].first_line, $$[$0-1].last_column, true); 
 break;
-case 131:
+case 132:
  this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 132:
+case 133:
  this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 133:
+case 134:
  this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 134:
+case 135:
  this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 135:
+case 136:
  this.$ = new Relacional($$[$0-2], OperadorRelacional.IGUALIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 136:
+case 137:
  this.$ = new Relacional($$[$0-2], OperadorRelacional.DIFERENTE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
 break;
-case 137:
+case 138:
  this.$ = new Primitivo(Number($$[$0]), TIPO.ENTERO, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 138:
+case 139:
  this.$ = new Primitivo(Number($$[$0]), TIPO.DECIMAL, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 139:
+case 140:
  $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CADENA, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 140:
+case 141:
  $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CHARACTER, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 141:
+case 142:
  this.$ = new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 142:
+case 143:
  this.$ = new Primitivo(true, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 143:
+case 144:
  this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
 break;
-case 145:
+case 146:
 this.$ = new Ternario($$[$0-4], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].first_column);
 break;
-case 146:
+case 147:
  this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); 
 break;
-case 147:
+case 148:
  this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); 
 break;
-case 150:
+case 151:
  this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
 break;
-case 151:
+case 152:
  this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); 
 break;
-case 152:
+case 153:
    if( $$[$0] instanceof Pop || $$[$0] instanceof Length || $$[$0] instanceof CharOfPos ||
                                             $$[$0] instanceof subString || $$[$0] instanceof toUpper || $$[$0] instanceof toLower){
                                             this.$ = $$[$0];
@@ -453,40 +453,40 @@ case 152:
                                         }
                                     
 break;
-case 153:
+case 154:
  this.$ = new Arreglo(TIPO.ARREGLO, $$[$0], _$[$0].first_line, _$[$0].first_column); 
 break;
-case 154:
+case 155:
  this.$ = new Pop(null, _$[$0-2].first_line, _$[$0-2].first_column); 
 break;
-case 155:
+case 156:
  this.$ = new Length(null, _$[$0-2].first_line, _$[$0-2].first_column); 
 break;
-case 156:
+case 157:
  this.$ = new CharOfPos(null, $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
 break;
-case 157:
+case 158:
  this.$ = new subString(null, $$[$0-3], $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
 break;
-case 158:
+case 159:
  this.$ = new toUpper(null, _$[$0-2].first_line, _$[$0-2].first_column); 
 break;
-case 159:
+case 160:
  this.$ = new toLower(null, _$[$0-2].first_line, _$[$0-2].first_column); 
 break;
-case 160:
+case 161:
  this.$ = new Matematicas($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
 break;
-case 163:
+case 164:
  this.$ = new StringN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
 break;
-case 164:
+case 165:
  this.$ = new TypeOfN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
 break;
 }
 },
-table: [{2:$V0,3:1,4:2,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{1:[3]},{2:$V0,5:[1,45],6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vj,[2,3]),{8:[1,47]},{8:[1,48]},o($Vk,[2,6]),o($Vk,[2,7]),{8:[1,49]},{8:[1,50]},o($Vk,[2,10]),o($Vk,[2,11]),o($Vk,[2,12]),{8:[1,51]},{8:[1,52]},{8:[1,53]},o($Vk,[2,16]),o($Vk,[2,17]),{8:[1,54]},o($Vk,[2,19]),{8:[1,55]},{8:$Vl},{8:[1,57]},{8:[1,58]},{8:[1,59]},o($Vk,[2,25]),{44:[1,60]},{44:[1,61]},o($Vm,$Vn,{65:[1,62]}),{30:64,32:$Vo,68:65,70:$Vp},{32:$Vq,39:$Vr,41:$Vs,42:$Vt,44:$Vu,70:$Vv,74:72,78:[1,73]},{44:[1,75]},{44:[1,76]},{8:[2,58]},{8:[2,59]},{8:[2,61],25:90,29:111,31:$Vw,32:$Vx,40:77,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{44:[1,117]},{32:[1,119],44:[1,118]},{33:[1,120]},o([70,78],$V$,{32:[1,121]}),o($Vm,[2,112]),o($Vm,[2,113]),o($Vm,[2,114]),o($Vm,[2,115]),o($Vm,[2,116]),{1:[2,1]},o($Vj,[2,2]),o($Vk,[2,4]),o($Vk,[2,5]),o($Vk,[2,8]),o($Vk,[2,9]),o($Vk,[2,13]),o($Vk,[2,14]),o($Vk,[2,15]),o($Vk,[2,18]),o($Vk,[2,20]),o($Vk,[2,21]),o($Vk,[2,22]),o($Vk,[2,23]),o($Vk,[2,24]),{25:90,29:111,31:$Vw,32:$Vx,40:123,44:$Vy,45:122,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:123,44:$Vy,45:124,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{44:[1,125]},o($V01,$V11,{39:$V21,44:[1,126]}),{8:[2,26],36:[1,128]},{32:[1,129],70:[1,130]},{71:[1,131]},{25:90,29:111,31:$Vw,32:$Vx,40:132,44:$Vy,64:$Vz,69:133,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{8:[2,39]},{8:[2,40]},{39:[1,134]},{25:90,29:111,31:$Vw,32:$Vx,40:123,44:$Vy,45:136,46:[1,135],64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{39:$V31,70:$V41},{32:[1,141],79:$V51,80:140},{25:90,29:111,31:$Vw,32:$Vx,40:142,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:143,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:144,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{8:[2,60],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{25:90,29:111,31:$Vw,32:$Vx,40:162,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:163,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:164,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vn1,[2,137]),o($Vn1,[2,138]),o($Vn1,[2,139]),o($Vn1,[2,140]),o($Vn1,[2,141]),o($Vn1,[2,142]),o($Vn1,[2,143]),o($Vn1,$Vo1,{74:167,41:$Vp1,42:$Vq1,44:$Vu,70:$Vv,78:$Vr1}),{25:90,29:111,31:$Vw,32:$Vx,40:170,44:$Vy,64:$Vz,69:92,70:$VA,72:169,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vn1,$Vs1),o($Vn1,[2,151]),o($Vn1,$Vt1,{70:$Vu1}),{44:[1,172]},{44:[1,173]},{44:[1,174]},{44:[1,175]},{44:[1,176]},{44:[1,177]},{44:[1,178]},o($Vn1,[2,161]),o($Vn1,[2,162]),{44:[1,179]},{44:[1,180]},{53:[1,181]},{32:[1,182]},{44:[2,103]},{44:[2,104]},{44:[2,105]},{44:[2,106]},{44:[2,107]},{78:$Vv1},{44:[1,184]},o($Vw1,$Vn),o($Vw1,$V$),{44:[2,110]},{44:[2,111]},{25:90,29:111,31:$Vw,32:$Vx,40:185,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{12:187,13:186,29:189,31:$Vw,32:[1,188],64:$Vz,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{63:[1,190]},{2:$V0,4:191,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{33:[1,192]},{36:$Vx1,46:[1,193]},o($Vy1,[2,57],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),{36:$Vx1,46:[1,195]},{46:[1,196]},{29:200,31:$Vw,32:$Vz1,46:[1,197],64:$Vz,66:198,67:199,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{25:90,29:111,31:$Vw,32:$Vx,40:202,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{32:[1,203]},{8:[2,84],39:[1,204]},{71:[1,205]},o($VA1,[2,86]),{8:[2,38],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($VB1,$Vt1,{8:[2,83],70:$Vu1}),{25:90,29:111,31:$Vw,32:$Vx,40:206,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vn1,[2,80]),{36:$Vx1,46:[1,207]},{25:90,29:111,31:$Vw,32:$Vx,40:208,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:209,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{44:[1,210]},{39:[1,211],78:[1,212]},o($VC1,[2,102]),{53:$V61,71:[1,213],98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{46:[1,214],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{46:[1,215],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{25:90,29:111,31:$Vw,32:$Vx,40:216,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:217,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:218,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:219,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:220,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:221,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:222,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:223,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:224,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:225,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:226,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:227,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:228,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:229,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:230,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:231,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:232,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,77:$VD1,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($VE1,[2,126],{53:$V61}),{46:[1,234],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($VF1,[2,130],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1}),o($Vn1,$VG1),o($Vn1,$VH1),o($Vn1,$VI1,{70:$V41}),{25:90,29:111,31:$Vw,32:$Vx,40:235,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{36:$VJ1,71:[1,236]},o($VK1,[2,91],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),{25:90,29:111,31:$Vw,32:$Vx,40:170,44:$Vy,64:$Vz,69:92,70:$VA,72:238,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{46:[1,239]},{46:[1,240]},{25:90,29:111,31:$Vw,32:$Vx,40:241,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:242,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{46:[1,243]},{46:[1,244]},{25:90,29:111,31:$Vw,32:$Vx,40:245,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:246,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:247,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:249,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,77:[1,248],81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($VL1,[2,89]),{88:[1,250]},{25:90,29:111,31:$Vw,32:$Vx,40:251,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{46:[1,252],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{8:[1,253]},{8:[1,254]},{32:$Vq,39:[1,255],41:$Vs,42:$Vt},{30:64,32:[1,256]},{25:90,29:111,31:$Vw,32:$Vx,40:257,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,258],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{29:262,31:$Vw,32:$VM1,34:259,37:260,64:$Vz,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{8:[2,42]},{25:90,29:111,31:$Vw,32:$Vx,40:263,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{8:[2,43]},{33:[1,264]},{33:[1,265]},{36:[1,267],46:[1,266]},o($Vy1,[2,77]),{32:[1,268]},o($Vy1,[2,79]),o($V01,[2,37],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),o($V01,[2,34],{39:[1,269]}),{69:270,70:[1,271],73:$VB},o($VA1,[2,85]),{8:[2,41],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($Vn1,[2,81]),{8:[2,94],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{53:$V61,71:[1,272],98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{25:90,29:111,31:$Vw,32:$Vx,40:273,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:274,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{32:[1,275]},o($VN1,[2,93]),{2:$V0,6:277,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,33:$VO1,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{33:[1,278]},o($VP1,[2,119],{53:$V61,100:$V91,101:$Va1,102:$Vb1,103:$Vc1}),o($VP1,[2,120],{53:$V61,100:$V91,101:$Va1,102:$Vb1,103:$Vc1}),o($VQ1,[2,121],{53:$V61,103:$Vc1}),o($VQ1,[2,122],{53:$V61,103:$Vc1}),o($VQ1,[2,123],{53:$V61,103:$Vc1}),o($VE1,[2,124],{53:$V61}),o($VP1,[2,125],{53:$V61,100:$V91,101:$Va1,102:$Vb1,103:$Vc1}),o($VF1,[2,128],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1}),o([8,33,35,36,46,71,106,121],[2,129],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1}),o($VR1,[2,131],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1}),o($VR1,[2,132],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1}),o($VR1,[2,133],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1}),o($VR1,[2,134],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1}),o($VS1,[2,135],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1}),o($VS1,[2,136],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1}),{53:[1,279],98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($VT1,[2,95],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),o($Vn1,[2,97]),o($Vn1,[2,127]),o($VP1,[2,152],{53:$V61,100:$V91,101:$Va1,102:$Vb1,103:$Vc1}),o($VL1,[2,148]),{25:90,29:111,31:$Vw,32:$Vx,40:280,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{36:$VJ1,71:[1,281]},o($Vn1,[2,154]),o($Vn1,[2,155]),{46:[1,282],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{36:[1,283],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($Vn1,[2,158]),o($Vn1,[2,159]),{46:[1,284],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{46:[1,285],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{46:[1,286],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($Vn1,[2,96]),o($VT1,[2,98],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),{44:[1,287]},{46:[1,288],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{33:[1,289]},{25:90,29:111,31:$Vw,32:$Vx,40:290,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:291,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{25:90,29:111,31:$Vw,32:$Vx,40:132,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($V01,$V11,{39:$V21}),{33:[1,292],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{59:[1,293]},{35:[1,294],36:[1,295]},o($VU1,[2,29]),{32:[1,296]},{32:[1,298],38:297},o($Vy1,[2,56],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),{2:$V0,4:299,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,300],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,4:301,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{33:[1,302]},{29:200,31:$Vw,32:$Vz1,64:$Vz,67:303,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vy1,[2,78]),{25:90,29:111,31:$Vw,32:$Vx,40:304,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{8:[2,82],70:$Vu1},{25:90,29:111,31:$Vw,32:$Vx,40:170,44:$Vy,64:$Vz,69:92,70:$VA,72:305,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($VN1,[2,92]),{46:[1,306],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{8:[2,100],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($VC1,[2,101]),{2:$V0,4:307,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vj,[2,47],{49:[1,308]}),{51:309,52:[1,310],54:311,55:$VV1},{25:90,29:111,31:$Vw,32:$Vx,40:313,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,77:$VD1,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($VK1,[2,90],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),o($VL1,[2,87]),o($Vn1,[2,156]),{25:90,29:111,31:$Vw,32:$Vx,40:314,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vn1,[2,160]),o($Vn1,[2,163]),o($Vn1,[2,164]),{25:90,29:111,31:$Vw,32:$Vx,40:315,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vn1,[2,109]),{2:$V0,4:316,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{8:[1,317],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{8:[1,318],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{2:$V0,4:319,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{44:[1,320]},{8:[2,27]},{29:262,31:$Vw,32:$VM1,37:321,64:$Vz,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($VU1,[2,30]),o($VU1,[2,31]),o($VU1,[2,32],{39:[1,322]}),{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,323],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vk,[2,71]),{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,324],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,4:325,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vy1,[2,76]),o($V01,[2,35],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),{36:$VJ1,71:[1,326]},{8:[2,99]},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,327],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,6:328,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:329,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{35:[1,330],52:[1,331],54:332,55:$VV1},{53:[1,333]},o($VW1,[2,54]),{25:90,29:111,31:$Vw,32:$Vx,40:334,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($VT1,[2,145],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),{46:[1,335],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{46:[1,336],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,337],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{32:$VX1,62:338},{32:$VX1,62:340},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,341],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{25:90,29:111,31:$Vw,32:$Vx,40:342,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($VU1,[2,28]),{25:90,29:111,31:$Vw,32:$Vx,40:343,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vk,[2,70]),o($Vk,[2,73]),{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,344],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o([8,70],[2,88]),o($Vj,[2,44],{49:[1,345]}),o($Vk,[2,48]),o($Vk,[2,49]),o($Vk,[2,50]),{53:[1,346]},o($VW1,[2,53]),{2:$V0,4:347,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{53:[1,348],98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($Vn1,[2,157]),o($Vn1,[2,108]),o($Vk,[2,62]),{46:[1,349]},{39:[1,350],41:[1,351],42:[1,352]},{46:[1,353]},o($Vk,[2,69]),{46:[1,354],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o($VU1,[2,33],{53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1}),o($Vk,[2,74]),{14:356,33:[1,355],48:[1,357]},{2:$V0,4:358,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,359],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,4:360,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:362,26:22,27:23,28:24,29:363,31:$V1,32:[1,361],40:232,43:$V3,44:$Vy,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,69:92,70:$VA,73:$VB,75:91,76:$VC,77:$VD1,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{33:[1,364]},{25:90,29:111,31:$Vw,32:$Vx,40:365,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{46:[2,67]},{46:[2,68]},{33:[1,366]},{8:[2,63]},{2:$V0,4:367,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vk,[2,46]),{44:[1,368]},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,369],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vk,[2,51]),o($VW1,[2,55],{7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,6:46,2:$V0,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi}),o($VB1,$Vo1,{74:372,32:$Vq,39:$Vr,41:[1,370],42:[1,371],44:$Vu,70:$Vv,78:[1,373]}),o($VB1,$Vs1,{8:$Vl}),{30:64,32:$Vo,68:65,70:$Vp,78:$Vv1},{2:$V0,4:374,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{46:[2,66],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},{2:$V0,4:375,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,376],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{25:90,29:111,31:$Vw,32:$Vx,40:377,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},o($Vk,[2,52]),o($VY1,$VG1),o($VY1,$VH1),o($VB1,$VI1,{39:$V31,70:$V41}),{25:90,29:111,31:$Vw,32:[1,378],40:235,44:$Vy,64:$Vz,69:92,70:$VA,73:$VB,75:91,76:$VC,79:$V51,80:140,81:99,82:$VD,83:$VE,84:$VF,85:$VG,86:$VH,87:100,89:101,90:112,91:$VI,92:$VJ,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi,99:$VK,107:$VL,114:$VM,115:$VN,116:$VO,117:$VP,118:$VQ,119:$VR,120:$VS,122:$VT,123:$VU,124:$VV,125:$VW,126:$VX,127:$VY,128:$VZ,129:$V_},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,379],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:29,31:$V1,32:$V2,35:[1,380],43:$V3,47:$V4,48:$V5,50:$V6,56:$V7,57:$V8,58:$V9,59:$Va,60:$Vb,61:$Vc,64:$Vd,93:$Ve,94:$Vf,95:$Vg,96:$Vh,97:$Vi},o($Vk,[2,45]),{46:[1,381],53:$V61,98:$V71,99:$V81,100:$V91,101:$Va1,102:$Vb1,103:$Vc1,104:$Vd1,105:$Ve1,106:$Vf1,108:$Vg1,109:$Vh1,110:$Vi1,111:$Vj1,112:$Vk1,113:$Vl1,121:$Vm1},o([39,53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$Vo1,{74:167,41:$Vp1,42:$Vq1,44:$Vu,70:$Vv,78:$Vr1}),o($Vk,[2,64]),o($Vk,[2,65]),{33:$VO1}],
-defaultActions: {33:[2,58],34:[2,59],45:[2,1],68:[2,39],69:[2,40],106:[2,103],107:[2,104],108:[2,105],109:[2,106],110:[2,107],115:[2,110],116:[2,111],193:[2,42],195:[2,43],294:[2,27],306:[2,99],351:[2,67],352:[2,68],354:[2,63]},
+table: [{2:$V0,3:1,4:2,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{1:[3]},{2:$V0,5:[1,80],6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VL,[2,3]),{8:[1,82]},{8:[1,83]},o($VM,[2,6]),o($VM,[2,7]),{8:[1,84]},{8:[1,85]},o($VM,[2,10]),o($VM,[2,11]),o($VM,[2,12]),{8:[1,86]},{8:[1,87]},{8:[1,88]},o($VM,[2,16]),o($VM,[2,17]),{8:[1,89]},o($VM,[2,19]),{8:[1,90]},o([2,5,32,33,36,43,44,47,48,49,50,52,53,55,56,57,58,59,60,61,64,70,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$VN,{8:[1,91]}),{8:[1,92]},{8:[1,93]},{8:[1,94]},o([2,5,32,33,36,43,44,47,48,49,50,52,55,56,57,58,59,60,61,64,70,73,76,82,83,84,85,86,91,92,93,94,95,96,97,107,114,115,116,117,118,119,120,122,123,124,125,126,127,128,129],$VO,{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),o($VM,[2,26]),{44:[1,112]},{44:[1,113]},o($V41,$V51,{65:[1,114]}),{31:116,33:[1,115],68:117,70:[1,119],78:$V61},o([2,5,32,36,43,47,48,49,50,52,53,55,56,57,58,59,60,61,64,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$V71,{74:125,33:$V81,40:[1,120],41:[1,121],42:[1,122],44:$V91,70:$Va1,78:[1,126]}),{44:[1,128]},{44:[1,129]},{8:[2,59]},{8:[2,60]},{8:[2,62],25:132,29:130,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{44:[1,136]},{33:[1,138],44:[1,137]},{34:[1,139]},o([70,78],$Ve1,{33:[1,140]}),{25:132,29:141,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:142,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:143,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vf1,[2,138]),o($Vf1,[2,139]),o($Vf1,[2,140]),o($Vf1,[2,141]),o($Vf1,[2,142]),o($Vf1,[2,143]),o($Vf1,[2,144]),{25:132,29:145,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,72:144,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vf1,[2,152]),o($Vg1,$Vh1,{70:$Vi1}),{44:[1,147]},{44:[1,148]},{44:[1,149]},{44:[1,150]},{44:[1,151]},{44:[1,152]},{44:[1,153]},o($Vf1,[2,162]),o($Vf1,[2,163]),{44:[1,154]},{44:[1,155]},o($V41,[2,113]),o($V41,[2,114]),o($V41,[2,115]),o($V41,[2,116]),o($V41,[2,117]),{53:[1,156]},{33:[1,157]},{44:[2,104]},{44:[2,105]},{44:[2,106]},{44:[2,107]},{44:[2,108]},{44:[1,158]},{44:[2,111]},{44:[2,112]},{1:[2,1]},o($VL,[2,2]),o($VM,[2,4]),o($VM,[2,5]),o($VM,[2,8]),o($VM,[2,9]),o($VM,[2,13]),o($VM,[2,14]),o($VM,[2,15]),o($VM,[2,18]),o($VM,[2,20]),o($VM,[2,21]),o($VM,[2,22]),o($VM,[2,23]),o($VM,[2,24]),{25:132,29:159,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:160,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:161,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:162,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:163,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:164,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:165,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:166,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:167,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:168,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:169,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:170,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:171,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:172,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:173,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:174,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:175,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,77:$Vj1,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:178,30:133,32:$Vb1,33:$Vc1,44:$V4,45:177,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:178,30:133,32:$Vb1,33:$Vc1,44:$V4,45:179,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{44:[1,180]},o($Vk1,$Vl1,{40:$Vm1,44:[1,181]}),{8:[2,27],37:[1,183]},{33:[1,184],70:[1,185]},{88:[1,186]},{71:[1,187]},{25:132,29:188,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:189,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vn1,$Vo1),o($Vn1,$Vp1),{40:[1,190]},{25:132,29:178,30:133,32:$Vb1,33:$Vc1,44:$V4,45:192,46:[1,191],64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o([2,5,32,33,36,43,44,47,48,49,50,52,53,55,56,57,58,59,60,61,64,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$Vq1,{40:[1,193],70:$Vr1}),{25:132,29:197,30:133,32:$Vb1,33:[1,198],44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,79:[1,195],80:196,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:199,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:200,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:201,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:[2,61],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o([2,5,8,32,33,34,36,37,43,46,47,48,49,50,52,53,55,56,57,58,59,60,61,64,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],$V71,{74:204,41:$Vs1,42:$Vt1,44:$V91,70:$Va1,78:$Vu1}),o($Vf1,$VN),{78:$V61},o($Vv1,$V51),o($Vv1,$Ve1),{25:132,29:206,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{12:208,13:207,30:210,32:$Vb1,33:[1,209],64:$Vd1,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt},{63:[1,211]},{2:$V0,4:212,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{34:[1,213]},o($Vw1,[2,127],{53:$VP}),{46:[1,214],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($Vx1,[2,131],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21}),{37:$Vy1,71:[1,215]},o($Vz1,[2,92],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),{25:132,29:145,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,72:217,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{46:[1,218]},{46:[1,219]},{25:132,29:220,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:221,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{46:[1,222]},{46:[1,223]},{25:132,29:224,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:225,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:226,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:228,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,77:[1,227],81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vf1,[2,90]),{25:132,29:229,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VA1,[2,120],{53:$VP,100:$VS,101:$VT,102:$VU,103:$VV}),o($VA1,[2,121],{53:$VP,100:$VS,101:$VT,102:$VU,103:$VV}),o($VB1,[2,122],{53:$VP,103:$VV}),o($VB1,[2,123],{53:$VP,103:$VV}),o($VB1,[2,124],{53:$VP,103:$VV}),o($Vw1,[2,125],{53:$VP}),o($VA1,[2,126],{53:$VP,100:$VS,101:$VT,102:$VU,103:$VV}),o($Vx1,[2,129],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21}),o([2,5,8,32,33,34,36,37,43,44,46,47,48,49,50,52,55,56,57,58,59,60,61,64,70,71,73,76,82,83,84,85,86,91,92,93,94,95,96,97,106,107,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],[2,130],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21}),o($VC1,[2,132],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW}),o($VC1,[2,133],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW}),o($VC1,[2,134],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW}),o($VC1,[2,135],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW}),o($VD1,[2,136],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,108:$VZ,109:$V_,110:$V$,111:$V01}),o($VD1,[2,137],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,108:$VZ,109:$V_,110:$V$,111:$V01}),{53:[1,230],98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($VE1,[2,96],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),o($Vf1,[2,98]),{37:$VF1,46:[1,231]},o($VG1,[2,58],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),{37:$VF1,46:[1,233]},{46:[1,234]},{30:238,32:$Vb1,33:$VH1,46:[1,235],64:$Vd1,66:236,67:237,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt},{25:132,29:240,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{33:[1,241]},{8:[2,85],40:[1,242]},{71:[1,243]},{44:[1,244]},o($VI1,[2,87]),{8:[2,39],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o([53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$Vh1,{8:[2,84],70:$Vi1}),{25:132,29:245,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vf1,[2,81]),{37:$VF1,46:[1,246]},{25:132,29:247,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:248,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{44:[1,249]},{40:[1,250],78:[1,251]},o($VA1,[2,153],{53:$VP,100:$VS,101:$VT,102:$VU,103:$VV}),o([2,5,32,33,36,40,43,47,48,49,50,52,53,55,56,57,58,59,60,61,64,73,76,82,83,84,85,86,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129],[2,103],{74:204,41:$Vs1,42:$Vt1,44:$V91,70:$Va1,78:$Vu1}),{53:$VP,71:[1,252],98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{46:[1,253],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{46:[1,254],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($Vf1,[2,147]),o($Vf1,[2,148]),o($Vg1,$Vq1,{70:$Vr1}),{25:132,29:197,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{46:[1,255],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{8:[1,256]},{8:[1,257]},{33:$V81,40:[1,258],41:[1,259],42:[1,260]},{31:116,33:[1,261]},{25:132,29:262,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,263],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{30:267,32:$Vb1,33:$VJ1,35:264,38:265,64:$Vd1,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt},o($Vf1,[2,128]),o($Vf1,[2,149]),{25:132,29:268,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{37:$Vy1,71:[1,269]},o($Vf1,[2,155]),o($Vf1,[2,156]),{46:[1,270],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{37:[1,271],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($Vf1,[2,159]),o($Vf1,[2,160]),{46:[1,272],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{46:[1,273],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{46:[1,274],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($Vf1,[2,97]),o($VE1,[2,99],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),{46:[1,275],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{25:132,29:276,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,77:$Vj1,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:[2,43]},{25:132,29:277,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:[2,44]},{34:[1,278]},{34:[1,279]},{37:[1,281],46:[1,280]},o($VG1,[2,78]),{33:[1,282]},o($VG1,[2,80]),o($Vk1,[2,38],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),o($Vk1,[2,35],{40:[1,283]}),{69:284,70:[1,285],73:$Vg},o($VI1,[2,86]),{25:132,29:286,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:[2,42],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($Vf1,[2,82]),{8:[2,95],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{53:$VP,71:[1,287],98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{25:132,29:288,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:289,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{33:[1,290]},o($VK1,[2,94]),{2:$V0,6:292,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,34:$VL1,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{34:[1,293]},{34:[1,294]},{25:132,29:295,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:296,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:188,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:$Vo1},{8:$Vp1},o($Vk1,$Vl1,{40:$Vm1}),{34:[1,297],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{59:[1,298]},{36:[1,299],37:[1,300]},o($VM1,[2,30]),{33:[1,301]},{33:[1,303],39:302},o($Vz1,[2,91],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),o($Vf1,[2,88]),o($Vf1,[2,157]),{25:132,29:304,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vf1,[2,161]),o($Vf1,[2,164]),o($Vf1,[2,165]),o($Vf1,[2,110]),o($VE1,[2,146],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),o($VG1,[2,57],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),{2:$V0,4:305,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,306],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,4:307,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{34:[1,308]},{30:238,32:$Vb1,33:$VH1,64:$Vd1,67:309,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt},o($VG1,[2,79]),{25:132,29:310,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:[2,83],70:$Vi1},{25:132,29:145,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,72:311,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{46:[1,312],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($VK1,[2,93]),{46:[1,313],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{8:[2,101],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o([40,78],[2,102]),{2:$V0,4:314,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VL,[2,48],{49:[1,315]}),{51:316,52:[1,317],54:318,55:$VN1},{2:$V0,4:320,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{8:[1,321],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{8:[1,322],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{2:$V0,4:323,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{44:[1,324]},{8:[2,28]},{30:267,32:$Vb1,33:$VJ1,38:325,64:$Vd1,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt},o($VM1,[2,31]),o($VM1,[2,32]),o($VM1,[2,33],{40:[1,326]}),{46:[1,327],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,328],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VM,[2,72]),{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,329],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,4:330,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VG1,[2,77]),o($Vk1,[2,36],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),{37:$Vy1,71:[1,331]},o($Vf1,[2,109]),{8:[2,100]},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,332],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,6:333,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:334,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{36:[1,335],52:[1,336],54:337,55:$VN1},{53:[1,338]},o($VO1,[2,55]),{25:132,29:339,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,340],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{33:$VP1,62:341},{33:$VP1,62:343},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,344],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:345,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VM1,[2,29]),{25:132,29:346,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($Vf1,[2,158]),o($VM,[2,71]),o($VM,[2,74]),{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,347],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o([8,70],[2,89]),o($VL,[2,45],{49:[1,348]}),o($VM,[2,49]),o($VM,[2,50]),o($VM,[2,51]),{53:[1,349]},o($VO1,[2,54]),{2:$V0,4:350,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{53:[1,351],98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($VM,[2,63]),{46:[1,352]},{40:[1,353],41:[1,354],42:[1,355]},{46:[1,356]},o($VM,[2,70]),{46:[1,357],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($VM1,[2,34],{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),o($VM,[2,75]),{14:359,34:[1,358],48:[1,360]},{2:$V0,4:361,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,362],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,4:363,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:364,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,77:$Vj1,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{34:[1,365]},{25:132,29:366,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{46:[2,68]},{46:[2,69]},{34:[1,367]},{8:[2,64]},{2:$V0,4:368,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VM,[2,47]),{44:[1,369]},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,370],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VM,[2,52]),o($VO1,[2,56],{7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,75:52,69:53,81:60,87:61,89:62,90:77,6:81,2:$V0,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,70:$Vf,73:$Vg,76:$Vh,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK}),o([2,32,33,36,43,44,47,48,50,52,55,56,57,58,59,60,61,64,70,73,76,82,83,84,85,86,91,92,93,94,95,96,97,107,114,115,116,117,118,119,120,122,123,124,125,126,127,128,129],$VO,{53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31}),{2:$V0,4:371,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{46:[2,67],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},{2:$V0,4:372,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,373],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{25:132,29:374,30:133,32:$Vb1,33:$Vc1,44:$V4,64:$Vd1,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VM,[2,53]),{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,375],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},{2:$V0,6:81,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:20,25:21,26:22,27:23,28:24,29:25,30:30,32:$V1,33:$V2,36:[1,376],43:$V3,44:$V4,47:$V5,48:$V6,50:$V7,56:$V8,57:$V9,58:$Va,59:$Vb,60:$Vc,61:$Vd,64:$Ve,69:53,70:$Vf,73:$Vg,75:52,76:$Vh,81:60,82:$Vi,83:$Vj,84:$Vk,85:$Vl,86:$Vm,87:61,89:62,90:77,91:$Vn,92:$Vo,93:$Vp,94:$Vq,95:$Vr,96:$Vs,97:$Vt,99:$Vu,107:$Vv,114:$Vw,115:$Vx,116:$Vy,117:$Vz,118:$VA,119:$VB,120:$VC,122:$VD,123:$VE,124:$VF,125:$VG,126:$VH,127:$VI,128:$VJ,129:$VK},o($VM,[2,46]),{46:[1,377],53:$VP,98:$VQ,99:$VR,100:$VS,101:$VT,102:$VU,103:$VV,104:$VW,105:$VX,106:$VY,108:$VZ,109:$V_,110:$V$,111:$V01,112:$V11,113:$V21,121:$V31},o($VM,[2,65]),o($VM,[2,66]),{34:$VL1}],
+defaultActions: {34:[2,59],35:[2,60],72:[2,104],73:[2,105],74:[2,106],75:[2,107],76:[2,108],78:[2,111],79:[2,112],80:[2,1],231:[2,43],233:[2,44],259:[2,40],260:[2,41],299:[2,28],313:[2,100],354:[2,68],355:[2,69],357:[2,64]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -1187,7 +1187,7 @@ case 24: return 64
 break;
 case 25: return 65 
 break;
-case 26: return 31 
+case 26: return 32 
 break;
 case 27: return 56 
 break;
@@ -1261,7 +1261,7 @@ case 61: return 113
 break;
 case 62: return 112 
 break;
-case 63: return 39 
+case 63: return 40 
 break;
 case 64: return 105 
 break;
@@ -1279,15 +1279,15 @@ case 70: return 70
 break;
 case 71: return 71 
 break;
-case 72: return 33 
+case 72: return 34 
 break;
-case 73: return 35 
+case 73: return 36 
 break;
 case 74: return 78 
 break;
 case 75: return 8 
 break;
-case 76: return 36 
+case 76: return 37 
 break;
 case 77: return 121 
 break;
@@ -1299,7 +1299,7 @@ case 80:return 115;
 break;
 case 81:return 114;
 break;
-case 82:return 32;
+case 82:return 33;
 break;
 case 83:return 116;
 break;
@@ -1347,7 +1347,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 }
 }).call(this)}).call(this,require('_process'))
-},{"../dist/Ast/Ast":2,"../dist/Ast/Errores":3,"../dist/Expresiones/Arreglos/AccesoArr":5,"../dist/Expresiones/Arreglos/Arreglo":6,"../dist/Expresiones/Arreglos/Copiar":7,"../dist/Expresiones/Arreglos/Rango":8,"../dist/Expresiones/Identificador":9,"../dist/Expresiones/Llamada":10,"../dist/Expresiones/Operaciones/Aritmeticas":11,"../dist/Expresiones/Operaciones/Logicas":12,"../dist/Expresiones/Operaciones/Relacionales":13,"../dist/Expresiones/Primitivo":14,"../dist/Expresiones/Struct/AccesoStruct":15,"../dist/Expresiones/Ternario":16,"../dist/Instrucciones/Arreglos/DeclaracionArr":17,"../dist/Instrucciones/Arreglos/ModificacionArr":18,"../dist/Instrucciones/Asignacion":19,"../dist/Instrucciones/Ciclicas/DoWhile":20,"../dist/Instrucciones/Ciclicas/For":21,"../dist/Instrucciones/Ciclicas/ForIn":22,"../dist/Instrucciones/Ciclicas/While":23,"../dist/Instrucciones/Condicionales/Case":24,"../dist/Instrucciones/Condicionales/If":25,"../dist/Instrucciones/Condicionales/Ifsinllave":26,"../dist/Instrucciones/Condicionales/Switch":27,"../dist/Instrucciones/Declaracion":28,"../dist/Instrucciones/Metodos/Funcion":31,"../dist/Instrucciones/Metodos/Main":32,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":33,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":34,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":35,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":36,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":37,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":38,"../dist/Instrucciones/Metodos/Nativas/Length":39,"../dist/Instrucciones/Metodos/Nativas/Matematicas":40,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":41,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":42,"../dist/Instrucciones/Metodos/Nativas/StringN":43,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":44,"../dist/Instrucciones/Print":45,"../dist/Instrucciones/Struct/AsignaVariable":46,"../dist/Instrucciones/Struct/DeclararStruct":47,"../dist/Instrucciones/Struct/Struct":48,"../dist/Instrucciones/Struct/StructInStruct":49,"../dist/Instrucciones/Transferencia/Break":50,"../dist/Instrucciones/Transferencia/Continuar":51,"../dist/Instrucciones/Transferencia/Return":52,"../dist/TablaSimbolos/Simbolo":54,"../dist/TablaSimbolos/Tipo":56,"_process":60,"fs":58,"path":59}],2:[function(require,module,exports){
+},{"../dist/Ast/Ast":2,"../dist/Ast/Errores":3,"../dist/Expresiones/Arreglos/AccesoArr":5,"../dist/Expresiones/Arreglos/Arreglo":6,"../dist/Expresiones/Arreglos/Copiar":7,"../dist/Expresiones/Arreglos/Rango":8,"../dist/Expresiones/Identificador":9,"../dist/Expresiones/Llamada":10,"../dist/Expresiones/Operaciones/Aritmeticas":11,"../dist/Expresiones/Operaciones/Logicas":12,"../dist/Expresiones/Operaciones/Relacionales":13,"../dist/Expresiones/Primitivo":14,"../dist/Expresiones/Struct/AccesoStruct":15,"../dist/Expresiones/Ternario":16,"../dist/Instrucciones/Arreglos/DeclaracionArr":20,"../dist/Instrucciones/Arreglos/ModificacionArr":21,"../dist/Instrucciones/Asignacion":22,"../dist/Instrucciones/Ciclicas/DoWhile":23,"../dist/Instrucciones/Ciclicas/For":24,"../dist/Instrucciones/Ciclicas/ForIn":25,"../dist/Instrucciones/Ciclicas/While":26,"../dist/Instrucciones/Condicionales/Case":27,"../dist/Instrucciones/Condicionales/If":28,"../dist/Instrucciones/Condicionales/Ifsinllave":29,"../dist/Instrucciones/Condicionales/Switch":30,"../dist/Instrucciones/Declaracion":31,"../dist/Instrucciones/Metodos/Funcion":32,"../dist/Instrucciones/Metodos/Main":33,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":34,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":35,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":36,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":37,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":39,"../dist/Instrucciones/Metodos/Nativas/Length":40,"../dist/Instrucciones/Metodos/Nativas/Matematicas":41,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":42,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":43,"../dist/Instrucciones/Metodos/Nativas/StringN":44,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":45,"../dist/Instrucciones/Print":46,"../dist/Instrucciones/Struct/AsignaVariable":47,"../dist/Instrucciones/Struct/DeclararStruct":48,"../dist/Instrucciones/Struct/Struct":49,"../dist/Instrucciones/Struct/StructInStruct":50,"../dist/Instrucciones/Transferencia/Break":51,"../dist/Instrucciones/Transferencia/Continuar":52,"../dist/Instrucciones/Transferencia/Return":53,"../dist/TablaSimbolos/Simbolo":54,"../dist/TablaSimbolos/Tipo":56,"_process":60,"fs":58,"path":59}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
@@ -1365,7 +1365,7 @@ const Struct_1 = require("../Instrucciones/Struct/Struct");
 const DeclaracionArr_1 = require("../Instrucciones/Arreglos/DeclaracionArr");
 const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 const Nodo_1 = require("./Nodo");
-const GeneradorC3D_1 = require("../Instrucciones/G3D/GeneradorC3D");
+const GeneradorC3D_1 = require("../G3D/GeneradorC3D");
 class Ast {
     constructor() {
         this.consola = "";
@@ -1457,6 +1457,13 @@ class Ast {
             }
         }
     }
+    traducir() {
+        let tree = this;
+        tree.setTSGlobal(this.TSglobal);
+        this.instrucciones.forEach(instr => {
+            instr.translate3d(this.TSglobal, tree);
+        });
+    }
     getInstrucciones() {
         return this.instrucciones;
     }
@@ -1544,7 +1551,7 @@ class Ast {
 }
 exports.Ast = Ast;
 
-},{"../Instrucciones/Arreglos/DeclaracionArr":17,"../Instrucciones/Arreglos/ModificacionArr":18,"../Instrucciones/Asignacion":19,"../Instrucciones/Declaracion":28,"../Instrucciones/G3D/GeneradorC3D":29,"../Instrucciones/Metodos/Funcion":31,"../Instrucciones/Metodos/Main":32,"../Instrucciones/Struct/Struct":48,"../Instrucciones/Transferencia/Break":50,"../Instrucciones/Transferencia/Continuar":51,"../Instrucciones/Transferencia/Return":52,"../TablaSimbolos/TablaSimbolos":55,"./../Instrucciones/Struct/DeclararStruct":47,"./Errores":3,"./Nodo":4}],3:[function(require,module,exports){
+},{"../G3D/GeneradorC3D":17,"../Instrucciones/Arreglos/DeclaracionArr":20,"../Instrucciones/Arreglos/ModificacionArr":21,"../Instrucciones/Asignacion":22,"../Instrucciones/Declaracion":31,"../Instrucciones/Metodos/Funcion":32,"../Instrucciones/Metodos/Main":33,"../Instrucciones/Struct/Struct":49,"../Instrucciones/Transferencia/Break":51,"../Instrucciones/Transferencia/Continuar":52,"../Instrucciones/Transferencia/Return":53,"../TablaSimbolos/TablaSimbolos":55,"./../Instrucciones/Struct/DeclararStruct":48,"./Errores":3,"./Nodo":4}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Errores = void 0;
@@ -1921,7 +1928,7 @@ class Identificador {
         return this.symbol.getValor();
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented en IDENTIFICADOR.");
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("IDENTIFICADOR", "");
@@ -2018,6 +2025,7 @@ exports.Aritmetica = void 0;
 const Errores_1 = require("../../Ast/Errores");
 const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Retorno_1 = require("../../G3D/Retorno");
 class Aritmetica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -2028,6 +2036,9 @@ class Aritmetica {
         this.expU = expU;
         this.tipo = null;
     }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //      :::::::::::::::::::::    EJECUTAR      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ejecutar(table, tree) {
         let valor_exp1;
         let valor_exp2;
@@ -2321,8 +2332,171 @@ class Aritmetica {
                 break;
         }
     }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //      :::::::::::::::::::::    C3D      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        let valor_exp1;
+        let valor_exp2;
+        let valor_expU;
+        if (this.expU == false) {
+            valor_exp1 = this.exp1.translate3d(table, tree);
+            valor_exp2 = this.exp2.translate3d(table, tree);
+        }
+        else {
+            valor_expU = this.exp1.translate3d(table, tree);
+        }
+        switch (this.operador) {
+            case Tipo_1.OperadorAritmetico.MAS:
+                console.log("entre a suma");
+                return this.suma3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorAritmetico.MENOS:
+                return this.resta3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorAritmetico.POR:
+                return this.multiplicacion3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorAritmetico.DIV:
+                return this.divicion3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorAritmetico.POT:
+                return this.potencia(valor_exp1, valor_exp2);
+            case Tipo_1.OperadorAritmetico.MOD:
+                return this.modulo3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorAritmetico.UMENOS:
+                return this.unario3D(valor_expU, tree);
+            default:
+                //Se produjo un error inesperado
+                break;
+        }
+    }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::    Aritmeticas C3D      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    suma3D(valor_exp1, valor_exp2, tree) {
+        const generador = tree.generadorC3d;
+        const temp = generador.newTemp();
+        let tempAux;
+        switch (valor_exp1.tipo) {
+            case Tipo_1.TIPO.DECIMAL:
+                switch (valor_exp2.tipo) {
+                    case Tipo_1.TIPO.DECIMAL:
+                        generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                    case Tipo_1.TIPO.CADENA:
+                        let tempAux = generador.newTemp();
+                        generador.freeTemp(tempAux);
+                        generador.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        generador.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        generador.gen_Exp(tempAux, tempAux, '1', '+');
+                        generador.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        generador.gen_NextEnv(1);
+                        generador.gen_Call('nativa_concat_int_str');
+                        generador.gen_GetStack(temp, 'p');
+                        generador.gen_AntEnv(1);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                    case Tipo_1.TIPO.BOOLEANO:
+                    default:
+                        break;
+                }
+                break;
+            case Tipo_1.TIPO.CADENA:
+                switch (valor_exp2.tipo) {
+                    case Tipo_1.TIPO.DECIMAL:
+                        tempAux = generador.newTemp();
+                        generador.freeTemp(tempAux);
+                        generador.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        generador.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        generador.gen_Exp(tempAux, tempAux, '1', '+');
+                        generador.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        generador.gen_NextEnv(1);
+                        generador.gen_Call('nativa_concat_str_int');
+                        generador.gen_GetStack(temp, 'p');
+                        generador.gen_AntEnv(1);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                    case Tipo_1.TIPO.CADENA:
+                        tempAux = generador.newTemp();
+                        generador.freeTemp(tempAux);
+                        generador.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        generador.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        generador.gen_Exp(tempAux, tempAux, '1', '+');
+                        generador.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        generador.gen_NextEnv(1);
+                        generador.gen_Call('nativa_concat_str_str');
+                        generador.gen_GetStack(temp, 'p');
+                        generador.gen_AntEnv(1);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                    case Tipo_1.TIPO.BOOLEANO:
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    }
+    potencia(valor_exp1, valor_exp2) {
+        if (typeof valor_exp1 == 'number') {
+            if (typeof valor_exp2 == 'number') {
+                return Math.pow(valor_exp1, valor_exp2);
+            }
+            else if (typeof valor_exp2 == 'boolean') {
+                //Error semantico
+            }
+            else if (typeof valor_exp2 == 'string') {
+                //Erroro semantico
+            }
+        }
+        else if (typeof valor_exp1 == 'boolean') {
+            //Erro semantico
+        }
+        else if (typeof valor_exp1 == 'string') {
+            // Error semantico
+        }
+    }
+    resta3D(valor_exp1, valor_exp2, tree) {
+        const generador = tree.generadorC3d;
+        const temp = generador.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+            }
+        }
+    }
+    multiplicacion3D(valor_exp1, valor_exp2, tree) {
+        const generador = tree.generadorC3d;
+        const temp = generador.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+            }
+        }
+    }
+    divicion3D(valor_exp1, valor_exp2, tree) {
+        const generador = tree.generadorC3d;
+        const temp = generador.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+            }
+        }
+    }
+    modulo3D(valor_exp1, valor_exp2, tree) {
+        const generador = tree.generadorC3d;
+        const temp = generador.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                generador.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+            }
+        }
+    }
+    unario3D(valor_exp1, tree) {
+        const generador = tree.generadorC3d;
+        const temp = generador.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            generador.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
+            return new Retorno_1.Retorno(temp, true, valor_exp1.tipo);
+        }
     }
     getTipo(ts, ast) {
         let valor = this.ejecutar(ts, ast);
@@ -2369,27 +2543,10 @@ class Aritmetica {
         }
         return padre;
     }
-    getValor(tipo, valor) {
-        // if (tipo == TIPO.ENTERO){
-        //     return valor.valueOf()
-        // }
-        // else if (tipo == TIPO.DECIMAL){
-        //     return valor.valueOf()
-        // }
-        // else if (tipo == TIPO.BOOLEANO){
-        //     return bool(valor)
-        // }
-        // else if (tipo == TIPO.CHARACTER){
-        //     return str(valor)
-        // }
-        // else if (tipo == TIPO.CADENA){
-        //     return str(valor)
-        // }
-    }
 }
 exports.Aritmetica = Aritmetica;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":56}],12:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":56}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logica = void 0;
@@ -2924,7 +3081,9 @@ exports.Relacional = Relacional;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 const Nodo_1 = require("../Ast/Nodo");
+const Retorno_1 = require("../G3D/Retorno");
 class Primitivo {
     constructor(valor, tipo, fila, columna) {
         this.valor = valor;
@@ -2936,7 +3095,25 @@ class Primitivo {
         return this.valor;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        let valor = this.ejecutar(table, tree);
+        const generator = tree.generadorC3d;
+        if (typeof valor == 'number') {
+            return new Retorno_1.Retorno(this.valor, false, Tipo_1.TIPO.DECIMAL);
+        }
+        else if (typeof valor == 'string') {
+            const temp = generator.newTemp();
+            generator.genAsignaTemp(temp, 'h');
+            for (let i = 0; i < valor.length; i++) {
+                generator.gen_SetHeap('h', valor.charCodeAt(i));
+                generator.nextHeap();
+            }
+            generator.gen_SetHeap('h', '-1');
+            generator.nextHeap();
+            return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+        }
+        else if (typeof valor == 'boolean') {
+            return Tipo_1.TIPO.BOOLEANO;
+        }
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("PRIMITIVO", "");
@@ -2946,7 +3123,7 @@ class Primitivo {
 }
 exports.Primitivo = Primitivo;
 
-},{"../Ast/Nodo":4}],15:[function(require,module,exports){
+},{"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Tipo":56}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoStruct = void 0;
@@ -3057,7 +3234,7 @@ class AccesoStruct {
 }
 exports.AccesoStruct = AccesoStruct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Instrucciones/Struct/Struct":48,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Identificador":9}],16:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Instrucciones/Struct/Struct":49,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Identificador":9}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ternario = void 0;
@@ -3109,1357 +3286,6 @@ class Ternario {
 exports.Ternario = Ternario;
 
 },{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Tipo":56}],17:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeclaracionArr = void 0;
-const Errores_1 = require("../../Ast/Errores");
-const Copiar_1 = require("../../Expresiones/Arreglos/Copiar");
-const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
-class DeclaracionArr {
-    //tipo lista_dim ID IGUAL lista_exp_arr
-    constructor(tipo_arr, dimensiones, id, expresiones, fila, columna) {
-        this.tipo = Tipo_1.TIPO.ARREGLO;
-        this.arreglo = true;
-        this.arr = Array();
-        this.tipo_arr = tipo_arr;
-        this.dimensiones = dimensiones;
-        this.id = id;
-        this.expresiones = expresiones;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        // if(this.expresiones != null){
-        //     console.log("declArr exp: " + this.expresiones);
-        // }
-        // Creando arreglo
-        let value;
-        // ASIGNACION
-        if (this.tipo_arr == null && this.dimensiones == null) {
-            // Asignando variable de tipo arreglo con su valor
-            if (table.existe(this.id)) {
-                // Creando arreglo
-                this.tipo_arr = table.getSymbolTabla(this.id).getTipo();
-                if (this.expresiones instanceof Copiar_1.Copiar) {
-                    // console.log("AS ARR COPIAR");
-                    value = this.expresiones.ejecutar(table, tree);
-                    // console.log("AS ARR COPIAR VAL: " + value);
-                    if (value == null) {
-                        return new Errores_1.Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
-                    }
-                }
-                else {
-                    // console.log("AS ARR ");
-                    value = this.crearDimensiones(table, tree, this.expresiones.slice()); // Devuelve el arreglo de dimensiones
-                    // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
-                    // value = this.arr;
-                    // console.log("value declArr: " + value);
-                    // console.log("type declArr: " + typeof(value));
-                    // console.log("type declArr: " + typeof(this.arr));
-                    // console.log("tipo declArr: " + this.tipo_arr);
-                    if (value instanceof Errores_1.Errores) {
-                        return value;
-                    }
-                }
-                // Creando simbolo
-                let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
-                if (nuevo_simb.arreglo) {
-                    // Obteniendo variable y asignar valor
-                    let result = table.updateSymbolTabla(nuevo_simb);
-                    if (result instanceof Errores_1.Errores) {
-                        return result;
-                    }
-                }
-                else {
-                    return new Errores_1.Errores("Semantico", `La variable '${this.id}', no es de tipo arreglo.`, this.fila, this.columna);
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "Variable no encontrada.", this.fila, this.columna);
-            }
-        } // DECLARACION
-        else if (this.expresiones == null) {
-            // console.log("DECL ARR ");
-            // Verificando dimensiones
-            if (this.dimensiones != null) {
-                if (this.dimensiones != this.dimensiones.length) {
-                    return new Errores_1.Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
-                }
-            }
-            // Creando variable de tipo arreglo
-            let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, []);
-            let result = table.setSymbolTabla(nuevo_simb);
-            if (result instanceof Errores_1.Errores) {
-                return result;
-            }
-        } // DECLARACION Y ASIGNACION
-        else {
-            // Verificando dimensiones
-            if (this.dimensiones != null) {
-                if (this.dimensiones != this.dimensiones.length) {
-                    return new Errores_1.Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
-                }
-            }
-            // Creando arreglo
-            if (this.expresiones instanceof Copiar_1.Copiar) {
-                // console.log("DECL Y AS ARR COPIAR");
-                value = this.expresiones.ejecutar(table, tree);
-                // console.log("DECL ARR COPIAR VAL: " + value);
-                if (value == null) {
-                    return new Errores_1.Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
-                }
-            }
-            else {
-                // console.log("DECL Y AS ARR ");
-                value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
-                // console.log("crearArr value: " + value);
-                // console.log("crearArr size: " + value.length);
-                // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
-                // value = this.arr;
-                // console.log("value declArr: " + value);
-                // console.log("type declArr: " + typeof(value));
-                // console.log("type declArr: " + typeof(this.arr));
-                // console.log("tipo declArr: " + this.tipo_arr);
-                if (value instanceof Errores_1.Errores) {
-                    return value;
-                }
-            }
-            // Creando variable de tipo arreglo con su valor
-            let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
-            let result = table.setSymbolTabla(nuevo_simb);
-            if (result instanceof Errores_1.Errores) {
-                return result;
-            }
-        }
-        return null;
-    }
-    translate3d(table, tree) {
-        throw new Error("Method not implemented.");
-    }
-    recorrer(table, tree) {
-        throw new Error("Method not implemented.");
-    }
-    crearDimensiones(table, tree, expresiones) {
-        let arr = Array();
-        while (true) {
-            if (!(expresiones.length == 0)) {
-                let dimension = expresiones.shift();
-                // console.log("crearArr dim: " + dimension);
-                if (Array.isArray(dimension)) {
-                    arr.push([this.crearDimensiones(table, tree, dimension.slice())]);
-                }
-                else {
-                    let num = dimension.ejecutar(table, tree);
-                    if (dimension.tipo != this.tipo_arr) {
-                        let res = new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
-                        tree.Errores.push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    else {
-                        dimension.tipo = this.tipo_arr;
-                        arr.push(num);
-                        this.crearDimensiones(tree, table, expresiones.slice());
-                    }
-                }
-            }
-            else {
-                break;
-            }
-        }
-        return arr;
-    }
-}
-exports.DeclaracionArr = DeclaracionArr;
-
-},{"../../Ast/Errores":3,"../../Expresiones/Arreglos/Copiar":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],18:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModificacionArr = void 0;
-const Errores_1 = require("../../Ast/Errores");
-const Nodo_1 = require("../../Ast/Nodo");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
-class ModificacionArr {
-    //ID lista_exp IGUAL expr
-    constructor(id, expresiones, valor, fila, columna) {
-        this.arreglo = true;
-        this.dim = 0;
-        this.id = id;
-        this.expresiones = expresiones;
-        this.valor = valor;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        let value = this.valor.ejecutar(table, tree);
-        if (value instanceof Errores_1.Errores) {
-            return value;
-        }
-        let simbolo = table.getSymbolTabla(this.id.toString());
-        if (simbolo != null) {
-            if (simbolo.getArreglo()) {
-                if (simbolo.getTipo() != this.valor.tipo) {
-                    return new Errores_1.Errores("Semantico", "Tipos de datos diferentes en modificacion de arreglo: \'" + this.id + "\'.", this.fila, this.columna);
-                }
-                // console.log("modArr simb.tipo: " + simbolo.getTipo());
-                this.tipo_arr = simbolo.getTipo();
-                let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
-                if (result instanceof Errores_1.Errores) {
-                    return result;
-                }
-                // result = this.valor;
-                // return result;
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
-            }
-        }
-        else {
-            return new Errores_1.Errores("Semantico", "Variable: \'" + this.id.toString() + "\', no encontrada.", this.fila, this.columna);
-        }
-        return null;
-    }
-    translate3d(table, tree) {
-        throw new Error("Method not implemented.");
-    }
-    recorrer(table, tree) {
-        return new Nodo_1.Nodo("Modificacion Array", "");
-    }
-    modificarDimensiones(table, tree, expresiones, arreglo, valor) {
-        // let value = null;
-        if (expresiones.length == 0) {
-            if (arreglo instanceof Array) {
-                return new Errores_1.Errores("Semantico", "Modificacion de arreglo incompleto.", this.fila, this.columna);
-            }
-            return valor;
-        }
-        if (!(arreglo instanceof Array)) {
-            return new Errores_1.Errores("Semantico", "Acceso de mas en el arreglo.", this.fila, this.columna);
-        }
-        let exp_tmp = expresiones.shift();
-        let num = exp_tmp.ejecutar(table, tree);
-        if (num instanceof Errores_1.Errores) {
-            return num;
-        }
-        if (exp_tmp.tipo != Tipo_1.TIPO.ENTERO) {
-            return new Errores_1.Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
-        }
-        // console.log("modArr exp: " + valor);
-        // console.log("modArr tipo exp: " + this.valor.tipo);
-        if (this.valor.tipo != this.tipo_arr) {
-            // console.log("Tipo distinto al tipo del arreglo");
-            // console.log(tree);
-            return new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
-        }
-        else {
-            if (arreglo[num] != undefined) {
-                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice(), valor);
-                if (value instanceof Errores_1.Errores) {
-                    return value;
-                }
-                // console.log("arreglo[num]: " + arreglo[num].toString());
-                if (value != null) {
-                    arreglo[num] = valor;
-                }
-            }
-            else {
-                // console.log("null");
-                return new Errores_1.Errores("Semantico", "Posicion inexistente en el arreglo.", this.fila, this.columna);
-            }
-        }
-        return null;
-    }
-}
-exports.ModificacionArr = ModificacionArr;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":56}],19:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Asignacion = void 0;
-const Errores_1 = require("../Ast/Errores");
-const Nodo_1 = require("../Ast/Nodo");
-const Simbolo_1 = require("../TablaSimbolos/Simbolo");
-const Return_1 = require("./Transferencia/Return");
-class Asignacion {
-    constructor(id, expresion, fila, columna) {
-        this.arreglo = false;
-        this.id = id;
-        this.expresion = expresion;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        if (table.existe(this.id)) {
-            let valor = this.expresion.ejecutar(table, tree);
-            // console.log(valor)
-            if (valor instanceof Errores_1.Errores) {
-                return valor;
-            }
-            if (valor instanceof Return_1.Return) {
-                let temp;
-                temp = valor;
-                // // validacion struct
-                /**
-                 * Agregar struct y arreglos aca
-                 */
-                // if (temp.valor instanceof Struct){
-                // }
-                valor = temp.valor;
-            }
-            /**
-             * Agregar struct y arreglos aca
-             */
-            // console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
-            let result = table.updateSymbolTabla(new Simbolo_1.Simbolo(this.id, this.expresion.tipo, null, this.fila, this.columna, valor));
-            if (result instanceof Errores_1.Errores) {
-                // console.log(result);
-                // console.log(`tipoo exp: ${this.expresion.tipo} `)
-                // console.log(`error en updateSymbol ${this.id} `)
-                return result;
-            }
-        }
-        else {
-            return new Errores_1.Errores("Semantico", "Variable no encontrada en asignacion", this.fila, this.columna);
-        }
-        return null;
-    }
-    translate3d(table, tree) {
-        throw new Error("Method not implemented.");
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("ASIGNACION", "");
-        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
-        padre.addChildNode(this.expresion.recorrer(table, tree));
-        return padre;
-    }
-}
-exports.Asignacion = Asignacion;
-
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":54,"./Transferencia/Return":52}],20:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DoWhile = void 0;
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Break_1 = require("../Transferencia/Break");
-const Continuar_1 = require("../Transferencia/Continuar");
-const Return_1 = require("../Transferencia/Return");
-const Errores_1 = require("../../Ast/Errores");
-class DoWhile {
-    constructor(condicion, lista_instrucciones, fila, columna) {
-        this.condicion = condicion;
-        this.lista_instrucciones = lista_instrucciones;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        let valor_condicion = this.condicion.ejecutar(table, tree);
-        if (valor_condicion instanceof Errores_1.Errores) {
-            tree.getErrores().push(valor_condicion);
-            tree.updateConsolaPrintln(valor_condicion.toString());
-        }
-        if (typeof valor_condicion == 'boolean') {
-            do {
-                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                for (let ins of this.lista_instrucciones) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    if (res instanceof Errores_1.Errores) {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return null;
-                    }
-                    else {
-                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            break;
-                        }
-                        else {
-                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                return res;
-                            }
-                        }
-                    }
-                }
-            } while (this.condicion.ejecutar(table, tree));
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("DO WHILE", "");
-        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
-        for (let instr of this.lista_instrucciones) {
-            NodoInstr.addChildNode(instr.recorrer(table, tree));
-        }
-        padre.addChildNode(NodoInstr);
-        let condicion = new Nodo_1.Nodo("CONDICION", "");
-        condicion.addChildNode(this.condicion.ejecutar(table, tree));
-        padre.addChildNode(condicion);
-        return padre;
-    }
-}
-exports.DoWhile = DoWhile;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52}],21:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.For = void 0;
-const Return_1 = require("./../Transferencia/Return");
-const Continuar_1 = require("./../Transferencia/Continuar");
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Break_1 = require("../Transferencia/Break");
-const Errores_1 = require("../../Ast/Errores");
-class For {
-    constructor(declaracion_asignacion, condicion, actualizacion, lista_instrucciones, fila, columna) {
-        this.declaracion_asignacion = declaracion_asignacion;
-        this.condicion = condicion;
-        this.actualizacion = actualizacion;
-        this.lista_instrucciones = lista_instrucciones;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        // Asignacion o declaracion
-        let tabla_intermedia = new TablaSimbolos_1.TablaSimbolos(table);
-        let declaracion_asignacion = this.declaracion_asignacion.ejecutar(tabla_intermedia, tree);
-        if (declaracion_asignacion instanceof Errores_1.Errores) {
-            tree.getErrores().push(declaracion_asignacion);
-            tree.updateConsolaPrintln(declaracion_asignacion.toString());
-        }
-        // console.log("declaracion_asignacion: " + declaracion_asignacion);
-        if (declaracion_asignacion instanceof Errores_1.Errores) {
-            return declaracion_asignacion;
-        }
-        while (true) {
-            let condicion = this.condicion.ejecutar(tabla_intermedia, tree);
-            if (condicion instanceof Errores_1.Errores) {
-                tree.getErrores().push(condicion);
-                tree.updateConsolaPrintln(condicion.toString());
-            }
-            // console.log("condicion: " + condicion);
-            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-                if (this.getBool(condicion)) {
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(tabla_intermedia);
-                    for (let ins of this.lista_instrucciones) {
-                        let res = ins.ejecutar(ts_local, tree);
-                        if (res instanceof Errores_1.Errores) {
-                            tree.getErrores().push(res);
-                            tree.updateConsolaPrintln(res.toString());
-                        }
-                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                            return null;
-                        }
-                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            break;
-                        }
-                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                            return res;
-                        }
-                    }
-                    let actualizacion = this.actualizacion.ejecutar(tabla_intermedia, tree);
-                    if (actualizacion instanceof Errores_1.Errores) {
-                        tree.getErrores().push(actualizacion);
-                        tree.updateConsolaPrintln(actualizacion.toString());
-                    }
-                    // console.log("actualizacion: " + actualizacion);
-                    if (actualizacion instanceof Errores_1.Errores) {
-                        return actualizacion;
-                    }
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "Valor no booleano", this.fila, this.columna);
-            }
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("FOR", "");
-        let decla = new Nodo_1.Nodo("DECLARACION", "");
-        decla.addChildNode(this.declaracion_asignacion.recorrer(table, tree));
-        let condicion = new Nodo_1.Nodo("CONDICION", "");
-        condicion.addChildNode(this.condicion.ejecutar(table, tree));
-        let actualizacion = new Nodo_1.Nodo("ACTUALIZACION", "");
-        actualizacion.addChildNode(this.actualizacion.ejecutar(table, tree));
-        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
-        for (let instr of this.lista_instrucciones) {
-            NodoInstr.addChildNode(instr.recorrer(table, tree));
-        }
-        padre.addChildNode(decla);
-        padre.addChildNode(condicion);
-        padre.addChildNode(actualizacion);
-        padre.addChildNode(NodoInstr);
-        return padre;
-    }
-    getBool(val) {
-        return !!JSON.parse(String(val).toLowerCase());
-    }
-}
-exports.For = For;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":50,"./../Transferencia/Continuar":51,"./../Transferencia/Return":52}],22:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ForIn = void 0;
-const Identificador_1 = require("./../../Expresiones/Identificador");
-const Return_1 = require("../Transferencia/Return");
-const Continuar_1 = require("../Transferencia/Continuar");
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Break_1 = require("../Transferencia/Break");
-const Errores_1 = require("../../Ast/Errores");
-const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
-const AccesoArr_1 = require("../../Expresiones/Arreglos/AccesoArr");
-class ForIn {
-    constructor(iterador, rango, lista_instrucciones, fila, columna) {
-        this.arreglo = false;
-        this.iterador = iterador;
-        this.rango = rango;
-        this.lista_instrucciones = lista_instrucciones;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        if (this.rango.tipo == Tipo_1.TIPO.CADENA) {
-            let rango = this.rango.ejecutar(table, tree);
-            if (rango instanceof Errores_1.Errores) {
-                tree.getErrores().push(rango);
-                tree.updateConsolaPrintln(rango.toString());
-            }
-            if (rango instanceof Errores_1.Errores) {
-                return rango;
-            }
-            console.log("FOR IN CADENA");
-            for (var i = 0; i < rango.length; i++) {
-                let char = rango.charAt(i);
-                let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.CHARACTER, this.arreglo, this.fila, this.columna, char);
-                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                ts_local.setSymbolTabla(nuevo_simb);
-                ts_local.updateSymbolTabla(nuevo_simb);
-                for (let ins of this.lista_instrucciones) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    if (res instanceof Errores_1.Errores) {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return null;
-                    }
-                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                        break;
-                    }
-                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                        return res;
-                    }
-                }
-            }
-        }
-        else if (this.rango.tipo == Tipo_1.TIPO.ARREGLO || this.rango instanceof Array) {
-            console.log("FOR IN ARR XD");
-            this.rango.forEach(e => {
-                let element = e.ejecutar(table, tree);
-                if (element instanceof Errores_1.Errores) {
-                    tree.getErrores().push(element);
-                    tree.updateConsolaPrintln(element.toString());
-                }
-                if (element instanceof Errores_1.Errores) {
-                    return element;
-                }
-                let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
-                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                let result = ts_local.updateSymbolTabla(nuevo_simb);
-                if (result instanceof Errores_1.Errores) {
-                    result = ts_local.setSymbolTabla(nuevo_simb);
-                    if (result instanceof Errores_1.Errores) {
-                        tree.getErrores().push(result);
-                        tree.updateConsolaPrintln(result.toString());
-                    }
-                }
-                for (let ins of this.lista_instrucciones) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    if (res instanceof Errores_1.Errores) {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return null;
-                    }
-                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                        break;
-                    }
-                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                        return res;
-                    }
-                }
-            });
-        }
-        else if (this.rango instanceof AccesoArr_1.AccesoArr) {
-            console.log("FOR IN ARR DEC RANGO");
-            // console.log(this.rango.);
-            let arr = table.getSymbolTabla(this.rango.id.toString());
-            if (arr != null) {
-                if (arr.getArreglo()) {
-                    console.log("foinarrdec rank: " + this.rango.expresiones[0]);
-                    let rank = this.rango.expresiones[0].ejecutar(table, tree);
-                    // console.log("AccArr rank type: " + (rank instanceof Array));
-                    // console.log("rank[0] type: " + (typeof(rank[0]) == "string"));
-                    // console.log("rank accArr: " + rank);
-                    if (rank == null) {
-                        return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id + "\', no es un rango.", this.fila, this.columna);
-                    }
-                    let begin;
-                    if (rank[0] == "begin") {
-                        begin = 0;
-                    }
-                    else {
-                        begin = rank[0].ejecutar(table, tree);
-                    }
-                    if (begin instanceof Errores_1.Errores) {
-                        return begin;
-                    }
-                    let end;
-                    if (rank[1] == "end") {
-                        end = arr.getValor().length;
-                    }
-                    else {
-                        end = rank[1].ejecutar(table, tree);
-                    }
-                    if (end instanceof Errores_1.Errores) {
-                        return end;
-                    }
-                    console.log("begin: " + begin);
-                    console.log("end: " + end);
-                    let array = [];
-                    let contador = begin;
-                    while (contador <= end) {
-                        array.push(arr.getValor()[contador]);
-                        let element = arr.getValor()[contador];
-                        let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
-                        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                        let result = ts_local.updateSymbolTabla(nuevo_simb);
-                        if (result instanceof Errores_1.Errores) {
-                            result = ts_local.setSymbolTabla(nuevo_simb);
-                            if (result instanceof Errores_1.Errores) {
-                                tree.getErrores().push(result);
-                                tree.updateConsolaPrintln(result.toString());
-                            }
-                        }
-                        for (let ins of this.lista_instrucciones) {
-                            let res = ins.ejecutar(ts_local, tree);
-                            if (res instanceof Errores_1.Errores) {
-                                tree.getErrores().push(res);
-                                tree.updateConsolaPrintln(res.toString());
-                            }
-                            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                                return null;
-                            }
-                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                                break;
-                            }
-                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                return res;
-                            }
-                        }
-                        contador++;
-                    }
-                }
-                else {
-                    return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no es un arreglo.", this.fila, this.columna);
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);
-            }
-        }
-        else if (this.rango instanceof Identificador_1.Identificador) {
-            let variable = table.getSymbolTabla(this.rango.id.toString());
-            if (variable != null) {
-                let rango = variable.getValor();
-                if (rango instanceof Errores_1.Errores) {
-                    tree.getErrores().push(rango);
-                    tree.updateConsolaPrintln(rango.toString());
-                }
-                if (rango instanceof Errores_1.Errores) {
-                    return rango;
-                }
-                if (variable.getTipo() == Tipo_1.TIPO.CADENA && !variable.getArreglo()) {
-                    console.log("FOR IN VAR CADENA");
-                    for (var i = 0; i < rango.length; i++) {
-                        let char = rango.charAt(i);
-                        let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.CHARACTER, this.arreglo, this.fila, this.columna, char);
-                        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                        ts_local.setSymbolTabla(nuevo_simb);
-                        ts_local.updateSymbolTabla(nuevo_simb);
-                        for (let ins of this.lista_instrucciones) {
-                            let res = ins.ejecutar(ts_local, tree);
-                            if (res instanceof Errores_1.Errores) {
-                                tree.getErrores().push(res);
-                                tree.updateConsolaPrintln(res.toString());
-                            }
-                            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                                return null;
-                            }
-                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                                break;
-                            }
-                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                return res;
-                            }
-                        }
-                    }
-                }
-                else if (variable.getArreglo()) {
-                    console.log("FOR IN ARR DEC");
-                    variable.getValor().forEach(element => {
-                        let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
-                        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                        let result = ts_local.updateSymbolTabla(nuevo_simb);
-                        if (result instanceof Errores_1.Errores) {
-                            result = ts_local.setSymbolTabla(nuevo_simb);
-                            if (result instanceof Errores_1.Errores) {
-                                tree.getErrores().push(result);
-                                tree.updateConsolaPrintln(result.toString());
-                            }
-                        }
-                        for (let ins of this.lista_instrucciones) {
-                            let res = ins.ejecutar(ts_local, tree);
-                            if (res instanceof Errores_1.Errores) {
-                                tree.getErrores().push(res);
-                                tree.updateConsolaPrintln(res.toString());
-                            }
-                            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                                return null;
-                            }
-                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                                break;
-                            }
-                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                return res;
-                            }
-                        }
-                    });
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);
-            }
-        }
-        else {
-            return new Errores_1.Errores("Semantico", "For-in no valido.", this.fila, this.columna);
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("FOR-IN", "");
-        let iterador = new Nodo_1.Nodo("ITERADOR", "");
-        iterador.addChildNode(new Nodo_1.Nodo(this.iterador, ""));
-        let rango = new Nodo_1.Nodo("RANGO", "");
-        rango.addChildNode(this.rango.recorrer(table, tree));
-        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
-        for (let instr of this.lista_instrucciones) {
-            NodoInstr.addChildNode(instr.recorrer(table, tree));
-        }
-        padre.addChildNode(iterador);
-        padre.addChildNode(rango);
-        padre.addChildNode(NodoInstr);
-        return padre;
-    }
-    getBool(val) {
-        return !!JSON.parse(String(val).toLowerCase());
-    }
-}
-exports.ForIn = ForIn;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Arreglos/AccesoArr":5,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52,"./../../Expresiones/Identificador":9}],23:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.While = void 0;
-const Errores_1 = require("./../../Ast/Errores");
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Break_1 = require("../Transferencia/Break");
-const Continuar_1 = require("../Transferencia/Continuar");
-const Return_1 = require("../Transferencia/Return");
-class While {
-    constructor(condicion, lista_instrucciones, fila, columna) {
-        this.condicion = condicion;
-        this.lista_instrucciones = lista_instrucciones;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        while (true) {
-            let valor_condicion = this.condicion.ejecutar(table, tree);
-            if (valor_condicion instanceof Errores_1.Errores) {
-                tree.getErrores().push(valor_condicion);
-                tree.updateConsolaPrintln(valor_condicion.toString());
-            }
-            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-                if (this.getBool(valor_condicion)) {
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    for (let ins of this.lista_instrucciones) {
-                        let res = ins.ejecutar(ts_local, tree);
-                        if (res instanceof Errores_1.Errores) {
-                            tree.getErrores().push(res);
-                            tree.updateConsolaPrintln(res.toString());
-                        }
-                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                            return null;
-                        }
-                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            break;
-                        }
-                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                            return res;
-                        }
-                    }
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "Valor no booleano", this.fila, this.columna);
-            }
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("WHILE", "");
-        padre.addChildNode(new Nodo_1.Nodo("while", ""));
-        // padre.addChildNode(new Nodo("(",""));
-        padre.addChildNode(this.condicion.recorrer(table, tree));
-        // padre.addChildNode(new Nodo(")",""));
-        // padre.addChildNode(new Nodo("{",""));
-        padre.addChildNode(new Nodo_1.Nodo("INSTRUCCIONES", ""));
-        for (let ins of this.lista_instrucciones) {
-            padre.addChildNode(ins.recorrer(table, tree));
-        }
-        // padre.addChildNode(new Nodo("}",""));
-        return padre;
-    }
-    getBool(val) {
-        return !!JSON.parse(String(val).toLowerCase());
-    }
-}
-exports.While = While;
-
-},{"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52,"./../../Ast/Errores":3}],24:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Case = void 0;
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Break_1 = require("../Transferencia/Break");
-const Continuar_1 = require("../Transferencia/Continuar");
-const Return_1 = require("../Transferencia/Return");
-const Errores_1 = require("../../Ast/Errores");
-const Nodo_1 = require("../../Ast/Nodo");
-class Case {
-    constructor(valor_case, lista_instrucciones, fila, columna) {
-        this.valor_case = valor_case;
-        this.lista_instrucciones = lista_instrucciones;
-        this.fila = fila;
-        this.columna = columna;
-    }
-    ejecutar(table, tree) {
-        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        // console.log("cs valcs: " + this.valor_case);
-        // console.log("cs valorsw: " + this.valor_sw);
-        if (this.valor_sw == this.valor_case.ejecutar(table, tree)) {
-            for (let res of this.lista_instrucciones) {
-                let ins = res.ejecutar(ts_local, tree);
-                if (ins instanceof Errores_1.Errores) {
-                    tree.getErrores().push(ins);
-                    tree.updateConsolaPrintln(ins.toString());
-                }
-                if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                    // controlador.graficarEntornos(controlador,ts_local," (case)");
-                    return ins;
-                }
-                else {
-                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                        // controlador.graficarEntornos(controlador,ts_local," (case)");
-                        return ins;
-                    }
-                    else {
-                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return ins;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("CASE", "");
-        let expresion = new Nodo_1.Nodo("EXPRESION", "");
-        expresion.addChildNode(this.valor_case.recorrer(table, tree));
-        padre.addChildNode(expresion);
-        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
-        for (let instr of this.lista_instrucciones) {
-            NodoInstr.addChildNode(instr.recorrer(table, tree));
-        }
-        padre.addChildNode(NodoInstr);
-        return padre;
-    }
-}
-exports.Case = Case;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52}],25:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.If = void 0;
-const Tipo_1 = require("./../../TablaSimbolos/Tipo");
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Break_1 = require("../Transferencia/Break");
-const Continuar_1 = require("../Transferencia/Continuar");
-const Return_1 = require("../Transferencia/Return");
-const Errores_1 = require("../../Ast/Errores");
-class If {
-    constructor(condicion, lista_ifs, lista_elses, lista_ifelse, fila, columna) {
-        this.condicion = condicion;
-        this.lista_ifs = lista_ifs;
-        this.lista_elses = lista_elses;
-        this.lista_ifelse = lista_ifelse;
-        this.columna = columna;
-        this.fila = fila;
-    }
-    ejecutar(table, tree) {
-        // let ts_local = new TablaSimbolos(table);
-        let valor_condicion = this.condicion.ejecutar(table, tree);
-        // console.log("if cond: " + valor_condicion);
-        if (valor_condicion instanceof Errores_1.Errores) {
-            tree.getErrores().push(valor_condicion);
-            tree.updateConsolaPrintln(valor_condicion.toString());
-        }
-        if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-            if (valor_condicion == true) {
-                // if(this.lista_ifs != null){
-                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                // this.lista_ifs.forEach(ins => {
-                for (let ins of this.lista_ifs) {
-                    let res = ins.ejecutar(ts_local, tree);
-                    if (res instanceof Errores_1.Errores) {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
-                    }
-                    else if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                        // controlador.graficarEntornos(controlador,ts_local," (case)");
-                        break;
-                    }
-                    else if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                        // controlador.graficarEntornos(controlador,ts_local," (case)");
-                        return res;
-                    }
-                }
-                // }
-            }
-            else {
-                if (this.lista_elses != null) {
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    for (let ins of this.lista_elses) {
-                        let res = ins.ejecutar(ts_local, tree);
-                        //TODO verificar si res es de tipo CONTINUE, RETORNO
-                        if (res instanceof Errores_1.Errores) {
-                            tree.getErrores().push(res);
-                            tree.updateConsolaPrintln(res.toString());
-                        }
-                        if (res instanceof Break_1.Detener) {
-                            return res;
-                        }
-                        if (res instanceof Continuar_1.Continuar) {
-                            break;
-                        }
-                        if (res instanceof Return_1.Return) {
-                            return res;
-                        }
-                    }
-                }
-                else if (this.lista_ifelse != null) {
-                    let result = this.lista_ifelse.ejecutar(table, tree);
-                    if (result instanceof Errores_1.Errores) {
-                        return result;
-                    }
-                    if (result instanceof Break_1.Detener) {
-                        return result;
-                    }
-                    if (result instanceof Continuar_1.Continuar) {
-                        return null;
-                    }
-                    if (result instanceof Return_1.Return) {
-                        return result;
-                    }
-                }
-            }
-        }
-        else {
-            return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
-        }
-        // return null;
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("IF", "");
-        let condicion = new Nodo_1.Nodo("CONDICION", "");
-        condicion.addChildNode(this.condicion.ejecutar(table, tree));
-        // LISTA IFS
-        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
-        for (let instr of this.lista_ifs) {
-            listaIfs.addChildNode(instr.recorrer(table, tree));
-        }
-        padre.addChildNode(listaIfs);
-        // LISTA IFS
-        if (this.lista_elses != null) {
-            let listaElse = new Nodo_1.Nodo("INSTRUCCIONES Else", "");
-            for (let instr of this.lista_elses) {
-                listaElse.addChildNode(instr.recorrer(table, tree));
-            }
-            padre.addChildNode(listaElse);
-        }
-        // LISTA IFS
-        if (this.lista_ifelse != null) {
-            padre.addChildNode(this.lista_ifelse.recorrer(table, tree));
-        }
-        return padre;
-    }
-    getBool(val) {
-        return !!JSON.parse(String(val).toLowerCase());
-    }
-}
-exports.If = If;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52,"./../../TablaSimbolos/Tipo":56}],26:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Ifsinllave = void 0;
-const Tipo_1 = require("./../../TablaSimbolos/Tipo");
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Break_1 = require("../Transferencia/Break");
-const Continuar_1 = require("../Transferencia/Continuar");
-const Return_1 = require("../Transferencia/Return");
-const Errores_1 = require("../../Ast/Errores");
-class Ifsinllave {
-    constructor(condicion, ins_ifs, ins_elses, fila, columna) {
-        this.condicion = condicion;
-        this.ins_ifs = ins_ifs;
-        this.ins_elses = ins_elses;
-        this.columna = columna;
-        this.fila = fila;
-    }
-    ejecutar(table, tree) {
-        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        let valor_condicion = this.condicion.ejecutar(table, tree);
-        if (valor_condicion instanceof Errores_1.Errores) {
-            tree.getErrores().push(valor_condicion);
-            tree.updateConsolaPrintln(valor_condicion.toString());
-        }
-        if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-            if (valor_condicion) {
-                let res = this.ins_ifs.ejecutar(ts_local, tree);
-                if (res instanceof Errores_1.Errores) {
-                    tree.getErrores().push(res);
-                    tree.updateConsolaPrintln(res.toString());
-                }
-                //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
-                if (this.ins_ifs instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                    return res;
-                }
-                else {
-                    if (this.ins_ifs instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                        // controlador.graficarEntornos(controlador,ts_local," (case)");
-                        return this.ins_ifs;
-                    }
-                    else {
-                        if (this.ins_ifs instanceof Return_1.Return || res instanceof Return_1.Return) {
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return this.ins_ifs;
-                        }
-                    }
-                }
-            }
-            else {
-                if (this.ins_elses instanceof Array) {
-                    this.ins_elses.forEach(ins => {
-                        let res = ins.ejecutar(ts_local, tree);
-                        if (res instanceof Errores_1.Errores) {
-                            tree.getErrores().push(res);
-                            tree.updateConsolaPrintln(res.toString());
-                        }
-                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                            return res;
-                        }
-                        else {
-                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                                // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return ins;
-                            }
-                            else {
-                                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                    // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                    return ins;
-                                }
-                            }
-                        }
-                    });
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
-                }
-                else {
-                    let res = this.ins_elses.ejecutar(ts_local, tree);
-                    if (res instanceof Errores_1.Errores) {
-                        tree.getErrores().push(res);
-                        tree.updateConsolaPrintln(res.toString());
-                    }
-                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
-                    if (this.ins_elses instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                        return res;
-                    }
-                    else {
-                        if (this.ins_elses instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
-                            // controlador.graficarEntornos(controlador,ts_local," (case)");
-                            return this.ins_elses;
-                        }
-                        else {
-                            if (this.ins_elses instanceof Return_1.Return || res instanceof Return_1.Return) {
-                                // controlador.graficarEntornos(controlador,ts_local," (case)");
-                                return this.ins_elses;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("IF", "");
-        let condicion = new Nodo_1.Nodo("CONDICION", "");
-        condicion.addChildNode(this.condicion.ejecutar(table, tree));
-        // LISTA IFS
-        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
-        // for(let instr of this.lista_ifs)
-        // {
-        //     listaIfs.addChildNode(instr.recorrer(table,tree));
-        // }
-        // padre.addChildNode(listaIfs);
-        // LISTA IFS
-        if (this.ins_ifs != null) {
-            listaIfs.addChildNode(this.ins_ifs.recorrer(table, tree));
-        }
-        padre.addChildNode(condicion);
-        padre.addChildNode(listaIfs);
-        // LISTA IFS
-        if (this.ins_elses != null) {
-            padre.addChildNode(this.ins_elses.recorrer(table, tree));
-        }
-        return padre;
-    }
-}
-exports.Ifsinllave = Ifsinllave;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52,"./../../TablaSimbolos/Tipo":56}],27:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Switch = void 0;
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Break_1 = require("../Transferencia/Break");
-const Return_1 = require("../Transferencia/Return");
-const Errores_1 = require("../../Ast/Errores");
-class Switch {
-    constructor(valor_sw, lista_case, lista_default, fila, columna) {
-        this.valor_sw = valor_sw;
-        this.lista_case = lista_case;
-        this.lista_default = lista_default;
-        this.columna = columna;
-        this.fila = fila;
-    }
-    ejecutar(table, tree) {
-        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        for (let sw of this.lista_case) {
-            sw.valor_sw = this.valor_sw.ejecutar(ts_local, tree);
-            if (sw.valor_sw instanceof Errores_1.Errores) {
-                tree.getErrores().push(sw.valor_sw);
-                tree.updateConsolaPrintln(sw.valor_sw.toString());
-            }
-        }
-        let x = 0;
-        for (let ins of this.lista_case) {
-            let res = ins.ejecutar(ts_local, tree);
-            if (res instanceof Errores_1.Errores) {
-                tree.getErrores().push(res);
-                tree.updateConsolaPrintln(res.toString());
-            }
-            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                x = 1;
-                break;
-            }
-            else {
-                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                    return res;
-                }
-            }
-        }
-        if (x == 0) {
-            for (let ins of this.lista_default) {
-                let res = ins.ejecutar(ts_local, tree);
-                if (res instanceof Errores_1.Errores) {
-                    tree.getErrores().push(res);
-                    tree.updateConsolaPrintln(res.toString());
-                }
-                if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                    break;
-                }
-                else {
-                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
-                        // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                        return res;
-                    }
-                }
-            }
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error('Method not implemented.');
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("SWITCH", "");
-        let condicion = new Nodo_1.Nodo("CONDICION", "");
-        condicion.addChildNode(this.valor_sw.ejecutar(table, tree));
-        let listaCase = new Nodo_1.Nodo("LISTA CASE", "");
-        for (let instr of this.lista_case) {
-            listaCase.addChildNode(instr.recorrer(table, tree));
-        }
-        let listaDefault = new Nodo_1.Nodo("LISTA DEFAULT", "");
-        if (this.lista_default != null) {
-            for (let instr of this.lista_default) {
-                listaDefault.addChildNode(instr.recorrer(table, tree));
-            }
-        }
-        return padre;
-    }
-}
-exports.Switch = Switch;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Return":52}],28:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Declaracion = void 0;
-const Errores_1 = require("../Ast/Errores");
-const Nodo_1 = require("../Ast/Nodo");
-const Simbolo_1 = require("../TablaSimbolos/Simbolo");
-const Tipo_1 = require("../TablaSimbolos/Tipo");
-class Declaracion {
-    constructor(tipo, simbolos, fila, columna) {
-        this.arreglo = false;
-        // this.id = id;
-        this.tipo = tipo;
-        this.simbolos = simbolos;
-        this.fila = fila;
-        this.columna = columna;
-        this.arreglo = false;
-    }
-    ejecutar(table, tree) {
-        for (let simbolo of this.simbolos) {
-            let variable = simbolo;
-            // console.log(variable.id)
-            if (variable.valor != null) {
-                let valor = variable.valor.ejecutar(table, tree);
-                //Verificando TIPOS de Variable
-                let tipo_valor = variable.valor.tipo;
-                // console.log("variable.valor.tipo: " + variable.valor.tipo);
-                if (valor instanceof Errores_1.Errores) {
-                    return valor;
-                }
-                if (tipo_valor == this.tipo) {
-                    // console.log("entre tipo declaracion");
-                    //--> Lo agregamos a la tabla de simbolos 
-                    let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, valor);
-                    table.setSymbolTabla(nuevo_simb);
-                }
-                else {
-                    // console.log("errorrr tipo declaracion");
-                    // console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
-                    //Error no se puede declarar por incopatibilidad de simbolos
-                    return new Errores_1.Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
-                }
-            }
-            else {
-                //-- DECLARACION 1ERA VEZ -Se agrega a la tabla de simbolos 
-                let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
-                switch (this.tipo) {
-                    case Tipo_1.TIPO.ENTERO:
-                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, 0);
-                        break;
-                    case Tipo_1.TIPO.DECIMAL:
-                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, 0.00);
-                        break;
-                    case Tipo_1.TIPO.CADENA:
-                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
-                        break;
-                    case Tipo_1.TIPO.BOOLEANO:
-                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, false);
-                        break;
-                    case Tipo_1.TIPO.CHARACTER:
-                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, '0');
-                        break;
-                    default:
-                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
-                        break;
-                }
-                table.setSymbolTabla(nuevo_simb);
-            }
-        }
-    }
-    translate3d(table, tree) {
-        throw new Error("Method not implemented.");
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("DECLARACION", "");
-        for (let sim of this.simbolos) {
-            sim.valor.recorrer(table, tree);
-        }
-        return padre;
-    }
-}
-exports.Declaracion = Declaracion;
-
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56}],29:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GeneradorC3D = void 0;
@@ -4715,11 +3541,11 @@ class GeneradorC3D {
         this.code.push(`${this.isFunc}p = p - ${size};`);
     }
     /**
-     * @method gen_call genCall
+     * @method gen_Call genCall
      * genera una llamada a una funcion
      * @param id nombre de la funcion
      */
-    gen_call(id) {
+    gen_Call(id) {
         this.code.push(`${this.isFunc}${id}();`);
     }
     /**
@@ -4808,7 +3634,7 @@ class GeneradorC3D {
 }
 exports.GeneradorC3D = GeneradorC3D;
 
-},{"./Nativas":30}],30:[function(require,module,exports){
+},{"./Nativas":18}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Nativas = void 0;
@@ -5565,7 +4391,1375 @@ class Nativas {
 }
 exports.Nativas = Nativas;
 
-},{"./GeneradorC3D":29}],31:[function(require,module,exports){
+},{"./GeneradorC3D":17}],19:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Retorno = void 0;
+class Retorno {
+    constructor(valor, istemp, tipo) {
+        this.valor = valor;
+        this.istemp = istemp;
+        this.tipo = tipo;
+        this.lblTrue = this.lblFalse = '';
+    }
+    translate3d() {
+        return this.valor;
+    }
+}
+exports.Retorno = Retorno;
+
+},{}],20:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DeclaracionArr = void 0;
+const Errores_1 = require("../../Ast/Errores");
+const Copiar_1 = require("../../Expresiones/Arreglos/Copiar");
+const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+class DeclaracionArr {
+    //tipo lista_dim ID IGUAL lista_exp_arr
+    constructor(tipo_arr, dimensiones, id, expresiones, fila, columna) {
+        this.tipo = Tipo_1.TIPO.ARREGLO;
+        this.arreglo = true;
+        this.arr = Array();
+        this.tipo_arr = tipo_arr;
+        this.dimensiones = dimensiones;
+        this.id = id;
+        this.expresiones = expresiones;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        // if(this.expresiones != null){
+        //     console.log("declArr exp: " + this.expresiones);
+        // }
+        // Creando arreglo
+        let value;
+        // ASIGNACION
+        if (this.tipo_arr == null && this.dimensiones == null) {
+            // Asignando variable de tipo arreglo con su valor
+            if (table.existe(this.id)) {
+                // Creando arreglo
+                this.tipo_arr = table.getSymbolTabla(this.id).getTipo();
+                if (this.expresiones instanceof Copiar_1.Copiar) {
+                    // console.log("AS ARR COPIAR");
+                    value = this.expresiones.ejecutar(table, tree);
+                    // console.log("AS ARR COPIAR VAL: " + value);
+                    if (value == null) {
+                        return new Errores_1.Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
+                    }
+                }
+                else {
+                    // console.log("AS ARR ");
+                    value = this.crearDimensiones(table, tree, this.expresiones.slice()); // Devuelve el arreglo de dimensiones
+                    // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
+                    // value = this.arr;
+                    // console.log("value declArr: " + value);
+                    // console.log("type declArr: " + typeof(value));
+                    // console.log("type declArr: " + typeof(this.arr));
+                    // console.log("tipo declArr: " + this.tipo_arr);
+                    if (value instanceof Errores_1.Errores) {
+                        return value;
+                    }
+                }
+                // Creando simbolo
+                let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
+                if (nuevo_simb.arreglo) {
+                    // Obteniendo variable y asignar valor
+                    let result = table.updateSymbolTabla(nuevo_simb);
+                    if (result instanceof Errores_1.Errores) {
+                        return result;
+                    }
+                }
+                else {
+                    return new Errores_1.Errores("Semantico", `La variable '${this.id}', no es de tipo arreglo.`, this.fila, this.columna);
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "Variable no encontrada.", this.fila, this.columna);
+            }
+        } // DECLARACION
+        else if (this.expresiones == null) {
+            // console.log("DECL ARR ");
+            // Verificando dimensiones
+            if (this.dimensiones != null) {
+                if (this.dimensiones != this.dimensiones.length) {
+                    return new Errores_1.Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
+                }
+            }
+            // Creando variable de tipo arreglo
+            let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, []);
+            let result = table.setSymbolTabla(nuevo_simb);
+            if (result instanceof Errores_1.Errores) {
+                return result;
+            }
+        } // DECLARACION Y ASIGNACION
+        else {
+            // Verificando dimensiones
+            if (this.dimensiones != null) {
+                if (this.dimensiones != this.dimensiones.length) {
+                    return new Errores_1.Errores("Semantico", "Dimensiones diferentes en el arreglo.", this.fila, this.columna);
+                }
+            }
+            // Creando arreglo
+            if (this.expresiones instanceof Copiar_1.Copiar) {
+                // console.log("DECL Y AS ARR COPIAR");
+                value = this.expresiones.ejecutar(table, tree);
+                // console.log("DECL ARR COPIAR VAL: " + value);
+                if (value == null) {
+                    return new Errores_1.Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
+                }
+            }
+            else {
+                // console.log("DECL Y AS ARR ");
+                value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
+                // console.log("crearArr value: " + value);
+                // console.log("crearArr size: " + value.length);
+                // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
+                // value = this.arr;
+                // console.log("value declArr: " + value);
+                // console.log("type declArr: " + typeof(value));
+                // console.log("type declArr: " + typeof(this.arr));
+                // console.log("tipo declArr: " + this.tipo_arr);
+                if (value instanceof Errores_1.Errores) {
+                    return value;
+                }
+            }
+            // Creando variable de tipo arreglo con su valor
+            let nuevo_simb = new Simbolo_1.Simbolo(this.id.toString(), this.tipo_arr, true, this.fila, this.columna, value);
+            let result = table.setSymbolTabla(nuevo_simb);
+            if (result instanceof Errores_1.Errores) {
+                return result;
+            }
+        }
+        return null;
+    }
+    translate3d(table, tree) {
+        throw new Error("Method not implemented.");
+    }
+    recorrer(table, tree) {
+        throw new Error("Method not implemented.");
+    }
+    crearDimensiones(table, tree, expresiones) {
+        let arr = Array();
+        while (true) {
+            if (!(expresiones.length == 0)) {
+                let dimension = expresiones.shift();
+                // console.log("crearArr dim: " + dimension);
+                if (Array.isArray(dimension)) {
+                    arr.push([this.crearDimensiones(table, tree, dimension.slice())]);
+                }
+                else {
+                    let num = dimension.ejecutar(table, tree);
+                    if (dimension.tipo != this.tipo_arr) {
+                        let res = new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
+                        tree.Errores.push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    else {
+                        dimension.tipo = this.tipo_arr;
+                        arr.push(num);
+                        this.crearDimensiones(tree, table, expresiones.slice());
+                    }
+                }
+            }
+            else {
+                break;
+            }
+        }
+        return arr;
+    }
+}
+exports.DeclaracionArr = DeclaracionArr;
+
+},{"../../Ast/Errores":3,"../../Expresiones/Arreglos/Copiar":7,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],21:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ModificacionArr = void 0;
+const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+class ModificacionArr {
+    //ID lista_exp IGUAL expr
+    constructor(id, expresiones, valor, fila, columna) {
+        this.arreglo = true;
+        this.dim = 0;
+        this.id = id;
+        this.expresiones = expresiones;
+        this.valor = valor;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        let value = this.valor.ejecutar(table, tree);
+        if (value instanceof Errores_1.Errores) {
+            return value;
+        }
+        let simbolo = table.getSymbolTabla(this.id.toString());
+        if (simbolo != null) {
+            if (simbolo.getArreglo()) {
+                if (simbolo.getTipo() != this.valor.tipo) {
+                    return new Errores_1.Errores("Semantico", "Tipos de datos diferentes en modificacion de arreglo: \'" + this.id + "\'.", this.fila, this.columna);
+                }
+                // console.log("modArr simb.tipo: " + simbolo.getTipo());
+                this.tipo_arr = simbolo.getTipo();
+                let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
+                if (result instanceof Errores_1.Errores) {
+                    return result;
+                }
+                // result = this.valor;
+                // return result;
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
+            }
+        }
+        else {
+            return new Errores_1.Errores("Semantico", "Variable: \'" + this.id.toString() + "\', no encontrada.", this.fila, this.columna);
+        }
+        return null;
+    }
+    translate3d(table, tree) {
+        throw new Error("Method not implemented.");
+    }
+    recorrer(table, tree) {
+        return new Nodo_1.Nodo("Modificacion Array", "");
+    }
+    modificarDimensiones(table, tree, expresiones, arreglo, valor) {
+        // let value = null;
+        if (expresiones.length == 0) {
+            if (arreglo instanceof Array) {
+                return new Errores_1.Errores("Semantico", "Modificacion de arreglo incompleto.", this.fila, this.columna);
+            }
+            return valor;
+        }
+        if (!(arreglo instanceof Array)) {
+            return new Errores_1.Errores("Semantico", "Acceso de mas en el arreglo.", this.fila, this.columna);
+        }
+        let exp_tmp = expresiones.shift();
+        let num = exp_tmp.ejecutar(table, tree);
+        if (num instanceof Errores_1.Errores) {
+            return num;
+        }
+        if (exp_tmp.tipo != Tipo_1.TIPO.ENTERO) {
+            return new Errores_1.Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
+        }
+        // console.log("modArr exp: " + valor);
+        // console.log("modArr tipo exp: " + this.valor.tipo);
+        if (this.valor.tipo != this.tipo_arr) {
+            // console.log("Tipo distinto al tipo del arreglo");
+            // console.log(tree);
+            return new Errores_1.Errores("Semantico", "Tipo distinto al tipo del arreglo.", this.fila, this.columna);
+        }
+        else {
+            if (arreglo[num] != undefined) {
+                let value = this.modificarDimensiones(tree, table, expresiones.slice(), arreglo[num][0].slice(), valor);
+                if (value instanceof Errores_1.Errores) {
+                    return value;
+                }
+                // console.log("arreglo[num]: " + arreglo[num].toString());
+                if (value != null) {
+                    arreglo[num] = valor;
+                }
+            }
+            else {
+                // console.log("null");
+                return new Errores_1.Errores("Semantico", "Posicion inexistente en el arreglo.", this.fila, this.columna);
+            }
+        }
+        return null;
+    }
+}
+exports.ModificacionArr = ModificacionArr;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":56}],22:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Asignacion = void 0;
+const Errores_1 = require("../Ast/Errores");
+const Nodo_1 = require("../Ast/Nodo");
+const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Return_1 = require("./Transferencia/Return");
+class Asignacion {
+    constructor(id, expresion, fila, columna) {
+        this.arreglo = false;
+        this.id = id;
+        this.expresion = expresion;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        if (table.existe(this.id)) {
+            let valor = this.expresion.ejecutar(table, tree);
+            // console.log(valor)
+            if (valor instanceof Errores_1.Errores) {
+                return valor;
+            }
+            if (valor instanceof Return_1.Return) {
+                let temp;
+                temp = valor;
+                // // validacion struct
+                /**
+                 * Agregar struct y arreglos aca
+                 */
+                // if (temp.valor instanceof Struct){
+                // }
+                valor = temp.valor;
+            }
+            /**
+             * Agregar struct y arreglos aca
+             */
+            // console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
+            let result = table.updateSymbolTabla(new Simbolo_1.Simbolo(this.id, this.expresion.tipo, null, this.fila, this.columna, valor));
+            if (result instanceof Errores_1.Errores) {
+                // console.log(result);
+                // console.log(`tipoo exp: ${this.expresion.tipo} `)
+                // console.log(`error en updateSymbol ${this.id} `)
+                return result;
+            }
+        }
+        else {
+            return new Errores_1.Errores("Semantico", "Variable no encontrada en asignacion", this.fila, this.columna);
+        }
+        return null;
+    }
+    translate3d(table, tree) {
+        throw new Error("Method not implemented.");
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("ASIGNACION", "");
+        padre.addChildNode(new Nodo_1.Nodo(this.id, ""));
+        padre.addChildNode(this.expresion.recorrer(table, tree));
+        return padre;
+    }
+}
+exports.Asignacion = Asignacion;
+
+},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":54,"./Transferencia/Return":53}],23:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DoWhile = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Break_1 = require("../Transferencia/Break");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
+class DoWhile {
+    constructor(condicion, lista_instrucciones, fila, columna) {
+        this.condicion = condicion;
+        this.lista_instrucciones = lista_instrucciones;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        if (typeof valor_condicion == 'boolean') {
+            do {
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                for (let ins of this.lista_instrucciones) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return null;
+                    }
+                    else {
+                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                            break;
+                        }
+                        else {
+                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                                return res;
+                            }
+                        }
+                    }
+                }
+            } while (this.condicion.ejecutar(table, tree));
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("DO WHILE", "");
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        padre.addChildNode(condicion);
+        return padre;
+    }
+}
+exports.DoWhile = DoWhile;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],24:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.For = void 0;
+const Return_1 = require("./../Transferencia/Return");
+const Continuar_1 = require("./../Transferencia/Continuar");
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Break_1 = require("../Transferencia/Break");
+const Errores_1 = require("../../Ast/Errores");
+class For {
+    constructor(declaracion_asignacion, condicion, actualizacion, lista_instrucciones, fila, columna) {
+        this.declaracion_asignacion = declaracion_asignacion;
+        this.condicion = condicion;
+        this.actualizacion = actualizacion;
+        this.lista_instrucciones = lista_instrucciones;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        // Asignacion o declaracion
+        let tabla_intermedia = new TablaSimbolos_1.TablaSimbolos(table);
+        let declaracion_asignacion = this.declaracion_asignacion.ejecutar(tabla_intermedia, tree);
+        if (declaracion_asignacion instanceof Errores_1.Errores) {
+            tree.getErrores().push(declaracion_asignacion);
+            tree.updateConsolaPrintln(declaracion_asignacion.toString());
+        }
+        // console.log("declaracion_asignacion: " + declaracion_asignacion);
+        if (declaracion_asignacion instanceof Errores_1.Errores) {
+            return declaracion_asignacion;
+        }
+        while (true) {
+            let condicion = this.condicion.ejecutar(tabla_intermedia, tree);
+            if (condicion instanceof Errores_1.Errores) {
+                tree.getErrores().push(condicion);
+                tree.updateConsolaPrintln(condicion.toString());
+            }
+            // console.log("condicion: " + condicion);
+            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (this.getBool(condicion)) {
+                    let ts_local = new TablaSimbolos_1.TablaSimbolos(tabla_intermedia);
+                    for (let ins of this.lista_instrucciones) {
+                        let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return null;
+                        }
+                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                            break;
+                        }
+                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                            return res;
+                        }
+                    }
+                    let actualizacion = this.actualizacion.ejecutar(tabla_intermedia, tree);
+                    if (actualizacion instanceof Errores_1.Errores) {
+                        tree.getErrores().push(actualizacion);
+                        tree.updateConsolaPrintln(actualizacion.toString());
+                    }
+                    // console.log("actualizacion: " + actualizacion);
+                    if (actualizacion instanceof Errores_1.Errores) {
+                        return actualizacion;
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "Valor no booleano", this.fila, this.columna);
+            }
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("FOR", "");
+        let decla = new Nodo_1.Nodo("DECLARACION", "");
+        decla.addChildNode(this.declaracion_asignacion.recorrer(table, tree));
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        let actualizacion = new Nodo_1.Nodo("ACTUALIZACION", "");
+        actualizacion.addChildNode(this.actualizacion.ejecutar(table, tree));
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(decla);
+        padre.addChildNode(condicion);
+        padre.addChildNode(actualizacion);
+        padre.addChildNode(NodoInstr);
+        return padre;
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
+    }
+}
+exports.For = For;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"./../Transferencia/Continuar":52,"./../Transferencia/Return":53}],25:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ForIn = void 0;
+const Identificador_1 = require("./../../Expresiones/Identificador");
+const Return_1 = require("../Transferencia/Return");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Break_1 = require("../Transferencia/Break");
+const Errores_1 = require("../../Ast/Errores");
+const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
+const AccesoArr_1 = require("../../Expresiones/Arreglos/AccesoArr");
+class ForIn {
+    constructor(iterador, rango, lista_instrucciones, fila, columna) {
+        this.arreglo = false;
+        this.iterador = iterador;
+        this.rango = rango;
+        this.lista_instrucciones = lista_instrucciones;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        if (this.rango.tipo == Tipo_1.TIPO.CADENA) {
+            let rango = this.rango.ejecutar(table, tree);
+            if (rango instanceof Errores_1.Errores) {
+                tree.getErrores().push(rango);
+                tree.updateConsolaPrintln(rango.toString());
+            }
+            if (rango instanceof Errores_1.Errores) {
+                return rango;
+            }
+            console.log("FOR IN CADENA");
+            for (var i = 0; i < rango.length; i++) {
+                let char = rango.charAt(i);
+                let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.CHARACTER, this.arreglo, this.fila, this.columna, char);
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                ts_local.setSymbolTabla(nuevo_simb);
+                ts_local.updateSymbolTabla(nuevo_simb);
+                for (let ins of this.lista_instrucciones) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return null;
+                    }
+                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        break;
+                    }
+                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        return res;
+                    }
+                }
+            }
+        }
+        else if (this.rango.tipo == Tipo_1.TIPO.ARREGLO || this.rango instanceof Array) {
+            console.log("FOR IN ARR XD");
+            this.rango.forEach(e => {
+                let element = e.ejecutar(table, tree);
+                if (element instanceof Errores_1.Errores) {
+                    tree.getErrores().push(element);
+                    tree.updateConsolaPrintln(element.toString());
+                }
+                if (element instanceof Errores_1.Errores) {
+                    return element;
+                }
+                let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                let result = ts_local.updateSymbolTabla(nuevo_simb);
+                if (result instanceof Errores_1.Errores) {
+                    result = ts_local.setSymbolTabla(nuevo_simb);
+                    if (result instanceof Errores_1.Errores) {
+                        tree.getErrores().push(result);
+                        tree.updateConsolaPrintln(result.toString());
+                    }
+                }
+                for (let ins of this.lista_instrucciones) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return null;
+                    }
+                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        break;
+                    }
+                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        return res;
+                    }
+                }
+            });
+        }
+        else if (this.rango instanceof AccesoArr_1.AccesoArr) {
+            console.log("FOR IN ARR DEC RANGO");
+            // console.log(this.rango.);
+            let arr = table.getSymbolTabla(this.rango.id.toString());
+            if (arr != null) {
+                if (arr.getArreglo()) {
+                    console.log("foinarrdec rank: " + this.rango.expresiones[0]);
+                    let rank = this.rango.expresiones[0].ejecutar(table, tree);
+                    // console.log("AccArr rank type: " + (rank instanceof Array));
+                    // console.log("rank[0] type: " + (typeof(rank[0]) == "string"));
+                    // console.log("rank accArr: " + rank);
+                    if (rank == null) {
+                        return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id + "\', no es un rango.", this.fila, this.columna);
+                    }
+                    let begin;
+                    if (rank[0] == "begin") {
+                        begin = 0;
+                    }
+                    else {
+                        begin = rank[0].ejecutar(table, tree);
+                    }
+                    if (begin instanceof Errores_1.Errores) {
+                        return begin;
+                    }
+                    let end;
+                    if (rank[1] == "end") {
+                        end = arr.getValor().length;
+                    }
+                    else {
+                        end = rank[1].ejecutar(table, tree);
+                    }
+                    if (end instanceof Errores_1.Errores) {
+                        return end;
+                    }
+                    console.log("begin: " + begin);
+                    console.log("end: " + end);
+                    let array = [];
+                    let contador = begin;
+                    while (contador <= end) {
+                        array.push(arr.getValor()[contador]);
+                        let element = arr.getValor()[contador];
+                        let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                        let result = ts_local.updateSymbolTabla(nuevo_simb);
+                        if (result instanceof Errores_1.Errores) {
+                            result = ts_local.setSymbolTabla(nuevo_simb);
+                            if (result instanceof Errores_1.Errores) {
+                                tree.getErrores().push(result);
+                                tree.updateConsolaPrintln(result.toString());
+                            }
+                        }
+                        for (let ins of this.lista_instrucciones) {
+                            let res = ins.ejecutar(ts_local, tree);
+                            if (res instanceof Errores_1.Errores) {
+                                tree.getErrores().push(res);
+                                tree.updateConsolaPrintln(res.toString());
+                            }
+                            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                                return null;
+                            }
+                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                                break;
+                            }
+                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                                return res;
+                            }
+                        }
+                        contador++;
+                    }
+                }
+                else {
+                    return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no es un arreglo.", this.fila, this.columna);
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);
+            }
+        }
+        else if (this.rango instanceof Identificador_1.Identificador) {
+            let variable = table.getSymbolTabla(this.rango.id.toString());
+            if (variable != null) {
+                let rango = variable.getValor();
+                if (rango instanceof Errores_1.Errores) {
+                    tree.getErrores().push(rango);
+                    tree.updateConsolaPrintln(rango.toString());
+                }
+                if (rango instanceof Errores_1.Errores) {
+                    return rango;
+                }
+                if (variable.getTipo() == Tipo_1.TIPO.CADENA && !variable.getArreglo()) {
+                    console.log("FOR IN VAR CADENA");
+                    for (var i = 0; i < rango.length; i++) {
+                        let char = rango.charAt(i);
+                        let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.CHARACTER, this.arreglo, this.fila, this.columna, char);
+                        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                        ts_local.setSymbolTabla(nuevo_simb);
+                        ts_local.updateSymbolTabla(nuevo_simb);
+                        for (let ins of this.lista_instrucciones) {
+                            let res = ins.ejecutar(ts_local, tree);
+                            if (res instanceof Errores_1.Errores) {
+                                tree.getErrores().push(res);
+                                tree.updateConsolaPrintln(res.toString());
+                            }
+                            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                                return null;
+                            }
+                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                                break;
+                            }
+                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                                return res;
+                            }
+                        }
+                    }
+                }
+                else if (variable.getArreglo()) {
+                    console.log("FOR IN ARR DEC");
+                    variable.getValor().forEach(element => {
+                        let nuevo_simb = new Simbolo_1.Simbolo(this.iterador, Tipo_1.TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                        let result = ts_local.updateSymbolTabla(nuevo_simb);
+                        if (result instanceof Errores_1.Errores) {
+                            result = ts_local.setSymbolTabla(nuevo_simb);
+                            if (result instanceof Errores_1.Errores) {
+                                tree.getErrores().push(result);
+                                tree.updateConsolaPrintln(result.toString());
+                            }
+                        }
+                        for (let ins of this.lista_instrucciones) {
+                            let res = ins.ejecutar(ts_local, tree);
+                            if (res instanceof Errores_1.Errores) {
+                                tree.getErrores().push(res);
+                                tree.updateConsolaPrintln(res.toString());
+                            }
+                            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                                return null;
+                            }
+                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                                break;
+                            }
+                            if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                                return res;
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "La variable \'" + this.rango.id.toString() + "\', no existe.", this.fila, this.columna);
+            }
+        }
+        else {
+            return new Errores_1.Errores("Semantico", "For-in no valido.", this.fila, this.columna);
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("FOR-IN", "");
+        let iterador = new Nodo_1.Nodo("ITERADOR", "");
+        iterador.addChildNode(new Nodo_1.Nodo(this.iterador, ""));
+        let rango = new Nodo_1.Nodo("RANGO", "");
+        rango.addChildNode(this.rango.recorrer(table, tree));
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(iterador);
+        padre.addChildNode(rango);
+        padre.addChildNode(NodoInstr);
+        return padre;
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
+    }
+}
+exports.ForIn = ForIn;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Arreglos/AccesoArr":5,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Expresiones/Identificador":9}],26:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.While = void 0;
+const Errores_1 = require("./../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Break_1 = require("../Transferencia/Break");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Return_1 = require("../Transferencia/Return");
+class While {
+    constructor(condicion, lista_instrucciones, fila, columna) {
+        this.condicion = condicion;
+        this.lista_instrucciones = lista_instrucciones;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        while (true) {
+            let valor_condicion = this.condicion.ejecutar(table, tree);
+            if (valor_condicion instanceof Errores_1.Errores) {
+                tree.getErrores().push(valor_condicion);
+                tree.updateConsolaPrintln(valor_condicion.toString());
+            }
+            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (this.getBool(valor_condicion)) {
+                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                    for (let ins of this.lista_instrucciones) {
+                        let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return null;
+                        }
+                        if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                            break;
+                        }
+                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                            return res;
+                        }
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "Valor no booleano", this.fila, this.columna);
+            }
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("WHILE", "");
+        padre.addChildNode(new Nodo_1.Nodo("while", ""));
+        // padre.addChildNode(new Nodo("(",""));
+        padre.addChildNode(this.condicion.recorrer(table, tree));
+        // padre.addChildNode(new Nodo(")",""));
+        // padre.addChildNode(new Nodo("{",""));
+        padre.addChildNode(new Nodo_1.Nodo("INSTRUCCIONES", ""));
+        for (let ins of this.lista_instrucciones) {
+            padre.addChildNode(ins.recorrer(table, tree));
+        }
+        // padre.addChildNode(new Nodo("}",""));
+        return padre;
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
+    }
+}
+exports.While = While;
+
+},{"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../Ast/Errores":3}],27:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Case = void 0;
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Break_1 = require("../Transferencia/Break");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
+const Nodo_1 = require("../../Ast/Nodo");
+class Case {
+    constructor(valor_case, lista_instrucciones, fila, columna) {
+        this.valor_case = valor_case;
+        this.lista_instrucciones = lista_instrucciones;
+        this.fila = fila;
+        this.columna = columna;
+    }
+    ejecutar(table, tree) {
+        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        // console.log("cs valcs: " + this.valor_case);
+        // console.log("cs valorsw: " + this.valor_sw);
+        if (this.valor_sw == this.valor_case.ejecutar(table, tree)) {
+            for (let res of this.lista_instrucciones) {
+                let ins = res.ejecutar(ts_local, tree);
+                if (ins instanceof Errores_1.Errores) {
+                    tree.getErrores().push(ins);
+                    tree.updateConsolaPrintln(ins.toString());
+                }
+                if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                    // controlador.graficarEntornos(controlador,ts_local," (case)");
+                    return ins;
+                }
+                else {
+                    if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        // controlador.graficarEntornos(controlador,ts_local," (case)");
+                        return ins;
+                    }
+                    else {
+                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                            // controlador.graficarEntornos(controlador,ts_local," (case)");
+                            return ins;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("CASE", "");
+        let expresion = new Nodo_1.Nodo("EXPRESION", "");
+        expresion.addChildNode(this.valor_case.recorrer(table, tree));
+        padre.addChildNode(expresion);
+        let NodoInstr = new Nodo_1.Nodo("INSTRUCCIONES", "");
+        for (let instr of this.lista_instrucciones) {
+            NodoInstr.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(NodoInstr);
+        return padre;
+    }
+}
+exports.Case = Case;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],28:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.If = void 0;
+const Tipo_1 = require("./../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Break_1 = require("../Transferencia/Break");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
+class If {
+    constructor(condicion, lista_ifs, lista_elses, lista_ifelse, fila, columna) {
+        this.condicion = condicion;
+        this.lista_ifs = lista_ifs;
+        this.lista_elses = lista_elses;
+        this.lista_ifelse = lista_ifelse;
+        this.columna = columna;
+        this.fila = fila;
+    }
+    ejecutar(table, tree) {
+        // let ts_local = new TablaSimbolos(table);
+        let valor_condicion = this.condicion.ejecutar(table, tree);
+        // console.log("if cond: " + valor_condicion);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+            if (valor_condicion == true) {
+                // if(this.lista_ifs != null){
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                // this.lista_ifs.forEach(ins => {
+                for (let ins of this.lista_ifs) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return res;
+                    }
+                    else if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        // controlador.graficarEntornos(controlador,ts_local," (case)");
+                        break;
+                    }
+                    else if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        // controlador.graficarEntornos(controlador,ts_local," (case)");
+                        return res;
+                    }
+                }
+                // }
+            }
+            else {
+                if (this.lista_elses != null) {
+                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                    for (let ins of this.lista_elses) {
+                        let res = ins.ejecutar(ts_local, tree);
+                        //TODO verificar si res es de tipo CONTINUE, RETORNO
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        if (res instanceof Break_1.Detener) {
+                            return res;
+                        }
+                        if (res instanceof Continuar_1.Continuar) {
+                            break;
+                        }
+                        if (res instanceof Return_1.Return) {
+                            return res;
+                        }
+                    }
+                }
+                else if (this.lista_ifelse != null) {
+                    let result = this.lista_ifelse.ejecutar(table, tree);
+                    if (result instanceof Errores_1.Errores) {
+                        return result;
+                    }
+                    if (result instanceof Break_1.Detener) {
+                        return result;
+                    }
+                    if (result instanceof Continuar_1.Continuar) {
+                        return null;
+                    }
+                    if (result instanceof Return_1.Return) {
+                        return result;
+                    }
+                }
+            }
+        }
+        else {
+            return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
+        }
+        // return null;
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("IF", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        // LISTA IFS
+        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
+        for (let instr of this.lista_ifs) {
+            listaIfs.addChildNode(instr.recorrer(table, tree));
+        }
+        padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.lista_elses != null) {
+            let listaElse = new Nodo_1.Nodo("INSTRUCCIONES Else", "");
+            for (let instr of this.lista_elses) {
+                listaElse.addChildNode(instr.recorrer(table, tree));
+            }
+            padre.addChildNode(listaElse);
+        }
+        // LISTA IFS
+        if (this.lista_ifelse != null) {
+            padre.addChildNode(this.lista_ifelse.recorrer(table, tree));
+        }
+        return padre;
+    }
+    getBool(val) {
+        return !!JSON.parse(String(val).toLowerCase());
+    }
+}
+exports.If = If;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],29:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Ifsinllave = void 0;
+const Tipo_1 = require("./../../TablaSimbolos/Tipo");
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Break_1 = require("../Transferencia/Break");
+const Continuar_1 = require("../Transferencia/Continuar");
+const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
+class Ifsinllave {
+    constructor(condicion, ins_ifs, ins_elses, fila, columna) {
+        this.condicion = condicion;
+        this.ins_ifs = ins_ifs;
+        this.ins_elses = ins_elses;
+        this.columna = columna;
+        this.fila = fila;
+    }
+    ejecutar(table, tree) {
+        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        let valor_condicion = this.condicion.ejecutar(table, tree);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+            if (valor_condicion) {
+                let res = this.ins_ifs.ejecutar(ts_local, tree);
+                if (res instanceof Errores_1.Errores) {
+                    tree.getErrores().push(res);
+                    tree.updateConsolaPrintln(res.toString());
+                }
+                //TODO verificar si res es de tipo CONTINUE, BREAK, RETORNO 
+                if (this.ins_ifs instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                    return res;
+                }
+                else {
+                    if (this.ins_ifs instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                        // controlador.graficarEntornos(controlador,ts_local," (case)");
+                        return this.ins_ifs;
+                    }
+                    else {
+                        if (this.ins_ifs instanceof Return_1.Return || res instanceof Return_1.Return) {
+                            // controlador.graficarEntornos(controlador,ts_local," (case)");
+                            return this.ins_ifs;
+                        }
+                    }
+                }
+            }
+            else {
+                if (this.ins_elses instanceof Array) {
+                    this.ins_elses.forEach(ins => {
+                        let res = ins.ejecutar(ts_local, tree);
+                        if (res instanceof Errores_1.Errores) {
+                            tree.getErrores().push(res);
+                            tree.updateConsolaPrintln(res.toString());
+                        }
+                        if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                            return res;
+                        }
+                        else {
+                            if (ins instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                return ins;
+                            }
+                            else {
+                                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                                    // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                    return ins;
+                                }
+                            }
+                        }
+                    });
+                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                }
+                else {
+                    let res = this.ins_elses.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    //TODO verificar si res es de tipo CONTINUE, RETORNO 
+                    if (this.ins_elses instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        return res;
+                    }
+                    else {
+                        if (this.ins_elses instanceof Continuar_1.Continuar || res instanceof Continuar_1.Continuar) {
+                            // controlador.graficarEntornos(controlador,ts_local," (case)");
+                            return this.ins_elses;
+                        }
+                        else {
+                            if (this.ins_elses instanceof Return_1.Return || res instanceof Return_1.Return) {
+                                // controlador.graficarEntornos(controlador,ts_local," (case)");
+                                return this.ins_elses;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("IF", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.condicion.ejecutar(table, tree));
+        // LISTA IFS
+        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
+        // for(let instr of this.lista_ifs)
+        // {
+        //     listaIfs.addChildNode(instr.recorrer(table,tree));
+        // }
+        // padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.ins_ifs != null) {
+            listaIfs.addChildNode(this.ins_ifs.recorrer(table, tree));
+        }
+        padre.addChildNode(condicion);
+        padre.addChildNode(listaIfs);
+        // LISTA IFS
+        if (this.ins_elses != null) {
+            padre.addChildNode(this.ins_elses.recorrer(table, tree));
+        }
+        return padre;
+    }
+}
+exports.Ifsinllave = Ifsinllave;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],30:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Switch = void 0;
+const Nodo_1 = require("../../Ast/Nodo");
+const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Break_1 = require("../Transferencia/Break");
+const Return_1 = require("../Transferencia/Return");
+const Errores_1 = require("../../Ast/Errores");
+class Switch {
+    constructor(valor_sw, lista_case, lista_default, fila, columna) {
+        this.valor_sw = valor_sw;
+        this.lista_case = lista_case;
+        this.lista_default = lista_default;
+        this.columna = columna;
+        this.fila = fila;
+    }
+    ejecutar(table, tree) {
+        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        for (let sw of this.lista_case) {
+            sw.valor_sw = this.valor_sw.ejecutar(ts_local, tree);
+            if (sw.valor_sw instanceof Errores_1.Errores) {
+                tree.getErrores().push(sw.valor_sw);
+                tree.updateConsolaPrintln(sw.valor_sw.toString());
+            }
+        }
+        let x = 0;
+        for (let ins of this.lista_case) {
+            let res = ins.ejecutar(ts_local, tree);
+            if (res instanceof Errores_1.Errores) {
+                tree.getErrores().push(res);
+                tree.updateConsolaPrintln(res.toString());
+            }
+            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                x = 1;
+                break;
+            }
+            else {
+                if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                    return res;
+                }
+            }
+        }
+        if (x == 0) {
+            for (let ins of this.lista_default) {
+                let res = ins.ejecutar(ts_local, tree);
+                if (res instanceof Errores_1.Errores) {
+                    tree.getErrores().push(res);
+                    tree.updateConsolaPrintln(res.toString());
+                }
+                if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                    break;
+                }
+                else {
+                    if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                        // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                        return res;
+                    }
+                }
+            }
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error('Method not implemented.');
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("SWITCH", "");
+        let condicion = new Nodo_1.Nodo("CONDICION", "");
+        condicion.addChildNode(this.valor_sw.ejecutar(table, tree));
+        let listaCase = new Nodo_1.Nodo("LISTA CASE", "");
+        for (let instr of this.lista_case) {
+            listaCase.addChildNode(instr.recorrer(table, tree));
+        }
+        let listaDefault = new Nodo_1.Nodo("LISTA DEFAULT", "");
+        if (this.lista_default != null) {
+            for (let instr of this.lista_default) {
+                listaDefault.addChildNode(instr.recorrer(table, tree));
+            }
+        }
+        return padre;
+    }
+}
+exports.Switch = Switch;
+
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Declaracion = void 0;
+const Errores_1 = require("../Ast/Errores");
+const Nodo_1 = require("../Ast/Nodo");
+const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
+class Declaracion {
+    constructor(tipo, simbolos, fila, columna) {
+        this.arreglo = false;
+        // this.id = id;
+        this.tipo = tipo;
+        this.simbolos = simbolos;
+        this.fila = fila;
+        this.columna = columna;
+        this.arreglo = false;
+    }
+    ejecutar(table, tree) {
+        for (let simbolo of this.simbolos) {
+            let variable = simbolo;
+            // console.log(variable.id)
+            if (variable.valor != null) {
+                let valor = variable.valor.ejecutar(table, tree);
+                //Verificando TIPOS de Variable
+                let tipo_valor = variable.valor.tipo;
+                // console.log("variable.valor.tipo: " + variable.valor.tipo);
+                if (valor instanceof Errores_1.Errores) {
+                    return valor;
+                }
+                if (tipo_valor == this.tipo) {
+                    // console.log("entre tipo declaracion");
+                    //--> Lo agregamos a la tabla de simbolos 
+                    let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, valor);
+                    table.setSymbolTabla(nuevo_simb);
+                }
+                else {
+                    // console.log("errorrr tipo declaracion");
+                    // console.log("tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
+                    //Error no se puede declarar por incopatibilidad de simbolos
+                    return new Errores_1.Errores("Semantico", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
+                }
+            }
+            else {
+                //-- DECLARACION 1ERA VEZ -Se agrega a la tabla de simbolos 
+                let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
+                switch (this.tipo) {
+                    case Tipo_1.TIPO.ENTERO:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, 0);
+                        break;
+                    case Tipo_1.TIPO.DECIMAL:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, 0.00);
+                        break;
+                    case Tipo_1.TIPO.CADENA:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
+                        break;
+                    case Tipo_1.TIPO.BOOLEANO:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, false);
+                        break;
+                    case Tipo_1.TIPO.CHARACTER:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, '0');
+                        break;
+                    default:
+                        nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, null);
+                        break;
+                }
+                table.setSymbolTabla(nuevo_simb);
+            }
+        }
+    }
+    translate3d(table, tree) {
+        throw new Error("Method not implemented.");
+    }
+    recorrer(table, tree) {
+        let padre = new Nodo_1.Nodo("DECLARACION", "");
+        for (let sim of this.simbolos) {
+            sim.valor.recorrer(table, tree);
+        }
+        return padre;
+    }
+}
+exports.Declaracion = Declaracion;
+
+},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56}],32:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
@@ -5635,7 +5829,7 @@ class Funcion {
 }
 exports.Funcion = Funcion;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52}],32:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
@@ -5690,7 +5884,7 @@ class Main {
 }
 exports.Main = Main;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52}],33:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
@@ -5734,7 +5928,7 @@ class Pop {
 }
 exports.Pop = Pop;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],34:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Push = void 0;
@@ -5788,7 +5982,7 @@ class Push {
 }
 exports.Push = Push;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],35:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],36:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharOfPos = void 0;
@@ -5853,7 +6047,7 @@ class CharOfPos {
 }
 exports.CharOfPos = CharOfPos;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],36:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subString = void 0;
@@ -5942,7 +6136,7 @@ class subString {
 }
 exports.subString = subString;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],37:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],38:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
@@ -5988,7 +6182,7 @@ class toLower {
 }
 exports.toLower = toLower;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],38:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toUpper = void 0;
@@ -6034,7 +6228,7 @@ class toUpper {
 }
 exports.toUpper = toUpper;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],39:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
@@ -6080,7 +6274,7 @@ class Length {
 }
 exports.Length = Length;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":56}],40:[function(require,module,exports){
+},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":56}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
@@ -6148,7 +6342,7 @@ class Matematicas {
 }
 exports.Matematicas = Matematicas;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"./../../../Expresiones/Identificador":9}],41:[function(require,module,exports){
+},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"./../../../Expresiones/Identificador":9}],42:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parse = void 0;
@@ -6223,7 +6417,7 @@ class Parse {
 }
 exports.Parse = Parse;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],42:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":56}],43:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
@@ -6288,7 +6482,7 @@ class To {
 }
 exports.To = To;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],43:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],44:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringN = void 0;
@@ -6329,7 +6523,7 @@ class StringN {
 }
 exports.StringN = StringN;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":56}],44:[function(require,module,exports){
+},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":56}],45:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
@@ -6395,7 +6589,7 @@ class TypeOfN {
 }
 exports.TypeOfN = TypeOfN;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":56}],45:[function(require,module,exports){
+},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":56}],46:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -6469,7 +6663,7 @@ class Print {
 }
 exports.Print = Print;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56,"./Transferencia/Return":52}],46:[function(require,module,exports){
+},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":54,"../TablaSimbolos/Tipo":56,"./Transferencia/Return":53}],47:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsignaVariable = void 0;
@@ -6573,7 +6767,7 @@ class AsignaVariable {
 }
 exports.AsignaVariable = AsignaVariable;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56,"../Asignacion":19}],47:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56,"../Asignacion":22}],48:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclararStruct = void 0;
@@ -6712,7 +6906,7 @@ class DeclararStruct {
 }
 exports.DeclararStruct = DeclararStruct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Llamada":10,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56}],48:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Llamada":10,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56}],49:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Struct = void 0;
@@ -6854,7 +7048,7 @@ class Struct {
 }
 exports.Struct = Struct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Arreglos/DeclaracionArr":17,"../Declaracion":28,"../Transferencia/Break":50,"../Transferencia/Continuar":51,"../Transferencia/Return":52,"./DeclararStruct":47,"./StructInStruct":49}],49:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./DeclararStruct":48,"./StructInStruct":50}],50:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructInStruct = void 0;
@@ -6895,7 +7089,7 @@ class StructInStruct {
 }
 exports.StructInStruct = StructInStruct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],50:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":54,"../../TablaSimbolos/Tipo":56}],51:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
@@ -6918,7 +7112,7 @@ class Detener {
 }
 exports.Detener = Detener;
 
-},{"../../Ast/Nodo":4}],51:[function(require,module,exports){
+},{"../../Ast/Nodo":4}],52:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Continuar = void 0;
@@ -6941,7 +7135,7 @@ class Continuar {
 }
 exports.Continuar = Continuar;
 
-},{"../../Ast/Nodo":4}],52:[function(require,module,exports){
+},{"../../Ast/Nodo":4}],53:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Return = void 0;
@@ -6982,11 +7176,7 @@ class Return {
 }
 exports.Return = Return;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4}],53:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-
-},{}],54:[function(require,module,exports){
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4}],54:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Simbolo = void 0;
@@ -7244,30 +7434,21 @@ var OperadorLogico;
 })(OperadorLogico = exports.OperadorLogico || (exports.OperadorLogico = {}));
 
 },{}],57:[function(require,module,exports){
-// const { TablaSimbolos } = require("./Clases/TablaSimbolos/TablaSimbolos");
-
-// import Nodo from "../../Ast/Nodo";
-
-var myTab = document.getElementById('myTab');
-var itemAbrir = document.getElementById('itemAbrir');
-let result;
-let astTraduccion;
-let entornoAnalizar;
-// let listaErrores = Lista_Error.getInstancia();
 const { Ast } = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
-const { Primitivo } = require("./dist/Expresiones/Primitivo");
-const { TablaSimbolos } = require("./dist/TablaSimbolos/TablaSimbolos");
-const { Instruccion } = require("./dist/Interfaces/Instruccion");
 const { Declaracion } = require("./dist/Instrucciones/Declaracion");
 const { Funcion } = require("./dist/Instrucciones/Metodos/Funcion");
 const { Main } = require("./dist/Instrucciones/Metodos/Main");
 const { Asignacion } = require("./dist/Instrucciones/Asignacion");
 const { DeclaracionArr } = require("./dist/Instrucciones/Arreglos/DeclaracionArr");
 const { Struct } = require("./dist/Instrucciones/Struct/Struct");
-// const Lista_Imprimir = require("./dist/Lista_imprimir");
-
 const compilar = document.getElementById('compilarProyecto');
+var myTab = document.getElementById('myTab');
+var itemAbrir = document.getElementById('itemAbrir');
+let result;
+let result_traduccion;
+let entornoAnalizar;
+let entornoTraducir;
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "javascript",
@@ -7362,6 +7543,30 @@ agregarNuevoTab.addEventListener('click', async () => {
     editores.push(nuevoEditor);
     
 });
+
+function addNuevoTab(){
+
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementById('#myTab');
+    tablinks = document.getElementById('#myTabContent');
+    cantTabs = cantTabs + 1;
+
+    $('#myTab').append('\
+    <li class = "nav-item">\
+    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
+    </li>');
+    $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
+
+    var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
+        mode: "javascript",
+        theme: "night",
+        lineNumbers: true
+    });
+    editorActual.setSize(null, 520);
+    var nuevoEditor = new Editor(editorActual);
+    editores.push(nuevoEditor);
+    
+};
 
 eliminarTab.addEventListener('click', async () => {
 
@@ -7512,37 +7717,31 @@ reporteAST.addEventListener('click', () => {
     });
 });
 
-function traducirProyecto(){
-
+traducirProyecto.addEventListener('click', () => {
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
-
     let indexTab = 0;
     let auxiliar = 0;
-
     myTabs.forEach(element => {
-
         var itemA = element.querySelector("a");
-
         var bandera = itemA.getAttribute('aria-selected')
-
         if (bandera == 'true') {
             currentTab = itemA.id;
             indexTab = auxiliar;
         }
-
         auxiliar = auxiliar + 1;
     });
 
     try{
-        listaErrores.length = 0;
-        astTraduccion = traduccion.parse(editores[indexTab].codeEditor.getValue());
-        let entorno = new Entorno(null);
-        entorno.setGlobal(entorno);
-        entorno.setPadre(null);
-        let textoTraduccion = astTraduccion.traducir(entorno);
-        agregarNuevoTab();
+        result_traduccion = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        console.log(result_traduccion);
+        entornoTraducir = result_traduccion.TSglobal;
+        let textoTraduccion = result_traduccion.traducir();
+        let c3d = result_traduccion.generadorC3d.getCode();
+        result_traduccion.generadorC3d.clearCode();
+        console.log(c3d);
+        addNuevoTab();
         let tam =  editores.length;
-        editores[tam-1].codeEditor.setValue(textoTraduccion);
+        editores[tam-1].codeEditor.setValue(c3d);
         // alert('Gramatica Correcta');
         Swal.fire(
             '¡Muy bien!',
@@ -7559,7 +7758,7 @@ function traducirProyecto(){
         });
     }
 
-}
+});
 
 reporteErrores.addEventListener('click', () => {
     
@@ -7787,7 +7986,7 @@ function reporteAST_Traduccion(){
     let arbol = new Arbol();
     
     //parse(editores[indexTab].codeEditor.getValue());
-    let result = arbol.generarDot(astTraduccion);
+    let result = arbol.generarDot(result_traduccion);
     //console.log(result);
 
     var clickedTab = document.getElementById("clickedTab");
@@ -7810,7 +8009,7 @@ viz.renderSVGElement(text).then(function (element) {
         console.error(error);
     });*/
 //
-},{"./Analizadores/gramatica":1,"./dist/Ast/Ast":2,"./dist/Expresiones/Primitivo":14,"./dist/Instrucciones/Arreglos/DeclaracionArr":17,"./dist/Instrucciones/Asignacion":19,"./dist/Instrucciones/Declaracion":28,"./dist/Instrucciones/Metodos/Funcion":31,"./dist/Instrucciones/Metodos/Main":32,"./dist/Instrucciones/Struct/Struct":48,"./dist/Interfaces/Instruccion":53,"./dist/TablaSimbolos/TablaSimbolos":55}],58:[function(require,module,exports){
+},{"./Analizadores/gramatica":1,"./dist/Ast/Ast":2,"./dist/Instrucciones/Arreglos/DeclaracionArr":20,"./dist/Instrucciones/Asignacion":22,"./dist/Instrucciones/Declaracion":31,"./dist/Instrucciones/Metodos/Funcion":32,"./dist/Instrucciones/Metodos/Main":33,"./dist/Instrucciones/Struct/Struct":49}],58:[function(require,module,exports){
 
 },{}],59:[function(require,module,exports){
 (function (process){(function (){

@@ -42,7 +42,7 @@ export class Identificador implements Instruccion{
         return this.symbol.getValor()
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented en IDENTIFICADOR.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("IDENTIFICADOR","");

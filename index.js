@@ -1,27 +1,18 @@
-// const { TablaSimbolos } = require("./Clases/TablaSimbolos/TablaSimbolos");
-
-// import Nodo from "../../Ast/Nodo";
-
-var myTab = document.getElementById('myTab');
-var itemAbrir = document.getElementById('itemAbrir');
-let result;
-let astTraduccion;
-let entornoAnalizar;
-// let listaErrores = Lista_Error.getInstancia();
 const { Ast } = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
-const { Primitivo } = require("./dist/Expresiones/Primitivo");
-const { TablaSimbolos } = require("./dist/TablaSimbolos/TablaSimbolos");
-const { Instruccion } = require("./dist/Interfaces/Instruccion");
 const { Declaracion } = require("./dist/Instrucciones/Declaracion");
 const { Funcion } = require("./dist/Instrucciones/Metodos/Funcion");
 const { Main } = require("./dist/Instrucciones/Metodos/Main");
 const { Asignacion } = require("./dist/Instrucciones/Asignacion");
 const { DeclaracionArr } = require("./dist/Instrucciones/Arreglos/DeclaracionArr");
 const { Struct } = require("./dist/Instrucciones/Struct/Struct");
-// const Lista_Imprimir = require("./dist/Lista_imprimir");
-
 const compilar = document.getElementById('compilarProyecto');
+var myTab = document.getElementById('myTab');
+var itemAbrir = document.getElementById('itemAbrir');
+let result;
+let result_traduccion;
+let entornoAnalizar;
+let entornoTraducir;
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "javascript",
@@ -116,6 +107,30 @@ agregarNuevoTab.addEventListener('click', async () => {
     editores.push(nuevoEditor);
     
 });
+
+function addNuevoTab(){
+
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementById('#myTab');
+    tablinks = document.getElementById('#myTabContent');
+    cantTabs = cantTabs + 1;
+
+    $('#myTab').append('\
+    <li class = "nav-item">\
+    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
+    </li>');
+    $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
+
+    var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
+        mode: "javascript",
+        theme: "night",
+        lineNumbers: true
+    });
+    editorActual.setSize(null, 520);
+    var nuevoEditor = new Editor(editorActual);
+    editores.push(nuevoEditor);
+    
+};
 
 eliminarTab.addEventListener('click', async () => {
 
@@ -266,37 +281,31 @@ reporteAST.addEventListener('click', () => {
     });
 });
 
-function traducirProyecto(){
-
+traducirProyecto.addEventListener('click', () => {
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
-
     let indexTab = 0;
     let auxiliar = 0;
-
     myTabs.forEach(element => {
-
         var itemA = element.querySelector("a");
-
         var bandera = itemA.getAttribute('aria-selected')
-
         if (bandera == 'true') {
             currentTab = itemA.id;
             indexTab = auxiliar;
         }
-
         auxiliar = auxiliar + 1;
     });
 
     try{
-        listaErrores.length = 0;
-        astTraduccion = traduccion.parse(editores[indexTab].codeEditor.getValue());
-        let entorno = new Entorno(null);
-        entorno.setGlobal(entorno);
-        entorno.setPadre(null);
-        let textoTraduccion = astTraduccion.traducir(entorno);
-        agregarNuevoTab();
+        result_traduccion = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        console.log(result_traduccion);
+        entornoTraducir = result_traduccion.TSglobal;
+        let textoTraduccion = result_traduccion.traducir();
+        let c3d = result_traduccion.generadorC3d.getCode();
+        result_traduccion.generadorC3d.clearCode();
+        console.log(c3d);
+        addNuevoTab();
         let tam =  editores.length;
-        editores[tam-1].codeEditor.setValue(textoTraduccion);
+        editores[tam-1].codeEditor.setValue(c3d);
         // alert('Gramatica Correcta');
         Swal.fire(
             '¡Muy bien!',
@@ -313,7 +322,7 @@ function traducirProyecto(){
         });
     }
 
-}
+});
 
 reporteErrores.addEventListener('click', () => {
     
@@ -541,7 +550,7 @@ function reporteAST_Traduccion(){
     let arbol = new Arbol();
     
     //parse(editores[indexTab].codeEditor.getValue());
-    let result = arbol.generarDot(astTraduccion);
+    let result = arbol.generarDot(result_traduccion);
     //console.log(result);
 
     var clickedTab = document.getElementById("clickedTab");
