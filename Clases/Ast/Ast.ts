@@ -272,7 +272,7 @@ export class Ast  {
             if(nodo instanceof Nodo &&  nodo.getToken() != null){
                 let nameHijo = "n" + this.contador.toString();
                 let token = nodo.getToken().toString().replace("\"","")
-                console.log(token)
+                // console.log(token)
                 this.dot += nameHijo + "[label=\"" + token + "\"];\n";
                 this.dot += idPadre + "->" + nameHijo + ";\n"
                 this.contador++;

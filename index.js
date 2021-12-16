@@ -260,7 +260,6 @@ compilar.addEventListener('click', () => {
 
 
 });
-
 /**
  *  REPORTE DE AST
  * Graficando el ast
@@ -268,24 +267,78 @@ compilar.addEventListener('click', () => {
 reporteAST.addEventListener('click', () => {  
 
     // let arbol = new Arbol();
-    
+    var dot = result.graphAst();
     //parse(editores[indexTab].codeEditor.getValue());
     // let result = arbol.generarDot(result);
+    var parserDot = vis.network.convertDot(dot);
     //console.log(result);
-    let dot = result.graphAst();
-
-
+    
     var clickedTab = document.getElementById("clickedTab");
     clickedTab.innerHTML = "";
-    clickedTab.innerHTML = "<h3>Reporte AST</h3>"
-    var viz = new Viz();
-    viz.renderSVGElement(dot).then(function (element) {
-        clickedTab.appendChild(element);
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+    // clickedTab.innerHTML = "<h3>Reporte AST</h3>"
+    // var viz = new Viz();
+    // viz.renderSVGElement(result).then(function (element) {
+    //     clickedTab.appendChild(element);
+    // })
+    // .catch((error) => {
+    //     console.error(error);
+    // });
+
+    var dataDOT = {
+        nodes: parserDot.nodes,
+        edges: parserDot.edges
+        }
+        // OPTIONs
+    var options = {
+    autoResize: true,
+    physics:{
+    stabilization:false
+    },
+    layout: {
+            hierarchical:{
+                levelSeparation: 150,
+                nodeSpacing: 150,
+                parentCentralization: true,
+                direction: 'UD',
+                sortMethod: 'directed' 
+            },
+        }
+    };
+ 
+    var network = new vis.Network(clickedTab, dataDOT, options);
+    
 });
+
+function graficando_ast_d(contenido){
+    var DOTstring = obtener_arbolast(contenido);
+  
+    var container = document.getElementById('arbol_ast');
+    var parsedData = vis.network.convertDot(DOTstring);
+  
+    var dataDOT = {
+         nodes: parsedData.nodes,
+         edges: parsedData.edges
+         }
+         // OPTIONs
+     var options = {
+     autoResize: true,
+     physics:{
+     stabilization:false
+     },
+     layout: {
+             hierarchical:{
+                 levelSeparation: 150,
+                 nodeSpacing: 150,
+                 parentCentralization: true,
+                 direction: 'UD',
+                 sortMethod: 'directed' 
+             },
+         }
+     };
+  
+     var network = new vis.Network(container, dataDOT, options);
+  
+  }
 
 traducirProyecto.addEventListener('click', () => {
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
@@ -308,7 +361,7 @@ traducirProyecto.addEventListener('click', () => {
         let textoTraduccion = result_traduccion.traducir();
         let c3d = result_traduccion.generadorC3d.getCode();
         result_traduccion.generadorC3d.clearCode();
-        console.log(c3d);
+        // console.log(c3d);
         addNuevoTab();
         let tam =  editores.length;
         editores[tam-1].codeEditor.setValue(c3d);

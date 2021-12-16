@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relacional = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
+const Retorno_1 = require("../../G3D/Retorno");
 class Relacional {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -46,9 +47,6 @@ class Relacional {
             default:
                 break;
         }
-    }
-    translate3d(table, tree) {
-        throw new Error("Method not implemented.");
     }
     getTipo(table, tree) {
         let valor = this.ejecutar(table, tree);
@@ -400,6 +398,150 @@ class Relacional {
             padre.addChildNode(this.exp2.recorrer());
         }
         return padre;
+    }
+    translate3d(table, tree) {
+        let valor_exp1;
+        let valor_exp2;
+        let valor_expU;
+        if (this.expU == false) {
+            valor_exp1 = this.exp1.translate3d(table, tree);
+            valor_exp2 = this.exp2.translate3d(table, tree);
+        }
+        else {
+            valor_expU = this.exp1.translate3d(table, tree);
+        }
+        switch (this.operador) {
+            case Tipo_1.OperadorRelacional.IGUALIGUAL:
+                return this.igualigual3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorRelacional.DIFERENTE:
+                return this.diferente3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorRelacional.MENORQUE:
+                return this.menorque3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorRelacional.MENORIGUAL:
+                return this.menorigual3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorRelacional.MAYORQUE:
+                return this.mayorque3D(valor_exp1, valor_exp2, tree);
+            case Tipo_1.OperadorRelacional.MAYORIGUAL:
+                return this.mayoigual3D(valor_exp1, valor_exp2, tree);
+            default:
+                break;
+        }
+    }
+    igualigual3D(valor_exp1, valor_exp2, tree) {
+        const genC3d = tree.generadorC3d;
+        const temp = genC3d.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                return this.compararExp(valor_exp1, valor_exp2, tree, '==');
+            }
+        }
+        else {
+            if (valor_exp1.tipo == Tipo_1.TIPO.CADENA) {
+                if (valor_exp2.tipo == Tipo_1.TIPO.CADENA) {
+                    const tempAux = genC3d.newTemp();
+                    genC3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                    genC3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                    genC3d.gen_Exp(tempAux, tempAux, '1', '+');
+                    genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                    genC3d.gen_NextEnv(1);
+                    genC3d.gen_Call('nativa_compararIgual_str_str');
+                    genC3d.gen_GetStack(temp, 'p');
+                    genC3d.gen_AntEnv(1);
+                    this.lblTrue = this.lblTrue == '' ? genC3d.newLabel().toString() : this.lblTrue;
+                    console.log(this.lblTrue);
+                    this.lblFalse = this.lblFalse == '' ? genC3d.newLabel().toString() : this.lblFalse;
+                    console.log(this.lblFalse);
+                    genC3d.gen_If(temp, '1', '==', this.lblTrue);
+                    genC3d.gen_Goto(this.lblFalse);
+                    const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
+                    retorno.lblTrue = this.lblTrue;
+                    retorno.lblFalse = this.lblFalse;
+                    return retorno;
+                }
+            }
+        }
+    }
+    menorque3D(valor_exp1, valor_exp2, tree) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                return this.compararExp(valor_exp1, valor_exp2, tree, '<');
+            }
+        }
+    }
+    menorigual3D(valor_exp1, valor_exp2, tree) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                return this.compararExp(valor_exp1, valor_exp2, tree, '<=');
+            }
+        }
+    }
+    mayorque3D(valor_exp1, valor_exp2, tree) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                return this.compararExp(valor_exp1, valor_exp2, tree, '>');
+            }
+        }
+    }
+    mayoigual3D(valor_exp1, valor_exp2, tree) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                return this.compararExp(valor_exp1, valor_exp2, tree, '>=');
+            }
+        }
+    }
+    diferente3D(valor_exp1, valor_exp2, tree) {
+        const genC3d = tree.generadorC3d;
+        const temp = genC3d.newTemp();
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+                return this.compararExp(valor_exp1, valor_exp2, tree, '!=');
+            }
+        }
+        else {
+            if (valor_exp1.tipo == Tipo_1.TIPO.CADENA) {
+                if (valor_exp2.tipo == Tipo_1.TIPO.CADENA) {
+                    const tempAux = genC3d.newTemp();
+                    genC3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                    genC3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                    genC3d.gen_Exp(tempAux, tempAux, '1', '+');
+                    genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                    genC3d.gen_NextEnv(1);
+                    genC3d.gen_Call('nativa_compararIgual_str_str');
+                    genC3d.gen_GetStack(temp, 'p');
+                    genC3d.gen_AntEnv(1);
+                    this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
+                    this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
+                    genC3d.gen_If(temp, '1', '!=', this.lblTrue);
+                    genC3d.gen_Goto(this.lblFalse);
+                    const ret = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
+                    ret.lblTrue = this.lblTrue;
+                    ret.lblFalse = this.lblFalse;
+                    return ret;
+                }
+            }
+        }
+    }
+    compararExp(valor_exp1, valor_exp2, tree, signo) {
+        const genC3d = tree.generadorC3d;
+        this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
+        this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
+        genC3d.gen_If(valor_exp1.translate3d(), valor_exp2.translate3d(), signo, this.lblTrue);
+        genC3d.gen_Goto(this.lblFalse);
+        const ret = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
+        ret.lblTrue = this.lblTrue;
+        ret.lblFalse = this.lblFalse;
+        return ret;
+    }
+    limpiar() {
+        this.lblFalse = '';
+        this.lblTrue = '';
+        if (this.expU == false) {
+            this.exp1.limpiar();
+            this.exp2.limpiar();
+        }
+        else {
+            this.exp1.limpiar();
+        }
     }
 }
 exports.Relacional = Relacional;
