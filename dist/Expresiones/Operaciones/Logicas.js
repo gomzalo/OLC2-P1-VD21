@@ -4,6 +4,7 @@ exports.Logica = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Errores_1 = require("../../Ast/Errores");
+const Retorno_1 = require("../../G3D/Retorno");
 class Logica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -13,6 +14,17 @@ class Logica {
         this.columna = columna;
         this.expU = expU;
         this.tipo = null;
+    }
+    limpiar() {
+        this.lblFalse = '';
+        this.lblTrue = '';
+        if (this.expU == false) {
+            this.exp1.limpiar();
+            this.exp2.limpiar();
+        }
+        else {
+            this.exp1.limpiar();
+        }
     }
     ejecutar(table, tree) {
         let valor_exp1;
@@ -51,7 +63,6 @@ class Logica {
                         return valor_exp1 || valor_exp2;
                     }
                     else {
-                        // ERROR SEMANTICO
                         return new Errores_1.Errores("Semantico", "Logica -OR- Los tipos no coinciden ", this.fila, this.columna);
                     }
                 }
@@ -62,16 +73,57 @@ class Logica {
                     return !valor_expU;
                 }
                 else {
-                    //TODO: Error
                     return new Errores_1.Errores("Semantico", "Logica -NOT- El tipo no coincide ", this.fila, this.columna);
                 }
-            // TODO: Agregar caso para logica OR. 
             default:
                 break;
         }
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        switch (this.operador) {
+            case Tipo_1.OperadorLogico.AND:
+                return this.and3D(table, tree);
+            case Tipo_1.OperadorLogico.NOT:
+                break;
+            case Tipo_1.OperadorLogico.OR:
+                return this.or3D(table, tree);
+            default:
+                break;
+        }
+    }
+    and3D(table, tree) {
+        const gen3d = tree.generadorC3d;
+        this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
+        this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
+        this.exp1.lblTrue = gen3d.newLabel();
+        this.exp2.lblTrue = this.lblTrue;
+        this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
+        const expIzq = this.exp1.translate3d(tree, table);
+        gen3d.gen_Label(this.exp1.lblTrue);
+        const expDer = this.exp2.translate3d(tree, table);
+        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
+            const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
+            retorno.lblTrue = this.lblTrue;
+            retorno.lblFalse = this.exp2.lblFalse;
+            return retorno;
+        }
+    }
+    or3D(table, tree) {
+        const gen3d = tree.generadorC3d;
+        this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
+        this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
+        this.exp1.lblTrue = this.exp2.lblTrue = this.lblTrue;
+        this.exp1.lblFalse = gen3d.newLabel();
+        this.exp2.lblFalse = this.lblFalse;
+        const expIzq = this.exp1.translate3d(tree, table);
+        gen3d.gen_Label(this.exp1.lblFalse);
+        const expDer = this.exp2.translate3d(tree, table);
+        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
+            const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
+            retorno.lblTrue = this.lblTrue;
+            retorno.lblFalse = this.exp2.lblFalse;
+            return retorno;
+        }
     }
     getTipo(table, tree) {
         let valor = this.ejecutar(table, tree);

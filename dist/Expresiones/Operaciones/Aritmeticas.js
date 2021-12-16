@@ -350,26 +350,26 @@ class Aritmetica {
     // :::::::::::::::::::::    Aritmeticas C3D      :::::::::::::::::::::
     // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     suma3D(valor_exp1, valor_exp2, tree) {
-        const generador = tree.generadorC3d;
-        const temp = generador.newTemp();
+        const genc3d = tree.generadorC3d;
+        const temp = genc3d.newTemp();
         let tempAux;
         switch (valor_exp1.tipo) {
             case Tipo_1.TIPO.DECIMAL:
                 switch (valor_exp2.tipo) {
                     case Tipo_1.TIPO.DECIMAL:
-                        generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
                         return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
                     case Tipo_1.TIPO.CADENA:
-                        let tempAux = generador.newTemp();
-                        generador.freeTemp(tempAux);
-                        generador.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        generador.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        generador.gen_Exp(tempAux, tempAux, '1', '+');
-                        generador.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        generador.gen_NextEnv(1);
-                        generador.gen_Call('nativa_concat_int_str');
-                        generador.gen_GetStack(temp, 'p');
-                        generador.gen_AntEnv(1);
+                        let tempAux = genc3d.newTemp();
+                        genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_int_str');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
                     case Tipo_1.TIPO.BOOLEANO:
                     default:
@@ -379,28 +379,28 @@ class Aritmetica {
             case Tipo_1.TIPO.CADENA:
                 switch (valor_exp2.tipo) {
                     case Tipo_1.TIPO.DECIMAL:
-                        tempAux = generador.newTemp();
-                        generador.freeTemp(tempAux);
-                        generador.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        generador.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        generador.gen_Exp(tempAux, tempAux, '1', '+');
-                        generador.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        generador.gen_NextEnv(1);
-                        generador.gen_Call('nativa_concat_str_int');
-                        generador.gen_GetStack(temp, 'p');
-                        generador.gen_AntEnv(1);
+                        tempAux = genc3d.newTemp();
+                        genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
                     case Tipo_1.TIPO.CADENA:
-                        tempAux = generador.newTemp();
-                        generador.freeTemp(tempAux);
-                        generador.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        generador.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        generador.gen_Exp(tempAux, tempAux, '1', '+');
-                        generador.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        generador.gen_NextEnv(1);
-                        generador.gen_Call('nativa_concat_str_str');
-                        generador.gen_GetStack(temp, 'p');
-                        generador.gen_AntEnv(1);
+                        tempAux = genc3d.newTemp();
+                        genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_str_str');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
                     case Tipo_1.TIPO.BOOLEANO:
                     default:
@@ -430,50 +430,50 @@ class Aritmetica {
         }
     }
     resta3D(valor_exp1, valor_exp2, tree) {
-        const generador = tree.generadorC3d;
-        const temp = generador.newTemp();
+        const genc3d = tree.generadorC3d;
+        const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
-                generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
+                genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
         }
     }
     multiplicacion3D(valor_exp1, valor_exp2, tree) {
-        const generador = tree.generadorC3d;
-        const temp = generador.newTemp();
+        const genc3d = tree.generadorC3d;
+        const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
-                generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
+                genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
         }
     }
     divicion3D(valor_exp1, valor_exp2, tree) {
-        const generador = tree.generadorC3d;
-        const temp = generador.newTemp();
+        const genc3d = tree.generadorC3d;
+        const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
-                generador.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
+                genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
         }
     }
     modulo3D(valor_exp1, valor_exp2, tree) {
-        const generador = tree.generadorC3d;
-        const temp = generador.newTemp();
+        const genc3d = tree.generadorC3d;
+        const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
-                generador.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
+                genc3d.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
         }
     }
     unario3D(valor_exp1, tree) {
-        const generador = tree.generadorC3d;
-        const temp = generador.newTemp();
+        const genc3d = tree.generadorC3d;
+        const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            generador.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
+            genc3d.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
             return new Retorno_1.Retorno(temp, true, valor_exp1.tipo);
         }
     }

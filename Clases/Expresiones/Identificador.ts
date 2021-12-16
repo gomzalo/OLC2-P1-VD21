@@ -5,6 +5,7 @@ import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../TablaSimbolos/Tipo";
 import { Simbolo } from "../TablaSimbolos/Simbolo"
 import { Nodo } from "../Ast/Nodo";
+import { Retorno } from "../G3D/Retorno";
 
 export class Identificador implements Instruccion{
     public id : string ;
@@ -14,6 +15,7 @@ export class Identificador implements Instruccion{
     public tipoStruct : string;
     public symbol :Simbolo| any;
     arreglo: boolean;
+    public valor;
     
     constructor(id:string, fila, columna){
         this.id =id
@@ -41,9 +43,33 @@ export class Identificador implements Instruccion{
         }
         return this.symbol.getValor()
     }
+    
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented en IDENTIFICADOR.");
+    
+        this.symbol = table.getSymbolTabla(this.id);
+    
+        if (this.symbol != null) {
+            const generator = tree.generadorC3d;
+            if (typeof this.symbol.valor == "number") {
+            return new Retorno(this.symbol.valor + "", false, TIPO.DECIMAL);
+            } else if (typeof this.symbol.valor == "string") {
+            console.log("entre****");
+            console.log(this.symbol);
+            const temp = generator.newTemp();
+            generator.genAsignaTemp(temp, "h");
+            for (let i = 0; i < this.symbol.valor.length; i++) {
+                generator.gen_SetHeap("h", this.symbol.valor.charCodeAt(i));
+                generator.nextHeap();
+            }
+            generator.gen_SetHeap("h", "-1");
+            generator.nextHeap();
+            return new Retorno(temp, true, TIPO.CADENA);
+            } else {
+            console.log("no entre");
+            }
+        }
     }
+
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("IDENTIFICADOR","");
         padre.addChildNode(new Nodo(this.id.toString(),""));

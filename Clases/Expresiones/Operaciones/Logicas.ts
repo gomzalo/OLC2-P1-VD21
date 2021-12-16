@@ -5,10 +5,13 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";
 import { Errores } from '../../Ast/Errores';
 import { Instruccion } from "../../Interfaces/Instruccion";
+import { Retorno } from "../../G3D/Retorno";
 
 export class Logica implements Instruccion{
     fila: number;
     columna: number;
+    lblTrue: string;
+    lblFalse: string;
     public exp1: any;
     public operador: any;
     public exp2: any;
@@ -24,6 +27,18 @@ export class Logica implements Instruccion{
         this.columna = columna;
         this.expU = expU;
         this.tipo = null;
+    }
+
+    limpiar() {
+        this.lblFalse='';
+        this.lblTrue='';
+        if(this.expU==false){
+        this.exp1.limpiar();
+        this.exp2.limpiar();
+        }else{
+        this.exp1.limpiar();
+        }
+        
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
@@ -64,7 +79,6 @@ export class Logica implements Instruccion{
                         this.tipo = TIPO.BOOLEANO;
                         return valor_exp1 || valor_exp2;
                     }else {
-                        // ERROR SEMANTICO
                         return new Errores("Semantico", "Logica -OR- Los tipos no coinciden " , this.fila, this.columna);
                     }
                 }
@@ -74,16 +88,68 @@ export class Logica implements Instruccion{
                         this.tipo = TIPO.BOOLEANO;
                         return !valor_expU;
                     }else{
-                        //TODO: Error
                         return new Errores("Semantico", "Logica -NOT- El tipo no coincide " , this.fila, this.columna);
                     }
-            // TODO: Agregar caso para logica OR. 
             default:
                 break;
         }
     }
+
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        switch(this.operador){
+            case OperadorLogico.AND:
+                return this.and3D(table, tree);
+            case OperadorLogico.NOT:
+                break;
+            case OperadorLogico.OR:
+                return this.or3D(table, tree);
+            default:
+                break;
+        }
+    }
+
+    and3D(table: TablaSimbolos, tree: Ast){
+        const gen3d =tree.generadorC3d;
+        this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
+        this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
+
+        this.exp1.lblTrue = gen3d.newLabel();
+        this.exp2.lblTrue = this.lblTrue;
+        this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
+
+        const expIzq = this.exp1.translate3d(tree,table);
+        gen3d.gen_Label(this.exp1.lblTrue);
+        const expDer = this.exp2.translate3d(tree,table);
+
+        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
+            const retorno = new Retorno('', false, TIPO.BOOLEANO);
+            retorno.lblTrue = this.lblTrue;
+            retorno.lblFalse = this.exp2.lblFalse;
+            return retorno;
+        }
+        
+    }
+
+    or3D(table: TablaSimbolos, tree: Ast){
+        const gen3d = tree.generadorC3d;
+        this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
+        this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
+
+        this.exp1.lblTrue = this.exp2.lblTrue = this.lblTrue;
+        this.exp1.lblFalse = gen3d.newLabel();
+        this.exp2.lblFalse = this.lblFalse;
+
+        const expIzq = this.exp1.translate3d(tree,table);
+        gen3d.gen_Label(this.exp1.lblFalse);
+        const expDer = this.exp2.translate3d(tree,table);
+
+        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
+        
+        const retorno = new Retorno('', false, TIPO.BOOLEANO);
+        retorno.lblTrue = this.lblTrue;
+        retorno.lblFalse = this.exp2.lblFalse;
+        return retorno;
+        }
     }
 
     getTipo(table: TablaSimbolos, tree: Ast): TIPO {
