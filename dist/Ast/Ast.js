@@ -14,6 +14,8 @@ const Errores_1 = require("./Errores");
 const Struct_1 = require("../Instrucciones/Struct/Struct");
 const DeclaracionArr_1 = require("../Instrucciones/Arreglos/DeclaracionArr");
 const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
+const Nodo_1 = require("./Nodo");
+const GeneradorC3D_1 = require("../Instrucciones/G3D/GeneradorC3D");
 class Ast {
     constructor() {
         this.consola = "";
@@ -25,10 +27,12 @@ class Ast {
         this.structs = new Array();
         this.Errores = new Array();
         this.consola = "";
+        // this.TSglobal =  null;
         this.dot = "";
         this.contador = 0;
         this.strEntorno = "";
         this.TSglobal = new TablaSimbolos_1.TablaSimbolos(null);
+        this.generadorC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
     }
     ejecutar() {
         let tree = this;
@@ -179,6 +183,13 @@ class Ast {
     }
     addStruct(struct) {
         this.structs.push(struct);
+    }
+    recorrer() {
+        let raiz = new Nodo_1.Nodo("INICIO", "");
+        for (let inst of this.instrucciones) {
+            raiz.addChildNode(inst.recorrer(this.TSglobal, this));
+        }
+        return raiz;
     }
 }
 exports.Ast = Ast;
