@@ -332,6 +332,8 @@ void main()
     String t = arr.pop();
     println(t); // T
     println(arr); // H,O
+    int arrintpop = arrint.pop();
+    println(arrintpop); // 0
     println("");
     println("************   Length arreglos  **************");
     println("");
@@ -484,4 +486,3 @@ void metodo (String hola)
 {
     println(hola);
 }
-

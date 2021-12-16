@@ -13,7 +13,7 @@ import { Struct } from "../Instrucciones/Struct/Struct";
 import { DeclaracionArr } from "../Instrucciones/Arreglos/DeclaracionArr";
 import { ModificacionArr } from '../Instrucciones/Arreglos/ModificacionArr';
 import { Nodo } from './Nodo';
-import { GeneradorC3D } from '../Instrucciones/G3D/GeneradorC3D';
+import { GeneradorC3D } from '../G3D/GeneradorC3D';
 
 export class Ast  {
     public instrucciones:Array<Instruccion>;

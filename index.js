@@ -442,6 +442,7 @@ reporteTablaSimbolos.addEventListener('click', () => {
             <tr>
             <th scope="row">${contador}</th>
             <td>Struct</td>
+            <td>Global</td>
             <td>${instruccion.id}</td>
             <td>${instruccion.fila}</td>
             <td>${instruccion.columna}</td>
