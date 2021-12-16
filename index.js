@@ -14,6 +14,14 @@ let result_traduccion;
 let entornoAnalizar;
 let entornoTraducir;
 
+var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
+    mode: "javascript",
+    theme: "night",
+    lineNumbers:true,
+    autoCloseBrackets: true,
+    readOnly: false
+});
+
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "javascript",
     theme: "night",
@@ -24,8 +32,10 @@ text.setSize(null,520);
 
 var cantTabs = 1;
 var editor = new Editor(text);
+var editor2 = new Editor(text2);
 var editores = [];
 editores.push(editor);
+editores.push(editor2);
 
 function Editor(codeEditor){    
     this.codeEditor = codeEditor;
@@ -270,75 +280,23 @@ reporteAST.addEventListener('click', () => {
     var dot = result.graphAst();
     //parse(editores[indexTab].codeEditor.getValue());
     // let result = arbol.generarDot(result);
-    var parserDot = vis.network.convertDot(dot);
+    // var parserDot = vis.network.convertDot(dot);
     //console.log(result);
     
     var clickedTab = document.getElementById("clickedTab");
     clickedTab.innerHTML = "";
-    // clickedTab.innerHTML = "<h3>Reporte AST</h3>"
-    // var viz = new Viz();
-    // viz.renderSVGElement(result).then(function (element) {
-    //     clickedTab.appendChild(element);
-    // })
-    // .catch((error) => {
-    //     console.error(error);
-    // });
-
-    var dataDOT = {
-        nodes: parserDot.nodes,
-        edges: parserDot.edges
-        }
-        // OPTIONs
-    var options = {
-    autoResize: true,
-    physics:{
-    stabilization:false
-    },
-    layout: {
-            hierarchical:{
-                levelSeparation: 150,
-                nodeSpacing: 150,
-                parentCentralization: true,
-                direction: 'UD',
-                sortMethod: 'directed' 
-            },
-        }
-    };
+    clickedTab.innerHTML = "<h3>Reporte AST</h3>"
+    var viz = new Viz();
+    viz.renderSVGElement(dot).then(function (element) {
+        clickedTab.appendChild(element);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
  
-    var network = new vis.Network(clickedTab, dataDOT, options);
-    
 });
 
-function graficando_ast_d(contenido){
-    var DOTstring = obtener_arbolast(contenido);
-  
-    var container = document.getElementById('arbol_ast');
-    var parsedData = vis.network.convertDot(DOTstring);
-  
-    var dataDOT = {
-         nodes: parsedData.nodes,
-         edges: parsedData.edges
-         }
-         // OPTIONs
-     var options = {
-     autoResize: true,
-     physics:{
-     stabilization:false
-     },
-     layout: {
-             hierarchical:{
-                 levelSeparation: 150,
-                 nodeSpacing: 150,
-                 parentCentralization: true,
-                 direction: 'UD',
-                 sortMethod: 'directed' 
-             },
-         }
-     };
-  
-     var network = new vis.Network(container, dataDOT, options);
-  
-  }
+
 
 traducirProyecto.addEventListener('click', () => {
     let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
@@ -354,18 +312,29 @@ traducirProyecto.addEventListener('click', () => {
         auxiliar = auxiliar + 1;
     });
 
+    var txtC3d = document.getElementById("textAreaC3d");
+    $("#textAreaC3d").val("");
+
     try{
         result_traduccion = gramatica.parse(editores[indexTab].codeEditor.getValue());
-        console.log(result_traduccion);
+        // console.log(result_traduccion);
         entornoTraducir = result_traduccion.TSglobal;
-        let textoTraduccion = result_traduccion.traducir();
-        let c3d = result_traduccion.generadorC3d.getCode();
-        result_traduccion.generadorC3d.clearCode();
+        let c3d = result_traduccion.traducir();
+        // let c3d = result_traduccion.generadorC3d.getCode();
+        // result_traduccion.generadorC3d.clearCode();
         // console.log(c3d);
-        addNuevoTab();
-        let tam =  editores.length;
-        editores[tam-1].codeEditor.setValue(c3d);
+        // addNuevoTab();
+        // let tam =  editores.length;
+        // editores[tam-1].codeEditor.setValue(c3d);
         // alert('Gramatica Correcta');
+        // let textarea =  document.querySelector('#textAreaC3d');
+        // let value = "";
+        // value += c3d;
+        // textarea.value = value;
+        // $("#textAreaC3d").val(c3d);
+        // txtC3d.append(c3d);
+        text2.setValue(c3d);
+
         Swal.fire(
             '¡Muy bien!',
             '¡Se completo la traducción!',
@@ -623,12 +592,3 @@ function reporteAST_Traduccion(){
         console.error(error);
     });
 }
-/*var viz = new Viz();
-viz.renderSVGElement(text).then(function (element) {
-        div.appendChild(element);
-    })
-    .catch((error) => {
-        viz = new Viz();
-        console.error(error);
-    });*/
-//

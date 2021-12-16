@@ -132,6 +132,19 @@ export class Ast  {
         this.instrucciones.forEach(instr => {
             instr.translate3d(this.TSglobal, tree)
         });
+        let txtC3d = this.generadorC3d.getCode();
+        console.log(txtC3d)
+        this.printInHtmlC3d(txtC3d);
+        this.generadorC3d.clearCode();
+        return txtC3d;
+    }
+
+    public printInHtmlC3d(cadena)
+    {
+        let textarea = <HTMLInputElement>document.querySelector('#textAreaC3d');
+        let value = "";
+        value += cadena;
+        textarea.value = value;
     }
 
     public getInstrucciones(){
