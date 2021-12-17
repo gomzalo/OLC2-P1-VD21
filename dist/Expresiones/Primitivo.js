@@ -32,6 +32,7 @@ class Primitivo {
             return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
         }
         else if (typeof valor == 'boolean') {
+            this.tipo = Tipo_1.TIPO.BOOLEANO;
             return Tipo_1.TIPO.BOOLEANO;
         }
     }

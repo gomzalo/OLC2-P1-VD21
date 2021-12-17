@@ -38,6 +38,7 @@ export class Primitivo implements Instruccion{
             generator.nextHeap();
         return new Retorno(temp, true, TIPO.CADENA);
         }else if (typeof valor== 'boolean'){
+            this.tipo = TIPO.BOOLEANO;
             return TIPO.BOOLEANO;
         }
     }

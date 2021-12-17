@@ -14,6 +14,8 @@ class Logica {
         this.columna = columna;
         this.expU = expU;
         this.tipo = null;
+        this.lblFalse = '';
+        this.lblTrue = '';
     }
     limpiar() {
         this.lblFalse = '';
@@ -95,13 +97,15 @@ class Logica {
         const gen3d = tree.generadorC3d;
         this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
+        console.log(this.exp1.lblTrue);
+        console.log(this.exp1.lblFalse);
         this.exp1.lblTrue = gen3d.newLabel();
         this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
-        const expIzq = this.exp1.translate3d(tree, table);
+        const expIzq = this.exp1.translate3d(table, tree);
         gen3d.gen_Label(this.exp1.lblTrue);
-        const expDer = this.exp2.translate3d(tree, table);
-        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
+        const expDer = this.exp2.translate3d(table, tree);
+        if (expIzq == Tipo_1.TIPO.BOOLEANO && expDer == Tipo_1.TIPO.BOOLEANO) {
             const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
@@ -115,10 +119,10 @@ class Logica {
         this.exp1.lblTrue = this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = gen3d.newLabel();
         this.exp2.lblFalse = this.lblFalse;
-        const expIzq = this.exp1.translate3d(tree, table);
+        const expIzq = this.exp1.translate3d(table, tree);
         gen3d.gen_Label(this.exp1.lblFalse);
-        const expDer = this.exp2.translate3d(tree, table);
-        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
+        const expDer = this.exp2.translate3d(table, tree);
+        if (expIzq == Tipo_1.TIPO.BOOLEANO && expDer == Tipo_1.TIPO.BOOLEANO) {
             const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;

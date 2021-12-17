@@ -27,6 +27,8 @@ export class Logica implements Instruccion{
         this.columna = columna;
         this.expU = expU;
         this.tipo = null;
+        this.lblFalse='';
+        this.lblTrue='';
     }
 
     limpiar() {
@@ -113,15 +115,17 @@ export class Logica implements Instruccion{
         this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
 
+        console.log(this.exp1.lblTrue)
+        console.log(this.exp1.lblFalse)
         this.exp1.lblTrue = gen3d.newLabel();
         this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
 
-        const expIzq = this.exp1.translate3d(tree,table);
+        const expIzq = this.exp1.translate3d(table, tree);
         gen3d.gen_Label(this.exp1.lblTrue);
-        const expDer = this.exp2.translate3d(tree,table);
+        const expDer = this.exp2.translate3d(table, tree);
 
-        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
+        if(expIzq == TIPO.BOOLEANO && expDer == TIPO.BOOLEANO){
             const retorno = new Retorno('', false, TIPO.BOOLEANO);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
@@ -139,11 +143,11 @@ export class Logica implements Instruccion{
         this.exp1.lblFalse = gen3d.newLabel();
         this.exp2.lblFalse = this.lblFalse;
 
-        const expIzq = this.exp1.translate3d(tree,table);
+        const expIzq = this.exp1.translate3d(table, tree);
         gen3d.gen_Label(this.exp1.lblFalse);
-        const expDer = this.exp2.translate3d(tree,table);
+        const expDer = this.exp2.translate3d(table,tree);
 
-        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
+        if(expIzq == TIPO.BOOLEANO && expDer == TIPO.BOOLEANO){
         
         const retorno = new Retorno('', false, TIPO.BOOLEANO);
         retorno.lblTrue = this.lblTrue;
