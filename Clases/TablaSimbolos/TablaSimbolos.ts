@@ -14,10 +14,12 @@ export class TablaSimbolos{
     public anterior: TablaSimbolos;
     public tabla: Map<string, Simbolo>;
     public pos3d: string;
+    public size: number;
 
     constructor(anterior : TablaSimbolos){
         this.anterior = anterior;
         this.tabla = new Map<string, Simbolo>();
+        this.size = anterior?.size || 0;
     }
 
     public setSymbolTabla(simbolo: Simbolo){
