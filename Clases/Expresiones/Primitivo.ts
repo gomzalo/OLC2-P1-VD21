@@ -42,7 +42,7 @@ export class Primitivo implements Instruccion{
             return new Retorno(temp, true, TIPO.CADENA);
         }else if (typeof valor== 'boolean'){
             // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-            return TIPO.BOOLEANO;
+            return new Retorno("", false, TIPO.BOOLEANO);
         }
     }
     recorrer(table: TablaSimbolos, tree: Ast): Nodo {

@@ -6,6 +6,8 @@ import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";
 import { Errores } from '../../Ast/Errores';
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Retorno } from "../../G3D/Retorno";
+import { Aritmetica } from "./Aritmeticas";
+import { Relacional } from "./Relacionales";
 
 export class Logica implements Instruccion{
     fila: number;
@@ -27,14 +29,17 @@ export class Logica implements Instruccion{
         this.columna = columna;
         this.expU = expU;
         this.tipo = null;
-        this.lblFalse='';
-        this.lblTrue='';
+        this.lblFalse="";
+        this.lblTrue="";
     }
 
     limpiar() {
         this.lblFalse='';
         this.lblTrue='';
         if(this.expU==false){
+            if (this.exp1 instanceof Aritmetica || this.exp1 instanceof Logica || this.exp1 instanceof Relacional){
+
+            }
         this.exp1.limpiar();
         this.exp2.limpiar();
         }else{
@@ -97,7 +102,10 @@ export class Logica implements Instruccion{
         }
     }
 
+    
+
     translate3d(table: TablaSimbolos, tree: Ast) {
+        
         switch(this.operador){
             case OperadorLogico.AND:
                 return this.and3D(table, tree);
@@ -110,8 +118,12 @@ export class Logica implements Instruccion{
         }
     }
 
+
+
     and3D(table: TablaSimbolos, tree: Ast){
         const gen3d =tree.generadorC3d;
+        // validando undefined
+        // if ()
         this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
 
@@ -120,15 +132,20 @@ export class Logica implements Instruccion{
         this.exp1.lblTrue = gen3d.newLabel();
         this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
+        gen3d.gen_Goto(this.exp1.lblFalse);
 
         const expIzq = this.exp1.translate3d(table, tree);
-        gen3d.gen_Label(this.exp1.lblTrue);
+        gen3d.gen_Goto(this.exp1.lblTrue);
+        // gen3d.gen_Label(this.exp1.lblTrue);
+        
         const expDer = this.exp2.translate3d(table, tree);
 
-        if(expIzq == TIPO.BOOLEANO && expDer == TIPO.BOOLEANO){
+        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
             const retorno = new Retorno('', false, TIPO.BOOLEANO);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
+            
+
             return retorno;
         }
         
@@ -147,7 +164,7 @@ export class Logica implements Instruccion{
         gen3d.gen_Label(this.exp1.lblFalse);
         const expDer = this.exp2.translate3d(table,tree);
 
-        if(expIzq == TIPO.BOOLEANO && expDer == TIPO.BOOLEANO){
+        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
         
         const retorno = new Retorno('', false, TIPO.BOOLEANO);
         retorno.lblTrue = this.lblTrue;

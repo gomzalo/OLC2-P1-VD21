@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
-const Retorno_1 = require("./../G3D/Retorno");
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
+const Retorno_1 = require("../G3D/Retorno");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../TablaSimbolos/Tipo");
 const Return_1 = require("./Transferencia/Return");
@@ -60,6 +60,7 @@ class Print {
         this.parametros.forEach(expresion => {
             let valor3d = expresion.translate3d(table, tree);
             if (valor3d instanceof Retorno_1.Retorno) {
+                console.log(valor3d);
                 let temp = valor3d.translate3d();
                 let t0 = genc3d.newTemp();
                 if (valor3d.tipo == Tipo_1.TIPO.CADENA) {
@@ -78,6 +79,18 @@ class Print {
                     genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
                     genc3d.gen_Print('f', temp);
                     genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
+                }
+                else if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
+                    let salida = genc3d.newLabel();
+                    genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');
+                    genc3d.gen_Label(valor3d.lblFalse);
+                    genc3d.gen_PrintFalse();
+                    genc3d.gen_Goto(salida);
+                    genc3d.gen_Comment('--------- INICIA PRINT TRUE ---------');
+                    genc3d.gen_Label(valor3d.lblTrue);
+                    genc3d.gen_PrintTrue();
+                    genc3d.gen_Goto(salida);
+                    genc3d.gen_Label(salida);
                 }
                 if (this.tipo) {
                     genc3d.gen_Print('c', '10');

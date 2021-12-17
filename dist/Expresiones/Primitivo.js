@@ -36,7 +36,7 @@ class Primitivo {
         }
         else if (typeof valor == 'boolean') {
             // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-            return Tipo_1.TIPO.BOOLEANO;
+            return new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
         }
     }
     recorrer(table, tree) {

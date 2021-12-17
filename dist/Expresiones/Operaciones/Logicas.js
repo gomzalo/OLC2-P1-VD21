@@ -5,6 +5,8 @@ const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Errores_1 = require("../../Ast/Errores");
 const Retorno_1 = require("../../G3D/Retorno");
+const Aritmeticas_1 = require("./Aritmeticas");
+const Relacionales_1 = require("./Relacionales");
 class Logica {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -14,13 +16,15 @@ class Logica {
         this.columna = columna;
         this.expU = expU;
         this.tipo = null;
-        this.lblFalse = '';
-        this.lblTrue = '';
+        this.lblFalse = "";
+        this.lblTrue = "";
     }
     limpiar() {
         this.lblFalse = '';
         this.lblTrue = '';
         if (this.expU == false) {
+            if (this.exp1 instanceof Aritmeticas_1.Aritmetica || this.exp1 instanceof Logica || this.exp1 instanceof Relacionales_1.Relacional) {
+            }
             this.exp1.limpiar();
             this.exp2.limpiar();
         }
@@ -95,6 +99,8 @@ class Logica {
     }
     and3D(table, tree) {
         const gen3d = tree.generadorC3d;
+        // validando undefined
+        // if ()
         this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
         console.log(this.exp1.lblTrue);
@@ -102,10 +108,12 @@ class Logica {
         this.exp1.lblTrue = gen3d.newLabel();
         this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
+        gen3d.gen_Goto(this.exp1.lblFalse);
         const expIzq = this.exp1.translate3d(table, tree);
-        gen3d.gen_Label(this.exp1.lblTrue);
+        gen3d.gen_Goto(this.exp1.lblTrue);
+        // gen3d.gen_Label(this.exp1.lblTrue);
         const expDer = this.exp2.translate3d(table, tree);
-        if (expIzq == Tipo_1.TIPO.BOOLEANO && expDer == Tipo_1.TIPO.BOOLEANO) {
+        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
             const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
@@ -122,7 +130,7 @@ class Logica {
         const expIzq = this.exp1.translate3d(table, tree);
         gen3d.gen_Label(this.exp1.lblFalse);
         const expDer = this.exp2.translate3d(table, tree);
-        if (expIzq == Tipo_1.TIPO.BOOLEANO && expDer == Tipo_1.TIPO.BOOLEANO) {
+        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
             const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
