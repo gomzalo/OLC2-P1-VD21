@@ -37,7 +37,7 @@ export class Copiar implements Instruccion{
     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented COPIAR.");
     }
 
     recorrer(table: TablaSimbolos, tree: Ast) {

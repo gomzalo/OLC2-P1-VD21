@@ -53,7 +53,7 @@ class While {
         }
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented WHILE.');
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("WHILE", "");

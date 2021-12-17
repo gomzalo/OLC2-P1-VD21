@@ -371,13 +371,12 @@ export class Relacional implements Instruccion{
         this.lblFalse='';
         this.lblTrue='';
         if(this.expU==false){
-         this.exp1.limpiar();
-         this.exp2.limpiar();
+        this.exp1.limpiar();
+        this.exp2.limpiar();
         }else{
-         this.exp1.limpiar();
+        this.exp1.limpiar();
         }
-        
-     }
+    }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
         // this.limpiar()

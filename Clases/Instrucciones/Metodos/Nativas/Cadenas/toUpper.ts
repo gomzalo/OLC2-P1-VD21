@@ -44,7 +44,7 @@ export class toUpper implements Funcion{
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented TOUPP.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("toLower","");

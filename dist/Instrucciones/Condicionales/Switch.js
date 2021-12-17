@@ -63,7 +63,7 @@ class Switch {
         }
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented SW.');
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("SWITCH", "");

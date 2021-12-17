@@ -62,7 +62,7 @@ export class Asignacion implements Instruccion{
         return null
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented ASIGNACION.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("ASIGNACION","");

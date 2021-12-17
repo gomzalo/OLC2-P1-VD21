@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
+const Retorno_1 = require("./../../G3D/Retorno");
 const Tipo_1 = require("./../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
@@ -17,6 +18,9 @@ class If {
         this.columna = columna;
         this.fila = fila;
     }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //      :::::::::::::::::::::    EJECUTAR      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ejecutar(table, tree) {
         // let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
@@ -94,8 +98,49 @@ class If {
         }
         // return null;
     }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::    C3D      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     translate3d(table, tree) {
-        throw new Error('Method not implemented.');
+        const genc3d = tree.generadorC3d;
+        let valor_condicion = this.condicion.translate3d(table, tree);
+        console.log("valor_condicion valor");
+        console.log(valor_condicion.valor);
+        console.log("valor_condicion tipo");
+        console.log(valor_condicion.tipo);
+        console.log("valor_condicion istemp");
+        console.log(valor_condicion.istemp);
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        let lb_exit;
+        if (valor_condicion instanceof Retorno_1.Retorno) {
+            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (valor_condicion.istemp) {
+                    genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
+                    genc3d.gen_Goto(valor_condicion.lblFalse);
+                }
+                genc3d.gen_Label(valor_condicion.lblTrue);
+                this.lista_ifs.forEach(instruccion => {
+                    instruccion.translate3d(table, tree);
+                });
+            }
+            else {
+                if (this.lista_elses != null) {
+                    lb_exit = genc3d.newLabel();
+                    genc3d.gen_Goto(lb_exit);
+                    genc3d.gen_Label(valor_condicion.lblFalse);
+                    this.lista_elses.forEach(instruccion => {
+                        instruccion.translate3d(table, tree);
+                    });
+                    genc3d.gen_Label(lb_exit);
+                }
+                else if (this.lista_ifelse != null) {
+                    this.lista_ifelse.translate3d(table, tree);
+                }
+            }
+        }
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("IF", "");

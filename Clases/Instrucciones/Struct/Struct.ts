@@ -150,7 +150,7 @@ export class Struct implements Instruccion{
         return this.id;
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented STRC.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("STRUCTS","");

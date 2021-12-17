@@ -123,7 +123,7 @@ class DeclaracionArr {
         return null;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented DECLARR.");
     }
     recorrer(table, tree) {
         return new Nodo_1.Nodo("Modificacion Array", "");

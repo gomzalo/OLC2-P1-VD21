@@ -101,7 +101,7 @@ class Ifsinllave {
         return null;
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented IFNOLL.');
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("IF", "");

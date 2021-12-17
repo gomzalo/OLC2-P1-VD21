@@ -25,7 +25,7 @@ class Return {
         // this.tipo = this.valor.tipo;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented RETURN.");
     }
     recorrer() {
         let padre = new Nodo_1.Nodo("RETURN", "");

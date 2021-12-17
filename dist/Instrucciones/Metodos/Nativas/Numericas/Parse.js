@@ -61,7 +61,7 @@ class Parse {
         }
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented PARSE.");
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Parse", "");

@@ -11,7 +11,7 @@ class Continuar {
         return this;
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented CONTINUAR.');
     }
     recorrer() {
         let padre = new Nodo_1.Nodo("CONTINUE", "");

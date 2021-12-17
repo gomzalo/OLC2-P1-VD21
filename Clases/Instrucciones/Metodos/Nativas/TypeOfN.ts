@@ -41,7 +41,7 @@ export class TypeOfN implements Funcion{
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented TYPEOF.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("TypeOfN","");

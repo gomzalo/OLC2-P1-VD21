@@ -1,3 +1,4 @@
+import { Retorno } from './../../G3D/Retorno';
 import { Primitivo } from './../../Expresiones/Primitivo';
 import { Logica } from './../../Expresiones/Operaciones/Logicas';
 import { Relacional } from './../../Expresiones/Operaciones/Relacionales';
@@ -31,7 +32,9 @@ export class If implements Instruccion{
         this.columna = columna;
         this.fila = fila;
     }
-
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //      :::::::::::::::::::::    EJECUTAR      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // let ts_local = new TablaSimbolos(table);
         let valor_condicion = this.condicion.ejecutar(table, tree);
@@ -110,9 +113,51 @@ export class If implements Instruccion{
         }
         // return null;
     }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // :::::::::::::::::::::    C3D      :::::::::::::::::::::
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        const genc3d = tree.generadorC3d;
+
+        let valor_condicion = this.condicion.translate3d(table, tree);
+        console.log("valor_condicion valor");
+        console.log(valor_condicion.valor);
+        console.log("valor_condicion tipo");
+        console.log(valor_condicion.tipo);
+        console.log("valor_condicion istemp");
+        console.log(valor_condicion.istemp);
+        if (valor_condicion instanceof Errores)
+        {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        let lb_exit;
+        if(valor_condicion instanceof Retorno){
+            if(this.condicion.tipo == TIPO.BOOLEANO){
+                if(valor_condicion.istemp){
+                    genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
+                    genc3d.gen_Goto(valor_condicion.lblFalse);
+                }
+                genc3d.gen_Label(valor_condicion.lblTrue);
+                this.lista_ifs.forEach(instruccion => {
+                    instruccion.translate3d(table, tree);
+                });
+            }else{
+                if(this.lista_elses != null){
+                    lb_exit = genc3d.newLabel();
+                    genc3d.gen_Goto(lb_exit);
+                    genc3d.gen_Label(valor_condicion.lblFalse);
+                    this.lista_elses.forEach(instruccion => {
+                        instruccion.translate3d(table, tree);
+                    });
+                    genc3d.gen_Label(lb_exit);
+                }else if(this.lista_ifelse != null){
+                    this.lista_ifelse.translate3d(table, tree);
+                }
+        }
     }
+    }
+
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("IF","");
 

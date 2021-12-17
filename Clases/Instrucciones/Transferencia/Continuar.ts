@@ -19,7 +19,7 @@ export class Continuar implements Instruccion{
         return this;
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented CONTINUAR.');
     }
     recorrer(): Nodo {
         let padre = new Nodo("CONTINUE","");

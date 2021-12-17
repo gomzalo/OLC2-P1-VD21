@@ -125,7 +125,7 @@ class Struct {
         return this.id;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented STRC.");
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("STRUCTS", "");

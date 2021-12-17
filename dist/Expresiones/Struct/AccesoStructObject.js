@@ -90,10 +90,10 @@ class AccesoStructObject {
         console.log("");
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented ACCSTRCOBJ.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented ACCSTRCOBJ.");
     }
 }
 exports.AccesoStructObject = AccesoStructObject;

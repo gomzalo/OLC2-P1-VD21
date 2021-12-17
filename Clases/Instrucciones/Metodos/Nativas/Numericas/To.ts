@@ -66,7 +66,7 @@ export class To implements Funcion{
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented TO_CONV.");
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre =  new Nodo("toLower","");

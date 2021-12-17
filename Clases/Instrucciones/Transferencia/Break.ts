@@ -19,7 +19,7 @@ export class Detener implements Instruccion{
     }
     
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented BREAK.");
     }
 
     recorrer(table: TablaSimbolos, tree: Ast) {

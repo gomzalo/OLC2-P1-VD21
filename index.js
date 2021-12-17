@@ -321,7 +321,7 @@ traducirProyecto.addEventListener('click', () => {
         let c3d = result.traducir();
         // let c3d = result_traduccion.generadorC3d.getCode();
         // result_traduccion.generadorC3d.clearCode();
-        // console.log(c3d);
+        console.log(result);
         // addNuevoTab();
         // let tam =  editores.length;
         // editores[tam-1].codeEditor.setValue(c3d);

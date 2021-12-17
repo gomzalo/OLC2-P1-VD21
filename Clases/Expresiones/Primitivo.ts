@@ -39,7 +39,7 @@ export class Primitivo implements Instruccion{
             genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
             genc3d.gen_SetHeap('h', '-1');
             genc3d.nextHeap();
-        return new Retorno(temp, true, TIPO.CADENA);
+            return new Retorno(temp, true, TIPO.CADENA);
         }else if (typeof valor== 'boolean'){
             // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
             return TIPO.BOOLEANO;
