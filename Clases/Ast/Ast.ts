@@ -133,9 +133,9 @@ export class Ast  {
             instr.translate3d(this.TSglobal, tree)
         });
         let txtC3d = this.generadorC3d.getCode();
-        console.log(txtC3d)
+        // console.log(txtC3d)
         this.printInHtmlC3d(txtC3d);
-        this.generadorC3d.clearCode();
+        // this.generadorC3d.clearCode();
         return txtC3d;
     }
 
