@@ -14,7 +14,7 @@ let entornoAnalizar;
 let entornoTraducir;
 
 var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
-    mode: "javascript",
+    mode: "text/x-csrc",
     theme: "night",
     lineNumbers:true,
     autoCloseBrackets: true,
@@ -22,7 +22,7 @@ var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
 });
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
-    mode: "javascript",
+    mode: "text/x-java",
     theme: "night",
     lineNumbers:true,
     autoCloseBrackets: true

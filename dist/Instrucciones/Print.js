@@ -60,7 +60,7 @@ class Print {
         this.parametros.forEach(expresion => {
             let valor3d = expresion.translate3d(table, tree);
             if (valor3d instanceof Retorno_1.Retorno) {
-                console.log(valor3d);
+                // console.log(valor3d)
                 let temp = valor3d.translate3d();
                 let t0 = genc3d.newTemp();
                 if (valor3d.tipo == Tipo_1.TIPO.CADENA) {

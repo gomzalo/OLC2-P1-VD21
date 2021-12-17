@@ -49,7 +49,7 @@ export class Relacional implements Instruccion{
          * Para las siguientes validaciones nos basamos en la tabla de 
          * de las operaciones relacionales permitidas que soporta el lenguaje descrito en el enunciado.
          */
-         switch(this.operador){
+        switch(this.operador){
             case OperadorRelacional.IGUALIGUAL:
                 return this.igualigual(valor_exp1,valor_exp2);
             case OperadorRelacional.DIFERENTE:
@@ -412,8 +412,8 @@ export class Relacional implements Instruccion{
     igualigual3D(valor_exp1:Retorno, valor_exp2:Retorno, tree:Ast){
         const genC3d  = tree.generadorC3d;
         const temp = genC3d.newTemp();
-        if( valor_exp1.tipo == TIPO.DECIMAL ){
-            if( valor_exp2.tipo == TIPO.DECIMAL ){
+        if( valor_exp1.tipo == TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO ){
+            if( valor_exp2.tipo == TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO ){
                 return this.compararExp(valor_exp1,valor_exp2,tree,'==');
             }
         }else{
@@ -430,9 +430,9 @@ export class Relacional implements Instruccion{
                     genC3d.gen_AntEnv(1);
 
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
-                    console.log(this.lblTrue)
+                    // console.log(this.lblTrue)
                     this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
-                    console.log(this.lblFalse)
+                    // console.log(this.lblFalse)
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
                     genC3d.gen_Goto(this.lblFalse);
                     const retorno = new Retorno(temp, true, TIPO.BOOLEANO);
@@ -445,31 +445,31 @@ export class Relacional implements Instruccion{
     }
 
     menorque3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
-        if(valor_exp1.tipo==TIPO.DECIMAL){
-            if(valor_exp2.tipo==TIPO.DECIMAL){
+        if(valor_exp1.tipo==TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo==TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 return this.compararExp(valor_exp1,valor_exp2,tree,'<');
             }
         }
     }
 
     menorigual3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
-        if(valor_exp1.tipo==TIPO.DECIMAL){
-            if(valor_exp2.tipo==TIPO.DECIMAL){
+        if(valor_exp1.tipo==TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo==TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 return this.compararExp(valor_exp1,valor_exp2,tree,'<=');
             }
         }
     }
     mayorque3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
-        if(valor_exp1.tipo==TIPO.DECIMAL){
-            if(valor_exp2.tipo==TIPO.DECIMAL){
+        if(valor_exp1.tipo==TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo==TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 return this.compararExp(valor_exp1,valor_exp2,tree,'>');
             }
         }
     }
 
     mayoigual3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
-        if(valor_exp1.tipo==TIPO.DECIMAL){
-            if(valor_exp2.tipo==TIPO.DECIMAL){
+        if(valor_exp1.tipo==TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo==TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 return this.compararExp(valor_exp1,valor_exp2,tree,'>=');
             }
         }
@@ -478,8 +478,8 @@ export class Relacional implements Instruccion{
     diferente3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
         const genC3d  = tree.generadorC3d;
         const temp = genC3d.newTemp();
-        if(valor_exp1.tipo==TIPO.DECIMAL){
-            if(valor_exp2.tipo==TIPO.DECIMAL){
+        if(valor_exp1.tipo==TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo==TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 return this.compararExp(valor_exp1,valor_exp2,tree,'!=');
             }
         }else{

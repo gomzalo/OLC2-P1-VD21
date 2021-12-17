@@ -422,6 +422,9 @@ export class Aritmetica implements Instruccion {
                     case TIPO.DECIMAL:
                         genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
                         return new Retorno(temp, true,valor_exp2.tipo);
+                    case TIPO.ENTERO:
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno(temp, true,valor_exp2.tipo);
                     case TIPO.CADENA:
                         let tempAux = genc3d.newTemp(); genc3d.freeTemp(tempAux);
                         genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
@@ -438,7 +441,32 @@ export class Aritmetica implements Instruccion {
                     default:
                         break;
                 }
-            break;
+                break;
+            case TIPO.ENTERO:
+                switch(valor_exp2.tipo){
+                    case TIPO.DECIMAL:
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno(temp, true,valor_exp2.tipo);
+                    case TIPO.ENTERO:
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno(temp, true,valor_exp2.tipo);
+                    case TIPO.CADENA:
+                        let tempAux = genc3d.newTemp(); genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_int_str');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
+                        return new Retorno(temp, true, TIPO.CADENA); 
+                    case TIPO.BOOLEANO:
+
+                    default:
+                        break;
+                }
+                break;
             case TIPO.CADENA:
                 switch(valor_exp2.tipo){
                     case TIPO.DECIMAL:
@@ -452,7 +480,17 @@ export class Aritmetica implements Instruccion {
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno(temp, true, TIPO.CADENA); 
-                    
+                    case TIPO.ENTERO:
+                        tempAux = genc3d.newTemp(); genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
+                        return new Retorno(temp, true, TIPO.CADENA); 
                     case TIPO.CADENA:
                         tempAux = genc3d.newTemp(); genc3d.freeTemp(tempAux);
                         genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
@@ -464,14 +502,12 @@ export class Aritmetica implements Instruccion {
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno(temp, true, TIPO.CADENA); 
-
                     case TIPO.BOOLEANO:
 
                     default:
-                    break;
+                        break;
                 }
-
-
+                break;
             default:
                 break;
         }
@@ -497,8 +533,8 @@ export class Aritmetica implements Instruccion {
     resta3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if(valor_exp1.tipo == TIPO.DECIMAL){
-            if(valor_exp2.tipo == TIPO.DECIMAL){
+        if(valor_exp1.tipo == TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo == TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
                 return new Retorno(temp, true, valor_exp2.tipo);
             }
@@ -508,8 +544,8 @@ export class Aritmetica implements Instruccion {
     multiplicacion3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if(valor_exp1.tipo == TIPO.DECIMAL){
-            if(valor_exp2.tipo == TIPO.DECIMAL){
+        if(valor_exp1.tipo == TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo == TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
                 return new Retorno(temp, true, valor_exp2.tipo);
             }
@@ -519,8 +555,8 @@ export class Aritmetica implements Instruccion {
     divicion3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if(valor_exp1.tipo == TIPO.DECIMAL){
-            if(valor_exp2.tipo == TIPO.DECIMAL){
+        if(valor_exp1.tipo == TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo == TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
                 return new Retorno(temp, true, valor_exp2.tipo);
             }
@@ -530,8 +566,8 @@ export class Aritmetica implements Instruccion {
     modulo3D(valor_exp1:Retorno,valor_exp2:Retorno,tree:Ast){
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if(valor_exp1.tipo == TIPO.DECIMAL){
-            if(valor_exp2.tipo == TIPO.DECIMAL){
+        if(valor_exp1.tipo == TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
+            if(valor_exp2.tipo == TIPO.DECIMAL || valor_exp2.tipo == TIPO.ENTERO){
                 genc3d.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
                 return new Retorno(temp, true, valor_exp2.tipo);
             }
@@ -541,7 +577,7 @@ export class Aritmetica implements Instruccion {
     unario3D(valor_exp1:Retorno,tree:Ast){
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if(valor_exp1.tipo == TIPO.DECIMAL){
+        if(valor_exp1.tipo == TIPO.DECIMAL || valor_exp1.tipo == TIPO.ENTERO){
             genc3d.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
             return new Retorno(temp, true, valor_exp1.tipo);
         }

@@ -29,35 +29,35 @@ export class Primitivo implements Instruccion{
     translate3d(table: TablaSimbolos, tree: Ast) {
         let valor= this.ejecutar(table, tree);
         const genc3d = tree.generadorC3d;
-        if(typeof valor== 'number'){
-            // genc3d.gen_Comment('--------- INICIA RECORRE NUMERO ---------');
-            return new Retorno(this.valor, false, TIPO.DECIMAL);
-        }else if (typeof valor=='string'){
-            const temp = genc3d.newTemp();
-            genc3d.genAsignaTemp(temp, 'h');
-            genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
-            for (let i = 0; i < valor.length; i++) {
-                genc3d.gen_SetHeap('h', valor.charCodeAt(i));
+        switch(this.tipo){
+            case TIPO.ENTERO:
+                return new Retorno(this.valor, false, TIPO.ENTERO);
+            case TIPO.DECIMAL:
+                // genc3d.gen_Comment('--------- INICIA RECORRE NUMERO ---------');
+                return new Retorno(this.valor, false, TIPO.DECIMAL);
+            case TIPO.CADENA:
+                const temp = genc3d.newTemp();
+                genc3d.genAsignaTemp(temp, 'h');
+                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
+                for (let i = 0; i < valor.length; i++) {
+                    genc3d.gen_SetHeap('h', valor.charCodeAt(i));
+                    genc3d.nextHeap();
+                }
+                genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
+                genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
-            }
-            genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
-            genc3d.gen_SetHeap('h', '-1');
-            genc3d.nextHeap();
-            return new Retorno(temp, true, TIPO.CADENA);
-        }else if (typeof valor== 'boolean'){
-            // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-            this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
-            this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
-            this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
-            let retornar = new Retorno("", false, TIPO.BOOLEANO);
-            retornar.lblTrue = this.lblTrue;
-            retornar.lblFalse = this.lblFalse;
-
-            return retornar;
-        }
-        if (this.tipo == TIPO.NULO)
-        {
-            return new Retorno("-1",false,TIPO.NULO);
+                return new Retorno(temp, true, TIPO.CADENA);
+            case TIPO.BOOLEANO:
+                // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
+                this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
+                this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
+                this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
+                let retornar = new Retorno("", false, TIPO.BOOLEANO);
+                retornar.lblTrue = this.lblTrue;
+                retornar.lblFalse = this.lblFalse;
+                return retornar;
+            case TIPO.NULO:
+                return new Retorno("-1",false,TIPO.NULO);
         }
     }
     recorrer(table: TablaSimbolos, tree: Ast): Nodo {

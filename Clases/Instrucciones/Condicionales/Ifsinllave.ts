@@ -12,6 +12,7 @@ import { Detener } from '../Transferencia/Break';
 import { Continuar } from '../Transferencia/Continuar';
 import { Return } from '../Transferencia/Return';
 import { Errores } from '../../Ast/Errores';
+import { Retorno } from '../../G3D/Retorno';
 
 export class Ifsinllave implements Instruccion{
 
@@ -111,7 +112,54 @@ export class Ifsinllave implements Instruccion{
         return null;
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented IFNOLL.');
+        const genc3d = tree.generadorC3d;
+        let valor_condicion = this.condicion.translate3d(table, tree);
+        let lb_exit = genc3d.newLabel();
+        
+        if (valor_condicion instanceof Errores)
+        {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        if(valor_condicion instanceof Retorno){
+            // console.log("valor_condicion valor");
+            // console.log(valor_condicion);
+            // console.log("valor_condicion tipo");
+            // console.log(valor_condicion.tipo);
+            // console.log("valor_condicion istemp");
+            // console.log(valor_condicion.istemp);
+            if(this.condicion.tipo == TIPO.BOOLEANO){
+                let ts_local = new TablaSimbolos(table);
+                // if(valor_condicion.istemp){
+                //     genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
+                //     genc3d.gen_Goto(valor_condicion.lblFalse);
+                // }
+                // console.log("ingreso a if.");
+                genc3d.gen_Label(valor_condicion.lblTrue);
+                
+                this.ins_ifs.translate3d(ts_local, tree);
+                genc3d.gen_Goto(lb_exit);
+                genc3d.gen_Label(valor_condicion.lblFalse);
+                if(this.ins_elses != null){
+                    // console.log("ingreso a else.");
+                    // let ts_local = new TablaSimbolos(table);
+                    // genc3d.gen_Goto(lb_exit);
+                    // genc3d.gen_Label(valor_condicion.lblFalse);
+                    if(this.ins_elses instanceof Array){
+                        this.ins_elses.forEach(ins =>{
+                            ins.translate3d(ts_local, tree);
+                        });
+                    }else{
+                        this.ins_elses.translate3d(ts_local, tree);
+                    }
+                    genc3d.gen_Label(lb_exit);
+                }else{
+                    genc3d.gen_Label(lb_exit);
+                }
+            }else{
+                return new Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
+            }
+        }
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("IF","");

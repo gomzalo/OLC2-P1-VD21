@@ -444,8 +444,8 @@ class Relacional {
     igualigual3D(valor_exp1, valor_exp2, tree) {
         const genC3d = tree.generadorC3d;
         const temp = genC3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '==');
             }
         }
@@ -462,9 +462,9 @@ class Relacional {
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
-                    console.log(this.lblTrue);
+                    // console.log(this.lblTrue)
                     this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
-                    console.log(this.lblFalse);
+                    // console.log(this.lblFalse)
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
                     genC3d.gen_Goto(this.lblFalse);
                     const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
@@ -476,29 +476,29 @@ class Relacional {
         }
     }
     menorque3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '<');
             }
         }
     }
     menorigual3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '<=');
             }
         }
     }
     mayorque3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '>');
             }
         }
     }
     mayoigual3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '>=');
             }
         }
@@ -506,8 +506,8 @@ class Relacional {
     diferente3D(valor_exp1, valor_exp2, tree) {
         const genC3d = tree.generadorC3d;
         const temp = genC3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '!=');
             }
         }

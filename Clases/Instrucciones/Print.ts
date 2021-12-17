@@ -83,7 +83,7 @@ export class Print implements Instruccion{
         this.parametros.forEach(expresion => {
             let valor3d  = expresion.translate3d(table, tree);
             if(valor3d instanceof Retorno){
-                console.log(valor3d)
+                // console.log(valor3d)
                 let temp = valor3d.translate3d();
                 let t0 = genc3d.newTemp();
                 if(valor3d.tipo == TIPO.CADENA){
