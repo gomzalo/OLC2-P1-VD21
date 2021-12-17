@@ -10,6 +10,8 @@ class Primitivo {
         this.tipo = tipo;
         this.fila = fila;
         this.columna = columna;
+        this.lblFalse = "";
+        this.lblTrue = "";
     }
     ejecutar(table, tree) {
         return this.valor;
@@ -36,7 +38,16 @@ class Primitivo {
         }
         else if (typeof valor == 'boolean') {
             // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-            return new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
+            this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
+            this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
+            this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
+            let retornar = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
+            retornar.lblTrue = this.lblTrue;
+            retornar.lblFalse = this.lblFalse;
+            return retornar;
+        }
+        if (this.tipo == Tipo_1.TIPO.NULO) {
+            return new Retorno_1.Retorno("-1", false, Tipo_1.TIPO.NULO);
         }
     }
     recorrer(table, tree) {

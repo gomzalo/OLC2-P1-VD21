@@ -11,12 +11,16 @@ export class Primitivo implements Instruccion{
     public fila : number;
     public columna : number;
     arreglo: boolean;
+    lblTrue: string;
+    lblFalse: string;
 
     constructor(valor, tipo, fila, columna ){
         this.valor =  valor;
         this.tipo = tipo;
         this.fila = fila;
         this.columna = columna;
+        this.lblFalse="";
+        this.lblTrue="";
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
@@ -42,7 +46,18 @@ export class Primitivo implements Instruccion{
             return new Retorno(temp, true, TIPO.CADENA);
         }else if (typeof valor== 'boolean'){
             // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-            return new Retorno("", false, TIPO.BOOLEANO);
+            this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
+            this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
+            this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
+            let retornar = new Retorno("", false, TIPO.BOOLEANO);
+            retornar.lblTrue = this.lblTrue;
+            retornar.lblFalse = this.lblFalse;
+
+            return retornar;
+        }
+        if (this.tipo == TIPO.NULO)
+        {
+            return new Retorno("-1",false,TIPO.NULO);
         }
     }
     recorrer(table: TablaSimbolos, tree: Ast): Nodo {
