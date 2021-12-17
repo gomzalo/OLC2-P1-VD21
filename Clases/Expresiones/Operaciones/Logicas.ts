@@ -127,27 +127,28 @@ export class Logica implements Instruccion{
         this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
 
-        console.log(this.exp1.lblTrue)
-        console.log(this.exp1.lblFalse)
+        // console.log(this.exp1.lblTrue)
+        // console.log(this.exp1.lblFalse)
         this.exp1.lblTrue = gen3d.newLabel();
         this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
-        gen3d.gen_Goto(this.exp1.lblFalse);
+        // gen3d.gen_Goto(this.exp1.lblFalse);
 
         const expIzq = this.exp1.translate3d(table, tree);
-        gen3d.gen_Goto(this.exp1.lblTrue);
-        // gen3d.gen_Label(this.exp1.lblTrue);
+        // gen3d.gen_Goto(this.exp1.lblTrue);
+        gen3d.gen_Label(this.exp1.lblTrue);
         
         const expDer = this.exp2.translate3d(table, tree);
 
-        if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
-            const retorno = new Retorno('', false, TIPO.BOOLEANO);
-            retorno.lblTrue = this.lblTrue;
-            retorno.lblFalse = this.exp2.lblFalse;
-            
-
-            return retorno;
+        if(expIzq.tipo !== TIPO.BOOLEANO && expDer.tipo !== TIPO.BOOLEANO){
+            return;
         }
+        const retorno = new Retorno("", false, TIPO.BOOLEANO);
+        retorno.lblTrue = this.lblTrue;
+        retorno.lblFalse = this.exp2.lblFalse;
+        
+
+        return retorno;
         
     }
 
@@ -166,10 +167,10 @@ export class Logica implements Instruccion{
 
         if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
         
-        const retorno = new Retorno('', false, TIPO.BOOLEANO);
-        retorno.lblTrue = this.lblTrue;
-        retorno.lblFalse = this.exp2.lblFalse;
-        return retorno;
+            const retorno = new Retorno('', false, TIPO.BOOLEANO);
+            retorno.lblTrue = this.lblTrue;
+            retorno.lblFalse = this.exp2.lblFalse;
+            return retorno;
         }
     }
 

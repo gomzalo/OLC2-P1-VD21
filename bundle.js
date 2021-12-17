@@ -4941,22 +4941,23 @@ class Logica {
         // if ()
         this.lblTrue = this.lblTrue == '' ? gen3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? gen3d.newLabel() : this.lblFalse;
-        console.log(this.exp1.lblTrue);
-        console.log(this.exp1.lblFalse);
+        // console.log(this.exp1.lblTrue)
+        // console.log(this.exp1.lblFalse)
         this.exp1.lblTrue = gen3d.newLabel();
         this.exp2.lblTrue = this.lblTrue;
         this.exp1.lblFalse = this.exp2.lblFalse = this.lblFalse;
-        gen3d.gen_Goto(this.exp1.lblFalse);
+        // gen3d.gen_Goto(this.exp1.lblFalse);
         const expIzq = this.exp1.translate3d(table, tree);
-        gen3d.gen_Goto(this.exp1.lblTrue);
-        // gen3d.gen_Label(this.exp1.lblTrue);
+        // gen3d.gen_Goto(this.exp1.lblTrue);
+        gen3d.gen_Label(this.exp1.lblTrue);
         const expDer = this.exp2.translate3d(table, tree);
-        if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
-            const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
-            retorno.lblTrue = this.lblTrue;
-            retorno.lblFalse = this.exp2.lblFalse;
-            return retorno;
+        if (expIzq.tipo !== Tipo_1.TIPO.BOOLEANO && expDer.tipo !== Tipo_1.TIPO.BOOLEANO) {
+            return;
         }
+        const retorno = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
+        retorno.lblTrue = this.lblTrue;
+        retorno.lblFalse = this.exp2.lblFalse;
+        return retorno;
     }
     or3D(table, tree) {
         const gen3d = tree.generadorC3d;
@@ -5592,6 +5593,8 @@ class Primitivo {
         this.tipo = tipo;
         this.fila = fila;
         this.columna = columna;
+        this.lblFalse = "";
+        this.lblTrue = "";
     }
     ejecutar(table, tree) {
         return this.valor;
@@ -5618,11 +5621,24 @@ class Primitivo {
         }
         else if (typeof valor == 'boolean') {
             // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             return Tipo_1.TIPO.BOOLEANO;
 =======
             return new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
 >>>>>>> develop
+=======
+            this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
+            this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
+            this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
+            let retornar = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
+            retornar.lblTrue = this.lblTrue;
+            retornar.lblFalse = this.lblFalse;
+            return retornar;
+        }
+        if (this.tipo == Tipo_1.TIPO.NULO) {
+            return new Retorno_1.Retorno("-1", false, Tipo_1.TIPO.NULO);
+>>>>>>> Stashed changes
         }
     }
     recorrer(table, tree) {
