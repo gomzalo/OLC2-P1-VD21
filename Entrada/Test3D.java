@@ -6,6 +6,10 @@ print((51 % 49) * (9.9+90.1));    // 200.0
 print(" ");
 println(0+9*3*(85%(46+95)));    // 2295
 println("Probando expresiones Booleanas y Lógicas");
+println(56 < 48 && 68 >=12 && 62 != 96);    // false
+println((21.0==20.5||95>=94)&&((19<39&&83<=96)||35<97));    // true
+println((68==33||(2<95&&17==37))&&63<=9||12<=42||25==1);    // true
+println("Prueba if");
 if(true){
     print((51 % 49) * (9.9+90.1));    // 200.0
 }else{
@@ -18,4 +22,4 @@ if(true){
 
 //Booleanas
 println("--------BOOOLEANAS------");
-println(87>(5+1));
+println(87>(5+1)); // true
