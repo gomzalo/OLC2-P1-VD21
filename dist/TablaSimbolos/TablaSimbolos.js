@@ -7,6 +7,7 @@ class TablaSimbolos {
     constructor(anterior) {
         this.anterior = anterior;
         this.tabla = new Map();
+        this.size = (anterior === null || anterior === void 0 ? void 0 : anterior.size) || 0;
     }
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {

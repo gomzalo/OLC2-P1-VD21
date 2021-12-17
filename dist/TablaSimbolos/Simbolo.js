@@ -10,7 +10,15 @@ class Simbolo {
         this.valor = valor;
         this.arreglo = arreglo;
         this.structEnv = structEnv;
+        this.isRef = false;
+        this.posicion = 0;
         // console.log("simbolor: "+this.valor);
+    }
+    setPosicion(posicion) {
+        this.posicion = this.posicion;
+    }
+    getPosicion() {
+        return this.posicion;
     }
     getId() {
         return this.id;

@@ -1,6 +1,7 @@
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
 import { Nodo } from "../Ast/Nodo";
+import { Primitivo } from "../Expresiones/Primitivo";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { Simbolo } from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
@@ -85,7 +86,89 @@ export  class Declaracion implements Instruccion{
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented DECLARACION.");
+        const genc3d = tree.generadorC3d;
+        for(let simbolo of this.simbolos)
+        {
+            let variable = simbolo as Simbolo;
+            // console.log(variable.id)
+            let valor = variable.valor.translate3d(table, tree);
+            
+            //1 Si se crea por primera vez
+            if (valor === null)
+            {
+                if(this.tipo == TIPO.DECIMAL)
+                {
+                    let primitivo = new Primitivo( 0,TIPO.DECIMAL, this.fila, this.columna);
+                    valor = primitivo.translate3d(table,tree);
+                }
+                if(this.tipo == TIPO.ENTERO)
+                {
+                    let primitivo = new Primitivo( 0,TIPO.ENTERO, this.fila, this.columna);
+                    valor = primitivo.translate3d(table,tree);
+                }
+                if(this.tipo == TIPO.CADENA)
+                {
+                    let primitivo = new Primitivo( "null",TIPO.CADENA, this.fila, this.columna);
+                    valor = primitivo.translate3d(table,tree);
+                }
+                if(this.tipo == TIPO.BOOLEANO)
+                {
+                    let primitivo = new Primitivo( false,TIPO.BOOLEANO, this.fila, this.columna);
+                    valor = primitivo.translate3d(table,tree);
+                }
+                if(this.tipo == TIPO.CHARACTER)
+                {
+                    let primitivo = new Primitivo( "0",TIPO.CHARACTER, this.fila, this.columna);
+                    valor = primitivo.translate3d(table,tree);
+                }
+                /// arreglos en clase arreglo
+
+            }
+            console.log(valor)
+            if (this.tipo != valor.tipo){
+                let error = new Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());;
+                tree.updateConsolaPrintln(error.toString());
+            }
+
+            let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,"");
+            // nuevo_simb.isRef=true;
+            let res_simb = table.setSymbolTabla(nuevo_simb);
+            if(res_simb instanceof Errores){
+                tree.updateConsolaPrintln(res_simb.toString());
+                return;
+            }
+            ///array en declaracion array
+            
+            if (nuevo_simb.isRef) {
+                if (valor.tipo === TIPO.BOOLEANO) {
+                    const lbl = genc3d.newLabel();
+                    genc3d.gen_Label(valor.lblTrue);
+                    genc3d.gen_SetStack(nuevo_simb.posicion, '1');
+                    genc3d.gen_Goto(lbl);
+                    genc3d.gen_Label(valor.lblFalse);
+                    genc3d.gen_SetStack(nuevo_simb.posicion, '0');
+                    genc3d.gen_Label(lbl);
+                }
+                else
+                genc3d.gen_SetStack(nuevo_simb.posicion, valor.valor);
+            }
+            else {
+                const temp = genc3d.newTemp(); genc3d.freeTemp(temp);
+                genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
+                if (valor.tipo.tipo === TIPO.BOOLEANO) {
+                    const lbl = genc3d.newLabel();
+                    genc3d.gen_Label(valor.lblTrue);
+                    genc3d.gen_SetStack(nuevo_simb.posicion, '1');
+                    genc3d.gen_Goto(lbl);
+                    genc3d.gen_Label(valor.lblFalse);
+                    genc3d.gen_SetStack(nuevo_simb.posicion, '0');
+                    genc3d.gen_Label(lbl);
+                }
+                else
+                    genc3d.gen_SetStack(temp, valor.valor);
+            }
+
+        }
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("DECLARACION","");
