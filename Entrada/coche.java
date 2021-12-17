@@ -297,7 +297,7 @@ void main()
     println(arr_por_cero); // H
     println(arr); // H-O-L-A
     println(arr[2]); // L
-    String[] arr_AN = ["H",["K","O",["Z","Y"]],"L","A"];
+    String[] arr_AN = ["Hola",["K","O",["Z","Y"]],"L","A"];
     // println("Nuevo arreglo arr3 declarado: " & arr3); // Nuevo arreglo declarado: H-[O-O]-L-A    
     // println(arr3[1]); // H
     println(arr_AN[1][2][0]); // Z
@@ -315,6 +315,8 @@ void main()
     println(arrd2[0]); // 0.5
     println(arrd2[2]); // 3.8
     println(arrch[1][1]); // b
+    String pos0_arr_AN = arr_AN[0];
+    println(pos0_arr_AN.subString(0,2)); // Hol
     println("<--- Errores a proposito: --->");
     println(arrstr[1][0]); // No existe variable arrstr
     println("");

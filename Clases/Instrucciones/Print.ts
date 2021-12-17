@@ -1,3 +1,4 @@
+import { Retorno } from './../G3D/Retorno';
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
 import { Nodo } from "../Ast/Nodo"
@@ -78,7 +79,32 @@ export class Print implements Instruccion{
     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
-        
+        const genc3d = tree.generadorC3d;
+        this.parametros.forEach(expresion => {
+            let valor3d  = expresion.translate3d(table, tree);
+            if(valor3d instanceof Retorno){
+                let temp = valor3d.translate3d();
+                let t0 = genc3d.newTemp();
+                if(valor3d.tipo == TIPO.CADENA){
+                    genc3d.gen_Comment('--------- INICIA PRINT CADENA ---------');
+                    genc3d.gen_SetStack(t0, temp);
+                    genc3d.gen_Call('natPrintStr');
+                    // genc3d.gen_Code('');
+                    genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
+                }else if(valor3d.tipo == TIPO.ENTERO){
+                    genc3d.gen_Comment('--------- INICIA PRINT INT ---------');
+                    genc3d.gen_Print('i', temp);
+                    genc3d.gen_Comment('--------- FIN PRINT INT ---------');
+                }else if(valor3d.tipo == TIPO.DECIMAL){
+                    genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
+                    genc3d.gen_Print('f', temp);
+                    genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
+                }
+                if(this.tipo){
+                    genc3d.gen_Print('c', '10');
+                }
+            }
+        });
     }
 
     recorrer(table: TablaSimbolos, tree: Ast){

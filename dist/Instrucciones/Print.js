@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
+const Retorno_1 = require("./../G3D/Retorno");
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
@@ -55,6 +56,34 @@ class Print {
         return null;
     }
     translate3d(table, tree) {
+        const genc3d = tree.generadorC3d;
+        this.parametros.forEach(expresion => {
+            let valor3d = expresion.translate3d(table, tree);
+            if (valor3d instanceof Retorno_1.Retorno) {
+                let temp = valor3d.translate3d();
+                let t0 = genc3d.newTemp();
+                if (valor3d.tipo == Tipo_1.TIPO.CADENA) {
+                    genc3d.gen_Comment('--------- INICIA PRINT CADENA ---------');
+                    genc3d.gen_SetStack(t0, temp);
+                    genc3d.gen_Call('natPrintStr');
+                    // genc3d.gen_Code('');
+                    genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
+                }
+                else if (valor3d.tipo == Tipo_1.TIPO.ENTERO) {
+                    genc3d.gen_Comment('--------- INICIA PRINT INT ---------');
+                    genc3d.gen_Print('i', temp);
+                    genc3d.gen_Comment('--------- FIN PRINT INT ---------');
+                }
+                else if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
+                    genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
+                    genc3d.gen_Print('f', temp);
+                    genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
+                }
+                if (this.tipo) {
+                    genc3d.gen_Print('c', '10');
+                }
+            }
+        });
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Print", "");

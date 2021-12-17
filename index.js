@@ -10,7 +10,6 @@ const compilar = document.getElementById('compilarProyecto');
 var myTab = document.getElementById('myTab');
 var itemAbrir = document.getElementById('itemAbrir');
 let result;
-let result_traduccion;
 let entornoAnalizar;
 let entornoTraducir;
 
@@ -316,10 +315,10 @@ traducirProyecto.addEventListener('click', () => {
     $("#textAreaC3d").val("");
 
     try{
-        result_traduccion = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        result = gramatica.parse(editores[indexTab].codeEditor.getValue());
         // console.log(result_traduccion);
-        entornoTraducir = result_traduccion.TSglobal;
-        let c3d = result_traduccion.traducir();
+        entornoTraducir = result.TSglobal;
+        let c3d = result.traducir();
         // let c3d = result_traduccion.generadorC3d.getCode();
         // result_traduccion.generadorC3d.clearCode();
         // console.log(c3d);

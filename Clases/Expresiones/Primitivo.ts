@@ -24,20 +24,24 @@ export class Primitivo implements Instruccion{
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
         let valor= this.ejecutar(table, tree);
-        const generator = tree.generadorC3d;
+        const genc3d = tree.generadorC3d;
         if(typeof valor== 'number'){
+            // genc3d.gen_Comment('--------- INICIA RECORRE NUMERO ---------');
             return new Retorno(this.valor, false, TIPO.DECIMAL);
         }else if (typeof valor=='string'){
-            const temp = generator.newTemp();
-            generator.genAsignaTemp(temp, 'h');
+            const temp = genc3d.newTemp();
+            genc3d.genAsignaTemp(temp, 'h');
+            genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
             for (let i = 0; i < valor.length; i++) {
-                generator.gen_SetHeap('h', valor.charCodeAt(i));
-                generator.nextHeap();
+                genc3d.gen_SetHeap('h', valor.charCodeAt(i));
+                genc3d.nextHeap();
             }
-            generator.gen_SetHeap('h', '-1');
-            generator.nextHeap();
+            genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
+            genc3d.gen_SetHeap('h', '-1');
+            genc3d.nextHeap();
         return new Retorno(temp, true, TIPO.CADENA);
         }else if (typeof valor== 'boolean'){
+            // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
             return TIPO.BOOLEANO;
         }
     }

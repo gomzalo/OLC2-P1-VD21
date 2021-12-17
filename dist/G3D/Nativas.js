@@ -9,8 +9,8 @@ class Nativas {
         this.natConcatStr();
         this.natConcatInt_str();
         this.natConcatStr_int();
-        //this.natPrintInteger();
-        // this.natCompararNoIgualStr();
+        this.natPrintInteger();
+        //this.natCompararNoIgualStr();
         //this.natUpperCase();
         //this.natLowerCase();
         //this.natConcatDbl_str();
@@ -71,48 +71,46 @@ class Nativas {
         genC3d.freeTemp(t1);
         genC3d.freeTemp(t2);
     }
-    /*
-        natPrintInteger() {
-            const genC3d = GeneradorC3D.getInstancia();
-            let t1 = genC3d.newTemp();
-            let t2 = genC3d.newTemp();
-            let t3 = genC3d.newTemp();
-            let inicio = genC3d.newLabel();
-            let nextPos = genC3d.newLabel();
-            let nextPrt = genC3d.newLabel();
-            let fin = genC3d.newLabel();
-    
-            genC3d.gen_Funcion('natPrintInteger');
-            genC3d.isFunc = '\t';
-            genC3d.gen_GetStack(t1, 'p');
-            genC3d.gen_If(t1, '0', '>=', inicio);
-            genC3d.gen_Print('c', '45');
-            genC3d.gen_Exp(t1, t1, '-1', '*');
-            genC3d.gen_Label(inicio);
-            genC3d.genAsignaTemp(t3, 'p');
-            genC3d.gen_SetStack(t3, '-1');
-            genC3d.gen_Exp(t3, t3, '1', '+');
-            genC3d.gen_Label(nextPos);
-            genC3d.gen_If(t1, '0', '==', nextPrt);
-            genC3d.gen_Code(`${t2} = fmod(${t1}, 10);`);
-            genC3d.gen_SetStack(t3, t2);
-            genC3d.gen_Exp(t3, t3, '1', '+');
-            genC3d.gen_Exp(t1, t1, '10', '/');
-            genC3d.gen_Goto(nextPos);
-            genC3d.gen_Label(nextPrt);
-            genC3d.gen_Exp(t3, t3, '1', '-');
-            genC3d.gen_GetStack(t1, t3);
-            genC3d.gen_If(t1, '-1', '==', fin);
-            genC3d.gen_Print('i', t1);
-            genC3d.gen_Goto(nextPrt);
-            genC3d.gen_Label(fin);
-            genC3d.gen_Code('return;');
-            genC3d.gen_EndFunction();
-            genC3d.isFunc = '';
-            genC3d.freeTemp(t1);
-            genC3d.freeTemp(t2);
-            genC3d.freeTemp(t3);
-        }*/
+    natPrintInteger() {
+        const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
+        let t1 = genC3d.newTemp();
+        let t2 = genC3d.newTemp();
+        let t3 = genC3d.newTemp();
+        let inicio = genC3d.newLabel();
+        let nextPos = genC3d.newLabel();
+        let nextPrt = genC3d.newLabel();
+        let fin = genC3d.newLabel();
+        genC3d.gen_Funcion('natPrintInteger');
+        genC3d.isFunc = '\t';
+        genC3d.gen_GetStack(t1, 'p');
+        genC3d.gen_If(t1, '0', '>=', inicio);
+        genC3d.gen_Print('c', '45');
+        genC3d.gen_Exp(t1, t1, '-1', '*');
+        genC3d.gen_Label(inicio);
+        genC3d.genAsignaTemp(t3, 'p');
+        genC3d.gen_SetStack(t3, '-1');
+        genC3d.gen_Exp(t3, t3, '1', '+');
+        genC3d.gen_Label(nextPos);
+        genC3d.gen_If(t1, '0', '==', nextPrt);
+        genC3d.gen_Code(`${t2} = fmod(${t1}, 10);`);
+        genC3d.gen_SetStack(t3, t2);
+        genC3d.gen_Exp(t3, t3, '1', '+');
+        genC3d.gen_Exp(t1, t1, '10', '/');
+        genC3d.gen_Goto(nextPos);
+        genC3d.gen_Label(nextPrt);
+        genC3d.gen_Exp(t3, t3, '1', '-');
+        genC3d.gen_GetStack(t1, t3);
+        genC3d.gen_If(t1, '-1', '==', fin);
+        genC3d.gen_Print('i', t1);
+        genC3d.gen_Goto(nextPrt);
+        genC3d.gen_Label(fin);
+        genC3d.gen_Code('return;');
+        genC3d.gen_EndFunction();
+        genC3d.isFunc = '';
+        genC3d.freeTemp(t1);
+        genC3d.freeTemp(t2);
+        genC3d.freeTemp(t3);
+    }
     natCompararIgualStr() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
