@@ -65,7 +65,36 @@ export class While implements Instruccion{
     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented WHILE.');
+        let genc3d = tree.generadorC3d;
+        let lbl = genc3d.newLabel();
+        let entornoLocal = new TablaSimbolos(table);
+        
+        genc3d.gen_Comment('------------ WHILE -----------');
+        genc3d.gen_Label(lbl);
+
+        let condicion = this.condicion.translate3d(table);
+
+        if (condicion.tipo !== TIPO.BOOLEANO){
+            let error =  new Errores("c3d", "La condicion no  es boolean", this.fila, this.columna);
+            tree.updateConsolaPrintln(error.toString());
+        }
+
+
+        entornoLocal.break = condicion.lblFalse;
+        entornoLocal.continue = lbl;
+        genc3d.gen_Label(condicion.lblTrue);
+
+        for(let inst of this.lista_instrucciones)
+        {
+            inst.translate3d(table,tree);
+        }
+        // this.sentencias.translate3d(entornoLocal);
+
+
+        genc3d.gen_Goto(lbl);
+        genc3d.gen_Label(condicion.lblFalse);
+        genc3d.gen_Comment('-----------fin while -------');
+        
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {

@@ -131,3 +131,10 @@ test=-25*(69-33*2)+22-32*2-33*(-48+48);
 println(test); // -117
 println(test++); // -116
 println("");
+println("************   WHILE  **************");
+int i =2;
+while(i>1)
+{
+  i=i-1;
+  println(i);
+}

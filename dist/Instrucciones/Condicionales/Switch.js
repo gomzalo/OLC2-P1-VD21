@@ -112,7 +112,7 @@ class Switch {
             }
             if (ins_case instanceof Break_1.Detener) {
                 x = 1;
-                break;
+                // break;
             }
         });
     }

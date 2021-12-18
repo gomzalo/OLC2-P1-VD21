@@ -126,7 +126,7 @@ export class Switch implements Instruccion{
             }
             if(ins_case instanceof Detener){
                 x = 1;
-                break;
+                // break;
             }
         });
     }
