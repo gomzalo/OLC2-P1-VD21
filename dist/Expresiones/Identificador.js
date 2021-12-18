@@ -11,6 +11,8 @@ class Identificador {
         this.fila = fila;
         this.columna = columna;
         this.tipo = null;
+        this.lblFalse = "";
+        this.lblFalse = "";
     }
     ejecutar(table, tree) {
         // console.log(table.existeEnActual(this.id));
@@ -30,8 +32,48 @@ class Identificador {
         return this.symbol.getValor();
     }
     translate3d(table, tree) {
-        this.symbol = table.getSymbolTabla(this.id);
-        if (this.symbol != null) {
+        let genC3d = tree.generadorC3d;
+        let varSimb = table.getSymbolTabla(this.id);
+        let temp = genC3d.newTemp();
+        if (varSimb != null) {
+            if (varSimb.isGlobal) {
+                genC3d.gen_Comment("--------Id-------");
+                genC3d.gen_GetStack(temp, varSimb.posicion);
+                if (varSimb.tipo !== Tipo_1.TIPO.BOOLEANO) // si no es booleano
+                 {
+                    return new Retorno_1.Retorno(temp, true, varSimb.tipo, varSimb);
+                }
+                genC3d.gen_Comment("--------Id booleano-------");
+                //si lo es : booleano
+                let retorno = new Retorno_1.Retorno("", false, varSimb.tipo, varSimb);
+                this.lblTrue = this.lblTrue == "" ? genC3d.newLabel() : this.lblTrue;
+                this.lblFalse = this.lblFalse == "" ? genC3d.newLabel() : this.lblFalse;
+                genC3d.gen_If(temp, '1', '==', this.lblTrue);
+                genC3d.gen_Goto(this.lblFalse);
+                retorno.lblTrue = this.lblTrue;
+                retorno.lblFalse = this.lblFalse;
+                return retorno;
+            }
+            else {
+                genC3d.gen_Comment("--------Id-------");
+                let tempAux = genC3d.newTemp();
+                genC3d.freeTemp(tempAux);
+                genC3d.gen_Exp(tempAux, 'p', varSimb.posicion, '+');
+                genC3d.gen_GetStack(temp, tempAux);
+                if (varSimb.tipo !== Tipo_1.TIPO.BOOLEANO) {
+                    return new Retorno_1.Retorno(temp, true, varSimb.tipo, varSimb);
+                }
+                //si lo es : booleano
+                genC3d.gen_Comment("--------Id booleano-------");
+                const retorno = new Retorno_1.Retorno('', false, varSimb.tipo, varSimb);
+                this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
+                this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
+                genC3d.gen_If(temp, '1', '==', this.lblTrue);
+                genC3d.gen_Goto(this.lblFalse);
+                retorno.lblTrue = this.lblTrue;
+                retorno.lblFalse = this.lblFalse;
+                return retorno;
+            }
             const generator = tree.generadorC3d;
             if (typeof this.symbol.valor == "number") {
                 return new Retorno_1.Retorno(this.symbol.valor + "", false, Tipo_1.TIPO.DECIMAL);

@@ -142,7 +142,7 @@ export  class Declaracion implements Instruccion{
             genc3d.gen_Comment("------- Declarando-------");
             ///array en declaracion array
             
-            if (nuevo_simb.isRef) {
+            if (nuevo_simb.isGlobal) {
                 if (valor.tipo === TIPO.BOOLEANO) {
                     genc3d.gen_Comment("------- is ref true-------");
                     const lbl = genc3d.newLabel();
