@@ -81,7 +81,7 @@ class GeneradorC3D {
      */
     getCode() {
         let nativas = new Nativas_1.Nativas();
-        let encabezado = '#include <stdio.h>\n#include <math.h>\ndouble Stack[60000]; double Heap[60000];\nint p; int h;\n';
+        let encabezado = '#include <stdio.h>\n#include <math.h>\ndouble Stack[30101999]; double Heap[30101999];\nint p; int h;\n';
         let main = `\nint main() {\n${this.code.join('\n')}\n\nreturn 0;\n}\n`;
         const funciones = this.codeFuncion.join('\n');
         this.code = [];

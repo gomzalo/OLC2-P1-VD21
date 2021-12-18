@@ -8,6 +8,7 @@ import { Funcion } from "../Instrucciones/Metodos/Funcion";
 import { Simbolo } from "./Simbolo";
 import { TIPO } from "./Tipo";
 import { DeclaracionArr } from '../Instrucciones/Arreglos/DeclaracionArr';
+import { Simbolo_funcion } from './Simbolo_funcion';
 
 export class TablaSimbolos{
 
@@ -18,6 +19,7 @@ export class TablaSimbolos{
     public break: string | null;
     public continue: string | null;
     public return: string | null;
+    public actual_funcion: Simbolo_funcion;
 
     constructor(anterior : TablaSimbolos){
         this.anterior = anterior;
@@ -26,6 +28,7 @@ export class TablaSimbolos{
         this.break = anterior?.break || null;
         this.continue = anterior?.continue || null;
         this.return = anterior?.return || null;
+        this.actual_funcion = anterior?.actual_funcion || null;
     }
 
     public setSymbolTabla(simbolo: Simbolo){

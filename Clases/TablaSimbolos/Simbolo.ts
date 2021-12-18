@@ -13,7 +13,16 @@ export class Simbolo{
     public tipoStruct : string;
     public isGlobal: boolean; // isRef
     public posicion: number;
-    
+    /**
+     * 
+     * @param id Identificador del simbolos
+     * @param tipo Tipo del simbolo
+     * @param arreglo Booleano para verificar si es arreglo
+     * @param fila Numero de fila
+     * @param columna Numero de columna
+     * @param valor Valor del simbolo
+     * @param structEnv 
+     */
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false){
         this.id = id;
         this.tipo = tipo;

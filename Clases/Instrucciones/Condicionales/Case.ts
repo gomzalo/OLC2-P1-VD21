@@ -10,15 +10,21 @@ import { Errores } from '../../Ast/Errores';
 import { Nodo } from '../../Ast/Nodo';
 
 export class Case implements Instruccion{
-    public valor_case : Instruccion;
+    public condicion_case : Instruccion;
     public lista_instrucciones : Array<Instruccion>;
-    public valor_sw;
+    public condicion_sw;
     public fila : number;
     public columna : number;
     arreglo: boolean;
-
-    constructor(valor_case, lista_instrucciones, fila, columna){
-        this.valor_case = valor_case;
+    /**
+     * 
+     * @param condicion_case Condicion a evaluar en el case
+     * @param lista_instrucciones Lista de instrucciones dentro del case
+     * @param fila Numero de fila
+     * @param columna Numero de columna
+     */
+    constructor(condicion_case, lista_instrucciones, fila, columna){
+        this.condicion_case = condicion_case;
         this.lista_instrucciones = lista_instrucciones;
         this.fila = fila;
         this.columna = columna;
@@ -26,9 +32,9 @@ export class Case implements Instruccion{
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let ts_local = new TablaSimbolos(table);
-        // console.log("cs valcs: " + this.valor_case);
-        // console.log("cs valorsw: " + this.valor_sw);
-        if(this.valor_sw == this.valor_case.ejecutar(table, tree)){
+        // console.log("cs valcs: " + this.condicion_case);
+        // console.log("cs valorsw: " + this.condicion_sw);
+        if(this.condicion_sw == this.condicion_case.ejecutar(table, tree)){
             for(let res of this.lista_instrucciones){
                 let ins = res.ejecutar(ts_local, tree);
                 if (ins instanceof Errores)
@@ -53,13 +59,24 @@ export class Case implements Instruccion{
             }
         }
     }
+    
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented CASE.');
+        // let genc3d = tree.generadorC3d;
+        let ts_local = new TablaSimbolos(table);
+        if(this.condicion_sw == this.condicion_case.translate3d(table, tree)){
+            this.lista_instrucciones.forEach(instruccion => {
+                let ins = instruccion.translate3d(ts_local, tree);
+                if(ins instanceof Detener || ins instanceof Return || ins instanceof Continuar){
+                    return ins;
+                }
+            });
+        }
     }
+
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("CASE","");
         let expresion = new Nodo("EXPRESION","");
-        expresion.addChildNode(this.valor_case.recorrer(table,tree));
+        expresion.addChildNode(this.condicion_case.recorrer(table,tree));
 
         padre.addChildNode(expresion);
         let NodoInstr = new Nodo("INSTRUCCIONES","");

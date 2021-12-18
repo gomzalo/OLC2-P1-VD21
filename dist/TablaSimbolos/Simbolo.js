@@ -2,6 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Simbolo = void 0;
 class Simbolo {
+    /**
+     *
+     * @param id Identificador del simbolos
+     * @param tipo Tipo del simbolo
+     * @param arreglo Booleano para verificar si es arreglo
+     * @param fila Numero de fila
+     * @param columna Numero de columna
+     * @param valor Valor del simbolo
+     * @param structEnv
+     */
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false) {
         this.id = id;
         this.tipo = tipo;
