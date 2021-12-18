@@ -15,11 +15,17 @@ export class TablaSimbolos{
     public tabla: Map<string, Simbolo>;
     public pos3d: string;
     public size: number;
+    public break: string | null;
+    public continue: string | null;
+    public return: string | null;
 
     constructor(anterior : TablaSimbolos){
         this.anterior = anterior;
         this.tabla = new Map<string, Simbolo>();
         this.size = anterior?.size || 0;
+        this.break = anterior?.break || null;
+        this.continue = anterior?.continue || null;
+        this.return = anterior?.return || null;
     }
 
     public setSymbolTabla(simbolo: Simbolo){

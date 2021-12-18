@@ -63,7 +63,20 @@ class Switch {
         }
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented SW.');
+        const genc3d = tree.generadorC3d;
+        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        this.lista_case.forEach(sw => {
+            sw.valor_sw = this.valor_sw.translate3d(ts_local, tree);
+        });
+        let x = 0;
+        for (let ins of this.lista_case) {
+            let res = ins.translate3d(ts_local, tree);
+            if (res instanceof Break_1.Detener) {
+                x = 1;
+                break;
+            }
+        }
+        ;
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("SWITCH", "");

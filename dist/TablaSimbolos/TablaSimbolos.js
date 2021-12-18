@@ -8,6 +8,9 @@ class TablaSimbolos {
         this.anterior = anterior;
         this.tabla = new Map();
         this.size = (anterior === null || anterior === void 0 ? void 0 : anterior.size) || 0;
+        this.break = (anterior === null || anterior === void 0 ? void 0 : anterior.break) || null;
+        this.continue = (anterior === null || anterior === void 0 ? void 0 : anterior.continue) || null;
+        this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
     }
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {

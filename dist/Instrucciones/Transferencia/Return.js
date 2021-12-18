@@ -25,7 +25,11 @@ class Return {
         // this.tipo = this.valor.tipo;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented RETURN.");
+        const genc3d = tree.generadorC3d;
+        if (table.continue == null) {
+            return new Errores_1.Errores('Semantico', 'No se permite el uso de continue en la instrucción.', this.fila, this.columna);
+        }
+        genc3d.gen_Goto(table.continue);
     }
     recorrer() {
         let padre = new Nodo_1.Nodo("RETURN", "");

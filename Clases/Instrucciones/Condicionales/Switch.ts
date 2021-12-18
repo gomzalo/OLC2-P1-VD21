@@ -28,7 +28,7 @@ export class Switch implements Instruccion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let ts_local = new TablaSimbolos (table);
+        let ts_local = new TablaSimbolos(table);
         for(let sw of this.lista_case){
             sw.valor_sw=this.valor_sw.ejecutar(ts_local, tree);
             if (sw.valor_sw instanceof Errores)
@@ -78,7 +78,19 @@ export class Switch implements Instruccion{
             }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented SW.');
+        const genc3d = tree.generadorC3d;
+        let ts_local = new TablaSimbolos (table);
+        this.lista_case.forEach(sw => {
+            sw.valor_sw = this.valor_sw.translate3d(ts_local, tree);
+        });
+        let x = 0;
+        for(let ins of this.lista_case){
+            let res = ins.translate3d(ts_local, tree);
+            if(res instanceof Detener){
+                x = 1;
+                break;
+            }
+        };
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("SWITCH", "");

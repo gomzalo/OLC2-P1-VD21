@@ -1,3 +1,4 @@
+import { Errores } from './../../Ast/Errores';
 import { Nodo } from "../../Ast/Nodo";
 import { Ast } from "../../Ast/Ast";
 import { Instruccion } from "../../Interfaces/Instruccion";
@@ -19,7 +20,11 @@ export class Detener implements Instruccion{
     }
     
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented BREAK.");
+        const genc3d = tree.generadorC3d;
+        if(table.break == null){
+            return new Errores('Semantico','No se permite el uso de break en la instrucción.', this.fila, this.columna);
+        }
+        genc3d.gen_Goto(table.break);
     }
 
     recorrer(table: TablaSimbolos, tree: Ast) {
