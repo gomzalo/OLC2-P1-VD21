@@ -16,6 +16,7 @@ class TablaSimbolos {
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
+            simbolo.setPosicion(this.size++);
             this.tabla.set(simbolo.getId(), simbolo);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;

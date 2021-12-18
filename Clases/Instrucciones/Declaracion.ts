@@ -96,6 +96,7 @@ export  class Declaracion implements Instruccion{
             //1 Si se crea por primera vez
             if (valor === null)
             {
+                genc3d.gen_Comment("------- Default primitivo Declaracion-------");
                 if(this.tipo == TIPO.DECIMAL)
                 {
                     let primitivo = new Primitivo( 0,TIPO.DECIMAL, this.fila, this.columna);
@@ -125,6 +126,7 @@ export  class Declaracion implements Instruccion{
 
             }
             console.log(valor)
+            console.log(this.tipo)
             if (this.tipo != valor.tipo){
                 let error = new Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());;
                 tree.updateConsolaPrintln(error.toString());
@@ -137,10 +139,12 @@ export  class Declaracion implements Instruccion{
                 tree.updateConsolaPrintln(res_simb.toString());
                 return;
             }
+            genc3d.gen_Comment("------- Declarando-------");
             ///array en declaracion array
             
             if (nuevo_simb.isRef) {
                 if (valor.tipo === TIPO.BOOLEANO) {
+                    genc3d.gen_Comment("------- is ref true-------");
                     const lbl = genc3d.newLabel();
                     genc3d.gen_Label(valor.lblTrue);
                     genc3d.gen_SetStack(nuevo_simb.posicion, '1');
@@ -153,6 +157,7 @@ export  class Declaracion implements Instruccion{
                 genc3d.gen_SetStack(nuevo_simb.posicion, valor.valor);
             }
             else {
+                genc3d.gen_Comment("------- is ref false-------");
                 const temp = genc3d.newTemp(); genc3d.freeTemp(temp);
                 genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
                 if (valor.tipo.tipo === TIPO.BOOLEANO) {

@@ -388,111 +388,6 @@ var posix = {
       if (end === -1) return '';
       return path.slice(start, end);
     }
-<<<<<<< HEAD
-    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    // :::::::::::::::::::::    Aritmeticas C3D      :::::::::::::::::::::
-    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    suma3D(valor_exp1, valor_exp2, tree) {
-        const genc3d = tree.generadorC3d;
-        const temp = genc3d.newTemp();
-        let tempAux;
-        switch (valor_exp1.tipo) {
-            case Tipo_1.TIPO.DECIMAL:
-                switch (valor_exp2.tipo) {
-                    case Tipo_1.TIPO.DECIMAL:
-                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-                    case Tipo_1.TIPO.ENTERO:
-                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-                    case Tipo_1.TIPO.CADENA:
-                        let tempAux = genc3d.newTemp();
-                        genc3d.freeTemp(tempAux);
-                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_int_str');
-                        genc3d.gen_GetStack(temp, 'p');
-                        genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-                    case Tipo_1.TIPO.BOOLEANO:
-                    default:
-                        break;
-                }
-                break;
-            case Tipo_1.TIPO.ENTERO:
-                switch (valor_exp2.tipo) {
-                    case Tipo_1.TIPO.DECIMAL:
-                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-                    case Tipo_1.TIPO.ENTERO:
-                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-                    case Tipo_1.TIPO.CADENA:
-                        let tempAux = genc3d.newTemp();
-                        genc3d.freeTemp(tempAux);
-                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_int_str');
-                        genc3d.gen_GetStack(temp, 'p');
-                        genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-                    case Tipo_1.TIPO.BOOLEANO:
-                    default:
-                        break;
-                }
-                break;
-            case Tipo_1.TIPO.CADENA:
-                switch (valor_exp2.tipo) {
-                    case Tipo_1.TIPO.DECIMAL:
-                        tempAux = genc3d.newTemp();
-                        genc3d.freeTemp(tempAux);
-                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_int');
-                        genc3d.gen_GetStack(temp, 'p');
-                        genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-                    case Tipo_1.TIPO.ENTERO:
-                        tempAux = genc3d.newTemp();
-                        genc3d.freeTemp(tempAux);
-                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_int');
-                        genc3d.gen_GetStack(temp, 'p');
-                        genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-                    case Tipo_1.TIPO.CADENA:
-                        tempAux = genc3d.newTemp();
-                        genc3d.freeTemp(tempAux);
-                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
-                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
-                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
-                        genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_str');
-                        genc3d.gen_GetStack(temp, 'p');
-                        genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-                    case Tipo_1.TIPO.BOOLEANO:
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-=======
   },
 
   extname: function extname(path) {
@@ -514,7 +409,6 @@ var posix = {
             break;
           }
           continue;
->>>>>>> develop
         }
       if (end === -1) {
         // We saw the first non-path separator, mark this as the end of our
@@ -542,36 +436,6 @@ var posix = {
         preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
       return '';
     }
-<<<<<<< HEAD
-    resta3D(valor_exp1, valor_exp2, tree) {
-        const genc3d = tree.generadorC3d;
-        const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-            }
-        }
-    }
-    multiplicacion3D(valor_exp1, valor_exp2, tree) {
-        const genc3d = tree.generadorC3d;
-        const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-            }
-        }
-    }
-    divicion3D(valor_exp1, valor_exp2, tree) {
-        const genc3d = tree.generadorC3d;
-        const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-            }
-=======
     return path.slice(startDot, end);
   },
 
@@ -617,7 +481,6 @@ var posix = {
             break;
           }
           continue;
->>>>>>> develop
         }
       if (end === -1) {
         // We saw the first non-path separator, mark this as the end of our
@@ -634,24 +497,6 @@ var posix = {
         preDotState = -1;
       }
     }
-<<<<<<< HEAD
-    modulo3D(valor_exp1, valor_exp2, tree) {
-        const genc3d = tree.generadorC3d;
-        const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                genc3d.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
-            }
-        }
-    }
-    unario3D(valor_exp1, tree) {
-        const genc3d = tree.generadorC3d;
-        const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            genc3d.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
-            return new Retorno_1.Retorno(temp, true, valor_exp1.tipo);
-=======
 
     if (startDot === -1 || end === -1 ||
     // We saw a non-dot character immediately before the dot
@@ -712,7 +557,6 @@ function defaultClearTimeout () {
             cachedSetTimeout = setTimeout;
         } else {
             cachedSetTimeout = defaultSetTimout;
->>>>>>> develop
         }
     } catch (e) {
         cachedSetTimeout = defaultSetTimout;
@@ -1818,61 +1662,6 @@ upcomingInput:function () {
         if (next.length < 20) {
             next += this._input.substr(0, 20-next.length);
         }
-<<<<<<< HEAD
-    }
-    igualigual3D(valor_exp1, valor_exp2, tree) {
-        const genC3d = tree.generadorC3d;
-        const temp = genC3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '==');
-            }
-        }
-        else {
-            if (valor_exp1.tipo == Tipo_1.TIPO.CADENA) {
-                if (valor_exp2.tipo == Tipo_1.TIPO.CADENA) {
-                    const tempAux = genC3d.newTemp();
-                    genC3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
-                    genC3d.gen_SetStack(tempAux, valor_exp1.translate3d());
-                    genC3d.gen_Exp(tempAux, tempAux, '1', '+');
-                    genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
-                    genC3d.gen_NextEnv(1);
-                    genC3d.gen_Call('nativa_compararIgual_str_str');
-                    genC3d.gen_GetStack(temp, 'p');
-                    genC3d.gen_AntEnv(1);
-                    this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
-                    // console.log(this.lblTrue)
-                    this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
-                    // console.log(this.lblFalse)
-                    genC3d.gen_If(temp, '1', '==', this.lblTrue);
-                    genC3d.gen_Goto(this.lblFalse);
-                    const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
-                    retorno.lblTrue = this.lblTrue;
-                    retorno.lblFalse = this.lblFalse;
-                    return retorno;
-                }
-            }
-        }
-    }
-    menorque3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '<');
-            }
-        }
-    }
-    menorigual3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '<=');
-            }
-        }
-    }
-    mayorque3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '>');
-=======
         return (next.substr(0,20) + (next.length > 20 ? '...' : '')).replace(/\n/g, "");
     },
 
@@ -1949,26 +1738,9 @@ test_match:function(match, indexed_rule) {
             // recover context
             for (var k in backup) {
                 this[k] = backup[k];
->>>>>>> develop
             }
             return false; // rule action called reject() implying the next rule should be tested instead.
         }
-<<<<<<< HEAD
-    }
-    mayoigual3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '>=');
-            }
-        }
-    }
-    diferente3D(valor_exp1, valor_exp2, tree) {
-        const genC3d = tree.generadorC3d;
-        const temp = genC3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '!=');
-=======
         return false;
     },
 
@@ -2009,7 +1781,6 @@ next:function () {
                 } else if (!this.options.flex) {
                     break;
                 }
->>>>>>> develop
             }
         }
         if (match) {
@@ -2282,65 +2053,6 @@ Parser.prototype = parser;parser.Parser = Parser;
 return new Parser;
 })();
 
-<<<<<<< HEAD
-},{"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":56}],14:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Primitivo = void 0;
-const Tipo_1 = require("../TablaSimbolos/Tipo");
-const Nodo_1 = require("../Ast/Nodo");
-const Retorno_1 = require("../G3D/Retorno");
-class Primitivo {
-    constructor(valor, tipo, fila, columna) {
-        this.valor = valor;
-        this.tipo = tipo;
-        this.fila = fila;
-        this.columna = columna;
-        this.lblFalse = "";
-        this.lblTrue = "";
-    }
-    ejecutar(table, tree) {
-        return this.valor;
-    }
-    translate3d(table, tree) {
-        let valor = this.ejecutar(table, tree);
-        const genc3d = tree.generadorC3d;
-        switch (this.tipo) {
-            case Tipo_1.TIPO.ENTERO:
-                return new Retorno_1.Retorno(this.valor, false, Tipo_1.TIPO.ENTERO);
-            case Tipo_1.TIPO.DECIMAL:
-                // genc3d.gen_Comment('--------- INICIA RECORRE NUMERO ---------');
-                return new Retorno_1.Retorno(this.valor, false, Tipo_1.TIPO.DECIMAL);
-            case Tipo_1.TIPO.CADENA:
-                const temp = genc3d.newTemp();
-                genc3d.genAsignaTemp(temp, 'h');
-                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
-                for (let i = 0; i < valor.length; i++) {
-                    genc3d.gen_SetHeap('h', valor.charCodeAt(i));
-                    genc3d.nextHeap();
-                }
-                genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
-                genc3d.gen_SetHeap('h', '-1');
-                genc3d.nextHeap();
-                return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-            case Tipo_1.TIPO.BOOLEANO:
-                // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-                this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
-                this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
-                this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
-                let retornar = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
-                retornar.lblTrue = this.lblTrue;
-                retornar.lblFalse = this.lblFalse;
-                return retornar;
-            case Tipo_1.TIPO.NULO:
-                return new Retorno_1.Retorno("-1", false, Tipo_1.TIPO.NULO);
-        }
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("PRIMITIVO", "");
-        padre.addChildNode(new Nodo_1.Nodo(this.valor.toString(), ""));
-        return padre;
-=======
 
 if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
 exports.parser = gramatica;
@@ -2350,7 +2062,6 @@ exports.main = function commonjsMain (args) {
     if (!args[1]) {
         console.log('Usage: '+args[0]+' FILE');
         process.exit(1);
->>>>>>> develop
     }
     var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
     return exports.parser.parse(source);
@@ -3483,6 +3194,34 @@ class Aritmetica {
                     case Tipo_1.TIPO.DECIMAL:
                         genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
                         return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                    case Tipo_1.TIPO.ENTERO:
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                    case Tipo_1.TIPO.CADENA:
+                        let tempAux = genc3d.newTemp();
+                        genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_int_str');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                    case Tipo_1.TIPO.BOOLEANO:
+                    default:
+                        break;
+                }
+                break;
+            case Tipo_1.TIPO.ENTERO:
+                switch (valor_exp2.tipo) {
+                    case Tipo_1.TIPO.DECIMAL:
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                    case Tipo_1.TIPO.ENTERO:
+                        genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
                     case Tipo_1.TIPO.CADENA:
                         let tempAux = genc3d.newTemp();
                         genc3d.freeTemp(tempAux);
@@ -3514,6 +3253,18 @@ class Aritmetica {
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                    case Tipo_1.TIPO.ENTERO:
+                        tempAux = genc3d.newTemp();
+                        genc3d.freeTemp(tempAux);
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp1.translate3d());
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
                     case Tipo_1.TIPO.CADENA:
                         tempAux = genc3d.newTemp();
                         genc3d.freeTemp(tempAux);
@@ -3530,6 +3281,7 @@ class Aritmetica {
                     default:
                         break;
                 }
+                break;
             default:
                 break;
         }
@@ -3556,8 +3308,8 @@ class Aritmetica {
     resta3D(valor_exp1, valor_exp2, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
@@ -3566,8 +3318,8 @@ class Aritmetica {
     multiplicacion3D(valor_exp1, valor_exp2, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
@@ -3576,8 +3328,8 @@ class Aritmetica {
     divicion3D(valor_exp1, valor_exp2, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
@@ -3586,8 +3338,8 @@ class Aritmetica {
     modulo3D(valor_exp1, valor_exp2, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
                 return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
             }
@@ -3596,7 +3348,7 @@ class Aritmetica {
     unario3D(valor_exp1, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             genc3d.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
             return new Retorno_1.Retorno(temp, true, valor_exp1.tipo);
         }
@@ -4285,8 +4037,8 @@ class Relacional {
     igualigual3D(valor_exp1, valor_exp2, tree) {
         const genC3d = tree.generadorC3d;
         const temp = genC3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '==');
             }
         }
@@ -4303,9 +4055,9 @@ class Relacional {
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
-                    console.log(this.lblTrue);
+                    // console.log(this.lblTrue)
                     this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
-                    console.log(this.lblFalse);
+                    // console.log(this.lblFalse)
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
                     genC3d.gen_Goto(this.lblFalse);
                     const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
@@ -4317,29 +4069,29 @@ class Relacional {
         }
     }
     menorque3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '<');
             }
         }
     }
     menorigual3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '<=');
             }
         }
     }
     mayorque3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '>');
             }
         }
     }
     mayoigual3D(valor_exp1, valor_exp2, tree) {
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '>=');
             }
         }
@@ -4347,8 +4099,8 @@ class Relacional {
     diferente3D(valor_exp1, valor_exp2, tree) {
         const genC3d = tree.generadorC3d;
         const temp = genC3d.newTemp();
-        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL) {
-            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL) {
+        if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
+            if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 return this.compararExp(valor_exp1, valor_exp2, tree, '!=');
             }
         }
@@ -4412,35 +4164,35 @@ class Primitivo {
     translate3d(table, tree) {
         let valor = this.ejecutar(table, tree);
         const genc3d = tree.generadorC3d;
-        if (typeof valor == 'number') {
-            // genc3d.gen_Comment('--------- INICIA RECORRE NUMERO ---------');
-            return new Retorno_1.Retorno(this.valor, false, Tipo_1.TIPO.DECIMAL);
-        }
-        else if (typeof valor == 'string') {
-            const temp = genc3d.newTemp();
-            genc3d.genAsignaTemp(temp, 'h');
-            genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
-            for (let i = 0; i < valor.length; i++) {
-                genc3d.gen_SetHeap('h', valor.charCodeAt(i));
+        switch (this.tipo) {
+            case Tipo_1.TIPO.ENTERO:
+                return new Retorno_1.Retorno(this.valor, false, Tipo_1.TIPO.ENTERO);
+            case Tipo_1.TIPO.DECIMAL:
+                // genc3d.gen_Comment('--------- INICIA RECORRE NUMERO ---------');
+                return new Retorno_1.Retorno(this.valor, false, Tipo_1.TIPO.DECIMAL);
+            case Tipo_1.TIPO.CADENA:
+                const temp = genc3d.newTemp();
+                genc3d.genAsignaTemp(temp, 'h');
+                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
+                for (let i = 0; i < valor.length; i++) {
+                    genc3d.gen_SetHeap('h', valor.charCodeAt(i));
+                    genc3d.nextHeap();
+                }
+                genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
+                genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
-            }
-            genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
-            genc3d.gen_SetHeap('h', '-1');
-            genc3d.nextHeap();
-            return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
-        }
-        else if (typeof valor == 'boolean') {
-            // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
-            this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
-            this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
-            this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
-            let retornar = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
-            retornar.lblTrue = this.lblTrue;
-            retornar.lblFalse = this.lblFalse;
-            return retornar;
-        }
-        if (this.tipo == Tipo_1.TIPO.NULO) {
-            return new Retorno_1.Retorno("-1", false, Tipo_1.TIPO.NULO);
+                return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+            case Tipo_1.TIPO.BOOLEANO:
+                // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
+                this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
+                this.lblFalse = this.lblFalse == '' ? tree.generadorC3d.newLabel() : this.lblFalse;
+                this.valor ? tree.generadorC3d.gen_Goto(this.lblTrue) : tree.generadorC3d.gen_Goto(this.lblFalse);
+                let retornar = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
+                retornar.lblTrue = this.lblTrue;
+                retornar.lblFalse = this.lblFalse;
+                return retornar;
+            case Tipo_1.TIPO.NULO:
+                return new Retorno_1.Retorno("-1", false, Tipo_1.TIPO.NULO);
         }
     }
     recorrer(table, tree) {
@@ -5514,63 +5266,6 @@ class Nativas {
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
     }
-<<<<<<< HEAD
-    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    // :::::::::::::::::::::    C3D      :::::::::::::::::::::
-    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    // cont = 0;
-    translate3d(table, tree) {
-        const genc3d = tree.generadorC3d;
-        let valor_condicion = this.condicion.translate3d(table, tree);
-        let lb_exit = genc3d.newLabel();
-        if (valor_condicion instanceof Errores_1.Errores) {
-            tree.getErrores().push(valor_condicion);
-            tree.updateConsolaPrintln(valor_condicion.toString());
-        }
-        if (valor_condicion instanceof Retorno_1.Retorno) {
-            // console.log("valor_condicion valor");
-            // console.log(valor_condicion);
-            // console.log("valor_condicion tipo");
-            // console.log(valor_condicion.tipo);
-            // console.log("valor_condicion istemp");
-            // console.log(valor_condicion.istemp);
-            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                // if(valor_condicion.istemp){
-                //     genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
-                //     genc3d.gen_Goto(valor_condicion.lblFalse);
-                // }
-                // console.log("ingreso a if.");
-                genc3d.gen_Label(valor_condicion.lblTrue);
-                this.lista_ifs.forEach(instruccion => {
-                    instruccion.translate3d(ts_local, tree);
-                });
-                genc3d.gen_Goto(lb_exit);
-                genc3d.gen_Label(valor_condicion.lblFalse);
-                if (this.lista_ifelse != null) {
-                    // console.log("ingreso a elseif.");
-                    // let ts_local = new TablaSimbolos(table);
-                    this.lista_ifelse.translate3d(table, tree);
-                }
-                if (this.lista_elses != null) {
-                    // console.log("ingreso a else.");
-                    // let ts_local = new TablaSimbolos(table);
-                    // genc3d.gen_Goto(lb_exit);
-                    // genc3d.gen_Label(valor_condicion.lblFalse);
-                    this.lista_elses.forEach(instruccion => {
-                        instruccion.translate3d(ts_local, tree);
-                    });
-                    genc3d.gen_Label(lb_exit);
-                }
-                else {
-                    genc3d.gen_Label(lb_exit);
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
-            }
-        }
-=======
     natConcatStr_dbl() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         let t0 = genC3d.newTemp();
@@ -5660,7 +5355,6 @@ class Nativas {
         genC3d.freeTemp(t4);
         genC3d.freeTemp(p1);
         genC3d.freeTemp(p2);
->>>>>>> develop
     }
     natConcatStr_bol() {
         const genC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
@@ -5797,15 +5491,6 @@ exports.Retorno = Retorno;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionArr = void 0;
 const Errores_1 = require("../../Ast/Errores");
-<<<<<<< HEAD
-const Retorno_1 = require("../../G3D/Retorno");
-class Ifsinllave {
-    constructor(condicion, ins_ifs, ins_elses, fila, columna) {
-        this.condicion = condicion;
-        this.ins_ifs = ins_ifs;
-        this.ins_elses = ins_elses;
-        this.columna = columna;
-=======
 const Nodo_1 = require("../../Ast/Nodo");
 const Copiar_1 = require("../../Expresiones/Arreglos/Copiar");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
@@ -5818,7 +5503,6 @@ class DeclaracionArr {
         this.dimensiones = dimensiones;
         this.id = id;
         this.expresiones = expresiones;
->>>>>>> develop
         this.fila = fila;
         this.columna = columna;
     }
@@ -5868,128 +5552,6 @@ class DeclaracionArr {
                     return new Errores_1.Errores("Semantico", `La variable '${this.id}', no es de tipo arreglo.`, this.fila, this.columna);
                 }
             }
-<<<<<<< HEAD
-        }
-        return null;
-    }
-    translate3d(table, tree) {
-        const genc3d = tree.generadorC3d;
-        let valor_condicion = this.condicion.translate3d(table, tree);
-        let lb_exit = genc3d.newLabel();
-        if (valor_condicion instanceof Errores_1.Errores) {
-            tree.getErrores().push(valor_condicion);
-            tree.updateConsolaPrintln(valor_condicion.toString());
-        }
-        if (valor_condicion instanceof Retorno_1.Retorno) {
-            // console.log("valor_condicion valor");
-            // console.log(valor_condicion);
-            // console.log("valor_condicion tipo");
-            // console.log(valor_condicion.tipo);
-            // console.log("valor_condicion istemp");
-            // console.log(valor_condicion.istemp);
-            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
-                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                // if(valor_condicion.istemp){
-                //     genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
-                //     genc3d.gen_Goto(valor_condicion.lblFalse);
-                // }
-                // console.log("ingreso a if.");
-                genc3d.gen_Label(valor_condicion.lblTrue);
-                this.ins_ifs.translate3d(ts_local, tree);
-                genc3d.gen_Goto(lb_exit);
-                genc3d.gen_Label(valor_condicion.lblFalse);
-                if (this.ins_elses != null) {
-                    // console.log("ingreso a else.");
-                    // let ts_local = new TablaSimbolos(table);
-                    // genc3d.gen_Goto(lb_exit);
-                    // genc3d.gen_Label(valor_condicion.lblFalse);
-                    if (this.ins_elses instanceof Array) {
-                        this.ins_elses.forEach(ins => {
-                            ins.translate3d(ts_local, tree);
-                        });
-                    }
-                    else {
-                        this.ins_elses.translate3d(ts_local, tree);
-                    }
-                    genc3d.gen_Label(lb_exit);
-                }
-                else {
-                    genc3d.gen_Label(lb_exit);
-                }
-            }
-            else {
-                return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
-            }
-        }
-    }
-    recorrer(table, tree) {
-        let padre = new Nodo_1.Nodo("IF", "");
-        let condicion = new Nodo_1.Nodo("CONDICION", "");
-        condicion.addChildNode(this.condicion.ejecutar(table, tree));
-        // LISTA IFS
-        let listaIfs = new Nodo_1.Nodo("INSTRUCCIONES IFS", "");
-        // for(let instr of this.lista_ifs)
-        // {
-        //     listaIfs.addChildNode(instr.recorrer(table,tree));
-        // }
-        // padre.addChildNode(listaIfs);
-        // LISTA IFS
-        if (this.ins_ifs != null) {
-            listaIfs.addChildNode(this.ins_ifs.recorrer(table, tree));
-        }
-        padre.addChildNode(condicion);
-        padre.addChildNode(listaIfs);
-        // LISTA IFS
-        if (this.ins_elses != null && this.ins_elses instanceof Array) {
-            for (let nodo of this.ins_elses) {
-                padre.addChildNode(nodo.recorrer(table, tree));
-            }
-        }
-        return padre;
-    }
-}
-exports.Ifsinllave = Ifsinllave;
-
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/TablaSimbolos":55,"../Transferencia/Break":51,"../Transferencia/Continuar":52,"../Transferencia/Return":53,"./../../TablaSimbolos/Tipo":56}],30:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Switch = void 0;
-const Nodo_1 = require("../../Ast/Nodo");
-const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
-const Break_1 = require("../Transferencia/Break");
-const Return_1 = require("../Transferencia/Return");
-const Errores_1 = require("../../Ast/Errores");
-class Switch {
-    constructor(valor_sw, lista_case, lista_default, fila, columna) {
-        this.valor_sw = valor_sw;
-        this.lista_case = lista_case;
-        this.lista_default = lista_default;
-        this.columna = columna;
-        this.fila = fila;
-    }
-    ejecutar(table, tree) {
-        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        for (let sw of this.lista_case) {
-            sw.valor_sw = this.valor_sw.ejecutar(ts_local, tree);
-            if (sw.valor_sw instanceof Errores_1.Errores) {
-                tree.getErrores().push(sw.valor_sw);
-                tree.updateConsolaPrintln(sw.valor_sw.toString());
-            }
-        }
-        let x = 0;
-        for (let ins of this.lista_case) {
-            let res = ins.ejecutar(ts_local, tree);
-            if (res instanceof Errores_1.Errores) {
-                tree.getErrores().push(res);
-                tree.updateConsolaPrintln(res.toString());
-            }
-            if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
-                // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                x = 1;
-                break;
-            }
-=======
->>>>>>> develop
             else {
                 return new Errores_1.Errores("Semantico", "Variable no encontrada.", this.fila, this.columna);
             }
@@ -6959,6 +6521,7 @@ class If {
     // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // :::::::::::::::::::::    C3D      :::::::::::::::::::::
     // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // cont = 0;
     translate3d(table, tree) {
         const genc3d = tree.generadorC3d;
         let valor_condicion = this.condicion.translate3d(table, tree);
@@ -6969,36 +6532,41 @@ class If {
         }
         if (valor_condicion instanceof Retorno_1.Retorno) {
             // console.log("valor_condicion valor");
-            // console.log(valor_condicion.translate3d());
+            // console.log(valor_condicion);
             // console.log("valor_condicion tipo");
             // console.log(valor_condicion.tipo);
             // console.log("valor_condicion istemp");
             // console.log(valor_condicion.istemp);
             if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
                 let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                if (valor_condicion.istemp) {
-                    genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
-                    genc3d.gen_Goto(valor_condicion.lblFalse);
-                }
+                // if(valor_condicion.istemp){
+                //     genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
+                //     genc3d.gen_Goto(valor_condicion.lblFalse);
+                // }
+                // console.log("ingreso a if.");
                 genc3d.gen_Label(valor_condicion.lblTrue);
                 this.lista_ifs.forEach(instruccion => {
                     instruccion.translate3d(ts_local, tree);
                 });
+                genc3d.gen_Goto(lb_exit);
+                genc3d.gen_Label(valor_condicion.lblFalse);
+                if (this.lista_ifelse != null) {
+                    // console.log("ingreso a elseif.");
+                    // let ts_local = new TablaSimbolos(table);
+                    this.lista_ifelse.translate3d(table, tree);
+                }
                 if (this.lista_elses != null) {
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    genc3d.gen_Goto(lb_exit);
-                    genc3d.gen_Label(valor_condicion.lblFalse);
+                    // console.log("ingreso a else.");
+                    // let ts_local = new TablaSimbolos(table);
+                    // genc3d.gen_Goto(lb_exit);
+                    // genc3d.gen_Label(valor_condicion.lblFalse);
                     this.lista_elses.forEach(instruccion => {
                         instruccion.translate3d(ts_local, tree);
                     });
                     genc3d.gen_Label(lb_exit);
                 }
-                else if (this.lista_ifelse != null) {
-                    let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-                    this.lista_ifelse.translate3d(ts_local, tree);
-                }
                 else {
-                    genc3d.gen_Label(valor_condicion.lblFalse);
+                    genc3d.gen_Label(lb_exit);
                 }
             }
             else {
@@ -7047,6 +6615,7 @@ const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
 const Errores_1 = require("../../Ast/Errores");
+const Retorno_1 = require("../../G3D/Retorno");
 class Ifsinllave {
     constructor(condicion, ins_ifs, ins_elses, fila, columna) {
         this.condicion = condicion;
@@ -7140,7 +6709,54 @@ class Ifsinllave {
         return null;
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented IFNOLL.');
+        const genc3d = tree.generadorC3d;
+        let valor_condicion = this.condicion.translate3d(table, tree);
+        let lb_exit = genc3d.newLabel();
+        if (valor_condicion instanceof Errores_1.Errores) {
+            tree.getErrores().push(valor_condicion);
+            tree.updateConsolaPrintln(valor_condicion.toString());
+        }
+        if (valor_condicion instanceof Retorno_1.Retorno) {
+            // console.log("valor_condicion valor");
+            // console.log(valor_condicion);
+            // console.log("valor_condicion tipo");
+            // console.log(valor_condicion.tipo);
+            // console.log("valor_condicion istemp");
+            // console.log(valor_condicion.istemp);
+            if (this.condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+                let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+                // if(valor_condicion.istemp){
+                //     genc3d.gen_If(valor_condicion.valor, "1", "==", valor_condicion.lblTrue);
+                //     genc3d.gen_Goto(valor_condicion.lblFalse);
+                // }
+                // console.log("ingreso a if.");
+                genc3d.gen_Label(valor_condicion.lblTrue);
+                this.ins_ifs.translate3d(ts_local, tree);
+                genc3d.gen_Goto(lb_exit);
+                genc3d.gen_Label(valor_condicion.lblFalse);
+                if (this.ins_elses != null) {
+                    // console.log("ingreso a else.");
+                    // let ts_local = new TablaSimbolos(table);
+                    // genc3d.gen_Goto(lb_exit);
+                    // genc3d.gen_Label(valor_condicion.lblFalse);
+                    if (this.ins_elses instanceof Array) {
+                        this.ins_elses.forEach(ins => {
+                            ins.translate3d(ts_local, tree);
+                        });
+                    }
+                    else {
+                        this.ins_elses.translate3d(ts_local, tree);
+                    }
+                    genc3d.gen_Label(lb_exit);
+                }
+                else {
+                    genc3d.gen_Label(lb_exit);
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
+            }
+        }
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("IF", "");
@@ -7170,7 +6786,7 @@ class Ifsinllave {
 }
 exports.Ifsinllave = Ifsinllave;
 
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":58,"../Transferencia/Break":54,"../Transferencia/Continuar":55,"../Transferencia/Return":56,"./../../TablaSimbolos/Tipo":59}],33:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/TablaSimbolos":58,"../Transferencia/Break":54,"../Transferencia/Continuar":55,"../Transferencia/Return":56,"./../../TablaSimbolos/Tipo":59}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
@@ -7337,6 +6953,7 @@ class Declaracion {
             let valor = variable.valor.translate3d(table, tree);
             //1 Si se crea por primera vez
             if (valor === null) {
+                genc3d.gen_Comment("------- Default primitivo Declaracion-------");
                 if (this.tipo == Tipo_1.TIPO.DECIMAL) {
                     let primitivo = new Primitivo_1.Primitivo(0, Tipo_1.TIPO.DECIMAL, this.fila, this.columna);
                     valor = primitivo.translate3d(table, tree);
@@ -7360,6 +6977,7 @@ class Declaracion {
                 /// arreglos en clase arreglo
             }
             console.log(valor);
+            console.log(this.tipo);
             if (this.tipo != valor.tipo) {
                 let error = new Errores_1.Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 ;
@@ -7372,9 +6990,11 @@ class Declaracion {
                 tree.updateConsolaPrintln(res_simb.toString());
                 return;
             }
+            genc3d.gen_Comment("------- Declarando-------");
             ///array en declaracion array
             if (nuevo_simb.isRef) {
                 if (valor.tipo === Tipo_1.TIPO.BOOLEANO) {
+                    genc3d.gen_Comment("------- is ref true-------");
                     const lbl = genc3d.newLabel();
                     genc3d.gen_Label(valor.lblTrue);
                     genc3d.gen_SetStack(nuevo_simb.posicion, '1');
@@ -7387,6 +7007,7 @@ class Declaracion {
                     genc3d.gen_SetStack(nuevo_simb.posicion, valor.valor);
             }
             else {
+                genc3d.gen_Comment("------- is ref false-------");
                 const temp = genc3d.newTemp();
                 genc3d.freeTemp(temp);
                 genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
@@ -7573,51 +7194,7 @@ class Pop {
         }
     }
     translate3d(table, tree) {
-<<<<<<< HEAD
-        const genc3d = tree.generadorC3d;
-        this.parametros.forEach(expresion => {
-            let valor3d = expresion.translate3d(table, tree);
-            if (valor3d instanceof Retorno_1.Retorno) {
-                // console.log(valor3d)
-                let temp = valor3d.translate3d();
-                let t0 = genc3d.newTemp();
-                if (valor3d.tipo == Tipo_1.TIPO.CADENA) {
-                    genc3d.gen_Comment('--------- INICIA PRINT CADENA ---------');
-                    genc3d.gen_SetStack(t0, temp);
-                    genc3d.gen_Call('natPrintStr');
-                    // genc3d.gen_Code('');
-                    genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
-                }
-                else if (valor3d.tipo == Tipo_1.TIPO.ENTERO) {
-                    genc3d.gen_Comment('--------- INICIA PRINT INT ---------');
-                    genc3d.gen_Print('i', temp);
-                    genc3d.gen_Comment('--------- FIN PRINT INT ---------');
-                }
-                else if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
-                    genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
-                    genc3d.gen_Print('f', temp);
-                    genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
-                }
-                else if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
-                    let salida = genc3d.newLabel();
-                    genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');
-                    genc3d.gen_Label(valor3d.lblFalse);
-                    genc3d.gen_PrintFalse();
-                    genc3d.gen_Goto(salida);
-                    genc3d.gen_Comment('--------- INICIA PRINT TRUE ---------');
-                    genc3d.gen_Label(valor3d.lblTrue);
-                    genc3d.gen_PrintTrue();
-                    genc3d.gen_Goto(salida);
-                    genc3d.gen_Label(salida);
-                }
-                if (this.tipo) {
-                    genc3d.gen_Print('c', '10');
-                }
-            }
-        });
-=======
         throw new Error("Method not implemented POP.");
->>>>>>> develop
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("POP", "");
@@ -8355,7 +7932,7 @@ class Print {
         this.parametros.forEach(expresion => {
             let valor3d = expresion.translate3d(table, tree);
             if (valor3d instanceof Retorno_1.Retorno) {
-                console.log(valor3d);
+                // console.log(valor3d)
                 let temp = valor3d.translate3d();
                 let t0 = genc3d.newTemp();
                 if (valor3d.tipo == Tipo_1.TIPO.CADENA) {
@@ -8654,104 +8231,6 @@ exports.DeclararStruct = DeclararStruct;
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":57,"../../TablaSimbolos/TablaSimbolos":58,"../../TablaSimbolos/Tipo":59}],52:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< HEAD
-exports.OperadorLogico = exports.OperadorRelacional = exports.OperadorAritmetico = exports.TIPO = void 0;
-var TIPO;
-(function (TIPO) {
-    TIPO[TIPO["ENTERO"] = 0] = "ENTERO";
-    TIPO[TIPO["DECIMAL"] = 1] = "DECIMAL";
-    TIPO[TIPO["BOOLEANO"] = 2] = "BOOLEANO";
-    TIPO[TIPO["CHARACTER"] = 3] = "CHARACTER";
-    TIPO[TIPO["CADENA"] = 4] = "CADENA";
-    TIPO[TIPO["NULO"] = 5] = "NULO";
-    TIPO[TIPO["ARREGLO"] = 6] = "ARREGLO";
-    TIPO[TIPO["ANY"] = 7] = "ANY";
-    TIPO[TIPO["RANGO"] = 8] = "RANGO";
-    TIPO[TIPO["STRUCT"] = 9] = "STRUCT";
-    TIPO[TIPO["VOID"] = 10] = "VOID";
-})(TIPO = exports.TIPO || (exports.TIPO = {}));
-var OperadorAritmetico;
-(function (OperadorAritmetico) {
-    OperadorAritmetico[OperadorAritmetico["MAS"] = 0] = "MAS";
-    OperadorAritmetico[OperadorAritmetico["MENOS"] = 1] = "MENOS";
-    OperadorAritmetico[OperadorAritmetico["POR"] = 2] = "POR";
-    OperadorAritmetico[OperadorAritmetico["DIV"] = 3] = "DIV";
-    OperadorAritmetico[OperadorAritmetico["POT"] = 4] = "POT";
-    OperadorAritmetico[OperadorAritmetico["MOD"] = 5] = "MOD";
-    OperadorAritmetico[OperadorAritmetico["UMENOS"] = 6] = "UMENOS";
-    OperadorAritmetico[OperadorAritmetico["UMENOSMENOS"] = 7] = "UMENOSMENOS";
-    OperadorAritmetico[OperadorAritmetico["UMASMAS"] = 8] = "UMASMAS";
-    OperadorAritmetico[OperadorAritmetico["AMPERSON"] = 9] = "AMPERSON";
-})(OperadorAritmetico = exports.OperadorAritmetico || (exports.OperadorAritmetico = {}));
-var OperadorRelacional;
-(function (OperadorRelacional) {
-    OperadorRelacional[OperadorRelacional["MENORQUE"] = 0] = "MENORQUE";
-    OperadorRelacional[OperadorRelacional["MAYORQUE"] = 1] = "MAYORQUE";
-    OperadorRelacional[OperadorRelacional["MENORIGUAL"] = 2] = "MENORIGUAL";
-    OperadorRelacional[OperadorRelacional["MAYORIGUAL"] = 3] = "MAYORIGUAL";
-    OperadorRelacional[OperadorRelacional["IGUALIGUAL"] = 4] = "IGUALIGUAL";
-    OperadorRelacional[OperadorRelacional["DIFERENTE"] = 5] = "DIFERENTE";
-})(OperadorRelacional = exports.OperadorRelacional || (exports.OperadorRelacional = {}));
-var OperadorLogico;
-(function (OperadorLogico) {
-    OperadorLogico[OperadorLogico["NOT"] = 0] = "NOT";
-    OperadorLogico[OperadorLogico["AND"] = 1] = "AND";
-    OperadorLogico[OperadorLogico["OR"] = 2] = "OR";
-})(OperadorLogico = exports.OperadorLogico || (exports.OperadorLogico = {}));
-
-},{}],57:[function(require,module,exports){
-const { Ast } = require("./dist/Ast/Ast");
-const gramatica = require("./Analizadores/gramatica");
-const { Declaracion } = require("./dist/Instrucciones/Declaracion");
-const { Funcion } = require("./dist/Instrucciones/Metodos/Funcion");
-const { Main } = require("./dist/Instrucciones/Metodos/Main");
-const { Asignacion } = require("./dist/Instrucciones/Asignacion");
-const { DeclaracionArr } = require("./dist/Instrucciones/Arreglos/DeclaracionArr");
-const { Struct } = require("./dist/Instrucciones/Struct/Struct");
-const compilar = document.getElementById('compilarProyecto');
-var myTab = document.getElementById('myTab');
-var itemAbrir = document.getElementById('itemAbrir');
-let result;
-let entornoAnalizar;
-let entornoTraducir;
-
-var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
-    mode: "text/x-csrc",
-    theme: "night",
-    lineNumbers:true,
-    autoCloseBrackets: true,
-    readOnly: false
-});
-
-var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
-    mode: "text/x-java",
-    theme: "night",
-    lineNumbers:true,
-    autoCloseBrackets: true
-});
-text.setSize(null,520);
-
-var cantTabs = 1;
-var editor = new Editor(text);
-var editor2 = new Editor(text2);
-var editores = [];
-editores.push(editor);
-editores.push(editor2);
-
-function Editor(codeEditor){    
-    this.codeEditor = codeEditor;
-}
-
-
-itemAbrir.addEventListener('click', async () => {
-
-    const { value: file } = await Swal.fire({
-        title: 'Abrir Archivo',
-        input: 'file',
-        inputAttributes: {
-            'accept': '*',
-            'aria-label': 'Selected File'
-=======
 exports.Struct = void 0;
 const Errores_1 = require("../../Ast/Errores");
 const DeclaracionArr_1 = require("../Arreglos/DeclaracionArr");
@@ -8819,7 +8298,6 @@ class Struct {
                 // this.tipo = result.tipo;
                 // return result.valor;
             }
->>>>>>> develop
         }
         // Guardo Simbolo: id, tipoStruct(el Struct que es), TIPO.STRUCT, variables, Attributes: TablaSimbolos(null)
         // return variables;
@@ -9109,6 +8587,7 @@ class TablaSimbolos {
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
+            simbolo.setPosicion(this.size++);
             this.tabla.set(simbolo.getId(), simbolo);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
@@ -9303,7 +8782,7 @@ let entornoAnalizar;
 let entornoTraducir;
 
 var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
-    mode: "javascript",
+    mode: "text/x-csrc",
     theme: "night",
     lineNumbers:true,
     autoCloseBrackets: true,
@@ -9311,7 +8790,7 @@ var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
 });
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
-    mode: "javascript",
+    mode: "text/x-java",
     theme: "night",
     lineNumbers:true,
     autoCloseBrackets: true
