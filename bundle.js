@@ -4224,6 +4224,16 @@ class Primitivo {
                 genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
                 return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+            case Tipo_1.TIPO.CHARACTER:
+                genc3d.gen_Comment('--------- PRIMITIVO: char ---------');
+                const temp2 = genc3d.newTemp();
+                genc3d.genAsignaTemp(temp2, 'h');
+                genc3d.gen_SetHeap('h', valor.charCodeAt(0));
+                genc3d.nextHeap();
+                genc3d.gen_SetHeap('h', '-1');
+                genc3d.nextHeap();
+                return new Retorno_1.Retorno(temp2, true, Tipo_1.TIPO.CHARACTER);
+            // return new Retorno(this.valor, false, TIPO.CHARACTER);
             case Tipo_1.TIPO.BOOLEANO:
                 // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
                 this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
@@ -7094,6 +7104,8 @@ class Declaracion {
                 return error;
             }
             let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
+            nuevo_simb.posicion = table.size;
+            console.log(nuevo_simb);
             // nuevo_simb.isRef=true;
             let res_simb = table.setSymbolTabla(nuevo_simb);
             if (res_simb instanceof Errores_1.Errores) {
@@ -8052,17 +8064,22 @@ class Print {
                     // genc3d.gen_Code('');
                     genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
                 }
-                else if (valor3d.tipo == Tipo_1.TIPO.ENTERO) {
+                if (valor3d.tipo == Tipo_1.TIPO.ENTERO) {
                     genc3d.gen_Comment('--------- INICIA PRINT INT ---------');
                     genc3d.gen_Print('i', temp);
                     genc3d.gen_Comment('--------- FIN PRINT INT ---------');
                 }
-                else if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
+                if (valor3d.tipo == Tipo_1.TIPO.CHARACTER) {
+                    genc3d.gen_Comment('--------- INICIA PRINT char ---------');
+                    genc3d.gen_SetStack(t0, temp);
+                    genc3d.gen_Call('natPrintStr');
+                }
+                if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
                     genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
                     genc3d.gen_Print('f', temp);
                     genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
                 }
-                else if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
                     let salida = genc3d.newLabel();
                     genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');
                     genc3d.gen_Label(valor3d.lblFalse);
@@ -8719,8 +8736,10 @@ class TablaSimbolos {
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
-            simbolo.setPosicion(this.size++);
+            simbolo.setPosicion(this.size);
             this.tabla.set(simbolo.getId(), simbolo);
+            this.size += 1;
+            console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }

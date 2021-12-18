@@ -110,7 +110,10 @@ class Declaracion {
                 tree.updateConsolaPrintln(error.toString());
                 return error;
             }
+            // Verificar si guardar
             let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
+            nuevo_simb.posicion = table.size;
+            console.log(nuevo_simb);
             // nuevo_simb.isRef=true;
             let res_simb = table.setSymbolTabla(nuevo_simb);
             if (res_simb instanceof Errores_1.Errores) {
