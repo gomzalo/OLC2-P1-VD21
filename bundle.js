@@ -2692,7 +2692,7 @@ class Identificador {
         this.columna = columna;
         this.tipo = null;
         this.lblFalse = "";
-        this.lblFalse = "";
+        this.lblTrue = "";
     }
     ejecutar(table, tree) {
         // console.log(table.existeEnActual(this.id));
@@ -7103,6 +7103,7 @@ class Declaracion {
                 tree.updateConsolaPrintln(error.toString());
                 return error;
             }
+            // Verificar si guardar
             let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
             nuevo_simb.posicion = table.size;
             console.log(nuevo_simb);
