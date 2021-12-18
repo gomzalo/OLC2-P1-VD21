@@ -101,6 +101,12 @@ println("hola ", 454, 56>3);
 println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 println(":::::::::::::   VARIABLES  :::::::::::::");
 println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+boolean nbandera =true;
+boolean nbandera2 ;
+println(nbandera);//true
+nbandera =false;
+println(nbandera);//false
+println(nbandera2);//false
 println("");
 println("************   Asignaciones  **************");
 println("");
