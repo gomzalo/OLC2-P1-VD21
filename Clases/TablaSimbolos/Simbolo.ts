@@ -11,7 +11,7 @@ export class Simbolo{
     public structEnv: any; // ENTORNO STRUCT
     public variables ; // instructions de STRUCT
     public tipoStruct : string;
-    public isRef: boolean;
+    public isGlobal: boolean; // isRef
     public posicion: number;
     
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false){
@@ -22,7 +22,7 @@ export class Simbolo{
         this.valor =  valor;
         this.arreglo = arreglo;
         this.structEnv = structEnv;
-        this.isRef = false;
+        this.isGlobal = false;
         this.posicion = 0;
         // console.log("simbolor: "+this.valor);
     }
@@ -30,6 +30,10 @@ export class Simbolo{
     setPosicion(posicion){
         this.posicion =this.posicion;
     }
+    /**
+     * 
+     * @returns this.posicion
+     */
     getPosicion(){
         return this.posicion;
     }

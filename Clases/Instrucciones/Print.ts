@@ -114,11 +114,12 @@ export class Print implements Instruccion{
                     genc3d.gen_Label(salida);
 
                 }
-                if(this.tipo){
-                    genc3d.gen_Print('c', '10');
-                }
+                
             }
         });
+        if(this.tipo){
+            genc3d.gen_Print('c', '10');
+        }
     }
 
     recorrer(table: TablaSimbolos, tree: Ast){
