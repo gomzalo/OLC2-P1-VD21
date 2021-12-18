@@ -12,7 +12,7 @@ class Identificador {
         this.columna = columna;
         this.tipo = null;
         this.lblFalse = "";
-        this.lblFalse = "";
+        this.lblTrue = "";
     }
     ejecutar(table, tree) {
         // console.log(table.existeEnActual(this.id));

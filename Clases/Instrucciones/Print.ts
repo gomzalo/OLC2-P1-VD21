@@ -92,15 +92,23 @@ export class Print implements Instruccion{
                     genc3d.gen_Call('natPrintStr');
                     // genc3d.gen_Code('');
                     genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
-                }else if(valor3d.tipo == TIPO.ENTERO){
+                }
+                if(valor3d.tipo == TIPO.ENTERO){
                     genc3d.gen_Comment('--------- INICIA PRINT INT ---------');
                     genc3d.gen_Print('i', temp);
                     genc3d.gen_Comment('--------- FIN PRINT INT ---------');
-                }else if(valor3d.tipo == TIPO.DECIMAL){
+                }
+                if(valor3d.tipo == TIPO.CHARACTER){
+                    genc3d.gen_Comment('--------- INICIA PRINT char ---------');
+                    genc3d.gen_SetStack(t0, temp);
+                    genc3d.gen_Call('natPrintStr');
+                }
+                if(valor3d.tipo == TIPO.DECIMAL){
                     genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
                     genc3d.gen_Print('f', temp);
                     genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
-                }else if(valor3d.tipo == TIPO.BOOLEANO)
+                }
+                if(valor3d.tipo == TIPO.BOOLEANO)
                 {
                     let salida = genc3d.newLabel()
                     genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');

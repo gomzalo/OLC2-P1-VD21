@@ -20,8 +20,10 @@ class TablaSimbolos {
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
-            simbolo.setPosicion(this.size++);
+            simbolo.setPosicion(this.size);
             this.tabla.set(simbolo.getId(), simbolo);
+            this.size += 1;
+            console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }
@@ -65,7 +67,7 @@ class TablaSimbolos {
     /**
      * @function  getSymbolTabla
      * @param id
-     * @returns
+     * @returns existe || null
      */
     getSymbolTabla(id) {
         let tablaActual = this;

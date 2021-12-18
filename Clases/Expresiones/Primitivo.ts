@@ -47,6 +47,16 @@ export class Primitivo implements Instruccion{
                 genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
                 return new Retorno(temp, true, TIPO.CADENA);
+            case TIPO.CHARACTER:
+                genc3d.gen_Comment('--------- PRIMITIVO: char ---------');
+                const temp2 = genc3d.newTemp();
+                genc3d.genAsignaTemp(temp2, 'h');
+                genc3d.gen_SetHeap('h', valor.charCodeAt(0));
+                genc3d.nextHeap();
+                genc3d.gen_SetHeap('h', '-1');
+                genc3d.nextHeap();
+                return new Retorno(temp2, true, TIPO.CHARACTER);
+                // return new Retorno(this.valor, false, TIPO.CHARACTER);
             case TIPO.BOOLEANO:
                 // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
                 this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;

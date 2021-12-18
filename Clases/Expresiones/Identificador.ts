@@ -25,7 +25,7 @@ export class Identificador implements Instruccion{
         this.columna = columna
         this.tipo = null;
         this.lblFalse ="";
-        this.lblFalse ="";
+        this.lblTrue ="";
     }
     
     ejecutar(table: TablaSimbolos, tree: Ast) {

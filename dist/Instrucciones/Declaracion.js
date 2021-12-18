@@ -70,13 +70,15 @@ class Declaracion {
         }
     }
     translate3d(table, tree) {
+        var _a;
+        console.log("declaracion");
         const genc3d = tree.generadorC3d;
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
             // console.log(variable.id)
-            let valor = variable.valor.translate3d(table, tree);
+            let valor = (_a = variable.valor) === null || _a === void 0 ? void 0 : _a.translate3d(table, tree);
             //1 Si se crea por primera vez
-            if (valor === null) {
+            if (valor == null) {
                 genc3d.gen_Comment("------- Default primitivo Declaracion-------");
                 if (this.tipo == Tipo_1.TIPO.DECIMAL) {
                     let primitivo = new Primitivo_1.Primitivo(0, Tipo_1.TIPO.DECIMAL, this.fila, this.columna);
@@ -102,12 +104,16 @@ class Declaracion {
             }
             console.log(valor);
             console.log(this.tipo);
-            if (this.tipo != valor.tipo) {
+            if (this.tipo !== valor.tipo) {
                 let error = new Errores_1.Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 ;
                 tree.updateConsolaPrintln(error.toString());
+                return error;
             }
+            // Verificar si guardar
             let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
+            nuevo_simb.posicion = table.size;
+            console.log(nuevo_simb);
             // nuevo_simb.isRef=true;
             let res_simb = table.setSymbolTabla(nuevo_simb);
             if (res_simb instanceof Errores_1.Errores) {
@@ -135,7 +141,7 @@ class Declaracion {
                 const temp = genc3d.newTemp();
                 genc3d.freeTemp(temp);
                 genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
-                if (valor.tipo.tipo === Tipo_1.TIPO.BOOLEANO) {
+                if (valor.tipo === Tipo_1.TIPO.BOOLEANO) {
                     const lbl = genc3d.newLabel();
                     genc3d.gen_Label(valor.lblTrue);
                     genc3d.gen_SetStack(nuevo_simb.posicion, '1');

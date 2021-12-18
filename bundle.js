@@ -2692,7 +2692,7 @@ class Identificador {
         this.columna = columna;
         this.tipo = null;
         this.lblFalse = "";
-        this.lblFalse = "";
+        this.lblTrue = "";
     }
     ejecutar(table, tree) {
         // console.log(table.existeEnActual(this.id));
@@ -4224,6 +4224,16 @@ class Primitivo {
                 genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
                 return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+            case Tipo_1.TIPO.CHARACTER:
+                genc3d.gen_Comment('--------- PRIMITIVO: char ---------');
+                const temp2 = genc3d.newTemp();
+                genc3d.genAsignaTemp(temp2, 'h');
+                genc3d.gen_SetHeap('h', valor.charCodeAt(0));
+                genc3d.nextHeap();
+                genc3d.gen_SetHeap('h', '-1');
+                genc3d.nextHeap();
+                return new Retorno_1.Retorno(temp2, true, Tipo_1.TIPO.CHARACTER);
+            // return new Retorno(this.valor, false, TIPO.CHARACTER);
             case Tipo_1.TIPO.BOOLEANO:
                 // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
                 this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;
@@ -5799,7 +5809,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
+const Retorno_1 = require("../G3D/Retorno");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 const Return_1 = require("./Transferencia/Return");
 class Asignacion {
     constructor(id, expresion, fila, columna) {
@@ -5845,7 +5857,56 @@ class Asignacion {
         return null;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented ASIGNACION.");
+        let genc3d = tree.generadorC3d;
+        genc3d.gen_Comment("----------- ASIGNANDO ----------");
+        let varSymb = table.getSymbolTabla(this.id);
+        if (varSymb == null) {
+            let error = new Errores_1.Errores("C3d ", "Asignacion " + this.id + " -No se encontro", this.fila, this.columna);
+            ;
+            tree.updateConsolaPrintln(error.toString());
+            return error;
+        }
+        let retActual;
+        if (varSymb.isGlobal) {
+            retActual = new Retorno_1.Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb);
+        }
+        else {
+            const temp = genc3d.newTemp();
+            genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
+            retActual = new Retorno_1.Retorno(temp, true, varSymb.tipo, varSymb);
+        }
+        //obteniendo resultado
+        let valorExp = this.expresion.translate3d(table, tree);
+        if (varSymb.tipo === Tipo_1.TIPO.ENTERO && valorExp.tipo === Tipo_1.TIPO.DECIMAL)
+            varSymb.tipo = valorExp.tipo;
+        if ((varSymb === null || varSymb === void 0 ? void 0 : varSymb.inHeap) || (varSymb === null || varSymb === void 0 ? void 0 : varSymb.isGlobal)) {
+            if (varSymb.tipo == Tipo_1.TIPO.BOOLEANO) {
+                let templabel = genc3d.newLabel();
+                genc3d.gen_Label(valorExp.lblTrue);
+                genc3d.gen_SetHeap(retActual.valor, '1');
+                genc3d.gen_Goto(templabel);
+                genc3d.gen_Label(valorExp.lblFalse);
+                genc3d.gen_SetHeap(retActual.valor, '0');
+                genc3d.gen_Label(templabel);
+            }
+            else {
+                genc3d.gen_SetHeap(retActual.valor, valorExp.valor);
+            }
+        }
+        else {
+            if (varSymb.tipo == Tipo_1.TIPO.BOOLEANO) {
+                const templabel = genc3d.newLabel();
+                genc3d.gen_Label(valorExp.lblTrue);
+                genc3d.gen_SetStack(retActual.valor, '1');
+                genc3d.gen_Goto(templabel);
+                genc3d.gen_Label(valorExp.lblFalse);
+                genc3d.gen_SetStack(retActual.valor, '0');
+                genc3d.gen_Label(templabel);
+            }
+            else {
+                genc3d.gen_SetStack(retActual.valor, valorExp.valor);
+            }
+        }
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("ASIGNACION", "");
@@ -5856,7 +5917,7 @@ class Asignacion {
 }
 exports.Asignacion = Asignacion;
 
-},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":57,"./Transferencia/Return":56}],26:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Simbolo":57,"../TablaSimbolos/Tipo":59,"./Transferencia/Return":56}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
@@ -6895,7 +6956,20 @@ class Switch {
         }
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented SW.');
+        const genc3d = tree.generadorC3d;
+        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        this.lista_case.forEach(sw => {
+            sw.valor_sw = this.valor_sw.translate3d(ts_local, tree);
+        });
+        let x = 0;
+        for (let ins of this.lista_case) {
+            let res = ins.translate3d(ts_local, tree);
+            // if(res instanceof Detener){
+            //     x = 1;
+            //     break;
+            // }
+        }
+        ;
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("SWITCH", "");
@@ -6989,13 +7063,15 @@ class Declaracion {
         }
     }
     translate3d(table, tree) {
+        var _a;
+        console.log("declaracion");
         const genc3d = tree.generadorC3d;
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
             // console.log(variable.id)
-            let valor = variable.valor.translate3d(table, tree);
+            let valor = (_a = variable.valor) === null || _a === void 0 ? void 0 : _a.translate3d(table, tree);
             //1 Si se crea por primera vez
-            if (valor === null) {
+            if (valor == null) {
                 genc3d.gen_Comment("------- Default primitivo Declaracion-------");
                 if (this.tipo == Tipo_1.TIPO.DECIMAL) {
                     let primitivo = new Primitivo_1.Primitivo(0, Tipo_1.TIPO.DECIMAL, this.fila, this.columna);
@@ -7021,12 +7097,16 @@ class Declaracion {
             }
             console.log(valor);
             console.log(this.tipo);
-            if (this.tipo != valor.tipo) {
+            if (this.tipo !== valor.tipo) {
                 let error = new Errores_1.Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 ;
                 tree.updateConsolaPrintln(error.toString());
+                return error;
             }
+            // Verificar si guardar
             let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
+            nuevo_simb.posicion = table.size;
+            console.log(nuevo_simb);
             // nuevo_simb.isRef=true;
             let res_simb = table.setSymbolTabla(nuevo_simb);
             if (res_simb instanceof Errores_1.Errores) {
@@ -7054,7 +7134,7 @@ class Declaracion {
                 const temp = genc3d.newTemp();
                 genc3d.freeTemp(temp);
                 genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
-                if (valor.tipo.tipo === Tipo_1.TIPO.BOOLEANO) {
+                if (valor.tipo === Tipo_1.TIPO.BOOLEANO) {
                     const lbl = genc3d.newLabel();
                     genc3d.gen_Label(valor.lblTrue);
                     genc3d.gen_SetStack(nuevo_simb.posicion, '1');
@@ -7985,17 +8065,22 @@ class Print {
                     // genc3d.gen_Code('');
                     genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
                 }
-                else if (valor3d.tipo == Tipo_1.TIPO.ENTERO) {
+                if (valor3d.tipo == Tipo_1.TIPO.ENTERO) {
                     genc3d.gen_Comment('--------- INICIA PRINT INT ---------');
                     genc3d.gen_Print('i', temp);
                     genc3d.gen_Comment('--------- FIN PRINT INT ---------');
                 }
-                else if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
+                if (valor3d.tipo == Tipo_1.TIPO.CHARACTER) {
+                    genc3d.gen_Comment('--------- INICIA PRINT char ---------');
+                    genc3d.gen_SetStack(t0, temp);
+                    genc3d.gen_Call('natPrintStr');
+                }
+                if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
                     genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
                     genc3d.gen_Print('f', temp);
                     genc3d.gen_Comment('--------- FIN PRINT DOUBLE ---------');
                 }
-                else if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
+                if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
                     let salida = genc3d.newLabel();
                     genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');
                     genc3d.gen_Label(valor3d.lblFalse);
@@ -8458,6 +8543,7 @@ exports.StructInStruct = StructInStruct;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
+const Errores_1 = require("./../../Ast/Errores");
 const Nodo_1 = require("../../Ast/Nodo");
 class Detener {
     constructor(fila, columna) {
@@ -8468,7 +8554,11 @@ class Detener {
         return this;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented BREAK.");
+        const genc3d = tree.generadorC3d;
+        if (table.break == null) {
+            return new Errores_1.Errores('Semantico', 'No se permite el uso de break en la instrucción.', this.fila, this.columna);
+        }
+        genc3d.gen_Goto(table.break);
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("Break", "");
@@ -8477,11 +8567,12 @@ class Detener {
 }
 exports.Detener = Detener;
 
-},{"../../Ast/Nodo":7}],55:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"./../../Ast/Errores":6}],55:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Continuar = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
+const Errores_1 = require("../../Ast/Errores");
 class Continuar {
     constructor(fila, columna) {
         this.fila = fila;
@@ -8491,7 +8582,11 @@ class Continuar {
         return this;
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented CONTINUAR.');
+        const genc3d = tree.generadorC3d;
+        if (table.continue == null) {
+            return new Errores_1.Errores('Semantico', 'No se permite el uso de continue en la instrucción.', this.fila, this.columna);
+        }
+        genc3d.gen_Goto(table.continue);
     }
     recorrer() {
         let padre = new Nodo_1.Nodo("CONTINUE", "");
@@ -8500,7 +8595,7 @@ class Continuar {
 }
 exports.Continuar = Continuar;
 
-},{"../../Ast/Nodo":7}],56:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7}],56:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Return = void 0;
@@ -8528,7 +8623,11 @@ class Return {
         // this.tipo = this.valor.tipo;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented RETURN.");
+        const genc3d = tree.generadorC3d;
+        if (table.continue == null) {
+            return new Errores_1.Errores('Semantico', 'No se permite el uso de continue en la instrucción.', this.fila, this.columna);
+        }
+        genc3d.gen_Goto(table.continue);
     }
     recorrer() {
         let padre = new Nodo_1.Nodo("RETURN", "");
@@ -8555,6 +8654,7 @@ class Simbolo {
         this.arreglo = arreglo;
         this.structEnv = structEnv;
         this.isGlobal = false;
+        this.inHeap = false;
         this.posicion = 0;
         // console.log("simbolor: "+this.valor);
     }
@@ -8626,6 +8726,9 @@ class TablaSimbolos {
         this.anterior = anterior;
         this.tabla = new Map();
         this.size = (anterior === null || anterior === void 0 ? void 0 : anterior.size) || 0;
+        this.break = (anterior === null || anterior === void 0 ? void 0 : anterior.break) || null;
+        this.continue = (anterior === null || anterior === void 0 ? void 0 : anterior.continue) || null;
+        this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
     }
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {
@@ -8634,8 +8737,10 @@ class TablaSimbolos {
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
-            simbolo.setPosicion(this.size++);
+            simbolo.setPosicion(this.size);
             this.tabla.set(simbolo.getId(), simbolo);
+            this.size += 1;
+            console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }
@@ -8679,7 +8784,7 @@ class TablaSimbolos {
     /**
      * @function  getSymbolTabla
      * @param id
-     * @returns
+     * @returns existe || null
      */
     getSymbolTabla(id) {
         let tablaActual = this;

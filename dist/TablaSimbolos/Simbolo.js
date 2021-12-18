@@ -21,6 +21,7 @@ class Simbolo {
         this.arreglo = arreglo;
         this.structEnv = structEnv;
         this.isGlobal = false;
+        this.inHeap = false;
         this.posicion = 0;
         // console.log("simbolor: "+this.valor);
     }

@@ -37,6 +37,16 @@ class Primitivo {
                 genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
                 return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+            case Tipo_1.TIPO.CHARACTER:
+                genc3d.gen_Comment('--------- PRIMITIVO: char ---------');
+                const temp2 = genc3d.newTemp();
+                genc3d.genAsignaTemp(temp2, 'h');
+                genc3d.gen_SetHeap('h', valor.charCodeAt(0));
+                genc3d.nextHeap();
+                genc3d.gen_SetHeap('h', '-1');
+                genc3d.nextHeap();
+                return new Retorno_1.Retorno(temp2, true, Tipo_1.TIPO.CHARACTER);
+            // return new Retorno(this.valor, false, TIPO.CHARACTER);
             case Tipo_1.TIPO.BOOLEANO:
                 // genc3d.gen_Comment('--------- INICIA RECORRE BOOL ---------');
                 this.lblTrue = this.lblTrue == '' ? tree.generadorC3d.newLabel() : this.lblTrue;

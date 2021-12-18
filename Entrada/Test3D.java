@@ -93,3 +93,41 @@ else if(true)
 else
     println("no entra xd");
 println("");
+
+println("************   If-ElseIf-Else  sin {} **************");
+int prueba =5;
+println("hola ", 454, 56>3);
+
+println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+println(":::::::::::::   VARIABLES  :::::::::::::");
+println("::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+boolean nbandera =true;
+boolean nbandera2 ;
+println(nbandera);//true
+nbandera =false;
+println(nbandera);//false
+println(nbandera2);//false
+println("");
+println("************   Asignaciones  **************");
+println("");
+int ppp;
+ppp=5;
+println(ppp); // 5
+int test1, test2 = 56, test3;
+char cprueba;
+println(cprueba);//0
+int test;
+println(test); // 0
+println(test2); // 56
+println(cprueba); // 0
+println("");
+println("************   Incrementos  **************");
+println("");
+test1++;
+test1++;
+test1--;
+println(test1); // 1
+test=-25*(69-33*2)+22-32*2-33*(-48+48);
+println(test); // -117
+println(test++); // -116
+println("");

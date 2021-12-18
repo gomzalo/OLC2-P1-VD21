@@ -38,8 +38,10 @@ export class TablaSimbolos{
             return new Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
         }else{
             // this.tabla[simbolo.getId()] = simbolo;
-            simbolo.setPosicion(this.size++);
+            simbolo.setPosicion(this.size);
             this.tabla.set(simbolo.getId(),simbolo);
+            this.size+= 1;
+            console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }
@@ -90,7 +92,7 @@ export class TablaSimbolos{
     /**
      * @function  getSymbolTabla
      * @param id 
-     * @returns 
+     * @returns existe || null
      */
 
     public getSymbolTabla(id: string):Simbolo

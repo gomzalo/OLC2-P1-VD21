@@ -1,10 +1,12 @@
 import { Ast } from "../Ast/Ast";
 import { Errores } from "../Ast/Errores";
 import { Nodo } from "../Ast/Nodo";
+import { Retorno } from "../G3D/Retorno";
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import { Simbolo } from "../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../TablaSimbolos/TablaSimbolos";
+import { TIPO } from "../TablaSimbolos/Tipo";
 import { Return } from "./Transferencia/Return";
 
 export class Asignacion implements Instruccion{
@@ -61,9 +63,65 @@ export class Asignacion implements Instruccion{
         }
         return null
     }
+
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented ASIGNACION.");
+        let genc3d = tree.generadorC3d;
+        genc3d.gen_Comment("----------- ASIGNANDO ----------");
+        let varSymb = table.getSymbolTabla(this.id);
+        if (varSymb == null){
+            let error = new Errores("C3d ", "Asignacion " + this.id + " -No se encontro", this.fila, this.columna);;
+            tree.updateConsolaPrintln(error.toString());
+            return error;
+        }
+        let retActual;
+        
+        if (varSymb.isGlobal) {
+            retActual= new Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb);
+        }
+        else {
+            const temp = genc3d.newTemp();
+            genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
+            retActual =  new Retorno(temp, true, varSymb.tipo, varSymb);
+        }
+
+        
+
+        //obteniendo resultado
+        let valorExp = this.expresion.translate3d(table,tree);
+        if (varSymb.tipo === TIPO.ENTERO && valorExp.tipo === TIPO.DECIMAL)
+            varSymb.tipo = valorExp.tipo;
+
+        if(varSymb?.inHeap || varSymb?.isGlobal){
+            if (varSymb.tipo == TIPO.BOOLEANO) {
+                let templabel = genc3d.newLabel();
+                genc3d.gen_Label(valorExp.lblTrue);
+                genc3d.gen_SetHeap(retActual.valor, '1');
+                genc3d.gen_Goto(templabel);
+                genc3d.gen_Label(valorExp.lblFalse);
+                genc3d.gen_SetHeap(retActual.valor, '0');
+                genc3d.gen_Label(templabel);
+            }
+            else {
+                genc3d.gen_SetHeap(retActual.valor, valorExp.valor);
+            }
+        }else{
+            if (varSymb.tipo == TIPO.BOOLEANO) {
+                const templabel = genc3d.newLabel();
+                genc3d.gen_Label(valorExp.lblTrue);
+                genc3d.gen_SetStack(retActual.valor, '1');
+                genc3d.gen_Goto(templabel);
+                genc3d.gen_Label(valorExp.lblFalse);
+                genc3d.gen_SetStack(retActual.valor, '0');
+                genc3d.gen_Label(templabel);
+            }
+            else {
+                genc3d.gen_SetStack(retActual.valor, valorExp.valor);
+            }
+        }
+        
+
     }
+
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("ASIGNACION","");
         padre.addChildNode(new Nodo(this.id,""));
