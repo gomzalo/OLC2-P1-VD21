@@ -3,7 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Nodo_1 = require("../Ast/Nodo");
+const Retorno_1 = require("../G3D/Retorno");
 const Simbolo_1 = require("../TablaSimbolos/Simbolo");
+const Tipo_1 = require("../TablaSimbolos/Tipo");
 const Return_1 = require("./Transferencia/Return");
 class Asignacion {
     constructor(id, expresion, fila, columna) {
@@ -49,7 +51,56 @@ class Asignacion {
         return null;
     }
     translate3d(table, tree) {
-        throw new Error("Method not implemented ASIGNACION.");
+        let genc3d = tree.generadorC3d;
+        genc3d.gen_Comment("----------- ASIGNANDO ----------");
+        let varSymb = table.getSymbolTabla(this.id);
+        if (varSymb == null) {
+            let error = new Errores_1.Errores("C3d ", "Asignacion " + this.id + " -No se encontro", this.fila, this.columna);
+            ;
+            tree.updateConsolaPrintln(error.toString());
+            return error;
+        }
+        let retActual;
+        if (varSymb.isGlobal) {
+            retActual = new Retorno_1.Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb);
+        }
+        else {
+            const temp = genc3d.newTemp();
+            genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
+            retActual = new Retorno_1.Retorno(temp, true, varSymb.tipo, varSymb);
+        }
+        //obteniendo resultado
+        let valorExp = this.expresion.translate3d(table, tree);
+        if (varSymb.tipo === Tipo_1.TIPO.ENTERO && valorExp.tipo === Tipo_1.TIPO.DECIMAL)
+            varSymb.tipo = valorExp.tipo;
+        if ((varSymb === null || varSymb === void 0 ? void 0 : varSymb.inHeap) || (varSymb === null || varSymb === void 0 ? void 0 : varSymb.isGlobal)) {
+            if (varSymb.tipo == Tipo_1.TIPO.BOOLEANO) {
+                let templabel = genc3d.newLabel();
+                genc3d.gen_Label(valorExp.lblTrue);
+                genc3d.gen_SetHeap(retActual.valor, '1');
+                genc3d.gen_Goto(templabel);
+                genc3d.gen_Label(valorExp.lblFalse);
+                genc3d.gen_SetHeap(retActual.valor, '0');
+                genc3d.gen_Label(templabel);
+            }
+            else {
+                genc3d.gen_SetHeap(retActual.valor, valorExp.valor);
+            }
+        }
+        else {
+            if (varSymb.tipo == Tipo_1.TIPO.BOOLEANO) {
+                const templabel = genc3d.newLabel();
+                genc3d.gen_Label(valorExp.lblTrue);
+                genc3d.gen_SetStack(retActual.valor, '1');
+                genc3d.gen_Goto(templabel);
+                genc3d.gen_Label(valorExp.lblFalse);
+                genc3d.gen_SetStack(retActual.valor, '0');
+                genc3d.gen_Label(templabel);
+            }
+            else {
+                genc3d.gen_SetStack(retActual.valor, valorExp.valor);
+            }
+        }
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("ASIGNACION", "");

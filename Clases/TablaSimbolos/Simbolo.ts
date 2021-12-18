@@ -13,6 +13,7 @@ export class Simbolo{
     public tipoStruct : string;
     public isGlobal: boolean; // isRef
     public posicion: number;
+    public inHeap :boolean;
     
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false){
         this.id = id;
@@ -23,6 +24,7 @@ export class Simbolo{
         this.arreglo = arreglo;
         this.structEnv = structEnv;
         this.isGlobal = false;
+        this.inHeap = false;
         this.posicion = 0;
         // console.log("simbolor: "+this.valor);
     }

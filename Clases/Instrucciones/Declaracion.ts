@@ -86,15 +86,16 @@ export  class Declaracion implements Instruccion{
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {
+        console.log("declaracion")
         const genc3d = tree.generadorC3d;
         for(let simbolo of this.simbolos)
         {
             let variable = simbolo as Simbolo;
             // console.log(variable.id)
-            let valor = variable.valor.translate3d(table, tree);
+            let valor = variable.valor?.translate3d(table, tree);
             
             //1 Si se crea por primera vez
-            if (valor === null)
+            if (valor == null)
             {
                 genc3d.gen_Comment("------- Default primitivo Declaracion-------");
                 if(this.tipo == TIPO.DECIMAL)
@@ -127,9 +128,10 @@ export  class Declaracion implements Instruccion{
             }
             console.log(valor)
             console.log(this.tipo)
-            if (this.tipo != valor.tipo){
+            if (this.tipo !== valor.tipo){
                 let error = new Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());;
                 tree.updateConsolaPrintln(error.toString());
+                return error;
             }
 
             let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,"");
@@ -160,7 +162,7 @@ export  class Declaracion implements Instruccion{
                 genc3d.gen_Comment("------- is ref false-------");
                 const temp = genc3d.newTemp(); genc3d.freeTemp(temp);
                 genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
-                if (valor.tipo.tipo === TIPO.BOOLEANO) {
+                if (valor.tipo === TIPO.BOOLEANO) {
                     const lbl = genc3d.newLabel();
                     genc3d.gen_Label(valor.lblTrue);
                     genc3d.gen_SetStack(nuevo_simb.posicion, '1');

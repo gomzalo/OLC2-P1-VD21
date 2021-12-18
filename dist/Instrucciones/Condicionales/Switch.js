@@ -71,10 +71,10 @@ class Switch {
         let x = 0;
         for (let ins of this.lista_case) {
             let res = ins.translate3d(ts_local, tree);
-            if (res instanceof Break_1.Detener) {
-                x = 1;
-                break;
-            }
+            // if(res instanceof Detener){
+            //     x = 1;
+            //     break;
+            // }
         }
         ;
     }

@@ -64,7 +64,7 @@ class TablaSimbolos {
     /**
      * @function  getSymbolTabla
      * @param id
-     * @returns
+     * @returns existe || null
      */
     getSymbolTabla(id) {
         let tablaActual = this;

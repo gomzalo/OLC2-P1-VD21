@@ -87,7 +87,7 @@ export class TablaSimbolos{
     /**
      * @function  getSymbolTabla
      * @param id 
-     * @returns 
+     * @returns existe || null
      */
 
     public getSymbolTabla(id: string):Simbolo
