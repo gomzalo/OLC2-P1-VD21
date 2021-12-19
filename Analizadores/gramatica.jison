@@ -218,6 +218,7 @@ BSL                                 "\\".
     const { Length } = require("../dist/Instrucciones/Metodos/Nativas/Length");
     const { Pop } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop");
     const { Push } = require("../dist/Instrucciones/Metodos/Nativas/Arreglos/Push");
+    const { Pow } = require("../dist/Instrucciones/Metodos/Nativas/Pow");
     /* -------- Cadenas */
     const { CharOfPos } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos");
     const { subString } = require("../dist/Instrucciones/Metodos/Nativas/Cadenas/subString");
@@ -655,6 +656,7 @@ expr:
                                     }
     |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
     |   RPOP PARA PARC              { $$ = new Pop(null, @1.first_line, @1.first_column); }
+    |   RPOW PARA expr COMA expr PARC    { $$ = new Pow($3,$5, @1.first_line, @1.first_column); }
     |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); }
     |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); }
     |   RSUBSTRING PARA expr COMA expr PARC   { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }

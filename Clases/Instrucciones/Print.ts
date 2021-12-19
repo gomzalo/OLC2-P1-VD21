@@ -61,7 +61,14 @@ export class Print implements Instruccion{
                 valor = temp.valor
                 // validar si es un struct
             }
+            if (TIPO.DECIMAL == expresion.tipo && Number.isInteger(valor))
+            {
+                // console.log("entreee decimal "+ valor)
+                valor.toFixed(2);
+            }
+
             this.value += valor;
+            
             
             // return null;    
         }

@@ -13,8 +13,14 @@ boolean[] estado = [false, false, false, false, false, false, false, false, fals
 
 
 void main(){
-    println("El valor defecto de declaracion es 0 = ",declaracion);
-    println("El valor defecto de asignacion es 0 = ",asignacion," y de aritmeticas 0 = ",aritmeticas);
+    double val1 = 0.0;
+    double val2 = 0.0;
+    double val3 = 0.0;
+    double a = 0.0;
+    double b = 0;
+
+    println("El valor defecto de declacion es 0 = ",declaracion);
+    println("El valor defecto de asignacion es 0 = $asignacion y de aritmeticas 0 = $aritmeticas");
     print("Probando ");
     println("Manejo de Entornos");
 
@@ -24,13 +30,13 @@ void main(){
         declaracion = 0.0;
     }
 
-    println("El valor de var1 global es 10=",var1);  //10
+    println("El valor de var1 global es 10=$a");  //10
     if(var1==10){
         declaracion = declaracion + 0.25; 
     }
 
     int var1 = 5*5;
-    println("El valor de var1 local es ",var1);  //25
+    println("El valor de var1 local es $a");  //25
     if(var1==25){
         declaracion = declaracion + 0.25; 
     }
@@ -48,19 +54,13 @@ void main(){
      * VALIDACION DE OPERACIONES
      * ******************************/
 
-    double val1 = 0.0;
-    double val2 = 0.0;
-    double val3 = 0.0;
-    double a = 0.0;
-    double b = 0;
-
-    val1 = 7 - (5 + 10 * (20 / 5 - 2 + 4 * (5 + 2 * 3)) - 8 * 3 % 2) + 50 * (6 * 2); //142.0 println(val1);
-    val2 = pow(2,4) - 9 * (8 - 6 * (pow(3,2) - 6 * 5 - 7 * (9 + pow(7,3)) + 10) - 5 ) + 8 * (36 / 6 - 5 * ( 2 * 3)); //-133853.0 println(val2);
-    val3 = (pow(8,3) * pow(8,2) - sqrt(4) + tan(12) + sin(60) + 2) / 3; //10922.353109816746 println(val3);
-    double val4 = val1 - val2 + val3; //El resultado es 144917.35310981676 println(val4);
+    val1 = 7 - (5 + 10 * (20 / 5 - 2 + 4 * (5 + 2 * 3)) - 8 * 3 % 2) + 50 * (6 * 2); //142.0
+    val2 = pow(2,4) - 9 * (8 - 6 * (pow(3,2) - 6 * 5 - 7 * (9 + pow(7,3)) + 10) - 5 ) + 8 * (36 / 6 - 5 * ( 2 * 3)); //-133853.0
+    val3 = (pow(8,3) * pow(8,2) - sqrt(4) + tan(12) + sin(60) + 2) / 3; //10922.353109816746
+    double val4 = val1 - val2 + val3; //El resultado es 144917.35310981676
     int resultado = toInt(val4);  //144917
-    if(resultado == 144917){
-        console.log('Aritmeticas 100');
+    if(resultado == 144918){
+        println("Aritmeticas 100");
         aritmeticas = 1;
     }
 

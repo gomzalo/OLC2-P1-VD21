@@ -20,6 +20,7 @@ var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
     autoCloseBrackets: true,
     readOnly: false
 });
+text2.setSize(null,480);
 
 var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
     mode: "text/x-java",

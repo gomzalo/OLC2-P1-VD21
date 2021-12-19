@@ -25,16 +25,23 @@ export class Pow implements Funcion{
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        let resBase = this.expBase.this.ejecutar(table,tree);
+        let resBase = this.expBase.ejecutar(table,tree);
         if(resBase instanceof Errores)
         {
             return resBase;
         }   
-        let expElevacion = this.expBase.this.ejecutar(table,tree);
-        if(expElevacion instanceof Errores)
+        let resElevacion = this.expElevacion.ejecutar(table,tree);
+        if(resElevacion instanceof Errores)
         {
-            return expElevacion;
+            return resElevacion;
         }   
+
+        if (this.expBase.tipo == TIPO.ENTERO && this.expElevacion.tipo == TIPO.ENTERO)
+        {
+            this.tipo = TIPO.ENTERO;
+            return Math.pow(resBase,resElevacion);
+            
+        }
 
         
     }
