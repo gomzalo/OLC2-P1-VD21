@@ -150,3 +150,10 @@ switch(c) {
     default:
         println('0');
 }
+println("************   WHILE  **************");
+int i =2;
+while(i>1)
+{
+  i=i-1;
+  println(i);
+}

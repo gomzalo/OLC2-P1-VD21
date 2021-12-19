@@ -5713,7 +5713,26 @@ class While {
         }
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented WHILE.');
+        let genc3d = tree.generadorC3d;
+        let lbl = genc3d.newLabel();
+        let entornoLocal = new TablaSimbolos_1.TablaSimbolos(table);
+        genc3d.gen_Comment('------------ WHILE -----------');
+        genc3d.gen_Label(lbl);
+        let condicion = this.condicion.translate3d(table);
+        if (condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
+            let error = new Errores_1.Errores("c3d", "La condicion no  es boolean", this.fila, this.columna);
+            tree.updateConsolaPrintln(error.toString());
+        }
+        entornoLocal.break = condicion.lblFalse;
+        entornoLocal.continue = lbl;
+        genc3d.gen_Label(condicion.lblTrue);
+        for (let inst of this.lista_instrucciones) {
+            inst.translate3d(table, tree);
+        }
+        // this.sentencias.translate3d(entornoLocal);
+        genc3d.gen_Goto(lbl);
+        genc3d.gen_Label(condicion.lblFalse);
+        genc3d.gen_Comment('-----------fin while -------');
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("WHILE", "");
@@ -5801,6 +5820,21 @@ class Case {
             });
         }
     }
+<<<<<<< HEAD
+=======
+    translate3d(table, tree) {
+        // let genc3d = tree.generadorC3d;
+        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
+        if (this.condicion_sw == this.condicion_case.translate3d(table, tree)) {
+            this.lista_instrucciones.forEach(instruccion => {
+                let ins = instruccion.translate3d(ts_local, tree);
+                if (ins instanceof Break_1.Detener || ins instanceof Return_1.Return || ins instanceof Continuar_1.Continuar) {
+                    return ins;
+                }
+            });
+        }
+    }
+>>>>>>> develop
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("CASE", "");
         let expresion = new Nodo_1.Nodo("EXPRESION", "");
@@ -6189,6 +6223,7 @@ exports.Ifsinllave = Ifsinllave;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
+const Retorno_1 = require("./../../G3D/Retorno");
 const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
@@ -6275,10 +6310,14 @@ class Switch {
         let tempBool = '';
         genc3d.gen_Comment('--------- INICIA SWITCH ---------');
         const condicion = this.condicion_sw.translate3d(table, tree);
+<<<<<<< HEAD
         // console.log("condicion.tipo");
         // console.log(condicion.tipo);
         if (condicion.tipo === Tipo_1.TIPO.BOOLEANO) {
             // console.log("CONDICION BOOLEANA");
+=======
+        if (condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
+>>>>>>> develop
             const lbljump = genc3d.newLabel();
             const temp = genc3d.newTemp();
             genc3d.gen_Label(condicion.lblTrue);
@@ -6292,6 +6331,7 @@ class Switch {
         if (condicion.tipo !== Tipo_1.TIPO.ENTERO && condicion.tipo !== Tipo_1.TIPO.DECIMAL && condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
             return new Errores_1.Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
         }
+<<<<<<< HEAD
         genc3d.gen_Comment('--------- INICIAN CASES ---------');
         // this.lista_case.forEach(case_temp => {
         //     case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
@@ -6364,6 +6404,25 @@ class Switch {
         }
         genc3d.gen_Label(lb_exit);
         genc3d.gen_Comment('--------- FINALIZA SWITCH ---------');
+=======
+        this.lista_case.forEach(case_temp => {
+            case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
+        });
+        ts_local.break == lb_exit;
+        let num_default = false;
+        let lb_case_true = genc3d.newLabel();
+        let lb_case_false = genc3d.newLabel();
+        let x = 0;
+        this.lista_case.forEach(ins_case => {
+            let res_case = ins_case.translate3d(ts_local, tree);
+            if (ins_case instanceof Retorno_1.Retorno) {
+            }
+            if (ins_case instanceof Break_1.Detener) {
+                x = 1;
+                // break;
+            }
+        });
+>>>>>>> develop
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("SWITCH", "");
@@ -6384,7 +6443,11 @@ class Switch {
 }
 exports.Switch = Switch;
 
+<<<<<<< HEAD
 },{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":58,"../../TablaSimbolos/Tipo":59,"../Transferencia/Break":54,"../Transferencia/Return":56,"./../../G3D/Retorno":22}],34:[function(require,module,exports){
+>>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -6493,7 +6556,6 @@ class Declaracion {
             console.log(this.tipo);
             if (this.tipo !== valor.tipo) {
                 let error = new Errores_1.Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
-                ;
                 tree.updateConsolaPrintln(error.toString());
                 return error;
             }
@@ -8289,12 +8351,17 @@ class TablaSimbolos {
 }
 exports.TablaSimbolos = TablaSimbolos;
 
+<<<<<<< HEAD
 },{"../Ast/Errores":3,"./Tipo":56}],56:[function(require,module,exports){
+=======
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":59}],57:[function(require,module,exports){
+>>>>>>> develop
 "use strict";
 /**
  * @enum de Tipo nos permite enumerar los tipos del lenguaje
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+<<<<<<< HEAD
 exports.OperadorLogico = exports.OperadorRelacional = exports.OperadorAritmetico = exports.TIPO = void 0;
 var TIPO;
 (function (TIPO) {
@@ -8391,6 +8458,80 @@ itemAbrir.addEventListener('click', async () => {
         inputAttributes: {
             'accept': '*',
             'aria-label': 'Selected File'
+=======
+exports.Simbolo = void 0;
+class Simbolo {
+    /**
+     *
+     * @param id Identificador del simbolos
+     * @param tipo Tipo del simbolo
+     * @param arreglo Booleano para verificar si es arreglo
+     * @param fila Numero de fila
+     * @param columna Numero de columna
+     * @param valor Valor del simbolo
+     * @param structEnv
+     */
+    constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false) {
+        this.id = id;
+        this.tipo = tipo;
+        this.fila = fila;
+        this.columna = columna;
+        this.valor = valor;
+        this.arreglo = arreglo;
+        this.structEnv = structEnv;
+        this.isGlobal = false;
+        this.inHeap = false;
+        this.posicion = 0;
+        // console.log("simbolor: "+this.valor);
+    }
+    setPosicion(posicion) {
+        this.posicion = this.posicion;
+    }
+    /**
+     *
+     * @returns this.posicion
+     */
+    getPosicion() {
+        return this.posicion;
+    }
+    getId() {
+        return this.id;
+    }
+    setId(id) {
+        this.id = id;
+    }
+    getTipo() {
+        return this.tipo;
+    }
+    getTipoStruct() {
+        return this.tipoStruct;
+    }
+    setTipo(tipo) {
+        this.tipo = tipo;
+    }
+    getValor() {
+        return this.valor;
+    }
+    setValor(valor) {
+        this.valor = valor;
+    }
+    getFila() {
+        return this.fila;
+    }
+    getColumna() {
+        return this.columna;
+    }
+    getArreglo() {
+        return this.arreglo;
+    }
+    toStringStruct() {
+        let cadena = "";
+        // if (this.valor instanceof TablaSimbolos)
+        // {
+        if (this.valor != null) {
+            // console.log(this.valor.tabla)
+            cadena += this.valor.toStringTable();
+>>>>>>> develop
         }
     })
 
@@ -8472,6 +8613,7 @@ function addNuevoTab(){
     </li>');
     $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
 
+<<<<<<< HEAD
     var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
         mode: "javascript",
         theme: "night",
@@ -8494,6 +8636,23 @@ eliminarTab.addEventListener('click', async () => {
             text: 'No se puede eliminar todas las pestañas de trabajo.'
         });
         return;
+=======
+},{}],58:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TablaSimbolos = void 0;
+const Errores_1 = require("../Ast/Errores");
+const Tipo_1 = require("./Tipo");
+class TablaSimbolos {
+    constructor(anterior) {
+        this.anterior = anterior;
+        this.tabla = new Map();
+        this.size = (anterior === null || anterior === void 0 ? void 0 : anterior.size) || 0;
+        this.break = (anterior === null || anterior === void 0 ? void 0 : anterior.break) || null;
+        this.continue = (anterior === null || anterior === void 0 ? void 0 : anterior.continue) || null;
+        this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
+        this.actual_funcion = (anterior === null || anterior === void 0 ? void 0 : anterior.actual_funcion) || null;
+>>>>>>> develop
     }
 
     var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");

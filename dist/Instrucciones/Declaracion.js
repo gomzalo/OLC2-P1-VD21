@@ -106,7 +106,6 @@ class Declaracion {
             console.log(this.tipo);
             if (this.tipo !== valor.tipo) {
                 let error = new Errores_1.Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
-                ;
                 tree.updateConsolaPrintln(error.toString());
                 return error;
             }

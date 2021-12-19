@@ -129,7 +129,7 @@ export  class Declaracion implements Instruccion{
             console.log(valor)
             console.log(this.tipo)
             if (this.tipo !== valor.tipo){
-                let error = new Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());;
+                let error = new Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 tree.updateConsolaPrintln(error.toString());
                 return error;
             }
