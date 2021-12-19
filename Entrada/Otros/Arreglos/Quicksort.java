@@ -1,3 +1,4 @@
+package Otros.Arreglos;
 void quicksort(int[] arr, int low, int high){
     println("");
     println("Entra a quicksort");

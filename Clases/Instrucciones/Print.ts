@@ -99,7 +99,7 @@ export class Print implements Instruccion{
                     genc3d.gen_Comment('--------- FIN PRINT INT ---------');
                 }
                 if(valor3d.tipo == TIPO.CHARACTER){
-                    genc3d.gen_Comment('--------- INICIA PRINT char ---------');
+                    genc3d.gen_Comment('--------- INICIA PRINT CHAR ---------');
                     genc3d.gen_SetStack(t0, temp);
                     genc3d.gen_Call('natPrintStr');
                 }

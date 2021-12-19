@@ -458,7 +458,7 @@ class Relacional {
                     genC3d.gen_Exp(tempAux, tempAux, '1', '+');
                     genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                     genC3d.gen_NextEnv(1);
-                    genC3d.gen_Call('nativa_compararIgual_str_str');
+                    genC3d.gen_Call('natCompararIgualStr');
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
@@ -520,7 +520,7 @@ class Relacional {
                     genC3d.gen_Exp(tempAux, tempAux, '1', '+');
                     genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                     genC3d.gen_NextEnv(1);
-                    genC3d.gen_Call('nativa_compararIgual_str_str');
+                    genC3d.gen_Call('natCompararIgualStr');
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;

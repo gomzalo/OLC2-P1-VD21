@@ -116,10 +116,10 @@ export class Switch implements Instruccion{
             genc3d.gen_Label(lbljump);
             tempBool = temp;
         }
-        if(condicion.tipo !== TIPO.ENTERO && condicion.tipo !== TIPO.DECIMAL && condicion.tipo !== TIPO.BOOLEANO){
-            return new Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
-        }
-        genc3d.gen_Comment('--------- INICIAN CASES ---------');
+        // if(condicion.tipo !== TIPO.ENTERO && condicion.tipo !== TIPO.DECIMAL && condicion.tipo !== TIPO.BOOLEANO){
+        //     return new Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
+        // }
+        genc3d.gen_Comment('--------- INICIAN CASES ');
         // this.lista_case.forEach(case_temp => {
         //     case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
         // });
@@ -143,8 +143,36 @@ export class Switch implements Instruccion{
                     genc3d.gen_If(tempBool, '0', '==', lb_case_true);
                     genc3d.gen_Goto(lb_case_false);
                 }else{
-                    genc3d.gen_If(condicion.translate3d(), res_case.translate3d(), '==', lb_case_true);
-                    genc3d.gen_Goto(lb_case_false);
+                    let valor_sw = condicion.translate3d();
+                    let valor_cs = res_case.translate3d();
+                    const temp = genc3d.newTemp();
+                    if(condicion.tipo == TIPO.CADENA){
+                        const tempAux = genc3d.newTemp();
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_sw);
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_cs);
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('natCompararIgualStr');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
+
+                        lb_case_true = lb_case_true == '' ? genc3d.newLabel() : lb_case_true;
+                        // console.log(this.lblTrue)
+                        lb_case_false = lb_case_false == '' ? genc3d.newLabel() : lb_case_false;
+                        // console.log(this.lblFalse)
+                        genc3d.gen_If(temp, '1', '==', lb_case_true);
+                        genc3d.gen_Goto(lb_case_false);
+                        const retorno = new Retorno(temp, true, TIPO.BOOLEANO);
+                        retorno.lblTrue = lb_case_true;
+                        retorno.lblFalse = lb_case_false;
+                    }else if(condicion.tipo == TIPO.CHARACTER){
+                        genc3d.gen_If(valor_sw, valor_cs, '==', lb_case_true);
+                        genc3d.gen_Goto(lb_case_false);
+                    }else{
+                        genc3d.gen_If(valor_sw, valor_cs, '==', lb_case_true);
+                        genc3d.gen_Goto(lb_case_false);
+                    }
                 }
                 
                 genc3d.gen_Label(lb_case_true);
@@ -171,7 +199,7 @@ export class Switch implements Instruccion{
             });
         }
         if(this.lista_default != null){
-            genc3d.gen_Comment('--------- INICIA DEFAULT ---------');
+            genc3d.gen_Comment('--------- INICIA DEFAULT ');
             if(num_default){
                 return new Errores('Semantico', 'Solamente se acepta una instruccion defaul.', this.fila, this.columna);
             }

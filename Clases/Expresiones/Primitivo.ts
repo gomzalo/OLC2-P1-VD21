@@ -38,17 +38,17 @@ export class Primitivo implements Instruccion{
             case TIPO.CADENA:
                 const temp = genc3d.newTemp();
                 genc3d.genAsignaTemp(temp, 'h');
-                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
+                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ');
                 for (let i = 0; i < valor.length; i++) {
                     genc3d.gen_SetHeap('h', valor.charCodeAt(i));
                     genc3d.nextHeap();
                 }
-                genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
+                genc3d.gen_Comment('--------- FIN RECORRE CADENA ');
                 genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
                 return new Retorno(temp, true, TIPO.CADENA);
             case TIPO.CHARACTER:
-                genc3d.gen_Comment('--------- PRIMITIVO: char ---------');
+                genc3d.gen_Comment('--------- PRIMITIVO: CHAR');
                 const temp2 = genc3d.newTemp();
                 genc3d.genAsignaTemp(temp2, 'h');
                 genc3d.gen_SetHeap('h', valor.charCodeAt(0));

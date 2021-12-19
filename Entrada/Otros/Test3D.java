@@ -121,35 +121,60 @@ println(test); // 0
 println(test2); // 56
 println(cprueba); // 0
 println("");
-println("************   Incrementos  **************");
-println("");
-test1++;
-test1++;
-test1--;
-println(test1); // 1
+// println("************   Incrementos  **************");
+// println("");
+// test1++;
+// test1++;
+// test1--;
+// println(test1); // 1
 test=-25*(69-33*2)+22-32*2-33*(-48+48);
 println(test); // -117
-println(test++); // -116
+// println(test++); // -116
 println("");
 println("************   Switch-C-D **************");
 println("");
 char c = '*';
 switch(c) {
     case '+':
-        println('+');
+        println("+");
         break;
     case '-':
-        println('-');
+        println("-");
         break;
     case '*':
-        println('*'); // '*'
+        println("*"); // '*'
         break;
     case '/':
-        println('/');
+        println("/");
         break;
     default:
-        println('0');
+        println("0");
 }
+println("");
+println("************   Switch-C **************");
+println("");
+switch('+') {
+    case '+':
+        println("+"); // '+'
+        break;
+    case '-':
+        println("-");
+        break;
+    case '*':
+        println("*");
+        break;
+    case '/':
+        println("/");
+        break;
+}
+println("");
+println("************   Switch-D **************");
+println("");
+switch('+') {
+    default:
+        println("0"); // 0
+}
+println("");
 println("************   WHILE  **************");
 int i =2;
 while(i>1)

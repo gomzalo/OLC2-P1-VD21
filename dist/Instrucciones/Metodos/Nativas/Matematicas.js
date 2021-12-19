@@ -26,11 +26,11 @@ class Matematicas {
                 this.tipo = this.expresion.tipo;
                 switch (this.tipo_funcion.toString()) {
                     case "sin":
-                        return Math.sin(valor);
+                        return Math.sin(valor * Math.PI / 180);
                     case "cos":
-                        return Math.cos(valor);
+                        return Math.cos(valor * Math.PI / 180);
                     case "tan":
-                        return Math.tan(valor);
+                        return Math.tan(valor * Math.PI / 180);
                     case "log10":
                         return Math.log10(valor);
                     case "sqrt":
