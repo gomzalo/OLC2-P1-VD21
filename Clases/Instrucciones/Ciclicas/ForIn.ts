@@ -23,7 +23,14 @@ export class ForIn implements Instruccion{
     public fila : number;
     public columna : number;
     arreglo = false;
-
+    /**
+     * @function ForIn Accede a posiciones de arreglos o cadenas, asignando sus valores en una variable temporal.
+     * @param iterador Variable temporal que contiene el valor del arreglo/cadena en la iteracion actual.
+     * @param rango Arreglo o cadena que se desea iterar.
+     * @param lista_instrucciones Instrucciones a realizar con los valores guardados en la variable temporal @param iterador.
+     * @param fila 
+     * @param columna 
+     */
     constructor(iterador, rango, lista_instrucciones, fila, columna) {
         this.iterador = iterador;
         this.rango = rango;
@@ -68,10 +75,14 @@ export class ForIn implements Instruccion{
                     }
                 }
             }
-        }else if (this.rango.tipo == TIPO.ARREGLO || this.rango instanceof Array ) {
+        }// Arreglos no declarados anteriormente, creados en caliente.
+        else if (this.rango.tipo == TIPO.ARREGLO || this.rango instanceof Array ) {
             console.log("FOR IN ARR XD");
+            let ts_local_fiarr1 = new TablaSimbolos(table);
+            let index_rank = 0;
             this.rango.forEach(e => {
-                let element = e.ejecutar(table, tree);
+                let element = e.ejecutar(ts_local_fiarr1, tree);
+                // let ts_e_farr1 = new TablaSimbolos(ts_local_fiarr1)
                 if (element instanceof Errores)
                 {
                     tree.getErrores().push(element);
@@ -80,12 +91,13 @@ export class ForIn implements Instruccion{
                 if(element instanceof Errores){
                     return element;
                 }
-                let nuevo_simb = new Simbolo(this.iterador, TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
-                let ts_local = new TablaSimbolos(table);
-                let result = ts_local.updateSymbolTabla(nuevo_simb);
+                let nuevo_simb = new Simbolo(this.iterador, e.tipo, this.arreglo, this.fila, this.columna, element);
+                // console.log("nuevo simb for in:");
+                // console.log(nuevo_simb);
+                let result = ts_local_fiarr1.updateSymbolTabla(nuevo_simb);
                 if (result instanceof Errores)
                 {
-                    result = ts_local.setSymbolTabla(nuevo_simb);
+                    result = ts_local_fiarr1.setSymbolTabla(nuevo_simb);
                     if (result instanceof Errores)
                     {
                         tree.getErrores().push(result);
@@ -93,7 +105,9 @@ export class ForIn implements Instruccion{
                     }
                 }
                 for(let ins of this.lista_instrucciones){
-                    let res = ins.ejecutar(ts_local, tree);
+                    // console.log("instrucciones en forin: ");
+                    // console.log(ins);
+                    let res = ins.ejecutar(ts_local_fiarr1, tree);
                     if (res instanceof Errores)
                     {
                         tree.getErrores().push(res);
@@ -109,6 +123,7 @@ export class ForIn implements Instruccion{
                         return res;
                     }
                 }
+                index_rank++;
             });
         }else if(this.rango instanceof AccesoArr){
             console.log("FOR IN ARR DEC RANGO");
@@ -150,7 +165,7 @@ export class ForIn implements Instruccion{
                     while(contador <= end){
                         array.push(arr.getValor()[contador]);
                         let element = arr.getValor()[contador];
-                        let nuevo_simb = new Simbolo(this.iterador, TIPO.ARREGLO, this.arreglo, this.fila, this.columna, element);
+                        let nuevo_simb = new Simbolo(this.iterador, arr.getTipo(), this.arreglo, this.fila, this.columna, element);
                         let ts_local = new TablaSimbolos(table);
                         let result = ts_local.updateSymbolTabla(nuevo_simb);
                         if (result instanceof Errores)

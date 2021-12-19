@@ -1,3 +1,4 @@
+import { Identificador } from './../Identificador';
 import { Arreglo } from './Arreglo';
 import exp from "constants";
 import { Ast } from "../../Ast/Ast";
@@ -16,7 +17,13 @@ export  class AccesoArr implements Instruccion{
     public columna;
     tipo: TIPO;
     arreglo: boolean;
-
+    /**
+     * @function AccesoArr
+     * @param id Identificador del arreglo que se desea acceder
+     * @param expresiones Index o Rango que se desea obtener
+     * @param fila Numero de fila
+     * @param columna Numero de columna
+     */
     constructor(id, expresiones, fila, columna){
         this.id = id;
         this.expresiones = expresiones;
@@ -38,7 +45,8 @@ export  class AccesoArr implements Instruccion{
         }
         this.tipo = simbolo.getTipo();
         // console.log("this.tipo: " + this.tipo);
-        // console.log("AccArr exp val: " + this.expresiones[0]);
+        // console.log("AccArr exp val: ");
+        // console.log(this.expresiones);
         // console.log("AccArr exp size: " + this.expresiones[0].length);
         // console.log("AccArr exp type: " + (this.expresiones[0].tipo));
         if(this.expresiones[0] instanceof Rango){
@@ -82,18 +90,54 @@ export  class AccesoArr implements Instruccion{
             return array;
         }else{
             // console.log("AccArr NOT RANK");
-            // console.log("AccArr exp val: " + this.expresiones);
-            // console.log("AccArr exp size: " + this.expresiones.length);
-            let value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
+            console.log("-----------AccArr exp val-----------");
+            console.log(this.expresiones);
+            console.log("AccArr exp size: " + this.expresiones.length);
+            // 
             // console.log("val acc arr: " + value);
-            
-            if(value instanceof Errores){
+            // TEST
+            let value;
+            if(this.expresiones.length == 1){
+                let indice;
+                if(this.expresiones[0] instanceof Identificador){
+                    // console.log("id");
+                    // console.log(this.expresiones[0].id);
+                    let simbolo_iterador = table.getSymbolTabla(this.expresiones[0].id);
+                    if(simbolo_iterador == null){
+                        return new Errores("Semantico", "No se encontro la variable " + this.expresiones[0].id + ".", this.fila, this.columna);
+                    }
+                    indice = simbolo_iterador.valor;
+                }else{
+                    indice = this.expresiones[0].ejecutar(table, tree);
+                    if (indice.tipo !== TIPO.ENTERO){
+                        return new Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
+                    }
+                }
+                console.log("indice");
+                console.log(indice);
+                console.log("simbolo.getValor().length");
+                console.log(simbolo.getValor().length);
+                if(indice >= simbolo.getValor().length){
+                    return new Errores('Semantico', `Indice ${indice}, no existe en arreglo.`, this.fila, this.columna);
+                }else{
+                    return simbolo.getValor()[indice];
+                }
+                // for(let i = 0; i < simbolo.getValor().length; i++){
+                //     if(indice == i){
+                //         return simbolo.getValor()[i];
+                //     }
+                // }
+            }else{
+                value = this.buscarDimensiones(table, tree, this.expresiones, simbolo.getValor());
                 return value;
             }
+            // if(value instanceof Errores){
+            //     return value;
+            // }
             // if(!isNaN(value)){
             //     return parseInt(value);
             // }
-            return value;
+            // return "value";
         
             // if(value instanceof Array){
             //     return new Errores("Semantico", "Acceso a arreglo incompleto.", this.fila, this.columna);
@@ -125,15 +169,37 @@ export  class AccesoArr implements Instruccion{
         let dimension = expresiones.shift();
         // console.log("accArr exp: " + expresiones);
         // Posicion en dimension
-        let num = dimension.ejecutar(table, tree);
+        
         // console.log("accArr num dim: " + num);
         // console.log("accArr arr: " + arreglo);
         // if(num instanceof Errores){
         //     return num;
         // }
-        if(dimension.tipo != TIPO.ENTERO){
+        console.log("dimension");
+        console.log(dimension);
+        let num;
+        if(dimension instanceof Identificador){
+            console.log("dimension es id");
+            console.log(dimension.id);
+            
+            let simbolo_iterador = table.getSymbolTabla(dimension.id);
+            if(simbolo_iterador == null){
+                return new Errores("Semantico", "No se encontro la variable " + dimension.id + ".", this.fila, this.columna);
+            }
+            num = simbolo_iterador.valor;
+            console.log("dimension val");
+            console.log(simbolo_iterador);
+            console.log(simbolo_iterador.valor);
+        }else{
+            console.log("dimension no es id");
+            console.log(dimension);
+            num = dimension.ejecutar(table, tree);
+        }
+        
+        if(dimension.tipo != TIPO.ENTERO && !(dimension instanceof Identificador)){
             return new Errores("Semantico", "Expresion diferente a entero en arreglo.", this.fila, this.columna);
         }
+        
         if(!isNaN( arreglo[num])){
             // console.log("aaaaaaaa");
             // this.tipo = arreglo[num].tipo;
@@ -156,7 +222,7 @@ export  class AccesoArr implements Instruccion{
             }
         }else{
             // console.log("null");
-            return new Errores("Semantico", "Posicion inexistente en el arreglo.", this.fila, this.columna);
+            return new Errores("Semantico", `Posicion "${num}", inexistente en el arreglo.`, this.fila, this.columna);
         }
     }
 
