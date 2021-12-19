@@ -91,13 +91,21 @@ export class Switch implements Instruccion{
      * @param tree 
      */
     translate3d(table: TablaSimbolos, tree: Ast) {
+        // console.log("this.lista_case");
+        // console.log(this.lista_case);
+        // console.log("this.lista_default");
+        // console.log(this.lista_default);
         const genc3d = tree.generadorC3d;
         let ts_local = new TablaSimbolos (table);
         const lb_exit = genc3d.newLabel();
         let tempBool = '';
         genc3d.gen_Comment('--------- INICIA SWITCH ---------');
+        
         const condicion = this.condicion_sw.translate3d(table, tree);
-        if(condicion.tipo == TIPO.BOOLEANO){
+        // console.log("condicion.tipo");
+        // console.log(condicion.tipo);
+        if(condicion.tipo === TIPO.BOOLEANO){
+            // console.log("CONDICION BOOLEANA");
             const lbljump = genc3d.newLabel();
             const temp = genc3d.newTemp();
             genc3d.gen_Label(condicion.lblTrue);
@@ -111,24 +119,81 @@ export class Switch implements Instruccion{
         if(condicion.tipo !== TIPO.ENTERO && condicion.tipo !== TIPO.DECIMAL && condicion.tipo !== TIPO.BOOLEANO){
             return new Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
         }
-        this.lista_case.forEach(case_temp => {
-            case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
-        });
-        ts_local.break == lb_exit;
+        genc3d.gen_Comment('--------- INICIAN CASES ---------');
+        // this.lista_case.forEach(case_temp => {
+        //     case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
+        // });
+        
         let num_default = false;
+        
         let lb_case_true = genc3d.newLabel();
         let lb_case_false = genc3d.newLabel();
-        let x = 0;
-        this.lista_case.forEach(ins_case => {
-            let res_case = ins_case.translate3d(ts_local, tree);
-            if(ins_case instanceof Retorno){
+            
+        let index_cases = 0;
+        let index_default = 0;
+        if(this.lista_case != null){
+            this.lista_case.forEach(ins_case => {
+                ts_local.break = lb_exit;
+                let res_case = ins_case.condicion_case.translate3d(ts_local, tree);
+                if(res_case.tipo == TIPO.BOOLEANO){
+                    genc3d.gen_Label(res_case.lblTrue);
+                    genc3d.gen_If(tempBool, '1', '==', lb_case_true);
+                    genc3d.gen_Goto(lb_case_false);
+                    genc3d.gen_Label(res_case.lblFalse);
+                    genc3d.gen_If(tempBool, '0', '==', lb_case_true);
+                    genc3d.gen_Goto(lb_case_false);
+                }else{
+                    genc3d.gen_If(condicion.translate3d(), res_case.translate3d(), '==', lb_case_true);
+                    genc3d.gen_Goto(lb_case_false);
+                }
                 
+                genc3d.gen_Label(lb_case_true);
+                ins_case.lista_instrucciones.forEach(ins_case => {
+                    ins_case.translate3d(ts_local, tree);
+                });
+                // genc3d.gen_Goto(lb_exit);
+                // console.log(Number(ins_case.lista_instrucciones));
+                if (index_cases < this.lista_case.length) {
+                    // console.log("Number(ins_case) < this.lista_case.length - 1")
+                    lb_case_true = genc3d.newLabel();
+                    genc3d.gen_Goto(lb_case_true);
+                    genc3d.gen_Label(lb_case_false);
+                    lb_case_false = genc3d.newLabel();
+                }else{
+                    // console.log("ELSE Number(ins_case) < this.lista_case.length - 1")
+                    genc3d.gen_Label(lb_case_false);
+                }
+                // if(ins_case instanceof Detener || res_case instanceof Detener){
+                //     x = 1;
+                //     break;
+                // }
+                index_cases++;
+            });
+        }
+        if(this.lista_default != null){
+            genc3d.gen_Comment('--------- INICIA DEFAULT ---------');
+            if(num_default){
+                return new Errores('Semantico', 'Solamente se acepta una instruccion defaul.', this.fila, this.columna);
             }
-            if(ins_case instanceof Detener){
-                x = 1;
-                // break;
-            }
-        });
+            num_default = true;
+            ts_local.break == lb_exit;
+            genc3d.gen_Label(lb_case_true);
+            // console.log("entro a else: ");
+            // console.log(this.lista_default);
+            this.lista_default.forEach(ins_default => {
+                // console.log("recorriendo ins else: " + index_default);
+                ins_default.translate3d(ts_local, tree);
+                // if (index_default < this.lista_default.length) {
+                //     lb_case_true = genc3d.newLabel();
+                //     genc3d.gen_Goto(lb_case_true);
+                //     lb_case_false = genc3d.newLabel();
+                // }
+                index_default++;
+            });
+        }
+        
+        genc3d.gen_Label(lb_exit);
+        genc3d.gen_Comment('--------- FINALIZA SWITCH ---------');
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("SWITCH", "");
