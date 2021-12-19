@@ -8,13 +8,21 @@ export interface Instruccion {
 
     /**
      * @function ejecutar execute instruccions
-     * @param ast llevamos el control de todo el programa
-     * @param ts accede a la tabla de simbolos
+     * @param table Maneja el entorno
+     * @param tree AST del programa
      */
     ejecutar(table : TablaSimbolos, tree : Ast): any;
-
+    /**
+     * @function translate3d translate instruccions to three address code
+     * @param table Maneja el entorno
+     * @param tree AST del programa
+     */
     translate3d(table : TablaSimbolos, tree : Ast): any;
-
+    /**
+     * @function recorrer Recorrer nodos para graficar
+     * @param table Maneja el entorno
+     * @param tree AST del programa
+     */
     recorrer(table : TablaSimbolos, tree : Ast): any;
 
 }

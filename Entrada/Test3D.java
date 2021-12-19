@@ -131,3 +131,22 @@ test=-25*(69-33*2)+22-32*2-33*(-48+48);
 println(test); // -117
 println(test++); // -116
 println("");
+println("************   Switch-C-D **************");
+println("");
+char c = '*';
+switch(c) {
+    case '+':
+        println('+');
+        break;
+    case '-':
+        println('-');
+        break;
+    case '*':
+        println('*'); // '*'
+        break;
+    case '/':
+        println('/');
+        break;
+    default:
+        println('0');
+}
