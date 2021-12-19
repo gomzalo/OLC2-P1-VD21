@@ -3372,7 +3372,7 @@ class Relacional {
                     genC3d.gen_Exp(tempAux, tempAux, '1', '+');
                     genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                     genC3d.gen_NextEnv(1);
-                    genC3d.gen_Call('nativa_compararIgual_str_str');
+                    genC3d.gen_Call('natCompararIgualStr');
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
@@ -3434,7 +3434,7 @@ class Relacional {
                     genC3d.gen_Exp(tempAux, tempAux, '1', '+');
                     genC3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                     genC3d.gen_NextEnv(1);
-                    genC3d.gen_Call('nativa_compararIgual_str_str');
+                    genC3d.gen_Call('natCompararIgualStr');
                     genC3d.gen_GetStack(temp, 'p');
                     genC3d.gen_AntEnv(1);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
@@ -5820,21 +5820,6 @@ class Case {
             });
         }
     }
-<<<<<<< HEAD
-=======
-    translate3d(table, tree) {
-        // let genc3d = tree.generadorC3d;
-        let ts_local = new TablaSimbolos_1.TablaSimbolos(table);
-        if (this.condicion_sw == this.condicion_case.translate3d(table, tree)) {
-            this.lista_instrucciones.forEach(instruccion => {
-                let ins = instruccion.translate3d(ts_local, tree);
-                if (ins instanceof Break_1.Detener || ins instanceof Return_1.Return || ins instanceof Continuar_1.Continuar) {
-                    return ins;
-                }
-            });
-        }
-    }
->>>>>>> develop
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("CASE", "");
         let expresion = new Nodo_1.Nodo("EXPRESION", "");
@@ -6310,14 +6295,10 @@ class Switch {
         let tempBool = '';
         genc3d.gen_Comment('--------- INICIA SWITCH ---------');
         const condicion = this.condicion_sw.translate3d(table, tree);
-<<<<<<< HEAD
         // console.log("condicion.tipo");
         // console.log(condicion.tipo);
         if (condicion.tipo === Tipo_1.TIPO.BOOLEANO) {
             // console.log("CONDICION BOOLEANA");
-=======
-        if (condicion.tipo == Tipo_1.TIPO.BOOLEANO) {
->>>>>>> develop
             const lbljump = genc3d.newLabel();
             const temp = genc3d.newTemp();
             genc3d.gen_Label(condicion.lblTrue);
@@ -6328,11 +6309,10 @@ class Switch {
             genc3d.gen_Label(lbljump);
             tempBool = temp;
         }
-        if (condicion.tipo !== Tipo_1.TIPO.ENTERO && condicion.tipo !== Tipo_1.TIPO.DECIMAL && condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
-            return new Errores_1.Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
-        }
-<<<<<<< HEAD
-        genc3d.gen_Comment('--------- INICIAN CASES ---------');
+        // if(condicion.tipo !== TIPO.ENTERO && condicion.tipo !== TIPO.DECIMAL && condicion.tipo !== TIPO.BOOLEANO){
+        //     return new Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
+        // }
+        genc3d.gen_Comment('--------- INICIAN CASES ');
         // this.lista_case.forEach(case_temp => {
         //     case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
         // });
@@ -6354,8 +6334,33 @@ class Switch {
                     genc3d.gen_Goto(lb_case_false);
                 }
                 else {
-                    genc3d.gen_If(condicion.translate3d(), res_case.translate3d(), '==', lb_case_true);
-                    genc3d.gen_Goto(lb_case_false);
+                    let valor_sw = condicion.translate3d();
+                    let valor_cs = res_case.translate3d();
+                    const temp = genc3d.newTemp();
+                    if (condicion.tipo == Tipo_1.TIPO.CADENA) {
+                        const tempAux = genc3d.newTemp();
+                        genc3d.gen_Exp(tempAux, 'p', 1 + 1, '+');
+                        genc3d.gen_SetStack(tempAux, valor_sw);
+                        genc3d.gen_Exp(tempAux, tempAux, '1', '+');
+                        genc3d.gen_SetStack(tempAux, valor_cs);
+                        genc3d.gen_NextEnv(1);
+                        genc3d.gen_Call('natCompararIgualStr');
+                        genc3d.gen_GetStack(temp, 'p');
+                        genc3d.gen_AntEnv(1);
+                        lb_case_true = lb_case_true == '' ? genc3d.newLabel() : lb_case_true;
+                        // console.log(this.lblTrue)
+                        lb_case_false = lb_case_false == '' ? genc3d.newLabel() : lb_case_false;
+                        // console.log(this.lblFalse)
+                        genc3d.gen_If(temp, '1', '==', lb_case_true);
+                        genc3d.gen_Goto(lb_case_false);
+                        const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
+                        retorno.lblTrue = lb_case_true;
+                        retorno.lblFalse = lb_case_false;
+                    }
+                    else {
+                        genc3d.gen_If(valor_sw, valor_cs, '==', lb_case_true);
+                        genc3d.gen_Goto(lb_case_false);
+                    }
                 }
                 genc3d.gen_Label(lb_case_true);
                 ins_case.lista_instrucciones.forEach(ins_case => {
@@ -6382,7 +6387,7 @@ class Switch {
             });
         }
         if (this.lista_default != null) {
-            genc3d.gen_Comment('--------- INICIA DEFAULT ---------');
+            genc3d.gen_Comment('--------- INICIA DEFAULT ');
             if (num_default) {
                 return new Errores_1.Errores('Semantico', 'Solamente se acepta una instruccion defaul.', this.fila, this.columna);
             }
@@ -6404,25 +6409,6 @@ class Switch {
         }
         genc3d.gen_Label(lb_exit);
         genc3d.gen_Comment('--------- FINALIZA SWITCH ---------');
-=======
-        this.lista_case.forEach(case_temp => {
-            case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
-        });
-        ts_local.break == lb_exit;
-        let num_default = false;
-        let lb_case_true = genc3d.newLabel();
-        let lb_case_false = genc3d.newLabel();
-        let x = 0;
-        this.lista_case.forEach(ins_case => {
-            let res_case = ins_case.translate3d(ts_local, tree);
-            if (ins_case instanceof Retorno_1.Retorno) {
-            }
-            if (ins_case instanceof Break_1.Detener) {
-                x = 1;
-                // break;
-            }
-        });
->>>>>>> develop
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("SWITCH", "");
@@ -6443,11 +6429,7 @@ class Switch {
 }
 exports.Switch = Switch;
 
-<<<<<<< HEAD
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Return":53}],31:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":58,"../../TablaSimbolos/Tipo":59,"../Transferencia/Break":54,"../Transferencia/Return":56,"./../../G3D/Retorno":22}],34:[function(require,module,exports){
->>>>>>> develop
+},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Return":53,"./../../G3D/Retorno":19}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -7158,11 +7140,11 @@ class Matematicas {
                 this.tipo = this.expresion.tipo;
                 switch (this.tipo_funcion.toString()) {
                     case "sin":
-                        return Math.sin(valor);
+                        return Math.sin(valor * Math.PI / 180);
                     case "cos":
-                        return Math.cos(valor);
+                        return Math.cos(valor * Math.PI / 180);
                     case "tan":
-                        return Math.tan(valor);
+                        return Math.tan(valor * Math.PI / 180);
                     case "log10":
                         return Math.log10(valor);
                     case "sqrt":
@@ -8351,17 +8333,12 @@ class TablaSimbolos {
 }
 exports.TablaSimbolos = TablaSimbolos;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":3,"./Tipo":56}],56:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":59}],57:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 /**
  * @enum de Tipo nos permite enumerar los tipos del lenguaje
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< HEAD
 exports.OperadorLogico = exports.OperadorRelacional = exports.OperadorAritmetico = exports.TIPO = void 0;
 var TIPO;
 (function (TIPO) {
@@ -8458,80 +8435,6 @@ itemAbrir.addEventListener('click', async () => {
         inputAttributes: {
             'accept': '*',
             'aria-label': 'Selected File'
-=======
-exports.Simbolo = void 0;
-class Simbolo {
-    /**
-     *
-     * @param id Identificador del simbolos
-     * @param tipo Tipo del simbolo
-     * @param arreglo Booleano para verificar si es arreglo
-     * @param fila Numero de fila
-     * @param columna Numero de columna
-     * @param valor Valor del simbolo
-     * @param structEnv
-     */
-    constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false) {
-        this.id = id;
-        this.tipo = tipo;
-        this.fila = fila;
-        this.columna = columna;
-        this.valor = valor;
-        this.arreglo = arreglo;
-        this.structEnv = structEnv;
-        this.isGlobal = false;
-        this.inHeap = false;
-        this.posicion = 0;
-        // console.log("simbolor: "+this.valor);
-    }
-    setPosicion(posicion) {
-        this.posicion = this.posicion;
-    }
-    /**
-     *
-     * @returns this.posicion
-     */
-    getPosicion() {
-        return this.posicion;
-    }
-    getId() {
-        return this.id;
-    }
-    setId(id) {
-        this.id = id;
-    }
-    getTipo() {
-        return this.tipo;
-    }
-    getTipoStruct() {
-        return this.tipoStruct;
-    }
-    setTipo(tipo) {
-        this.tipo = tipo;
-    }
-    getValor() {
-        return this.valor;
-    }
-    setValor(valor) {
-        this.valor = valor;
-    }
-    getFila() {
-        return this.fila;
-    }
-    getColumna() {
-        return this.columna;
-    }
-    getArreglo() {
-        return this.arreglo;
-    }
-    toStringStruct() {
-        let cadena = "";
-        // if (this.valor instanceof TablaSimbolos)
-        // {
-        if (this.valor != null) {
-            // console.log(this.valor.tabla)
-            cadena += this.valor.toStringTable();
->>>>>>> develop
         }
     })
 
@@ -8613,7 +8516,6 @@ function addNuevoTab(){
     </li>');
     $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
 
-<<<<<<< HEAD
     var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
         mode: "javascript",
         theme: "night",
@@ -8636,23 +8538,6 @@ eliminarTab.addEventListener('click', async () => {
             text: 'No se puede eliminar todas las pestañas de trabajo.'
         });
         return;
-=======
-},{}],58:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TablaSimbolos = void 0;
-const Errores_1 = require("../Ast/Errores");
-const Tipo_1 = require("./Tipo");
-class TablaSimbolos {
-    constructor(anterior) {
-        this.anterior = anterior;
-        this.tabla = new Map();
-        this.size = (anterior === null || anterior === void 0 ? void 0 : anterior.size) || 0;
-        this.break = (anterior === null || anterior === void 0 ? void 0 : anterior.break) || null;
-        this.continue = (anterior === null || anterior === void 0 ? void 0 : anterior.continue) || null;
-        this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
-        this.actual_funcion = (anterior === null || anterior === void 0 ? void 0 : anterior.actual_funcion) || null;
->>>>>>> develop
     }
 
     var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
