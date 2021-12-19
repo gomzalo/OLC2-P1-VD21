@@ -140,7 +140,8 @@ export class TablaSimbolos{
                 // validacion DE TIPO
                 if(existe.getTipo() == simbolo.getTipo() 
                     || (simbolo.getTipo() == TIPO.STRUCT && simbolo.getTipo() == existe.getTipo())
-                    || (existe.getTipo() ==  TIPO.STRUCT && simbolo.getTipo() == TIPO.NULO ))
+                    || (existe.getTipo() ==  TIPO.STRUCT && simbolo.getTipo() == TIPO.NULO )
+                    || (existe.getTipo() ==  TIPO.DECIMAL && simbolo.getTipo() == TIPO.ENTERO )) //SI ENTERO VIENE A ASIGNARSE EN DECIMAL
                 {
                     existe.setValor(simbolo.getValor());
                     existe.setTipo(simbolo.getTipo());

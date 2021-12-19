@@ -4215,17 +4215,17 @@ class Primitivo {
             case Tipo_1.TIPO.CADENA:
                 const temp = genc3d.newTemp();
                 genc3d.genAsignaTemp(temp, 'h');
-                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ---------');
+                genc3d.gen_Comment('--------- INICIA RECORRE CADENA ');
                 for (let i = 0; i < valor.length; i++) {
                     genc3d.gen_SetHeap('h', valor.charCodeAt(i));
                     genc3d.nextHeap();
                 }
-                genc3d.gen_Comment('--------- FIN RECORRE CADENA ---------');
+                genc3d.gen_Comment('--------- FIN RECORRE CADENA ');
                 genc3d.gen_SetHeap('h', '-1');
                 genc3d.nextHeap();
                 return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
             case Tipo_1.TIPO.CHARACTER:
-                genc3d.gen_Comment('--------- PRIMITIVO: char ---------');
+                genc3d.gen_Comment('--------- PRIMITIVO: CHAR');
                 const temp2 = genc3d.newTemp();
                 genc3d.genAsignaTemp(temp2, 'h');
                 genc3d.gen_SetHeap('h', valor.charCodeAt(0));
@@ -6931,6 +6931,7 @@ exports.Ifsinllave = Ifsinllave;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
+const Retorno_1 = require("./../../G3D/Retorno");
 const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
@@ -7031,17 +7032,10 @@ class Switch {
             genc3d.gen_Label(lbljump);
             tempBool = temp;
         }
-<<<<<<< HEAD
-        if (condicion.tipo !== Tipo_1.TIPO.ENTERO && condicion.tipo !== Tipo_1.TIPO.DECIMAL && condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
-            return new Errores_1.Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
-        }
-        genc3d.gen_Comment('--------- INICIAN CASES ---------');
-=======
         // if(condicion.tipo !== TIPO.ENTERO && condicion.tipo !== TIPO.DECIMAL && condicion.tipo !== TIPO.BOOLEANO){
         //     return new Errores('Semantico', 'Tipo de condicion incorrecta.', this.fila, this.columna);
         // }
         genc3d.gen_Comment('--------- INICIAN CASES ');
->>>>>>> develop
         // this.lista_case.forEach(case_temp => {
         //     case_temp.condicion_sw = this.condicion_sw.translate3d(ts_local, tree);
         // });
@@ -7085,6 +7079,10 @@ class Switch {
                         const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
                         retorno.lblTrue = lb_case_true;
                         retorno.lblFalse = lb_case_false;
+                    }
+                    else if (condicion.tipo == Tipo_1.TIPO.CHARACTER) {
+                        genc3d.gen_If(valor_sw, valor_cs, '==', lb_case_true);
+                        genc3d.gen_Goto(lb_case_false);
                     }
                     else {
                         genc3d.gen_If(valor_sw, valor_cs, '==', lb_case_true);
@@ -7158,11 +7156,7 @@ class Switch {
 }
 exports.Switch = Switch;
 
-<<<<<<< HEAD
-},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":58,"../../TablaSimbolos/Tipo":59,"../Transferencia/Break":54,"../Transferencia/Return":56}],34:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":55,"../../TablaSimbolos/Tipo":56,"../Transferencia/Break":51,"../Transferencia/Return":53,"./../../G3D/Retorno":19}],31:[function(require,module,exports){
->>>>>>> develop
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":58,"../../TablaSimbolos/Tipo":59,"../Transferencia/Break":54,"../Transferencia/Return":56,"./../../G3D/Retorno":22}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -8242,7 +8236,7 @@ class Print {
                     genc3d.gen_Comment('--------- FIN PRINT INT ---------');
                 }
                 if (valor3d.tipo == Tipo_1.TIPO.CHARACTER) {
-                    genc3d.gen_Comment('--------- INICIA PRINT char ---------');
+                    genc3d.gen_Comment('--------- INICIA PRINT CHAR ---------');
                     genc3d.gen_SetStack(t0, temp);
                     genc3d.gen_Call('natPrintStr');
                 }
@@ -8828,14 +8822,9 @@ class Return {
 }
 exports.Return = Return;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":59}],57:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"./Tipo":56}],56:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< HEAD
 exports.Simbolo = void 0;
 class Simbolo {
     /**
@@ -8933,320 +8922,6 @@ class TablaSimbolos {
         this.continue = (anterior === null || anterior === void 0 ? void 0 : anterior.continue) || null;
         this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
         this.actual_funcion = (anterior === null || anterior === void 0 ? void 0 : anterior.actual_funcion) || null;
-=======
-exports.OperadorLogico = exports.OperadorRelacional = exports.OperadorAritmetico = exports.TIPO = void 0;
-var TIPO;
-(function (TIPO) {
-    TIPO[TIPO["ENTERO"] = 0] = "ENTERO";
-    TIPO[TIPO["DECIMAL"] = 1] = "DECIMAL";
-    TIPO[TIPO["BOOLEANO"] = 2] = "BOOLEANO";
-    TIPO[TIPO["CHARACTER"] = 3] = "CHARACTER";
-    TIPO[TIPO["CADENA"] = 4] = "CADENA";
-    TIPO[TIPO["NULO"] = 5] = "NULO";
-    TIPO[TIPO["ARREGLO"] = 6] = "ARREGLO";
-    TIPO[TIPO["ANY"] = 7] = "ANY";
-    TIPO[TIPO["RANGO"] = 8] = "RANGO";
-    TIPO[TIPO["STRUCT"] = 9] = "STRUCT";
-    TIPO[TIPO["VOID"] = 10] = "VOID";
-})(TIPO = exports.TIPO || (exports.TIPO = {}));
-var OperadorAritmetico;
-(function (OperadorAritmetico) {
-    OperadorAritmetico[OperadorAritmetico["MAS"] = 0] = "MAS";
-    OperadorAritmetico[OperadorAritmetico["MENOS"] = 1] = "MENOS";
-    OperadorAritmetico[OperadorAritmetico["POR"] = 2] = "POR";
-    OperadorAritmetico[OperadorAritmetico["DIV"] = 3] = "DIV";
-    OperadorAritmetico[OperadorAritmetico["POT"] = 4] = "POT";
-    OperadorAritmetico[OperadorAritmetico["MOD"] = 5] = "MOD";
-    OperadorAritmetico[OperadorAritmetico["UMENOS"] = 6] = "UMENOS";
-    OperadorAritmetico[OperadorAritmetico["UMENOSMENOS"] = 7] = "UMENOSMENOS";
-    OperadorAritmetico[OperadorAritmetico["UMASMAS"] = 8] = "UMASMAS";
-    OperadorAritmetico[OperadorAritmetico["AMPERSON"] = 9] = "AMPERSON";
-})(OperadorAritmetico = exports.OperadorAritmetico || (exports.OperadorAritmetico = {}));
-var OperadorRelacional;
-(function (OperadorRelacional) {
-    OperadorRelacional[OperadorRelacional["MENORQUE"] = 0] = "MENORQUE";
-    OperadorRelacional[OperadorRelacional["MAYORQUE"] = 1] = "MAYORQUE";
-    OperadorRelacional[OperadorRelacional["MENORIGUAL"] = 2] = "MENORIGUAL";
-    OperadorRelacional[OperadorRelacional["MAYORIGUAL"] = 3] = "MAYORIGUAL";
-    OperadorRelacional[OperadorRelacional["IGUALIGUAL"] = 4] = "IGUALIGUAL";
-    OperadorRelacional[OperadorRelacional["DIFERENTE"] = 5] = "DIFERENTE";
-})(OperadorRelacional = exports.OperadorRelacional || (exports.OperadorRelacional = {}));
-var OperadorLogico;
-(function (OperadorLogico) {
-    OperadorLogico[OperadorLogico["NOT"] = 0] = "NOT";
-    OperadorLogico[OperadorLogico["AND"] = 1] = "AND";
-    OperadorLogico[OperadorLogico["OR"] = 2] = "OR";
-})(OperadorLogico = exports.OperadorLogico || (exports.OperadorLogico = {}));
-
-},{}],57:[function(require,module,exports){
-const { Ast } = require("./dist/Ast/Ast");
-const gramatica = require("./Analizadores/gramatica");
-const { Declaracion } = require("./dist/Instrucciones/Declaracion");
-const { Funcion } = require("./dist/Instrucciones/Metodos/Funcion");
-const { Main } = require("./dist/Instrucciones/Metodos/Main");
-const { Asignacion } = require("./dist/Instrucciones/Asignacion");
-const { DeclaracionArr } = require("./dist/Instrucciones/Arreglos/DeclaracionArr");
-const { Struct } = require("./dist/Instrucciones/Struct/Struct");
-const compilar = document.getElementById('compilarProyecto');
-var myTab = document.getElementById('myTab');
-var itemAbrir = document.getElementById('itemAbrir');
-let result;
-let entornoAnalizar;
-let entornoTraducir;
-
-var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
-    mode: "text/x-csrc",
-    theme: "night",
-    lineNumbers:true,
-    autoCloseBrackets: true,
-    readOnly: false
-});
-
-var text = CodeMirror.fromTextArea(document.getElementById("textAreaEntrada"),{
-    mode: "text/x-java",
-    theme: "night",
-    lineNumbers:true,
-    autoCloseBrackets: true
-});
-text.setSize(null,520);
-
-var cantTabs = 1;
-var editor = new Editor(text);
-var editor2 = new Editor(text2);
-var editores = [];
-editores.push(editor);
-editores.push(editor2);
-
-function Editor(codeEditor){    
-    this.codeEditor = codeEditor;
-}
-
-
-itemAbrir.addEventListener('click', async () => {
-
-    const { value: file } = await Swal.fire({
-        title: 'Abrir Archivo',
-        input: 'file',
-        inputAttributes: {
-            'accept': '*',
-            'aria-label': 'Selected File'
-        }
-    })
-
-    if (file) {
-        var reader = new FileReader()
-        reader.onload = (e) => {
-
-            var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
-
-            var currentTab = undefined;
-            var indexTab = 1;
-            var auxiliar = 1;
-
-            myTabs.forEach(element => {
-
-                var itemA = element.querySelector("a");
-
-                var bandera = itemA.getAttribute('aria-selected')
-
-                if (bandera == 'true') {
-                    currentTab = itemA.id;
-                    indexTab = auxiliar;
-                }
-
-                auxiliar = auxiliar + 1;
-            });
-
-            var contents = e.target.result;
-            editores[indexTab-1].codeEditor.setValue(contents);
-            
-        }
-        reader.readAsText(file);
-    }
-    else{
-        // alert('Error al cargar Archivo.');
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error al cargar Archivo.'
-        });
-    }
-
-});
-
-agregarNuevoTab.addEventListener('click', async () => {
-
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementById('#myTab');
-    tablinks = document.getElementById('#myTabContent');
-    cantTabs = cantTabs + 1;
-
-    $('#myTab').append('\
-    <li class = "nav-item">\
-    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
-    </li>');
-    $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
-
-    var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
-        mode: "javascript",
-        theme: "night",
-        lineNumbers: true
-    });
-    editorActual.setSize(null, 520);
-    var nuevoEditor = new Editor(editorActual);
-    editores.push(nuevoEditor);
-    
-});
-
-function addNuevoTab(){
-
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementById('#myTab');
-    tablinks = document.getElementById('#myTabContent');
-    cantTabs = cantTabs + 1;
-
-    $('#myTab').append('\
-    <li class = "nav-item">\
-    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
-    </li>');
-    $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
-
-    var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
-        mode: "javascript",
-        theme: "night",
-        lineNumbers: true
-    });
-    editorActual.setSize(null, 520);
-    var nuevoEditor = new Editor(editorActual);
-    editores.push(nuevoEditor);
-    
-};
-
-eliminarTab.addEventListener('click', async () => {
-
-
-    if( cantTabs == 1 ){
-        // alert('No se puede eliminar todas las pestañas de trabajo.')
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'No se puede eliminar todas las pestañas de trabajo.'
-        });
-        return;
-    }
-
-    var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
-
-    var currentTab = undefined;
-    var indexTab = 0;
-    var auxiliar = 0;
-
-    myTabs.forEach(element => {
-
-        var itemA = element.querySelector("a");
-
-        var bandera = itemA.getAttribute('aria-selected')
-
-        if (bandera == 'true') {
-            currentTab = itemA.id;
-            indexTab = auxiliar;
-        }
-
-        auxiliar = auxiliar + 1;
-    });
-
-    var tabSeleccionado = document.getElementById(currentTab);
-    var idPanelTab = tabSeleccionado.getAttribute('aria-controls');
-    var panelTab = document.getElementById(idPanelTab);
-    
-    var padre = tabSeleccionado.parentElement;
-    padre.remove()
-
-    var panelTabSeleccionado = document.getElementById(panelTab.id);
-    var padre = panelTabSeleccionado.parentElement
-    padre.removeChild(panelTabSeleccionado);
-
-    editores.splice(indexTab,1);
-    cantTabs = cantTabs - 1;
-});
-
-limpiarTab.addEventListener('click', async () => {
-
-    var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
-
-    var indexTab = 0;
-    var auxiliar = 0;
-
-    myTabs.forEach(element => {
-
-        var itemA = element.querySelector("a");
-
-        var bandera = itemA.getAttribute('aria-selected')
-
-        if (bandera == 'true') {
-            currentTab = itemA.id;
-            indexTab = auxiliar;
-        }
-
-        auxiliar = auxiliar + 1;
-    });
-
-    editores[indexTab].codeEditor.setValue('');
-    
-});
-
-compilar.addEventListener('click', () => {
-
-    // let listaImprimir = Lista_Imprimir.getInstance();
-    // alert("dsfasdfa");
-    let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
-
-    let indexTab = 0;
-    let auxiliar = 0;
-
-    myTabs.forEach(element => {
-
-        var itemA = element.querySelector("a");
-
-        var bandera = itemA.getAttribute('aria-selected')
-
-        if (bandera == 'true') {
-            currentTab = itemA.id;
-            indexTab = auxiliar;
-        }
-
-        auxiliar = auxiliar + 1;
-    });
-    
-    //parse(editores[indexTab].codeEditor.getValue());
-    
-    var txtConsola = document.getElementById("textAreaConsola");
-    $("#textAreaConsola").val("");
-
-    try{
-        result = gramatica.parse(editores[indexTab].codeEditor.getValue()); // return ast
-        // result.Errores = gramatica.errores.slice()
-        console.log(result);
-        result.ejecutar();
-        entornoAnalizar = result.TSglobal;
-        let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
-        
-        texto += result.getConsola();
-        // $("#textAreaConsola").val(texto);
-        // txtConsola.append(texto);
-        Swal.fire(
-            '¡Muy bien!',
-            '¡Se completo la ejecución!',
-            'success'
-        )
-    }catch(e){
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Gramatica incorrecta\n:' + e
-        });
-        // alert(e);
->>>>>>> develop
     }
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {
@@ -9347,7 +9022,9 @@ compilar.addEventListener('click', () => {
                 // validacion DE TIPO
                 if (existe.getTipo() == simbolo.getTipo()
                     || (simbolo.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == existe.getTipo())
-                    || (existe.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == Tipo_1.TIPO.NULO)) {
+                    || (existe.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == Tipo_1.TIPO.NULO)
+                    || (existe.getTipo() == Tipo_1.TIPO.DECIMAL && simbolo.getTipo() == Tipo_1.TIPO.ENTERO)) //SI ENTERO VIENE A ASIGNARSE EN DECIMAL
+                 {
                     existe.setValor(simbolo.getValor());
                     existe.setTipo(simbolo.getTipo());
                     // AGREGAR STRUCT ACA

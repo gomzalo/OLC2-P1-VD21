@@ -77,6 +77,7 @@ BSL                                 "\\".
 "pop"                       { return 'RPOP' };
 "push"                      { return 'RPUSH' };
 "length"                    { return 'RLENGTH' };
+"pow"                       { return 'RPOW' };
 /* -------- Cadenas */
 "caracterOfPosition"        { return 'RCHAROFPOS' };
 "subString"                 { return 'RSUBSTRING' };

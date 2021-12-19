@@ -112,7 +112,9 @@ class TablaSimbolos {
                 // validacion DE TIPO
                 if (existe.getTipo() == simbolo.getTipo()
                     || (simbolo.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == existe.getTipo())
-                    || (existe.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == Tipo_1.TIPO.NULO)) {
+                    || (existe.getTipo() == Tipo_1.TIPO.STRUCT && simbolo.getTipo() == Tipo_1.TIPO.NULO)
+                    || (existe.getTipo() == Tipo_1.TIPO.DECIMAL && simbolo.getTipo() == Tipo_1.TIPO.ENTERO)) //SI ENTERO VIENE A ASIGNARSE EN DECIMAL
+                 {
                     existe.setValor(simbolo.getValor());
                     existe.setTipo(simbolo.getTipo());
                     // AGREGAR STRUCT ACA
