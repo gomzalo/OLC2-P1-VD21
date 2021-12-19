@@ -49,7 +49,7 @@ export class Identificador implements Instruccion{
     }
     
     translate3d(table: TablaSimbolos, tree: Ast) {
-        let genC3d = tree.generadorC3d;
+        const genC3d = tree.generadorC3d;
         let varSimb= table.getSymbolTabla(this.id);
     
         let temp = genC3d.newTemp();

@@ -58,7 +58,7 @@ class While {
         let entornoLocal = new TablaSimbolos_1.TablaSimbolos(table);
         genc3d.gen_Comment('------------ WHILE -----------');
         genc3d.gen_Label(lbl);
-        let condicion = this.condicion.translate3d(table);
+        let condicion = this.condicion.translate3d(table, tree);
         if (condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
             let error = new Errores_1.Errores("c3d", "La condicion no  es boolean", this.fila, this.columna);
             tree.updateConsolaPrintln(error.toString());

@@ -32,7 +32,7 @@ class Identificador {
         return this.symbol.getValor();
     }
     translate3d(table, tree) {
-        let genC3d = tree.generadorC3d;
+        const genC3d = tree.generadorC3d;
         let varSimb = table.getSymbolTabla(this.id);
         let temp = genC3d.newTemp();
         if (varSimb != null) {
