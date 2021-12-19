@@ -39,7 +39,7 @@ export  class Declaracion implements Instruccion{
                 {
                     return valor;
                 }
-                if(tipo_valor == this.tipo )
+                if(tipo_valor == this.tipo || (this.tipo == TIPO.DECIMAL && tipo_valor== TIPO.ENTERO ))
                 {
                     // console.log("entre tipo declaracion");
                     //--> Lo agregamos a la tabla de simbolos 

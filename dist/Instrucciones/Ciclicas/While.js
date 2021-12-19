@@ -58,6 +58,7 @@ class While {
         let entornoLocal = new TablaSimbolos_1.TablaSimbolos(table);
         genc3d.gen_Comment('------------ WHILE -----------');
         genc3d.gen_Label(lbl);
+        genc3d.gen_Comment('-----Condicion');
         let condicion = this.condicion.translate3d(table, tree);
         if (condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
             let error = new Errores_1.Errores("c3d", "La condicion no  es boolean", this.fila, this.columna);
@@ -66,8 +67,9 @@ class While {
         entornoLocal.break = condicion.lblFalse;
         entornoLocal.continue = lbl;
         genc3d.gen_Label(condicion.lblTrue);
+        genc3d.gen_Comment('-----End Condicion');
         for (let inst of this.lista_instrucciones) {
-            inst.translate3d(table, tree);
+            inst.translate3d(entornoLocal, tree);
         }
         // this.sentencias.translate3d(entornoLocal);
         genc3d.gen_Goto(lbl);

@@ -28,7 +28,7 @@ class Declaracion {
                 if (valor instanceof Errores_1.Errores) {
                     return valor;
                 }
-                if (tipo_valor == this.tipo) {
+                if (tipo_valor == this.tipo || (this.tipo == Tipo_1.TIPO.DECIMAL && tipo_valor == Tipo_1.TIPO.ENTERO)) {
                     // console.log("entre tipo declaracion");
                     //--> Lo agregamos a la tabla de simbolos 
                     // console.log("SI tipo actual: " + tipo_valor + " tipo var es: " + this.tipo)
