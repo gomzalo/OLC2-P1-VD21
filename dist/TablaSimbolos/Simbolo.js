@@ -9,7 +9,7 @@ class Simbolo {
      * @param arreglo Booleano para verificar si es arreglo
      * @param fila Numero de fila
      * @param columna Numero de columna
-     * @param valor Valor del simbolo
+     * @param valor Valor del simbolo | if(tipo==TIPO.STRUCT)= tablaSimbolos
      * @param structEnv
      */
     constructor(id, tipo, arreglo, fila, columna, valor, structEnv = false) {

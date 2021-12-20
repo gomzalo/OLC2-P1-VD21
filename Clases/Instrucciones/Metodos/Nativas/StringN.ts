@@ -30,6 +30,7 @@ export class StringN implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    public tipoStruct: any;
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let valor = this.expresion.ejecutar(table, tree);

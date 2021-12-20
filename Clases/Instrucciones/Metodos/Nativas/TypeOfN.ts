@@ -18,6 +18,8 @@ export class TypeOfN implements Funcion{
     public instructions : Array<Instruccion>;
     expresion;
     arreglo: boolean;
+    public tipoStruct: any;
+
     /**
      * @function typeof Muestra el tipo del argumento.
      * @param expresion Argumento del que se quiere saber el tipo.
@@ -30,6 +32,7 @@ export class TypeOfN implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         if(this.expresion instanceof Array){

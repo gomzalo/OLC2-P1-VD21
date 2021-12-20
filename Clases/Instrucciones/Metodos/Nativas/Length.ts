@@ -17,6 +17,9 @@ export class Length implements Funcion{
     public parameters: Array<any>;
     public instructions : Array<Instruccion>;
     arreglo: boolean;
+    public tipoStruct: any;
+
+
     /**
      * @function Length Devuele el tamaño de un arreglo o una cadena.
      * @param id ID de la variable que se quiere saber el tamaño
@@ -29,7 +32,7 @@ export class Length implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
-
+    
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let arr = table.getSymbolTabla(this.id);
         // console.log("pop type: " + arr.tipo);

@@ -29,6 +29,7 @@ export class Pow implements Funcion{
         this.fila =fila;
         this.columna =columna;
     }
+    public tipoStruct: any;
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let resBase = this.expBase.ejecutar(table,tree);
@@ -55,6 +56,16 @@ export class Pow implements Funcion{
         throw new Error("Method not implemented.");
     }
     recorrer(table: TablaSimbolos, tree: Ast): Nodo {
-        throw new Error("Method not implemented.");
+        let padre =  new Nodo("POW","");
+
+        let base =  new Nodo("Expresion Base","");
+        base.addChildNode(this.expBase.recorrer(table,tree));
+        let elev =  new Nodo("Expresion Elevacion","");
+        elev.addChildNode(this.expBase.recorrer(table,tree));
+
+        padre.addChildNode(base);
+        padre.addChildNode(elev);
+
+        return padre;
     }
 }

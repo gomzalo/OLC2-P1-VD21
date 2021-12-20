@@ -17,6 +17,8 @@ export class Pop implements Funcion{
     public parameters: Array<any>;
     public instructions : Array<Instruccion>;
     arreglo: boolean;
+    public tipoStruct: any;
+
     /**
      * @function Pop Elimina y devuelve el ultimo valor de un arreglo.
      * @param id ID del arreglo del que se obtendra su ultimo valor.
@@ -29,6 +31,7 @@ export class Pop implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let arr = table.getSymbolTabla(this.id);

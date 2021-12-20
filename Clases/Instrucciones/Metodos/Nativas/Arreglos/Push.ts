@@ -18,6 +18,8 @@ export class Push implements Funcion{
     public instructions: Array<any>;
     expresion;
     arreglo: boolean;
+    public tipoStruct: any;
+
     /**
      * @function Push inserta un nuevo valor al final del arreglo.
      * @param id ID del arreglo.
@@ -32,6 +34,7 @@ export class Push implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // console.log("push id: " + this.id.id);

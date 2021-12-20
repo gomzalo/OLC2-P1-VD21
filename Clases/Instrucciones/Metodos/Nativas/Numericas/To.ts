@@ -35,6 +35,7 @@ export class To implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    public tipoStruct: any;
     /**
      * 
      * @param table 
