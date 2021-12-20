@@ -80,9 +80,9 @@ class AccesoArr {
         }
         else {
             // console.log("AccArr NOT RANK");
-            console.log("-----------AccArr exp val-----------");
-            console.log(this.expresiones);
-            console.log("AccArr exp size: " + this.expresiones.length);
+            // console.log("-----------AccArr exp val-----------");
+            // console.log(this.expresiones);
+            // console.log("AccArr exp size: " + this.expresiones.length);
             // 
             // console.log("val acc arr: " + value);
             // TEST
@@ -100,18 +100,23 @@ class AccesoArr {
                 }
                 else {
                     indice = this.expresiones[0].ejecutar(table, tree);
-                    if (indice.tipo !== Tipo_1.TIPO.ENTERO) {
-                        return new Errores_1.Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
-                    }
+                    // if (indice.tipo !== TIPO.ENTERO){
+                    //     return new Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
+                    // }
                 }
-                console.log("indice");
-                console.log(indice);
-                console.log("simbolo.getValor().length");
-                console.log(simbolo.getValor().length);
-                if (indice >= simbolo.getValor().length) {
+                if (!Number.isInteger(indice)) {
+                    return new Errores_1.Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
+                }
+                console.log("indice: " + indice + " simbolo.getValor().length " + simbolo.getValor().length);
+                // console.log(indice);
+                // console.log("simbolo.getValor().length");
+                // console.log(simbolo.getValor().length);
+                if (indice >= (simbolo.getValor().length)) {
+                    console.log("rank out of index");
                     return new Errores_1.Errores('Semantico', `Indice ${indice}, no existe en arreglo.`, this.fila, this.columna);
                 }
                 else {
+                    console.log(indice);
                     return simbolo.getValor()[indice];
                 }
                 // for(let i = 0; i < simbolo.getValor().length; i++){
@@ -162,24 +167,24 @@ class AccesoArr {
         // if(num instanceof Errores){
         //     return num;
         // }
-        console.log("dimension");
-        console.log(dimension);
+        // console.log("dimension");
+        // console.log(dimension);
         let num;
         if (dimension instanceof Identificador_1.Identificador) {
-            console.log("dimension es id");
-            console.log(dimension.id);
+            // console.log("dimension es id");
+            // console.log(dimension.id);
             let simbolo_iterador = table.getSymbolTabla(dimension.id);
             if (simbolo_iterador == null) {
                 return new Errores_1.Errores("Semantico", "No se encontro la variable " + dimension.id + ".", this.fila, this.columna);
             }
             num = simbolo_iterador.valor;
-            console.log("dimension val");
-            console.log(simbolo_iterador);
-            console.log(simbolo_iterador.valor);
+            // console.log("dimension val");
+            // console.log(simbolo_iterador);
+            // console.log(simbolo_iterador.valor);
         }
         else {
-            console.log("dimension no es id");
-            console.log(dimension);
+            // console.log("dimension no es id");
+            // console.log(dimension);
             num = dimension.ejecutar(table, tree);
         }
         if (dimension.tipo != Tipo_1.TIPO.ENTERO && !(dimension instanceof Identificador_1.Identificador)) {

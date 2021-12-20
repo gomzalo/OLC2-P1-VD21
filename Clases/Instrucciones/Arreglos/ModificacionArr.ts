@@ -2,6 +2,7 @@ import exp from "constants";
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
 import { Nodo } from "../../Ast/Nodo";
+import { Identificador } from "../../Expresiones/Identificador";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
@@ -36,15 +37,36 @@ export  class ModificacionArr implements Instruccion{
                 if(simbolo.getTipo() != this.valor.tipo){
                     return new Errores("Semantico", "Tipos de datos diferentes en modificacion de arreglo: \'" + this.id + "\'.", this.fila, this.columna);
                 }
-                // console.log("modArr simb.tipo: " + simbolo.getTipo());
                 this.tipo_arr = simbolo.getTipo();
-                // console.log("TIPO mod: " + this.tipo_arr);
-                let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
-                if(result instanceof Errores){
-                    return result;
+                if(this.expresiones.length == 1){
+                    let indice;
+                    // if(this.expresiones instanceof Identificador){
+                    //     let simbolo_iterador = table.getSymbolTabla(this.expresiones.id);
+                    //     if(simbolo_iterador == null){
+                    //         return new Errores("Semantico", "No se encontro la variable " + this.expresiones[0].id + ".", this.fila, this.columna);
+                    //     }
+                    //     indice = simbolo_iterador.valor;
+                    // }else{
+                        indice = this.expresiones[0].ejecutar(table, tree);
+                        // console.log("indice mod arr: " + indice);
+                    // }
+                    if(!Number.isInteger(indice)){
+                        return new Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
+                    }
+                    if(indice >= simbolo.getValor().length){
+                        return new Errores('Semantico', `Indice ${indice}, no existe en arreglo.`, this.fila, this.columna);
+                    }else{
+                        simbolo.getValor()[indice] = value;
+                        return simbolo.getValor()[indice];
+                    }
+                }else{
+                    let result = this.modificarDimensiones(table, tree, this.expresiones, simbolo.getValor(), value); // Devuelve el arreglo de dimensiones
+                    if(result instanceof Errores){
+                        return result;
+                    }
+                    // result = this.valor;
+                    // return result;
                 }
-                // result = this.valor;
-                // return result;
             }else{
                 return new Errores("Semantico", "La variable \'" + this.id + "\', no es un arreglo.", this.fila, this.columna);
             }
@@ -65,9 +87,9 @@ export  class ModificacionArr implements Instruccion{
     public modificarDimensiones(table, tree, expresiones, arreglo, valor){
         // let value = null;
         if(expresiones.length == 0){
-            if(arreglo instanceof Array){
-                return new Errores("Semantico", "Modificacion de arreglo incompleto.", this.fila, this.columna);
-            }
+            // if(arreglo instanceof Array){
+            //     return new Errores("Semantico", "Modificacion de arreglo incompleto.", this.fila, this.columna);
+            // }
             return valor;
         }
         if(!(arreglo instanceof Array)){
