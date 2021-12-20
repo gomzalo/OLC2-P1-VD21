@@ -5,6 +5,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class CharOfPos {
+    /**
+     * @function caracterOfPosition El acceso a un elemento de una cadena se define de la siguiente manera: string.caracterOfPosition(posición), el cual devolvera el caracter correspondiente a esa posición.
+     * @param id ID de la variable de la cual se desea obtener la posicion de cierto caracter.
+     * @param expresion Posicion que se desea obtener.
+     * @param fila
+     * @param columna
+     */
     constructor(id, expresion, fila, columna) {
         this.id = id;
         this.expresion = expresion;

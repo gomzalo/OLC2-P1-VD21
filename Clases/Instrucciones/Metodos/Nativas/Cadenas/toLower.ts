@@ -17,7 +17,13 @@ export class toLower implements Funcion{
     public parameters: Array<any>;
     public instructions: Array<any>;
     arreglo: boolean;
-
+    /**
+     * @function toLowerCase Una cadena puede ser convertida a minusculas con la utilización de la función cadena.toLowercase())
+java animal = "Tigre"; println(animal.toLowercase()); //tigre
+     * @param id ID de variable a convertir en minusculas.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id,fila, columna)
     {
         this.id = id;

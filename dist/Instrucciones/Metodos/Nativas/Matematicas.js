@@ -5,6 +5,13 @@ const Identificador_1 = require("./../../../Expresiones/Identificador");
 const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 class Matematicas {
+    /**
+     * @Matematicas Funciones trigonometricas y demas.
+     * @param tipo_funcion sqrt | sin | cos | tan
+     * @param expresion Parametro a evaluar.
+     * @param fila
+     * @param columna
+     */
     constructor(tipo_funcion, expresion, fila, columna) {
         this.tipo_funcion = tipo_funcion;
         this.expresion = expresion;

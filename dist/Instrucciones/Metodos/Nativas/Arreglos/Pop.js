@@ -4,6 +4,12 @@ exports.Pop = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class Pop {
+    /**
+     * @function Pop Elimina y devuelve el ultimo valor de un arreglo.
+     * @param id ID del arreglo del que se obtendra su ultimo valor.
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;

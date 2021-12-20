@@ -5,6 +5,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class toUpper {
+    /**
+     * @function toUpperCase Una cadena puede ser convertida a mayusculas con la utilización de la función cadena.toUppercase())
+java animal = "Tigre"; println(animal.toUppercase()); //TIGRE
+     * @param id ID de la variable, tipo cadena, a convertir a mayusculas.
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;

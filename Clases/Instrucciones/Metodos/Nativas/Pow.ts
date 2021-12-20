@@ -16,7 +16,13 @@ export class Pow implements Funcion{
     arreglo: boolean;
     public expBase;
     public expElevacion;
-
+    /**
+     * @function Pow Elevar un numero_base a un numero_potencia
+     * @param expBase Base a elevar
+     * @param expElevacion Potencia
+     * @param fila 
+     * @param columna 
+     */
     constructor(expBase,expElevacion,fila, columna){
         this.expBase =expBase;
         this.expElevacion =expElevacion;

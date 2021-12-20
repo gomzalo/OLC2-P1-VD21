@@ -20,7 +20,13 @@ export class Matematicas implements Funcion{
     public parameters: Array<any>;
     public instructions: Array<any>;
     arreglo: boolean;
-
+    /**
+     * @Matematicas Funciones trigonometricas y demas.
+     * @param tipo_funcion sqrt | sin | cos | tan
+     * @param expresion Parametro a evaluar.
+     * @param fila 
+     * @param columna 
+     */
     constructor(tipo_funcion, expresion, fila, columna)
     {
         this.tipo_funcion = tipo_funcion;

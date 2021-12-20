@@ -4,6 +4,13 @@ exports.Pow = void 0;
 const Errores_1 = require("../../../Ast/Errores");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Pow {
+    /**
+     * @function Pow Elevar un numero_base a un numero_potencia
+     * @param expBase Base a elevar
+     * @param expElevacion Potencia
+     * @param fila
+     * @param columna
+     */
     constructor(expBase, expElevacion, fila, columna) {
         this.expBase = expBase;
         this.expElevacion = expElevacion;

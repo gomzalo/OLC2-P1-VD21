@@ -5,6 +5,7 @@ int getPivot(double value) {
     return toInt(value - 0.5);
 }
 
+
 void swap(int i, int j, int[] array) {
     int temp = array[i];
     array[i] = array[j];

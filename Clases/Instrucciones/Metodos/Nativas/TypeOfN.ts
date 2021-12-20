@@ -18,7 +18,12 @@ export class TypeOfN implements Funcion{
     public instructions : Array<Instruccion>;
     expresion;
     arreglo: boolean;
-
+    /**
+     * @function typeof Muestra el tipo del argumento.
+     * @param expresion Argumento del que se quiere saber el tipo.
+     * @param fila 
+     * @param columna 
+     */
     constructor(expresion, fila, columna)
     {
         this.expresion = expresion;

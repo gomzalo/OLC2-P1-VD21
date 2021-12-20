@@ -21,7 +21,13 @@ export class Parse implements Funcion{
     public instructions;
     public tipo_funcion;
     arreglo: boolean;
-
+    /**
+     * @function Parse Toma una cadena y la convierte al tipo indicado
+     * @param tipo_funcion int | double | boolean
+     * @param parameters Cadena a castear
+     * @param fila 
+     * @param columna 
+     */
     constructor(tipo_funcion, parameters, fila, columna)
     {
         this.tipo_funcion = tipo_funcion;
@@ -35,29 +41,31 @@ export class Parse implements Funcion{
         let cadena = this.parameters.ejecutar(table, tree);
         // console.log("parse cadena: " + this.parameters.tipo);
         if(cadena != null){
-            if(this.parameters.tipo == TIPO.CADENA){
-                this.tipo = this.tipo_funcion;
+            if(this.parameters.tipo == TIPO.CADENA){                
                 switch (this.tipo_funcion) {
                     case TIPO.ENTERO:
                         try {
+                            this.tipo = TIPO.ENTERO;
                             return parseInt(cadena);
                         } catch (error) {
                             return new Errores("Semantico", `No fue posible castear a entero el valor '${cadena.toString()}'.`, this.fila, this.columna);
                         }
                     case TIPO.DECIMAL:
                         try {
+                            this.tipo = TIPO.DECIMAL;
                             return parseFloat(cadena);
                         } catch (error) {
                             return new Errores("Semantico", `No fue posible castear a double el valor '${cadena.toString()}'.`, this.fila, this.columna);
                         }
                     case TIPO.BOOLEANO:
                         try {
+                            this.tipo = TIPO.BOOLEANO;
                             if(cadena == "1" || cadena.toUpperCase() == "true".toUpperCase()){
                                 return true;
                             }else if(cadena == "0" || cadena.toUpperCase() == "false".toUpperCase()){
                                 return false;
                             }else{
-                                return new Errores("Semantico", `Valor: '${cadena.toString()}', invalido para parsear a booleano.`, this.fila, this.columna);
+                                return new Errores("Semantico", `Valor: '${cadena.toString()}', invalido para castear a booleano.`, this.fila, this.columna);
                             }
                         } catch (error) {
                             return new Errores("Semantico", `No fue posible castear a booleano el valor '${cadena.toString()}'.`, this.fila, this.columna);

@@ -18,7 +18,13 @@ export class CharOfPos implements Funcion{
     public instructions: Array<any>;
     expresion;
     arreglo: boolean;
-
+    /**
+     * @function caracterOfPosition El acceso a un elemento de una cadena se define de la siguiente manera: string.caracterOfPosition(posición), el cual devolvera el caracter correspondiente a esa posición.
+     * @param id ID de la variable de la cual se desea obtener la posicion de cierto caracter.
+     * @param expresion Posicion que se desea obtener.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id, expresion, fila, columna)
     {
         this.id = id;

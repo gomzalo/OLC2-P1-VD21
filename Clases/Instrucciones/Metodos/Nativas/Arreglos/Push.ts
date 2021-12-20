@@ -18,7 +18,13 @@ export class Push implements Funcion{
     public instructions: Array<any>;
     expresion;
     arreglo: boolean;
-
+    /**
+     * @function Push inserta un nuevo valor al final del arreglo.
+     * @param id ID del arreglo.
+     * @param expresion Valor que se ingresara al final del arreglo.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id, expresion, fila, columna)
     {
         this.expresion = expresion;

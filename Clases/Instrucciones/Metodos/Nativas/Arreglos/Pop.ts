@@ -17,7 +17,12 @@ export class Pop implements Funcion{
     public parameters: Array<any>;
     public instructions : Array<Instruccion>;
     arreglo: boolean;
-
+    /**
+     * @function Pop Elimina y devuelve el ultimo valor de un arreglo.
+     * @param id ID del arreglo del que se obtendra su ultimo valor.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id, fila, columna)
     {
         this.id = id;

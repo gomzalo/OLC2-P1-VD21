@@ -20,7 +20,14 @@ export class subString implements Funcion{
     inicio;
     fin;
     arreglo: boolean;
-
+    /**
+     * @function subString El acceso a una porción de una cadena se define de la siguiente manera: string.subString(inicial,final), el cual devolvera la cadena correspondiente al intervalo definido.
+     * @param id ID de la variable, tipo cadena, que se desea obtener parcialmente.
+     * @param inicio Posicion inicial a obtener.
+     * @param fin Posicion final a obtener.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id, inicio, fin, fila, columna)
     {
         this.id = id;

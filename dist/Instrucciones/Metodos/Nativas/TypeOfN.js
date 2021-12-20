@@ -5,6 +5,12 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class TypeOfN {
+    /**
+     * @function typeof Muestra el tipo del argumento.
+     * @param expresion Argumento del que se quiere saber el tipo.
+     * @param fila
+     * @param columna
+     */
     constructor(expresion, fila, columna) {
         this.expresion = expresion;
         this.fila = fila;

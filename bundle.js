@@ -1822,16 +1822,16 @@ class AccesoArr {
                 if (!Number.isInteger(indice)) {
                     return new Errores_1.Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
                 }
-                console.log("indice: " + indice + " simbolo.getValor().length " + simbolo.getValor().length);
+                // console.log("indice: " + indice + " simbolo.getValor().length " + simbolo.getValor().length);
                 // console.log(indice);
                 // console.log("simbolo.getValor().length");
                 // console.log(simbolo.getValor().length);
                 if (indice >= (simbolo.getValor().length)) {
-                    console.log("rank out of index");
+                    // console.log("rank out of index");
                     return new Errores_1.Errores('Semantico', `Indice ${indice}, no existe en arreglo.`, this.fila, this.columna);
                 }
                 else {
-                    console.log(indice);
+                    // console.log(indice);
                     return simbolo.getValor()[indice];
                 }
                 // for(let i = 0; i < simbolo.getValor().length; i++){
@@ -2181,6 +2181,10 @@ class Llamada {
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
+                console.log("expr.tipo");
+                console.log(expr.tipo);
+                console.log("resultFunc.parameters[count].tipo");
+                console.log(resultFunc.parameters[count].tipo);
                 if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY || (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo)) //Valida Tipos
                  {
                     let symbol;
@@ -7388,6 +7392,7 @@ exports.Parse = Parse;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
+const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class To {
     constructor(tipo_conversion, parameters, fila, columna) {
@@ -7404,28 +7409,29 @@ class To {
      */
     ejecutar(table, tree) {
         // console.log("parse params: " + this.parameters);
-        let cadena = this.parameters.ejecutar(table, tree);
-        // console.log("parse cadena: " + this.parameters.tipo);
-        if (cadena != null) {
-            if (!isNaN(cadena)) {
-                this.tipo = this.tipo_conversion;
+        let valor = this.parameters.ejecutar(table, tree);
+        // console.log("parse valor: " + this.parameters.tipo);
+        if (valor != null) {
+            if (!isNaN(valor)) {
                 switch (this.tipo_conversion) {
                     case "toInt":
                         try {
-                            return parseInt(cadena);
+                            this.tipo = Tipo_1.TIPO.ENTERO;
+                            return parseInt(valor);
                         }
                         catch (error) {
-                            return new Errores_1.Errores("Semantico", `No fue posible castear a entero el valor '${cadena.toString()}'.`, this.fila, this.columna);
+                            return new Errores_1.Errores("Semantico", `No fue posible castear a entero el valor '${valor.toString()}'.`, this.fila, this.columna);
                         }
                     case "toDouble":
                         try {
-                            return parseFloat(cadena);
+                            this.tipo = Tipo_1.TIPO.DECIMAL;
+                            return parseFloat(valor);
                         }
                         catch (error) {
-                            return new Errores_1.Errores("Semantico", `No fue posible castear a double el valor '${cadena.toString()}'.`, this.fila, this.columna);
+                            return new Errores_1.Errores("Semantico", `No fue posible castear a double el valor '${valor.toString()}'.`, this.fila, this.columna);
                         }
                     default:
-                        return new Errores_1.Errores("Semantico", `No fue posible castear el valor '${cadena.toString()}'.`, this.fila, this.columna);
+                        return new Errores_1.Errores("Semantico", `No fue posible castear el valor '${valor.toString()}'.`, this.fila, this.columna);
                 }
             }
             else {
@@ -7448,7 +7454,7 @@ class To {
 }
 exports.To = To;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],44:[function(require,module,exports){
+},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],44:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pow = void 0;
