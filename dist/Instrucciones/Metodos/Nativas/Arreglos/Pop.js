@@ -17,7 +17,7 @@ class Pop {
     }
     ejecutar(table, tree) {
         let arr = table.getSymbolTabla(this.id);
-        // console.log("pop type: " + arr.tipo);
+        console.log("pop type: " + arr.tipo);
         if (arr != null) {
             if (arr.getArreglo()) {
                 if (arr.getValor().length > 0) {

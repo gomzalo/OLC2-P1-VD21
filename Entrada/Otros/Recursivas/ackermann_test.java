@@ -55,14 +55,14 @@ void main()
     // println(ackerman(3, 5)); // 253
     // println("ackerman(3,6) = 509");
     // println(ackerman(3,6)); // 509
-    println("ackerman(3,7) = 1021");
-    println(ackerman(3,7)); // 1021
-    // println("ackerman(3,8) = F");
-    // println(ackerman(3,8)); // 1021
+    // println("ackerman(3,7) = 1021");
+    // println(ackerman(3,7)); // 1021
+    println("ackerman(3,8) = 2045");
+    println(ackerman(3,8)); // 2045
     // println("ackerman(3,9) = F");
     // println(ackerman(3,9)); // 1021
-    println("ackerman(4, 0) = 13");
-    println(ackerman(4, 0)); // 13
+    // println("ackerman(4, 0) = 13");
+    // println(ackerman(4, 0)); // 13
     // println("ackerman(4, 1) = 65533"); // muere xdnt
     // println(ackerman(4, 1)); // 65533
     // ackerman(4, 3);

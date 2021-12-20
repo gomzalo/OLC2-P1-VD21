@@ -50,6 +50,9 @@ class Case {
                 }
             }
         }
+        else {
+            return;
+        }
     }
     translate3d(table, tree) {
         // let genc3d = tree.generadorC3d;

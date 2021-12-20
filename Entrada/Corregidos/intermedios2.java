@@ -5,6 +5,7 @@ int getPivot(double value) {
     return toInt(value - 0.5);
 }
 
+
 void swap(int i, int j, int[] array) {
     int temp = array[i];
     array[i] = array[j];
@@ -44,4 +45,3 @@ void main(){
     quickSort(0, array.length() - 1, array);
     println("QuickSort: ", array);  // [5,8,12,25,33,48,69,71,98,129]
 }
-

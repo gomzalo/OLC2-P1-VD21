@@ -151,7 +151,7 @@ BSL                                 "\\".
             errores.push(new Errores("Lexico", `Error lexico '${yytext}'.`, yylloc.first_line, yylloc.first_column));
         }
 /*..............     Espacios      ...............*/
-[\r\n\t]                  {/* skip whitespace */}
+[\r\n\t]+                  {/* skip whitespace */}
 
 <<EOF>>                     return 'EOF'
 
@@ -300,6 +300,7 @@ instruccion:
     |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
     |   structs PUNTOCOMA                   { $$ = $1 }
     |   nat_push_instr PUNTOCOMA            { $$ = $1 }
+    |   nat_pop PUNTOCOMA                   { $$ = $1 }
     // |   expr                                { $$ = $1 } // SOLO DE PRUEBAAAAAAAAAAAAAAAAAAAA
     |   error                               { 
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
@@ -490,9 +491,9 @@ funciones:
         PARA lista_parametros_func
         PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); }
     |   ID ID  PARA lista_parametros_func
-        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, TIPO.STRUCT, $4, $7, @1.first_line, @1.last_column);
-                                              $$.tipoStruct = $1;
-                                             }
+        PARC LLAVA instrucciones LLAVC      {   $$ = new Funcion($2, TIPO.STRUCT, $4, $7, @1.first_line, @1.last_column);
+                                                $$.tipoStruct = $1;
+                                            }
     | error                                 {   errores.push(new Errores("Sintactico", `No hay instrucciones en la funcion.`, this._$.first_line, this._$.first_column));
                                                 $$=null;
                                             }
@@ -575,7 +576,10 @@ nat_push_instr:
                                                 // }
                                             }
     ;
-
+// ------------     ARR -> [Pop]
+nat_pop:
+    ID PUNTO RPOP PARA PARC                 { $$ = new Pop($1, @1.first_line, @1.first_column); }
+    ;
     // |   accesoAsignaStruct IGUAL  expr  {}
 accesoAsignaStruct:
         accesoAsignaStruct PUNTO ID         { $$ = new AccesoStruct($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
@@ -650,7 +654,7 @@ expr:
     |   llamada                     { $$ = $1; }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   ID PUNTO expr               { if( $3 instanceof Pop || $3 instanceof Length || $3 instanceof CharOfPos ||
+    |   ID PUNTO expr               { if( $3 instanceof Length || $3 instanceof CharOfPos ||
                                             $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
                                             let identifica =new Identificador($1 , @1.first_line, @1.last_column);
@@ -660,7 +664,7 @@ expr:
                                         }
                                     }
     |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
-    |   RPOP PARA PARC              { $$ = new Pop(null, @1.first_line, @1.first_column); }
+    |   nat_pop                     { $$ = $1; }
     |   RPOW PARA expr COMA expr PARC { $$ = new Pow($3,$5, @1.first_line, @1.first_column); }
     |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); }
     |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); }

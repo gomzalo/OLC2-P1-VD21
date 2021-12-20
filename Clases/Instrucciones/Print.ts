@@ -35,6 +35,9 @@ export class Print implements Instruccion{
             let valor = expresion.ejecutar(table,tree);
             // console.log("print exp val: " + String(valor));
             // console.log(valor);
+            if(typeof valor == "undefined"){
+                return;
+            }
 
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores)

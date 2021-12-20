@@ -46,6 +46,7 @@ export class Switch implements Instruccion{
             }
         }
         let x=0;
+        let index_cases = 0;
         for(let ins of this.lista_case){
             let res=ins.ejecutar(ts_local, tree);
             if (res instanceof Errores)
@@ -58,14 +59,25 @@ export class Switch implements Instruccion{
                 x=1;
                 break;
             }else{
-                    if( ins instanceof Return || res instanceof Return){
-                        // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                        return res; 
-                    }
+                if( ins instanceof Return || res instanceof Return){
+                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                    return res; 
                 }
             }
-
-            if(x==0){
+            let cond_sw = this.condicion_sw.ejecutar(table, tree);
+            let cond_cs = ins.condicion_case.ejecutar(ts_local, tree);
+            // console.log("cond_sw");
+            // console.log(cond_sw);
+            // console.log("ins.condicion_case");
+            // console.log(ins.condicion_case.ejecutar(ts_local, tree));
+            // console.log(cond_sw != ins.condicion_case);
+            // console.log("index_cases");
+            // console.log(index_cases);
+            // console.log("this.lista_case.length - 1");
+            // console.log(this.lista_case.length - 1);
+            // console.log(index_cases == (this.lista_case.length - 1));
+            
+            if((cond_sw != cond_cs) && (index_cases == (this.lista_case.length - 1))){
                 for(let ins of this.lista_default){
                     let res=ins.ejecutar(ts_local, tree);
                     if (res instanceof Errores)
@@ -77,13 +89,35 @@ export class Switch implements Instruccion{
                         // controlador.graficarEntornos(controlador,ts_local," (switch)");
                         break;
                     }else{
-                            if( ins instanceof Return || res instanceof Return){
-                                // controlador.graficarEntornos(controlador,ts_local," (switch)");
-                                return res; 
-                            }
+                        if( ins instanceof Return || res instanceof Return){
+                            // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                            return res; 
                         }
                     }
+                }
             }
+            index_cases++;
+        }
+
+        if(x==0){
+            for(let ins of this.lista_default){
+                let res=ins.ejecutar(ts_local, tree);
+                if (res instanceof Errores)
+                {
+                    tree.getErrores().push(res);
+                    tree.updateConsolaPrintln(res.toString());
+                }
+                if( ins instanceof Detener || res instanceof Detener){
+                    // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                    break;
+                }else{
+                    if( ins instanceof Return || res instanceof Return){
+                        // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                        return res; 
+                    }
+                }
+            }
+        }
     }
     /**
      * Traduce a codigo de tres direcciones

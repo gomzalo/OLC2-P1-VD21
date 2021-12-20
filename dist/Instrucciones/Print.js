@@ -21,6 +21,9 @@ class Print {
             let valor = expresion.ejecutar(table, tree);
             // console.log("print exp val: " + String(valor));
             // console.log(valor);
+            if (typeof valor == "undefined") {
+                return;
+            }
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores_1.Errores) {
                 return valor;

@@ -34,6 +34,7 @@ class Switch {
             }
         }
         let x = 0;
+        let index_cases = 0;
         for (let ins of this.lista_case) {
             let res = ins.ejecutar(ts_local, tree);
             if (res instanceof Errores_1.Errores) {
@@ -51,6 +52,38 @@ class Switch {
                     return res;
                 }
             }
+            let cond_sw = this.condicion_sw.ejecutar(table, tree);
+            let cond_cs = ins.condicion_case.ejecutar(ts_local, tree);
+            // console.log("cond_sw");
+            // console.log(cond_sw);
+            // console.log("ins.condicion_case");
+            // console.log(ins.condicion_case.ejecutar(ts_local, tree));
+            // console.log(cond_sw != ins.condicion_case);
+            // console.log("index_cases");
+            // console.log(index_cases);
+            // console.log("this.lista_case.length - 1");
+            // console.log(this.lista_case.length - 1);
+            // console.log(index_cases == (this.lista_case.length - 1));
+            if ((cond_sw != cond_cs) && (index_cases == (this.lista_case.length - 1))) {
+                for (let ins of this.lista_default) {
+                    let res = ins.ejecutar(ts_local, tree);
+                    if (res instanceof Errores_1.Errores) {
+                        tree.getErrores().push(res);
+                        tree.updateConsolaPrintln(res.toString());
+                    }
+                    if (ins instanceof Break_1.Detener || res instanceof Break_1.Detener) {
+                        // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                        break;
+                    }
+                    else {
+                        if (ins instanceof Return_1.Return || res instanceof Return_1.Return) {
+                            // controlador.graficarEntornos(controlador,ts_local," (switch)");
+                            return res;
+                        }
+                    }
+                }
+            }
+            index_cases++;
         }
         if (x == 0) {
             for (let ins of this.lista_default) {

@@ -5,10 +5,12 @@ public class Recursivas{
         // System.out.println(ackerman(3,4));
         // System.out.println("ackerman(3,5) = 253");
         // System.out.println(ackerman(3,5));
-        System.out.println("ackerman(3,6) = 509");
-        System.out.println(ackerman(3,6)); // 509
-        System.out.println("ackerman(3,7) = 1021");
-        System.out.println(ackerman(3,7)); // 1021
+        // System.out.println("ackerman(3,6) = 509");
+        // System.out.println(ackerman(3,6)); // 509
+        // System.out.println("ackerman(3,7) = 1021");
+        // System.out.println(ackerman(3,7)); // 1021
+        System.out.println("ackerman(3,8) = 2045");
+        System.out.println(ackerman(3,8)); // 2045
         // System.out.println("ackerman(4,2) = xd");
         // System.out.println(ackerman(4,2));
     }

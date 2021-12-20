@@ -35,7 +35,7 @@ export class Pop implements Funcion{
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let arr = table.getSymbolTabla(this.id);
-        // console.log("pop type: " + arr.tipo);
+        console.log("pop type: " + arr.tipo);
         if(arr != null){
             if(arr.getArreglo()){
                 if(arr.getValor().length > 0){

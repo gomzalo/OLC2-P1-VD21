@@ -29,7 +29,7 @@ int recursiva_sencilla(int num)
     }
 }
 
-void main()
+void Main()
 {
     println("=====================================================");
     println("===========FUNCIONES RECURSIVAS======================");
@@ -39,8 +39,7 @@ void main()
     println("==============FACTORIAL==============================");
     println(recursiva_sencilla(15));
     println("===============ACKERMAN==============================");
-    println(recusiva1(3, 7));  //1021
-    // println(recusiva1(3, 8));  //2045
+    println(recusiva1(3, 8));  //2045
     println("===============HANOI=================================");
     juego(4, 1, 2, 3);
 }

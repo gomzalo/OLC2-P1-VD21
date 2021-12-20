@@ -57,6 +57,8 @@ export class Case implements Instruccion{
                     }
                 }
             }
+        }else{
+            return;
         }
     }
     
