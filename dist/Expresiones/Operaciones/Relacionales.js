@@ -81,6 +81,9 @@ class Relacional {
                     //Error semantico
                 }
             }
+            else if (typeof valor_exp2 == 'undefined') {
+                //return new Errores("Semantico", `${valor_exp2} es undefined.`, this.fila, this.columna);
+            }
         }
         else if (typeof valor_exp1 == 'boolean') {
             if (typeof valor_exp2 == 'number') {
@@ -119,6 +122,9 @@ class Relacional {
                     return valor_exp1 == valor_exp2;
                 }
             }
+        }
+        else if (typeof valor_exp1 == 'undefined') {
+            //return new Errores("Semantico", `${valor_exp1} es undefined.`, this.fila, this.columna);
         }
     }
     diferente(valor_exp1, valor_exp2) {

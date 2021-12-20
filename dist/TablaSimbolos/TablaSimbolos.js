@@ -23,7 +23,7 @@ class TablaSimbolos {
             simbolo.setPosicion(this.size);
             this.tabla.set(simbolo.getId(), simbolo);
             this.size += 1;
-            console.log("size: " + this.size);
+            // console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
         }

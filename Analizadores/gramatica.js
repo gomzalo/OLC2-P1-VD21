@@ -1210,23 +1210,15 @@ case 33: return 79
 break;
 case 34: return 124 
 break;
-<<<<<<< HEAD
-case 35: return 'RPOW' 
-=======
 case 35: return 123 
->>>>>>> develop
 break;
-case 36: return 124 
+case 36: return 125 
 break;
-case 37: return 125 
+case 37: return 126 
 break;
-case 38: return 126 
+case 38: return 127 
 break;
-<<<<<<< HEAD
-case 39: return 127 
-=======
 case 39: return 128 
->>>>>>> develop
 break;
 case 40: return 82 
 break;
@@ -1244,13 +1236,9 @@ case 46: return 91
 break;
 case 47: return 92 
 break;
-case 48: return 128 
+case 48: return 129 
 break;
-<<<<<<< HEAD
-case 49: return 129 
-=======
 case 49: return 130 
->>>>>>> develop
 break;
 case 50: return 41
 break;
