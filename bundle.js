@@ -176,7 +176,6 @@ var posix = {
     return path;
   },
 
-<<<<<<< HEAD
   isAbsolute: function isAbsolute(path) {
     assertPath(path);
     return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
@@ -784,8 +783,6 @@ process.umask = function() { return 0; };
   }
 
 
-=======
->>>>>>> develop
   the parseError function receives a 'hash' object with these members for lexer and parser errors: {
     text:        (matched text)
     token:       (the produced terminal token, if any)
@@ -798,20 +795,12 @@ process.umask = function() { return 0; };
   }
 */
 var gramatica = (function(){
-<<<<<<< HEAD
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,25],$V1=[1,39],$V2=[1,30],$V3=[1,26],$V4=[1,27],$V5=[1,31],$V6=[1,32],$V7=[1,33],$V8=[1,34],$V9=[1,35],$Va=[1,36],$Vb=[1,38],$Vc=[1,37],$Vd=[1,28],$Ve=[1,40],$Vf=[1,41],$Vg=[1,42],$Vh=[1,43],$Vi=[1,44],$Vj=[2,5,31,32,35,43,47,48,50,52,55,56,57,58,59,60,61,64,93,94,95,96,97],$Vk=[2,5,31,32,35,43,47,48,49,50,52,55,56,57,58,59,60,61,64,93,94,95,96,97],$Vl=[1,56],$Vm=[32,70,78],$Vn=[2,120],$Vo=[1,63],$Vp=[1,66],$Vq=[1,67],$Vr=[1,68],$Vs=[1,69],$Vt=[1,70],$Vu=[1,71],$Vv=[1,74],$Vw=[1,115],$Vx=[1,88],$Vy=[1,79],$Vz=[1,114],$VA=[1,89],$VB=[1,106],$VC=[1,105],$VD=[1,107],$VE=[1,108],$VF=[1,109],$VG=[1,110],$VH=[1,111],$VI=[1,116],$VJ=[1,117],$VK=[1,78],$VL=[1,80],$VM=[1,81],$VN=[1,82],$VO=[1,83],$VP=[1,84],$VQ=[1,85],$VR=[1,86],$VS=[1,87],$VT=[1,93],$VU=[1,94],$VV=[1,95],$VW=[1,96],$VX=[1,97],$VY=[1,98],$VZ=[1,99],$V_=[1,103],$V$=[1,104],$V01=[2,121],$V11=[8,36],$V21=[2,36],$V31=[1,128],$V41=[1,131],$V51=[1,134],$V61=[1,139],$V71=[1,140],$V81=[1,141],$V91=[1,163],$Va1=[1,147],$Vb1=[1,148],$Vc1=[1,149],$Vd1=[1,150],$Ve1=[1,151],$Vf1=[1,152],$Vg1=[1,153],$Vh1=[1,154],$Vi1=[1,155],$Vj1=[1,156],$Vk1=[1,157],$Vl1=[1,158],$Vm1=[1,159],$Vn1=[1,160],$Vo1=[1,161],$Vp1=[1,162],$Vq1=[8,33,35,36,46,53,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$Vr1=[2,147],$Vs1=[1,167],$Vt1=[1,168],$Vu1=[1,170],$Vv1=[2,152],$Vw1=[2,156],$Vx1=[1,173],$Vy1=[1,186],$Vz1=[1,197],$VA1=[36,46],$VB1=[1,204],$VC1=[32,70],$VD1=[53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VE1=[39,78],$VF1=[1,237],$VG1=[8,33,35,36,46,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VH1=[8,33,35,36,46,71,105,106,121],$VI1=[2,149],$VJ1=[2,150],$VK1=[2,153],$VL1=[1,241],$VM1=[36,71],$VN1=[8,33,35,36,46,53,70,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VO1=[1,267],$VP1=[1,273],$VQ1=[8,33,35,36,39,46,53,70,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VR1=[1,285],$VS1=[8,33,35,36,46,71,98,99,104,105,106,108,109,110,111,112,113,121],$VT1=[8,33,35,36,46,71,98,99,100,101,102,104,105,106,108,109,110,111,112,113,121],$VU1=[8,33,35,36,46,71,105,106,108,109,110,111,112,113,121],$VV1=[8,33,35,36,46,71,105,106,112,113,121],$VW1=[8,33,35,36,46,71],$VX1=[35,36],$VY1=[1,324],$VZ1=[35,52,55],$V_1=[1,354],$V$1=[8,53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121];
-=======
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,25],$V1=[1,39],$V2=[1,30],$V3=[1,26],$V4=[1,27],$V5=[1,31],$V6=[1,32],$V7=[1,33],$V8=[1,34],$V9=[1,35],$Va=[1,36],$Vb=[1,38],$Vc=[1,37],$Vd=[1,28],$Ve=[1,40],$Vf=[1,41],$Vg=[1,42],$Vh=[1,43],$Vi=[1,44],$Vj=[2,5,31,32,35,43,47,48,50,52,55,56,57,58,59,60,61,64,93,94,95,96,97],$Vk=[2,5,31,32,35,43,47,48,49,50,52,55,56,57,58,59,60,61,64,93,94,95,96,97],$Vl=[1,56],$Vm=[32,70,78],$Vn=[2,118],$Vo=[1,63],$Vp=[1,66],$Vq=[1,70],$Vr=[1,67],$Vs=[1,68],$Vt=[1,69],$Vu=[1,71],$Vv=[1,74],$Vw=[1,115],$Vx=[1,88],$Vy=[1,79],$Vz=[1,114],$VA=[1,89],$VB=[1,106],$VC=[1,105],$VD=[1,107],$VE=[1,108],$VF=[1,109],$VG=[1,110],$VH=[1,111],$VI=[1,116],$VJ=[1,117],$VK=[1,78],$VL=[1,80],$VM=[1,81],$VN=[1,82],$VO=[1,83],$VP=[1,84],$VQ=[1,85],$VR=[1,86],$VS=[1,87],$VT=[1,93],$VU=[1,94],$VV=[1,95],$VW=[1,96],$VX=[1,97],$VY=[1,98],$VZ=[1,99],$V_=[1,103],$V$=[1,104],$V01=[2,119],$V11=[8,36],$V21=[2,36],$V31=[1,128],$V41=[1,131],$V51=[1,138],$V61=[1,139],$V71=[1,140],$V81=[1,162],$V91=[1,146],$Va1=[1,147],$Vb1=[1,148],$Vc1=[1,149],$Vd1=[1,150],$Ve1=[1,151],$Vf1=[1,152],$Vg1=[1,153],$Vh1=[1,154],$Vi1=[1,155],$Vj1=[1,156],$Vk1=[1,157],$Vl1=[1,158],$Vm1=[1,159],$Vn1=[1,160],$Vo1=[1,161],$Vp1=[8,33,35,36,46,53,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$Vq1=[2,145],$Vr1=[1,166],$Vs1=[1,167],$Vt1=[1,169],$Vu1=[2,150],$Vv1=[2,154],$Vw1=[1,172],$Vx1=[1,185],$Vy1=[1,196],$Vz1=[36,46],$VA1=[1,203],$VB1=[32,70],$VC1=[53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VD1=[39,78],$VE1=[1,235],$VF1=[8,33,35,36,46,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VG1=[8,33,35,36,46,71,105,106,121],$VH1=[2,147],$VI1=[2,148],$VJ1=[2,151],$VK1=[1,239],$VL1=[36,71],$VM1=[8,33,35,36,46,53,70,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VN1=[1,264],$VO1=[8,33,35,36,39,46,53,70,71,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121],$VP1=[1,280],$VQ1=[8,33,35,36,46,71,98,99,104,105,106,108,109,110,111,112,113,121],$VR1=[8,33,35,36,46,71,98,99,100,101,102,104,105,106,108,109,110,111,112,113,121],$VS1=[8,33,35,36,46,71,105,106,108,109,110,111,112,113,121],$VT1=[8,33,35,36,46,71,105,106,112,113,121],$VU1=[8,33,35,36,46,71],$VV1=[35,36],$VW1=[1,318],$VX1=[35,52,55],$VY1=[1,347],$VZ1=[8,53,98,99,100,101,102,103,104,105,106,108,109,110,111,112,113,121];
->>>>>>> develop
 var parser = {trace: function trace () { },
 yy: {},
 symbols_: {"error":2,"start":3,"instrucciones":4,"EOF":5,"instruccion":6,"print_instr":7,"PUNTOCOMA":8,"println_instr":9,"main_":10,"funciones":11,"declaracion":12,"asignacion":13,"if_llav_instr":14,"if_instr":15,"switch_instr":16,"break_instr":17,"continue_instr":18,"return_instr":19,"while_instr":20,"for_instr":21,"dowhile_instr":22,"for_in_instr":23,"decl_arr_instr":24,"llamada":25,"modif_arr_instr":26,"structs":27,"nat_push_instr":28,"tipo":29,"lista_simbolos":30,"RSTRUCT":31,"ID":32,"LLAVA":33,"instrucciones_struct":34,"LLAVC":35,"COMA":36,"attribute":37,"attributeDeclaStruct":38,"IGUAL":39,"expr":40,"INCRE":41,"DECRE":42,"RPRINT":43,"PARA":44,"lista_parametros":45,"PARC":46,"RPRINTLN":47,"RIF":48,"RELSE":49,"RSWITCH":50,"lista_cases":51,"RDEFAULT":52,"DOSPUNTOS":53,"case":54,"RCASE":55,"RBREAK":56,"RCONTINUE":57,"RRETURN":58,"RWHILE":59,"RDO":60,"RFOR":61,"actualizacion":62,"RIN":63,"RVOID":64,"RMAIN":65,"lista_parametros_func":66,"parametro_func":67,"lista_dim":68,"lista_exp_arr":69,"CORA":70,"CORC":71,"lista_exp_arr_c":72,"HASH":73,"lista_exp":74,"rango":75,"RBEGIN":76,"REND":77,"PUNTO":78,"RPUSH":79,"accesoAsignaStruct":80,"nat_matematicas":81,"RSIN":82,"RCOS":83,"RTAN":84,"RSQRT":85,"RLOG":86,"nat_parse":87,"RPARSE":88,"nat_conversion":89,"nat_conversion_tipos":90,"RTOINT":91,"RTODOUBLE":92,"RINT":93,"RDOUBLE":94,"RSTRING":95,"RCHAR":96,"RBOOLEAN":97,"MAS":98,"MENOS":99,"MULTI":100,"DIV":101,"PORCENTAJE":102,"POTENCIA":103,"AMPERSON":104,"AND":105,"OR":106,"NOT":107,"MAYORQUE":108,"MAYORIGUAL":109,"MENORIGUAL":110,"MENORQUE":111,"IGUALIGUAL":112,"DIFERENTE":113,"ENTERO":114,"DECIMAL":115,"CADENA":116,"CHAR":117,"NULL":118,"TRUE":119,"FALSE":120,"INTERROGACION":121,"RPOP":122,"RPOW":123,"RLENGTH":124,"RCHAROFPOS":125,"RSUBSTRING":126,"RTOUPPER":127,"RTOLOWER":128,"RSTRING_N":129,"RTYPEOF":130,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",8:"PUNTOCOMA",31:"RSTRUCT",32:"ID",33:"LLAVA",35:"LLAVC",36:"COMA",39:"IGUAL",41:"INCRE",42:"DECRE",43:"RPRINT",44:"PARA",46:"PARC",47:"RPRINTLN",48:"RIF",49:"RELSE",50:"RSWITCH",52:"RDEFAULT",53:"DOSPUNTOS",55:"RCASE",56:"RBREAK",57:"RCONTINUE",58:"RRETURN",59:"RWHILE",60:"RDO",61:"RFOR",63:"RIN",64:"RVOID",65:"RMAIN",70:"CORA",71:"CORC",73:"HASH",76:"RBEGIN",77:"REND",78:"PUNTO",79:"RPUSH",82:"RSIN",83:"RCOS",84:"RTAN",85:"RSQRT",86:"RLOG",88:"RPARSE",91:"RTOINT",92:"RTODOUBLE",93:"RINT",94:"RDOUBLE",95:"RSTRING",96:"RCHAR",97:"RBOOLEAN",98:"MAS",99:"MENOS",100:"MULTI",101:"DIV",102:"PORCENTAJE",103:"POTENCIA",104:"AMPERSON",105:"AND",106:"OR",107:"NOT",108:"MAYORQUE",109:"MAYORIGUAL",110:"MENORIGUAL",111:"MENORQUE",112:"IGUALIGUAL",113:"DIFERENTE",114:"ENTERO",115:"DECIMAL",116:"CADENA",117:"CHAR",118:"NULL",119:"TRUE",120:"FALSE",121:"INTERROGACION",122:"RPOP",123:"RPOW",124:"RLENGTH",125:"RCHAROFPOS",126:"RSUBSTRING",127:"RTOUPPER",128:"RTOLOWER",129:"RSTRING_N",130:"RTYPEOF"},
-<<<<<<< HEAD
 productions_: [0,[3,2],[4,2],[4,1],[6,2],[6,2],[6,1],[6,1],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,2],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,2],[6,2],[6,2],[6,2],[6,1],[12,2],[27,5],[34,3],[34,1],[37,2],[37,2],[38,1],[38,3],[30,3],[30,5],[30,1],[30,3],[13,3],[13,2],[13,2],[13,4],[7,4],[9,4],[14,7],[14,11],[14,9],[15,5],[15,7],[15,7],[16,7],[16,9],[16,10],[51,2],[51,1],[54,4],[45,3],[45,1],[17,1],[18,1],[19,2],[19,1],[20,7],[22,8],[21,11],[21,11],[62,3],[62,2],[62,2],[23,7],[10,7],[10,6],[10,1],[11,7],[11,8],[11,8],[11,1],[66,3],[66,1],[67,2],[67,3],[67,1],[67,2],[25,3],[25,4],[24,5],[24,3],[24,3],[68,3],[68,2],[69,4],[69,3],[69,2],[72,3],[72,1],[74,4],[74,3],[26,4],[75,3],[75,3],[75,3],[75,3],[28,6],[28,5],[80,3],[80,1],[81,1],[81,1],[81,1],[81,1],[81,1],[87,6],[89,4],[90,1],[90,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,2],[40,3],[40,3],[40,3],[40,2],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,5],[40,2],[40,2],[40,3],[40,1],[40,2],[40,1],[40,3],[40,1],[40,3],[40,6],[40,3],[40,4],[40,6],[40,3],[40,3],[40,4],[40,1],[40,1],[40,4],[40,4]],
-=======
-productions_: [0,[3,2],[4,2],[4,1],[6,2],[6,2],[6,1],[6,1],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,2],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,2],[6,2],[6,2],[6,2],[6,1],[12,2],[27,5],[34,3],[34,1],[37,2],[37,2],[38,1],[38,3],[30,3],[30,5],[30,1],[30,3],[13,3],[13,2],[13,2],[13,4],[7,4],[9,4],[14,7],[14,11],[14,9],[15,5],[15,7],[15,7],[16,7],[16,9],[16,10],[51,2],[51,1],[54,4],[45,3],[45,1],[17,1],[18,1],[19,2],[19,1],[20,7],[22,8],[21,11],[21,11],[62,3],[62,2],[62,2],[23,7],[10,7],[10,6],[10,1],[11,7],[11,8],[11,1],[66,3],[66,1],[67,2],[67,3],[67,1],[25,3],[25,4],[24,5],[24,3],[24,3],[68,3],[68,2],[69,4],[69,3],[69,2],[72,3],[72,1],[74,4],[74,3],[26,4],[75,3],[75,3],[75,3],[75,3],[28,6],[28,5],[80,3],[80,1],[81,1],[81,1],[81,1],[81,1],[81,1],[87,6],[89,4],[90,1],[90,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[29,1],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,2],[40,3],[40,3],[40,3],[40,2],[40,3],[40,3],[40,3],[40,3],[40,3],[40,3],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,5],[40,2],[40,2],[40,3],[40,1],[40,2],[40,1],[40,3],[40,1],[40,3],[40,6],[40,3],[40,4],[40,6],[40,3],[40,3],[40,4],[40,1],[40,1],[40,4],[40,4]],
->>>>>>> develop
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -2096,11 +2085,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 }
 }).call(this)}).call(this,require('_process'))
-<<<<<<< HEAD
 },{"../dist/Ast/Ast":5,"../dist/Ast/Errores":6,"../dist/Expresiones/Arreglos/AccesoArr":8,"../dist/Expresiones/Arreglos/Arreglo":9,"../dist/Expresiones/Arreglos/Copiar":10,"../dist/Expresiones/Arreglos/Rango":11,"../dist/Expresiones/Identificador":12,"../dist/Expresiones/Llamada":13,"../dist/Expresiones/Operaciones/Aritmeticas":14,"../dist/Expresiones/Operaciones/Logicas":15,"../dist/Expresiones/Operaciones/Relacionales":16,"../dist/Expresiones/Primitivo":17,"../dist/Expresiones/Struct/AccesoStruct":18,"../dist/Expresiones/Ternario":19,"../dist/Instrucciones/Arreglos/DeclaracionArr":23,"../dist/Instrucciones/Arreglos/ModificacionArr":24,"../dist/Instrucciones/Asignacion":25,"../dist/Instrucciones/Ciclicas/DoWhile":26,"../dist/Instrucciones/Ciclicas/For":27,"../dist/Instrucciones/Ciclicas/ForIn":28,"../dist/Instrucciones/Ciclicas/While":29,"../dist/Instrucciones/Condicionales/Case":30,"../dist/Instrucciones/Condicionales/If":31,"../dist/Instrucciones/Condicionales/Ifsinllave":32,"../dist/Instrucciones/Condicionales/Switch":33,"../dist/Instrucciones/Declaracion":34,"../dist/Instrucciones/Metodos/Funcion":35,"../dist/Instrucciones/Metodos/Main":36,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":37,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":39,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":40,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":41,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":42,"../dist/Instrucciones/Metodos/Nativas/Length":43,"../dist/Instrucciones/Metodos/Nativas/Matematicas":44,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":45,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":46,"../dist/Instrucciones/Metodos/Nativas/Pow":47,"../dist/Instrucciones/Metodos/Nativas/StringN":48,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":49,"../dist/Instrucciones/Print":50,"../dist/Instrucciones/Struct/AsignaVariable":51,"../dist/Instrucciones/Struct/DeclararStruct":52,"../dist/Instrucciones/Struct/Struct":53,"../dist/Instrucciones/Struct/StructInStruct":54,"../dist/Instrucciones/Transferencia/Break":55,"../dist/Instrucciones/Transferencia/Continuar":56,"../dist/Instrucciones/Transferencia/Return":57,"../dist/TablaSimbolos/Simbolo":58,"../dist/TablaSimbolos/Tipo":60,"_process":3,"fs":1,"path":2}],5:[function(require,module,exports){
-=======
-},{"../dist/Ast/Ast":2,"../dist/Ast/Errores":3,"../dist/Expresiones/Arreglos/AccesoArr":5,"../dist/Expresiones/Arreglos/Arreglo":6,"../dist/Expresiones/Arreglos/Copiar":7,"../dist/Expresiones/Arreglos/Rango":8,"../dist/Expresiones/Identificador":9,"../dist/Expresiones/Llamada":10,"../dist/Expresiones/Operaciones/Aritmeticas":11,"../dist/Expresiones/Operaciones/Logicas":12,"../dist/Expresiones/Operaciones/Relacionales":13,"../dist/Expresiones/Primitivo":14,"../dist/Expresiones/Struct/AccesoStruct":15,"../dist/Expresiones/Ternario":16,"../dist/Instrucciones/Arreglos/DeclaracionArr":20,"../dist/Instrucciones/Arreglos/ModificacionArr":21,"../dist/Instrucciones/Asignacion":22,"../dist/Instrucciones/Ciclicas/DoWhile":23,"../dist/Instrucciones/Ciclicas/For":24,"../dist/Instrucciones/Ciclicas/ForIn":25,"../dist/Instrucciones/Ciclicas/While":26,"../dist/Instrucciones/Condicionales/Case":27,"../dist/Instrucciones/Condicionales/If":28,"../dist/Instrucciones/Condicionales/Ifsinllave":29,"../dist/Instrucciones/Condicionales/Switch":30,"../dist/Instrucciones/Declaracion":31,"../dist/Instrucciones/Metodos/Funcion":32,"../dist/Instrucciones/Metodos/Main":33,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":34,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":35,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":36,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":37,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":39,"../dist/Instrucciones/Metodos/Nativas/Length":40,"../dist/Instrucciones/Metodos/Nativas/Matematicas":41,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":42,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":43,"../dist/Instrucciones/Metodos/Nativas/Pow":44,"../dist/Instrucciones/Metodos/Nativas/StringN":45,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":46,"../dist/Instrucciones/Print":47,"../dist/Instrucciones/Struct/AsignaVariable":48,"../dist/Instrucciones/Struct/DeclararStruct":49,"../dist/Instrucciones/Struct/Struct":50,"../dist/Instrucciones/Struct/StructInStruct":51,"../dist/Instrucciones/Transferencia/Break":52,"../dist/Instrucciones/Transferencia/Continuar":53,"../dist/Instrucciones/Transferencia/Return":54,"../dist/TablaSimbolos/Simbolo":55,"../dist/TablaSimbolos/Tipo":57,"_process":61,"fs":59,"path":60}],2:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
@@ -2213,6 +2198,8 @@ class Ast {
         let tree = this;
         tree.generadorC3d.clearCode();
         tree.setTSGlobal(this.TSglobal);
+        // 1er recorrido
+        //2
         this.instrucciones.forEach(instr => {
             instr.translate3d(this.TSglobal, tree);
         });
@@ -2351,11 +2338,7 @@ class Ast {
 }
 exports.Ast = Ast;
 
-<<<<<<< HEAD
 },{"../G3D/GeneradorC3D":20,"../Instrucciones/Arreglos/DeclaracionArr":23,"../Instrucciones/Arreglos/ModificacionArr":24,"../Instrucciones/Asignacion":25,"../Instrucciones/Declaracion":34,"../Instrucciones/Metodos/Funcion":35,"../Instrucciones/Metodos/Main":36,"../Instrucciones/Struct/Struct":53,"../Instrucciones/Transferencia/Break":55,"../Instrucciones/Transferencia/Continuar":56,"../Instrucciones/Transferencia/Return":57,"../TablaSimbolos/TablaSimbolos":59,"./../Instrucciones/Struct/DeclararStruct":52,"./Errores":6,"./Nodo":7}],6:[function(require,module,exports){
-=======
-},{"../G3D/GeneradorC3D":17,"../Instrucciones/Arreglos/DeclaracionArr":20,"../Instrucciones/Arreglos/ModificacionArr":21,"../Instrucciones/Asignacion":22,"../Instrucciones/Declaracion":31,"../Instrucciones/Metodos/Funcion":32,"../Instrucciones/Metodos/Main":33,"../Instrucciones/Struct/Struct":50,"../Instrucciones/Transferencia/Break":52,"../Instrucciones/Transferencia/Continuar":53,"../Instrucciones/Transferencia/Return":54,"../TablaSimbolos/TablaSimbolos":56,"./../Instrucciones/Struct/DeclararStruct":49,"./Errores":3,"./Nodo":4}],3:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Errores = void 0;
@@ -2683,11 +2666,7 @@ class AccesoArr {
 }
 exports.AccesoArr = AccesoArr;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":60,"./../Identificador":12,"./Rango":11}],9:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":57,"./../Identificador":9,"./Rango":8}],6:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Arreglo = void 0;
@@ -2894,11 +2873,7 @@ class Identificador {
 }
 exports.Identificador = Identificador;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Tipo":60}],13:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Tipo":57}],10:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Llamada = void 0;
@@ -2937,16 +2912,8 @@ class Llamada {
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
-<<<<<<< HEAD
-                console.log("expr.tipo");
-                console.log(expr.tipo);
-                console.log("resultFunc.parameters[count].tipo");
-                console.log(resultFunc.parameters[count].tipo);
-                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY || (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo)) //Valida Tipos
-=======
                 if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY || (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo)
                     || typeof valueExpr == "number") //Valida Tipos
->>>>>>> develop
                  {
                     let symbol;
                     // console.log(resultFunc.parameters[count]);
@@ -2985,6 +2952,10 @@ class Llamada {
         if (valor instanceof Errores_1.Errores) {
             return valor;
         }
+        if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
+            this.tipo = valor.tipo;
+            return valor;
+        }
         this.tipo = resultFunc.tipo;
         return valor;
     }
@@ -3004,11 +2975,7 @@ class Llamada {
 }
 exports.Llamada = Llamada;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/TablaSimbolos":59,"../TablaSimbolos/Tipo":60,"./Identificador":12}],14:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/TablaSimbolos":56,"../TablaSimbolos/Tipo":57,"./Identificador":9}],11:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
@@ -3577,11 +3544,7 @@ class Aritmetica {
 }
 exports.Aritmetica = Aritmetica;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60}],15:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57}],12:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logica = void 0;
@@ -3770,11 +3733,7 @@ class Logica {
 }
 exports.Logica = Logica;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60,"./Aritmeticas":14,"./Relacionales":16}],16:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57,"./Aritmeticas":11,"./Relacionales":13}],13:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relacional = void 0;
@@ -4332,11 +4291,7 @@ class Relacional {
 }
 exports.Relacional = Relacional;
 
-<<<<<<< HEAD
 },{"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60}],17:[function(require,module,exports){
-=======
-},{"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57}],14:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
@@ -4407,11 +4362,7 @@ class Primitivo {
 }
 exports.Primitivo = Primitivo;
 
-<<<<<<< HEAD
 },{"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Tipo":60}],18:[function(require,module,exports){
-=======
-},{"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Tipo":57}],15:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoStruct = void 0;
@@ -4522,11 +4473,7 @@ class AccesoStruct {
 }
 exports.AccesoStruct = AccesoStruct;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Instrucciones/Struct/Struct":53,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Identificador":12}],19:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Instrucciones/Struct/Struct":50,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Identificador":9}],16:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ternario = void 0;
@@ -4577,11 +4524,7 @@ class Ternario {
 }
 exports.Ternario = Ternario;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":60}],20:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Tipo":57}],17:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GeneradorC3D = void 0;
@@ -5866,11 +5809,7 @@ class DeclaracionArr {
 }
 exports.DeclaracionArr = DeclaracionArr;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/Copiar":10,"../../TablaSimbolos/Simbolo":58}],24:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Arreglos/Copiar":7,"../../TablaSimbolos/Simbolo":55}],21:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModificacionArr = void 0;
@@ -5994,11 +5933,7 @@ class ModificacionArr {
 }
 exports.ModificacionArr = ModificacionArr;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":60}],25:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":57}],22:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
@@ -6112,11 +6047,7 @@ class Asignacion {
 }
 exports.Asignacion = Asignacion;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/Tipo":60,"./Transferencia/Return":57}],26:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57,"./Transferencia/Return":54}],23:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
@@ -6184,11 +6115,7 @@ class DoWhile {
 }
 exports.DoWhile = DoWhile;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],27:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],24:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
@@ -6293,11 +6220,7 @@ class For {
 }
 exports.For = For;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"./../Transferencia/Continuar":56,"./../Transferencia/Return":57}],28:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"./../Transferencia/Continuar":53,"./../Transferencia/Return":54}],25:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForIn = void 0;
@@ -6600,11 +6523,7 @@ class ForIn {
 }
 exports.ForIn = ForIn;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../Expresiones/Identificador":12}],29:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Arreglos/AccesoArr":5,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../Expresiones/Identificador":9}],26:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.While = void 0;
@@ -6703,11 +6622,7 @@ class While {
 }
 exports.While = While;
 
-<<<<<<< HEAD
 },{"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../Ast/Errores":6}],30:[function(require,module,exports){
-=======
-},{"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../Ast/Errores":3}],27:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Case = void 0;
@@ -6788,11 +6703,7 @@ class Case {
 }
 exports.Case = Case;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],31:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],28:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
@@ -6979,11 +6890,7 @@ class If {
 }
 exports.If = If;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../G3D/Retorno":22,"./../../TablaSimbolos/Tipo":60}],32:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../G3D/Retorno":19,"./../../TablaSimbolos/Tipo":57}],29:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
@@ -7165,11 +7072,7 @@ class Ifsinllave {
 }
 exports.Ifsinllave = Ifsinllave;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../TablaSimbolos/Tipo":60}],33:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../TablaSimbolos/Tipo":57}],30:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
@@ -7398,11 +7301,7 @@ class Switch {
 }
 exports.Switch = Switch;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"../Transferencia/Return":57,"./../../G3D/Retorno":22}],34:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"../Transferencia/Return":54,"./../../G3D/Retorno":19}],31:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -7569,11 +7468,7 @@ class Declaracion {
 }
 exports.Declaracion = Declaracion;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../Expresiones/Primitivo":17,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/Tipo":60}],35:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../Expresiones/Primitivo":14,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57}],32:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
@@ -7620,6 +7515,9 @@ class Funcion {
                     }
                     return result.valor;
                 }
+                if (result instanceof Struct_1.Struct) {
+                    return result;
+                }
             }
         }
         return null;
@@ -7648,11 +7546,7 @@ class Funcion {
 }
 exports.Funcion = Funcion;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Struct/Struct":53,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],36:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],33:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
@@ -7707,17 +7601,19 @@ class Main {
 }
 exports.Main = Main;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],37:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],34:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class Pop {
+    /**
+     * @function Pop Elimina y devuelve el ultimo valor de un arreglo.
+     * @param id ID del arreglo del que se obtendra su ultimo valor.
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;
@@ -7762,6 +7658,13 @@ exports.Push = void 0;
 const Errores_1 = require("../../../../Ast/Errores");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class Push {
+    /**
+     * @function Push inserta un nuevo valor al final del arreglo.
+     * @param id ID del arreglo.
+     * @param expresion Valor que se ingresara al final del arreglo.
+     * @param fila
+     * @param columna
+     */
     constructor(id, expresion, fila, columna) {
         this.expresion = expresion;
         this.id = id;
@@ -7817,6 +7720,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class CharOfPos {
+    /**
+     * @function caracterOfPosition El acceso a un elemento de una cadena se define de la siguiente manera: string.caracterOfPosition(posición), el cual devolvera el caracter correspondiente a esa posición.
+     * @param id ID de la variable de la cual se desea obtener la posicion de cierto caracter.
+     * @param expresion Posicion que se desea obtener.
+     * @param fila
+     * @param columna
+     */
     constructor(id, expresion, fila, columna) {
         this.id = id;
         this.expresion = expresion;
@@ -7874,11 +7784,7 @@ class CharOfPos {
 }
 exports.CharOfPos = CharOfPos;
 
-<<<<<<< HEAD
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],40:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],37:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subString = void 0;
@@ -7886,6 +7792,14 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class subString {
+    /**
+     * @function subString El acceso a una porción de una cadena se define de la siguiente manera: string.subString(inicial,final), el cual devolvera la cadena correspondiente al intervalo definido.
+     * @param id ID de la variable, tipo cadena, que se desea obtener parcialmente.
+     * @param inicio Posicion inicial a obtener.
+     * @param fin Posicion final a obtener.
+     * @param fila
+     * @param columna
+     */
     constructor(id, inicio, fin, fila, columna) {
         this.id = id;
         this.inicio = inicio;
@@ -7967,11 +7881,7 @@ class subString {
 }
 exports.subString = subString;
 
-<<<<<<< HEAD
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],41:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],38:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
@@ -7979,6 +7889,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class toLower {
+    /**
+     * @function toLowerCase Una cadena puede ser convertida a minusculas con la utilización de la función cadena.toLowercase())
+java animal = "Tigre"; println(animal.toLowercase()); //tigre
+     * @param id ID de variable a convertir en minusculas.
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;
@@ -8017,11 +7934,7 @@ class toLower {
 }
 exports.toLower = toLower;
 
-<<<<<<< HEAD
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],42:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],39:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toUpper = void 0;
@@ -8029,6 +7942,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class toUpper {
+    /**
+     * @function toUpperCase Una cadena puede ser convertida a mayusculas con la utilización de la función cadena.toUppercase())
+java animal = "Tigre"; println(animal.toUppercase()); //TIGRE
+     * @param id ID de la variable, tipo cadena, a convertir a mayusculas.
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;
@@ -8067,11 +7987,7 @@ class toUpper {
 }
 exports.toUpper = toUpper;
 
-<<<<<<< HEAD
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],43:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],40:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
@@ -8079,6 +7995,12 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Length {
+    /**
+     * @function Length Devuele el tamaño de un arreglo o una cadena.
+     * @param id ID de la variable que se quiere saber el tamaño
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;
@@ -8090,7 +8012,7 @@ class Length {
         if (arr != null) {
             if (arr.getArreglo() || arr.getTipo() == Tipo_1.TIPO.CADENA) {
                 if (arr.getValor().length > 0) {
-                    this.tipo = arr.getTipo();
+                    this.tipo = Tipo_1.TIPO.ENTERO;
                     return arr.getValor().length;
                 }
                 else {
@@ -8117,11 +8039,7 @@ class Length {
 }
 exports.Length = Length;
 
-<<<<<<< HEAD
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],44:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],41:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
@@ -8129,6 +8047,13 @@ const Identificador_1 = require("./../../../Expresiones/Identificador");
 const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 class Matematicas {
+    /**
+     * @Matematicas Funciones trigonometricas y demas.
+     * @param tipo_funcion sqrt | sin | cos | tan
+     * @param expresion Parametro a evaluar.
+     * @param fila
+     * @param columna
+     */
     constructor(tipo_funcion, expresion, fila, columna) {
         this.tipo_funcion = tipo_funcion;
         this.expresion = expresion;
@@ -8197,6 +8122,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class Parse {
+    /**
+     * @function Parse Toma una cadena y la convierte al tipo indicado
+     * @param tipo_funcion int | double | boolean
+     * @param parameters Cadena a castear
+     * @param fila
+     * @param columna
+     */
     constructor(tipo_funcion, parameters, fila, columna) {
         this.tipo_funcion = tipo_funcion;
         this.parameters = parameters;
@@ -8209,10 +8141,10 @@ class Parse {
         // console.log("parse cadena: " + this.parameters.tipo);
         if (cadena != null) {
             if (this.parameters.tipo == Tipo_1.TIPO.CADENA) {
-                this.tipo = this.tipo_funcion;
                 switch (this.tipo_funcion) {
                     case Tipo_1.TIPO.ENTERO:
                         try {
+                            this.tipo = Tipo_1.TIPO.ENTERO;
                             return parseInt(cadena);
                         }
                         catch (error) {
@@ -8220,6 +8152,7 @@ class Parse {
                         }
                     case Tipo_1.TIPO.DECIMAL:
                         try {
+                            this.tipo = Tipo_1.TIPO.DECIMAL;
                             return parseFloat(cadena);
                         }
                         catch (error) {
@@ -8227,6 +8160,7 @@ class Parse {
                         }
                     case Tipo_1.TIPO.BOOLEANO:
                         try {
+                            this.tipo = Tipo_1.TIPO.BOOLEANO;
                             if (cadena == "1" || cadena.toUpperCase() == "true".toUpperCase()) {
                                 return true;
                             }
@@ -8234,7 +8168,7 @@ class Parse {
                                 return false;
                             }
                             else {
-                                return new Errores_1.Errores("Semantico", `Valor: '${cadena.toString()}', invalido para parsear a booleano.`, this.fila, this.columna);
+                                return new Errores_1.Errores("Semantico", `Valor: '${cadena.toString()}', invalido para castear a booleano.`, this.fila, this.columna);
                             }
                         }
                         catch (error) {
@@ -8264,11 +8198,7 @@ class Parse {
 }
 exports.Parse = Parse;
 
-<<<<<<< HEAD
 },{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],46:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],43:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
@@ -8276,6 +8206,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class To {
+    /**
+     * @function To Metodo para castear Enteros a Float y viceversa.
+     * @param tipo_conversion toInt | toDouble
+     * @param parameters Parametros a castear
+     * @param fila
+     * @param columna
+     */
     constructor(tipo_conversion, parameters, fila, columna) {
         this.tipo_conversion = tipo_conversion;
         this.parameters = parameters;
@@ -8335,11 +8272,7 @@ class To {
 }
 exports.To = To;
 
-<<<<<<< HEAD
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],44:[function(require,module,exports){
-=======
-},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7}],47:[function(require,module,exports){
->>>>>>> develop
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],47:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pow = void 0;
@@ -8347,6 +8280,13 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Pow {
+    /**
+     * @function Pow Elevar un numero_base a un numero_potencia
+     * @param expBase Base a elevar
+     * @param expElevacion Potencia
+     * @param fila
+     * @param columna
+     */
     constructor(expBase, expElevacion, fila, columna) {
         this.expBase = expBase;
         this.expElevacion = expElevacion;
@@ -8383,11 +8323,7 @@ class Pow {
 }
 exports.Pow = Pow;
 
-<<<<<<< HEAD
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],48:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":3,"../../../TablaSimbolos/Tipo":57}],45:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringN = void 0;
@@ -8395,6 +8331,12 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class StringN {
+    /**
+     * @function string Convierte el argumento en una cadena, puede usarse en cualquier tipo de dato excepto null.
+     * @param expresion Dato a castear a string
+     * @param fila
+     * @param columna
+     */
     constructor(expresion, fila, columna) {
         this.expresion = expresion;
         this.fila = fila;
@@ -8428,11 +8370,7 @@ class StringN {
 }
 exports.StringN = StringN;
 
-<<<<<<< HEAD
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],49:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],46:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
@@ -8440,6 +8378,12 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class TypeOfN {
+    /**
+     * @function typeof Muestra el tipo del argumento.
+     * @param expresion Argumento del que se quiere saber el tipo.
+     * @param fila
+     * @param columna
+     */
     constructor(expresion, fila, columna) {
         this.expresion = expresion;
         this.fila = fila;
@@ -8502,11 +8446,7 @@ class TypeOfN {
 }
 exports.TypeOfN = TypeOfN;
 
-<<<<<<< HEAD
 },{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],50:[function(require,module,exports){
-=======
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],47:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -8631,11 +8571,7 @@ class Print {
 }
 exports.Print = Print;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/Tipo":60,"./Transferencia/Return":57}],51:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57,"./Transferencia/Return":54}],48:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsignaVariable = void 0;
@@ -8739,11 +8675,7 @@ class AsignaVariable {
 }
 exports.AsignaVariable = AsignaVariable;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/Tipo":60,"../Asignacion":25}],52:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57,"../Asignacion":22}],49:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclararStruct = void 0;
@@ -8882,11 +8814,7 @@ class DeclararStruct {
 }
 exports.DeclararStruct = DeclararStruct;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60}],53:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Llamada":10,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57}],50:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Struct = void 0;
@@ -9028,11 +8956,7 @@ class Struct {
 }
 exports.Struct = Struct;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Arreglos/DeclaracionArr":23,"../Declaracion":34,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./DeclararStruct":52,"./StructInStruct":54}],54:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./DeclararStruct":49,"./StructInStruct":51}],51:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructInStruct = void 0;
@@ -9073,11 +8997,7 @@ class StructInStruct {
 }
 exports.StructInStruct = StructInStruct;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/Tipo":60}],55:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57}],52:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
@@ -9105,11 +9025,7 @@ class Detener {
 }
 exports.Detener = Detener;
 
-<<<<<<< HEAD
 },{"../../Ast/Nodo":7,"./../../Ast/Errores":6}],56:[function(require,module,exports){
-=======
-},{"../../Ast/Nodo":4,"./../../Ast/Errores":3}],53:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Continuar = void 0;
@@ -9137,11 +9053,7 @@ class Continuar {
 }
 exports.Continuar = Continuar;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7}],57:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4}],54:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Return = void 0;
@@ -9207,11 +9119,7 @@ class Return {
 }
 exports.Return = Return;
 
-<<<<<<< HEAD
 },{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60,"../Struct/Struct":53}],58:[function(require,module,exports){
-=======
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57}],55:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Simbolo = void 0;
@@ -9296,11 +9204,7 @@ class Simbolo {
 }
 exports.Simbolo = Simbolo;
 
-<<<<<<< HEAD
 },{}],59:[function(require,module,exports){
-=======
-},{}],56:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
@@ -9455,11 +9359,7 @@ class TablaSimbolos {
 }
 exports.TablaSimbolos = TablaSimbolos;
 
-<<<<<<< HEAD
 },{"../Ast/Errores":6,"./Tipo":60}],60:[function(require,module,exports){
-=======
-},{"../Ast/Errores":3,"./Tipo":57}],57:[function(require,module,exports){
->>>>>>> develop
 "use strict";
 /**
  * @enum de Tipo nos permite enumerar los tipos del lenguaje
@@ -9509,11 +9409,7 @@ var OperadorLogico;
     OperadorLogico[OperadorLogico["OR"] = 2] = "OR";
 })(OperadorLogico = exports.OperadorLogico || (exports.OperadorLogico = {}));
 
-<<<<<<< HEAD
 },{}],61:[function(require,module,exports){
-=======
-},{}],58:[function(require,module,exports){
->>>>>>> develop
 const { Ast } = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
 const { Declaracion } = require("./dist/Instrucciones/Declaracion");
@@ -10110,730 +10006,5 @@ function reporteAST_Traduccion(){
     });
 }
 
-<<<<<<< HEAD
 },{"./Analizadores/gramatica":4,"./dist/Ast/Ast":5,"./dist/Instrucciones/Arreglos/DeclaracionArr":23,"./dist/Instrucciones/Asignacion":25,"./dist/Instrucciones/Declaracion":34,"./dist/Instrucciones/Metodos/Funcion":35,"./dist/Instrucciones/Metodos/Main":36,"./dist/Instrucciones/Struct/Struct":53}]},{},[61])(61)
-=======
-},{"./Analizadores/gramatica":1,"./dist/Ast/Ast":2,"./dist/Instrucciones/Arreglos/DeclaracionArr":20,"./dist/Instrucciones/Asignacion":22,"./dist/Instrucciones/Declaracion":31,"./dist/Instrucciones/Metodos/Funcion":32,"./dist/Instrucciones/Metodos/Main":33,"./dist/Instrucciones/Struct/Struct":50}],59:[function(require,module,exports){
-
-},{}],60:[function(require,module,exports){
-(function (process){(function (){
-// 'path' module extracted from Node.js v8.11.1 (only the posix part)
-// transplited with Babel
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-'use strict';
-
-function assertPath(path) {
-  if (typeof path !== 'string') {
-    throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
-  }
-}
-
-// Resolves . and .. elements in a path with directory names
-function normalizeStringPosix(path, allowAboveRoot) {
-  var res = '';
-  var lastSegmentLength = 0;
-  var lastSlash = -1;
-  var dots = 0;
-  var code;
-  for (var i = 0; i <= path.length; ++i) {
-    if (i < path.length)
-      code = path.charCodeAt(i);
-    else if (code === 47 /*/*/)
-      break;
-    else
-      code = 47 /*/*/;
-    if (code === 47 /*/*/) {
-      if (lastSlash === i - 1 || dots === 1) {
-        // NOOP
-      } else if (lastSlash !== i - 1 && dots === 2) {
-        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
-          if (res.length > 2) {
-            var lastSlashIndex = res.lastIndexOf('/');
-            if (lastSlashIndex !== res.length - 1) {
-              if (lastSlashIndex === -1) {
-                res = '';
-                lastSegmentLength = 0;
-              } else {
-                res = res.slice(0, lastSlashIndex);
-                lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
-              }
-              lastSlash = i;
-              dots = 0;
-              continue;
-            }
-          } else if (res.length === 2 || res.length === 1) {
-            res = '';
-            lastSegmentLength = 0;
-            lastSlash = i;
-            dots = 0;
-            continue;
-          }
-        }
-        if (allowAboveRoot) {
-          if (res.length > 0)
-            res += '/..';
-          else
-            res = '..';
-          lastSegmentLength = 2;
-        }
-      } else {
-        if (res.length > 0)
-          res += '/' + path.slice(lastSlash + 1, i);
-        else
-          res = path.slice(lastSlash + 1, i);
-        lastSegmentLength = i - lastSlash - 1;
-      }
-      lastSlash = i;
-      dots = 0;
-    } else if (code === 46 /*.*/ && dots !== -1) {
-      ++dots;
-    } else {
-      dots = -1;
-    }
-  }
-  return res;
-}
-
-function _format(sep, pathObject) {
-  var dir = pathObject.dir || pathObject.root;
-  var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
-  if (!dir) {
-    return base;
-  }
-  if (dir === pathObject.root) {
-    return dir + base;
-  }
-  return dir + sep + base;
-}
-
-var posix = {
-  // path.resolve([from ...], to)
-  resolve: function resolve() {
-    var resolvedPath = '';
-    var resolvedAbsolute = false;
-    var cwd;
-
-    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-      var path;
-      if (i >= 0)
-        path = arguments[i];
-      else {
-        if (cwd === undefined)
-          cwd = process.cwd();
-        path = cwd;
-      }
-
-      assertPath(path);
-
-      // Skip empty entries
-      if (path.length === 0) {
-        continue;
-      }
-
-      resolvedPath = path + '/' + resolvedPath;
-      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
-    }
-
-    // At this point the path should be resolved to a full absolute path, but
-    // handle relative paths to be safe (might happen when process.cwd() fails)
-
-    // Normalize the path
-    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
-
-    if (resolvedAbsolute) {
-      if (resolvedPath.length > 0)
-        return '/' + resolvedPath;
-      else
-        return '/';
-    } else if (resolvedPath.length > 0) {
-      return resolvedPath;
-    } else {
-      return '.';
-    }
-  },
-
-  normalize: function normalize(path) {
-    assertPath(path);
-
-    if (path.length === 0) return '.';
-
-    var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
-    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
-
-    // Normalize the path
-    path = normalizeStringPosix(path, !isAbsolute);
-
-    if (path.length === 0 && !isAbsolute) path = '.';
-    if (path.length > 0 && trailingSeparator) path += '/';
-
-    if (isAbsolute) return '/' + path;
-    return path;
-  },
-
-  isAbsolute: function isAbsolute(path) {
-    assertPath(path);
-    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
-  },
-
-  join: function join() {
-    if (arguments.length === 0)
-      return '.';
-    var joined;
-    for (var i = 0; i < arguments.length; ++i) {
-      var arg = arguments[i];
-      assertPath(arg);
-      if (arg.length > 0) {
-        if (joined === undefined)
-          joined = arg;
-        else
-          joined += '/' + arg;
-      }
-    }
-    if (joined === undefined)
-      return '.';
-    return posix.normalize(joined);
-  },
-
-  relative: function relative(from, to) {
-    assertPath(from);
-    assertPath(to);
-
-    if (from === to) return '';
-
-    from = posix.resolve(from);
-    to = posix.resolve(to);
-
-    if (from === to) return '';
-
-    // Trim any leading backslashes
-    var fromStart = 1;
-    for (; fromStart < from.length; ++fromStart) {
-      if (from.charCodeAt(fromStart) !== 47 /*/*/)
-        break;
-    }
-    var fromEnd = from.length;
-    var fromLen = fromEnd - fromStart;
-
-    // Trim any leading backslashes
-    var toStart = 1;
-    for (; toStart < to.length; ++toStart) {
-      if (to.charCodeAt(toStart) !== 47 /*/*/)
-        break;
-    }
-    var toEnd = to.length;
-    var toLen = toEnd - toStart;
-
-    // Compare paths to find the longest common path from root
-    var length = fromLen < toLen ? fromLen : toLen;
-    var lastCommonSep = -1;
-    var i = 0;
-    for (; i <= length; ++i) {
-      if (i === length) {
-        if (toLen > length) {
-          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
-            // We get here if `from` is the exact base path for `to`.
-            // For example: from='/foo/bar'; to='/foo/bar/baz'
-            return to.slice(toStart + i + 1);
-          } else if (i === 0) {
-            // We get here if `from` is the root
-            // For example: from='/'; to='/foo'
-            return to.slice(toStart + i);
-          }
-        } else if (fromLen > length) {
-          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
-            // We get here if `to` is the exact base path for `from`.
-            // For example: from='/foo/bar/baz'; to='/foo/bar'
-            lastCommonSep = i;
-          } else if (i === 0) {
-            // We get here if `to` is the root.
-            // For example: from='/foo'; to='/'
-            lastCommonSep = 0;
-          }
-        }
-        break;
-      }
-      var fromCode = from.charCodeAt(fromStart + i);
-      var toCode = to.charCodeAt(toStart + i);
-      if (fromCode !== toCode)
-        break;
-      else if (fromCode === 47 /*/*/)
-        lastCommonSep = i;
-    }
-
-    var out = '';
-    // Generate the relative path based on the path difference between `to`
-    // and `from`
-    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
-      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
-        if (out.length === 0)
-          out += '..';
-        else
-          out += '/..';
-      }
-    }
-
-    // Lastly, append the rest of the destination (`to`) path that comes after
-    // the common path parts
-    if (out.length > 0)
-      return out + to.slice(toStart + lastCommonSep);
-    else {
-      toStart += lastCommonSep;
-      if (to.charCodeAt(toStart) === 47 /*/*/)
-        ++toStart;
-      return to.slice(toStart);
-    }
-  },
-
-  _makeLong: function _makeLong(path) {
-    return path;
-  },
-
-  dirname: function dirname(path) {
-    assertPath(path);
-    if (path.length === 0) return '.';
-    var code = path.charCodeAt(0);
-    var hasRoot = code === 47 /*/*/;
-    var end = -1;
-    var matchedSlash = true;
-    for (var i = path.length - 1; i >= 1; --i) {
-      code = path.charCodeAt(i);
-      if (code === 47 /*/*/) {
-          if (!matchedSlash) {
-            end = i;
-            break;
-          }
-        } else {
-        // We saw the first non-path separator
-        matchedSlash = false;
-      }
-    }
-
-    if (end === -1) return hasRoot ? '/' : '.';
-    if (hasRoot && end === 1) return '//';
-    return path.slice(0, end);
-  },
-
-  basename: function basename(path, ext) {
-    if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
-    assertPath(path);
-
-    var start = 0;
-    var end = -1;
-    var matchedSlash = true;
-    var i;
-
-    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
-      if (ext.length === path.length && ext === path) return '';
-      var extIdx = ext.length - 1;
-      var firstNonSlashEnd = -1;
-      for (i = path.length - 1; i >= 0; --i) {
-        var code = path.charCodeAt(i);
-        if (code === 47 /*/*/) {
-            // If we reached a path separator that was not part of a set of path
-            // separators at the end of the string, stop now
-            if (!matchedSlash) {
-              start = i + 1;
-              break;
-            }
-          } else {
-          if (firstNonSlashEnd === -1) {
-            // We saw the first non-path separator, remember this index in case
-            // we need it if the extension ends up not matching
-            matchedSlash = false;
-            firstNonSlashEnd = i + 1;
-          }
-          if (extIdx >= 0) {
-            // Try to match the explicit extension
-            if (code === ext.charCodeAt(extIdx)) {
-              if (--extIdx === -1) {
-                // We matched the extension, so mark this as the end of our path
-                // component
-                end = i;
-              }
-            } else {
-              // Extension does not match, so our result is the entire path
-              // component
-              extIdx = -1;
-              end = firstNonSlashEnd;
-            }
-          }
-        }
-      }
-
-      if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
-      return path.slice(start, end);
-    } else {
-      for (i = path.length - 1; i >= 0; --i) {
-        if (path.charCodeAt(i) === 47 /*/*/) {
-            // If we reached a path separator that was not part of a set of path
-            // separators at the end of the string, stop now
-            if (!matchedSlash) {
-              start = i + 1;
-              break;
-            }
-          } else if (end === -1) {
-          // We saw the first non-path separator, mark this as the end of our
-          // path component
-          matchedSlash = false;
-          end = i + 1;
-        }
-      }
-
-      if (end === -1) return '';
-      return path.slice(start, end);
-    }
-  },
-
-  extname: function extname(path) {
-    assertPath(path);
-    var startDot = -1;
-    var startPart = 0;
-    var end = -1;
-    var matchedSlash = true;
-    // Track the state of characters (if any) we see before our first dot and
-    // after any path separator we find
-    var preDotState = 0;
-    for (var i = path.length - 1; i >= 0; --i) {
-      var code = path.charCodeAt(i);
-      if (code === 47 /*/*/) {
-          // If we reached a path separator that was not part of a set of path
-          // separators at the end of the string, stop now
-          if (!matchedSlash) {
-            startPart = i + 1;
-            break;
-          }
-          continue;
-        }
-      if (end === -1) {
-        // We saw the first non-path separator, mark this as the end of our
-        // extension
-        matchedSlash = false;
-        end = i + 1;
-      }
-      if (code === 46 /*.*/) {
-          // If this is our first dot, mark it as the start of our extension
-          if (startDot === -1)
-            startDot = i;
-          else if (preDotState !== 1)
-            preDotState = 1;
-      } else if (startDot !== -1) {
-        // We saw a non-dot and non-path separator before our dot, so we should
-        // have a good chance at having a non-empty extension
-        preDotState = -1;
-      }
-    }
-
-    if (startDot === -1 || end === -1 ||
-        // We saw a non-dot character immediately before the dot
-        preDotState === 0 ||
-        // The (right-most) trimmed path component is exactly '..'
-        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-      return '';
-    }
-    return path.slice(startDot, end);
-  },
-
-  format: function format(pathObject) {
-    if (pathObject === null || typeof pathObject !== 'object') {
-      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
-    }
-    return _format('/', pathObject);
-  },
-
-  parse: function parse(path) {
-    assertPath(path);
-
-    var ret = { root: '', dir: '', base: '', ext: '', name: '' };
-    if (path.length === 0) return ret;
-    var code = path.charCodeAt(0);
-    var isAbsolute = code === 47 /*/*/;
-    var start;
-    if (isAbsolute) {
-      ret.root = '/';
-      start = 1;
-    } else {
-      start = 0;
-    }
-    var startDot = -1;
-    var startPart = 0;
-    var end = -1;
-    var matchedSlash = true;
-    var i = path.length - 1;
-
-    // Track the state of characters (if any) we see before our first dot and
-    // after any path separator we find
-    var preDotState = 0;
-
-    // Get non-dir info
-    for (; i >= start; --i) {
-      code = path.charCodeAt(i);
-      if (code === 47 /*/*/) {
-          // If we reached a path separator that was not part of a set of path
-          // separators at the end of the string, stop now
-          if (!matchedSlash) {
-            startPart = i + 1;
-            break;
-          }
-          continue;
-        }
-      if (end === -1) {
-        // We saw the first non-path separator, mark this as the end of our
-        // extension
-        matchedSlash = false;
-        end = i + 1;
-      }
-      if (code === 46 /*.*/) {
-          // If this is our first dot, mark it as the start of our extension
-          if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
-        } else if (startDot !== -1) {
-        // We saw a non-dot and non-path separator before our dot, so we should
-        // have a good chance at having a non-empty extension
-        preDotState = -1;
-      }
-    }
-
-    if (startDot === -1 || end === -1 ||
-    // We saw a non-dot character immediately before the dot
-    preDotState === 0 ||
-    // The (right-most) trimmed path component is exactly '..'
-    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-      if (end !== -1) {
-        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
-      }
-    } else {
-      if (startPart === 0 && isAbsolute) {
-        ret.name = path.slice(1, startDot);
-        ret.base = path.slice(1, end);
-      } else {
-        ret.name = path.slice(startPart, startDot);
-        ret.base = path.slice(startPart, end);
-      }
-      ret.ext = path.slice(startDot, end);
-    }
-
-    if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
-
-    return ret;
-  },
-
-  sep: '/',
-  delimiter: ':',
-  win32: null,
-  posix: null
-};
-
-posix.posix = posix;
-
-module.exports = posix;
-
-}).call(this)}).call(this,require('_process'))
-},{"_process":61}],61:[function(require,module,exports){
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}]},{},[58])(58)
->>>>>>> develop
 });

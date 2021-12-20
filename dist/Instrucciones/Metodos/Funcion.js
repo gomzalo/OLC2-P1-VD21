@@ -44,6 +44,9 @@ class Funcion {
                     }
                     return result.valor;
                 }
+                if (result instanceof Struct_1.Struct) {
+                    return result;
+                }
             }
         }
         return null;

@@ -76,6 +76,10 @@ class Llamada {
         if (valor instanceof Errores_1.Errores) {
             return valor;
         }
+        if (valor instanceof Simbolo_1.Simbolo && valor.tipo == Tipo_1.TIPO.STRUCT) {
+            this.tipo = valor.tipo;
+            return valor;
+        }
         this.tipo = resultFunc.tipo;
         return valor;
     }
