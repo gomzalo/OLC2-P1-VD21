@@ -57,8 +57,11 @@ export class Funcion implements Instruccion{
                     {
                         return result
                     }
-                    
                     return result.valor;
+                }
+                if (result instanceof Struct)
+                {
+                    return result
                 }
             }
         }

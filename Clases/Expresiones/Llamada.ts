@@ -87,6 +87,11 @@ export class Llamada implements Instruccion{
         if( valor instanceof Errores ){
             return valor;
         }
+        if (valor instanceof Simbolo && valor.tipo == TIPO.STRUCT)
+        {
+            this.tipo = valor.tipo;
+            return valor;
+        }
         this.tipo = resultFunc.tipo;
         return valor;
 
