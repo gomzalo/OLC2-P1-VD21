@@ -18,7 +18,12 @@ export class StringN implements Funcion{
     public instructions : Array<Instruccion>;
     expresion;
     arreglo: boolean;
-
+    /**
+     * @function string Convierte el argumento en una cadena, puede usarse en cualquier tipo de dato excepto null.
+     * @param expresion Dato a castear a string
+     * @param fila 
+     * @param columna 
+     */
     constructor(expresion, fila, columna)
     {
         this.expresion = expresion;

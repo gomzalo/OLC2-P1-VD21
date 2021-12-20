@@ -20,6 +20,12 @@ export class TypeOfN implements Funcion{
     arreglo: boolean;
     public tipoStruct: any;
 
+    /**
+     * @function typeof Muestra el tipo del argumento.
+     * @param expresion Argumento del que se quiere saber el tipo.
+     * @param fila 
+     * @param columna 
+     */
     constructor(expresion, fila, columna)
     {
         this.expresion = expresion;

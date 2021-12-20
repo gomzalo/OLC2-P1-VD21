@@ -5,6 +5,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class toLower {
+    /**
+     * @function toLowerCase Una cadena puede ser convertida a minusculas con la utilización de la función cadena.toLowercase())
+java animal = "Tigre"; println(animal.toLowercase()); //tigre
+     * @param id ID de variable a convertir en minusculas.
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;

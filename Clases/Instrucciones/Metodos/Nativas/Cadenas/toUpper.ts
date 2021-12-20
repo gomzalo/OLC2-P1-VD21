@@ -17,7 +17,13 @@ export class toUpper implements Funcion{
     public parameters: Array<any>;
     public instructions: Array<any>;
     arreglo: boolean;
-
+    /**
+     * @function toUpperCase Una cadena puede ser convertida a mayusculas con la utilización de la función cadena.toUppercase())
+java animal = "Tigre"; println(animal.toUppercase()); //TIGRE
+     * @param id ID de la variable, tipo cadena, a convertir a mayusculas.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id,fila, columna)
     {
         this.id = id;

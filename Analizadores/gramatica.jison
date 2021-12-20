@@ -661,10 +661,10 @@ expr:
                                     }
     |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
     |   RPOP PARA PARC              { $$ = new Pop(null, @1.first_line, @1.first_column); }
-    |   RPOW PARA expr COMA expr PARC    { $$ = new Pow($3,$5, @1.first_line, @1.first_column); }
+    |   RPOW PARA expr COMA expr PARC { $$ = new Pow($3,$5, @1.first_line, @1.first_column); }
     |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); }
     |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); }
-    |   RSUBSTRING PARA expr COMA expr PARC   { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }
+    |   RSUBSTRING PARA expr COMA expr PARC { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }
     |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); }
     |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); }
     |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); }

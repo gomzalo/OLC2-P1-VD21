@@ -5,6 +5,12 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Length {
+    /**
+     * @function Length Devuele el tamaño de un arreglo o una cadena.
+     * @param id ID de la variable que se quiere saber el tamaño
+     * @param fila
+     * @param columna
+     */
     constructor(id, fila, columna) {
         this.id = id;
         this.fila = fila;
@@ -16,7 +22,7 @@ class Length {
         if (arr != null) {
             if (arr.getArreglo() || arr.getTipo() == Tipo_1.TIPO.CADENA) {
                 if (arr.getValor().length > 0) {
-                    this.tipo = arr.getTipo();
+                    this.tipo = Tipo_1.TIPO.ENTERO;
                     return arr.getValor().length;
                 }
                 else {

@@ -107,16 +107,16 @@ class AccesoArr {
                 if (!Number.isInteger(indice)) {
                     return new Errores_1.Errores('Semantico', `Indice no es un entero`, this.fila, this.columna);
                 }
-                console.log("indice: " + indice + " simbolo.getValor().length " + simbolo.getValor().length);
+                // console.log("indice: " + indice + " simbolo.getValor().length " + simbolo.getValor().length);
                 // console.log(indice);
                 // console.log("simbolo.getValor().length");
                 // console.log(simbolo.getValor().length);
                 if (indice >= (simbolo.getValor().length)) {
-                    console.log("rank out of index");
+                    // console.log("rank out of index");
                     return new Errores_1.Errores('Semantico', `Indice ${indice}, no existe en arreglo.`, this.fila, this.columna);
                 }
                 else {
-                    console.log(indice);
+                    // console.log(indice);
                     return simbolo.getValor()[indice];
                 }
                 // for(let i = 0; i < simbolo.getValor().length; i++){

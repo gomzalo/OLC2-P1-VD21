@@ -5,6 +5,12 @@ const Errores_1 = require("../../../Ast/Errores");
 const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class StringN {
+    /**
+     * @function string Convierte el argumento en una cadena, puede usarse en cualquier tipo de dato excepto null.
+     * @param expresion Dato a castear a string
+     * @param fila
+     * @param columna
+     */
     constructor(expresion, fila, columna) {
         this.expresion = expresion;
         this.fila = fila;

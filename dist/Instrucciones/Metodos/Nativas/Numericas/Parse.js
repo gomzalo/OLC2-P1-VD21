@@ -5,6 +5,13 @@ const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
 class Parse {
+    /**
+     * @function Parse Toma una cadena y la convierte al tipo indicado
+     * @param tipo_funcion int | double | boolean
+     * @param parameters Cadena a castear
+     * @param fila
+     * @param columna
+     */
     constructor(tipo_funcion, parameters, fila, columna) {
         this.tipo_funcion = tipo_funcion;
         this.parameters = parameters;
@@ -17,10 +24,10 @@ class Parse {
         // console.log("parse cadena: " + this.parameters.tipo);
         if (cadena != null) {
             if (this.parameters.tipo == Tipo_1.TIPO.CADENA) {
-                this.tipo = this.tipo_funcion;
                 switch (this.tipo_funcion) {
                     case Tipo_1.TIPO.ENTERO:
                         try {
+                            this.tipo = Tipo_1.TIPO.ENTERO;
                             return parseInt(cadena);
                         }
                         catch (error) {
@@ -28,6 +35,7 @@ class Parse {
                         }
                     case Tipo_1.TIPO.DECIMAL:
                         try {
+                            this.tipo = Tipo_1.TIPO.DECIMAL;
                             return parseFloat(cadena);
                         }
                         catch (error) {
@@ -35,6 +43,7 @@ class Parse {
                         }
                     case Tipo_1.TIPO.BOOLEANO:
                         try {
+                            this.tipo = Tipo_1.TIPO.BOOLEANO;
                             if (cadena == "1" || cadena.toUpperCase() == "true".toUpperCase()) {
                                 return true;
                             }
@@ -42,7 +51,7 @@ class Parse {
                                 return false;
                             }
                             else {
-                                return new Errores_1.Errores("Semantico", `Valor: '${cadena.toString()}', invalido para parsear a booleano.`, this.fila, this.columna);
+                                return new Errores_1.Errores("Semantico", `Valor: '${cadena.toString()}', invalido para castear a booleano.`, this.fila, this.columna);
                             }
                         }
                         catch (error) {

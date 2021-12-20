@@ -20,6 +20,12 @@ export class Length implements Funcion{
     public tipoStruct: any;
 
 
+    /**
+     * @function Length Devuele el tamaño de un arreglo o una cadena.
+     * @param id ID de la variable que se quiere saber el tamaño
+     * @param fila 
+     * @param columna 
+     */
     constructor(id, fila, columna)
     {
         this.id = id;
@@ -33,7 +39,7 @@ export class Length implements Funcion{
         if(arr != null){
             if(arr.getArreglo() || arr.getTipo() == TIPO.CADENA ){
                 if(arr.getValor().length > 0){
-                    this.tipo = arr.getTipo();
+                    this.tipo = TIPO.ENTERO;
                     return arr.getValor().length;
                 }else{
                     return new Errores("Semantico", `El arreglo con ID ${this.id}, esta vacio.`, this.fila, this.columna);
