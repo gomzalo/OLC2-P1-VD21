@@ -18,8 +18,16 @@ export class Funcion implements Instruccion{
     public instructions : Array<Instruccion>;
     public tipoStruct: any;
     arreglo: boolean;
-
-    constructor(id,tipo,parameters,instructions,fila,columna)
+    /**
+     * @function Funcion 
+     * @param id ID de la funcion a crear
+     * @param tipo Tipo de la funcion: todos menos null.
+     * @param parameters Parametros que recibe la funcion.
+     * @param instructions Instrucciones dentro de la funcion
+     * @param fila 
+     * @param columna 
+     */
+    constructor(id, tipo, parameters, instructions, fila, columna)
     {
         this.tipo =tipo;
         this.id = id;

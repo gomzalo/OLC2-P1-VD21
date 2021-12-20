@@ -58,7 +58,8 @@ export class Llamada implements Instruccion{
                     {
                         // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),expr.tipo, this.arreglo, this.fila, this.columna, valueExpr ); // seteo para variables nativas
-                    }else if(expr instanceof Identificador && valueExpr instanceof Array && resultFunc.parameters[count].tipo == TIPO.STRUCT){ // ARRAY
+                    // }else if(expr instanceof Identificador && valueExpr instanceof Array && resultFunc.parameters[count].tipo == TIPO.STRUCT){ // ARRAY
+                    }else if(expr instanceof Identificador && valueExpr instanceof Array){ // ARRAY
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),resultFunc.parameters[count].tipo, true, this.fila, this.columna, valueExpr );
                     }else if(valueExpr instanceof Simbolo && valueExpr.tipo == TIPO.STRUCT && resultFunc.parameters[count].tipo == TIPO.STRUCT){
                         symbol = new Simbolo(String(resultFunc.parameters[count].id),resultFunc.parameters[count].tipo, false, this.fila, this.columna, valueExpr.valor );

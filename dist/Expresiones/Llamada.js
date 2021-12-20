@@ -44,8 +44,9 @@ class Llamada {
                     if (resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY) {
                         // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
+                        // }else if(expr instanceof Identificador && valueExpr instanceof Array && resultFunc.parameters[count].tipo == TIPO.STRUCT){ // ARRAY
                     }
-                    else if (expr instanceof Identificador_1.Identificador && valueExpr instanceof Array && resultFunc.parameters[count].tipo == Tipo_1.TIPO.STRUCT) { // ARRAY
+                    else if (expr instanceof Identificador_1.Identificador && valueExpr instanceof Array) { // ARRAY
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, true, this.fila, this.columna, valueExpr);
                     }
                     else if (valueExpr instanceof Simbolo_1.Simbolo && valueExpr.tipo == Tipo_1.TIPO.STRUCT && resultFunc.parameters[count].tipo == Tipo_1.TIPO.STRUCT) {
