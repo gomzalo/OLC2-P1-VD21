@@ -5,6 +5,7 @@ const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Errores_1 = require("../../Ast/Errores");
 const Retorno_1 = require("../../G3D/Retorno");
+const Struct_1 = require("../Struct/Struct");
 class Return {
     constructor(expresion, fila, columna) {
         this.expresion = expresion;
@@ -15,6 +16,9 @@ class Return {
         if (this.expresion != null) {
             let valor = this.expresion.ejecutar(table, tree);
             if (valor instanceof Errores_1.Errores) {
+                return valor;
+            }
+            if (valor instanceof Struct_1.Struct) {
                 return valor;
             }
             this.tipo = this.expresion.tipo;

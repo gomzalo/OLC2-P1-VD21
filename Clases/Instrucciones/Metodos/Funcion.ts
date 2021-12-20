@@ -4,6 +4,7 @@ import { Nodo } from "../../Ast/Nodo";
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
+import { Struct } from "../Struct/Struct";
 import { Detener } from "../Transferencia/Break";
 import { Continuar } from "../Transferencia/Continuar";
 import { Return } from "../Transferencia/Return";
@@ -15,6 +16,7 @@ export class Funcion implements Instruccion{
     public id : string;
     public parameters: Array<any>;
     public instructions : Array<Instruccion>;
+    public tipoStruct: any;
     arreglo: boolean;
 
     constructor(id,tipo,parameters,instructions,fila,columna)
@@ -25,6 +27,7 @@ export class Funcion implements Instruccion{
         this.instructions = instructions;
         this.fila = fila;
         this.columna =columna;
+        this.tipoStruct = null;
     }
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
@@ -44,12 +47,17 @@ export class Funcion implements Instruccion{
                     tree.updateConsolaPrintln(error.toString());
                 }
                 if( result instanceof Continuar){
-                    let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo", this.fila, this.columna);
+                    let error = new Errores("Semantico", "Sentencia Continuar fuera de Instruccion Ciclo", this.fila, this.columna);
                     tree.getErrores().push(error);
                     tree.updateConsolaPrintln(error.toString());
                 }
                 if( result instanceof Return){
                     this.tipo = result.tipo;
+                    if (result instanceof Struct)
+                    {
+                        return result
+                    }
+                    
                     return result.valor;
                 }
             }

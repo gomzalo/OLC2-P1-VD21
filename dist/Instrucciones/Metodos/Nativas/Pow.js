@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pow = void 0;
 const Errores_1 = require("../../../Ast/Errores");
+const Nodo_1 = require("../../../Ast/Nodo");
 const Tipo_1 = require("../../../TablaSimbolos/Tipo");
 class Pow {
     constructor(expBase, expElevacion, fila, columna) {
@@ -28,7 +29,14 @@ class Pow {
         throw new Error("Method not implemented.");
     }
     recorrer(table, tree) {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo_1.Nodo("POW", "");
+        let base = new Nodo_1.Nodo("Expresion Base", "");
+        base.addChildNode(this.expBase.recorrer(table, tree));
+        let elev = new Nodo_1.Nodo("Expresion Elevacion", "");
+        elev.addChildNode(this.expBase.recorrer(table, tree));
+        padre.addChildNode(base);
+        padre.addChildNode(elev);
+        return padre;
     }
 }
 exports.Pow = Pow;

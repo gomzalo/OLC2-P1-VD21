@@ -489,6 +489,10 @@ funciones:
     |   tipo ID
         PARA lista_parametros_func
         PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); }
+    |   ID ID  PARA lista_parametros_func
+        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, TIPO.STRUCT, $4, $7, @1.first_line, @1.last_column);
+                                              $$.tipoStruct = $1;
+                                             }
     | error                                 {   errores.push(new Errores("Sintactico", `No hay instrucciones en la funcion.`, this._$.first_line, this._$.first_column));
                                                 $$=null;
                                             }
@@ -504,6 +508,7 @@ parametro_func:
         tipo ID                             { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; } // EN MEDIO $2 - LISTA DIM
     |   tipo lista_dim ID                   { $$ = {"tipo" : $1, "arreglo": true, "id": $3}; }
     |   ID                                  { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; }
+    |   ID ID                               { $$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $2, "tipoStruct": $1}; }
     ;
 /*..............     Llamada      ...............*/
 llamada :

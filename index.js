@@ -248,6 +248,7 @@ compilar.addEventListener('click', () => {
         // result.Errores = gramatica.errores.slice()
         console.log(result);
         result.ejecutar();
+        console.log(result.TSglobal);
         entornoAnalizar = result.TSglobal;
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         

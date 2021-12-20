@@ -18,6 +18,7 @@ export class TypeOfN implements Funcion{
     public instructions : Array<Instruccion>;
     expresion;
     arreglo: boolean;
+    public tipoStruct: any;
 
     constructor(expresion, fila, columna)
     {
@@ -25,6 +26,7 @@ export class TypeOfN implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         if(this.expresion instanceof Array){

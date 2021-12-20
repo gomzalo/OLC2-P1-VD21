@@ -24,6 +24,7 @@ export class toLower implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    public tipoStruct: any;
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // console.log("push id: " + this.id.id);

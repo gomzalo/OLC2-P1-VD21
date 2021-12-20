@@ -5,6 +5,7 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Errores } from "../../Ast/Errores";
 import { Retorno } from "../../G3D/Retorno";
+import { Struct } from "../Struct/Struct";
 
 export class Return implements Instruccion{
     public expresion : Instruccion | any;
@@ -26,6 +27,10 @@ export class Return implements Instruccion{
         if(this.expresion != null){
             let valor =  this.expresion.ejecutar(table, tree);
             if(valor instanceof Errores)
+            {
+                return valor;
+            }
+            if(valor instanceof Struct)
             {
                 return valor;
             }

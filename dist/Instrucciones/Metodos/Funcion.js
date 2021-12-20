@@ -4,6 +4,7 @@ exports.Funcion = void 0;
 const Errores_1 = require("../../Ast/Errores");
 const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
+const Struct_1 = require("../Struct/Struct");
 const Break_1 = require("../Transferencia/Break");
 const Continuar_1 = require("../Transferencia/Continuar");
 const Return_1 = require("../Transferencia/Return");
@@ -15,6 +16,7 @@ class Funcion {
         this.instructions = instructions;
         this.fila = fila;
         this.columna = columna;
+        this.tipoStruct = null;
     }
     ejecutar(table, tree) {
         let newTable = new TablaSimbolos_1.TablaSimbolos(table);
@@ -31,12 +33,15 @@ class Funcion {
                     tree.updateConsolaPrintln(error.toString());
                 }
                 if (result instanceof Continuar_1.Continuar) {
-                    let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo", this.fila, this.columna);
+                    let error = new Errores_1.Errores("Semantico", "Sentencia Continuar fuera de Instruccion Ciclo", this.fila, this.columna);
                     tree.getErrores().push(error);
                     tree.updateConsolaPrintln(error.toString());
                 }
                 if (result instanceof Return_1.Return) {
                     this.tipo = result.tipo;
+                    if (result instanceof Struct_1.Struct) {
+                        return result;
+                    }
                     return result.valor;
                 }
             }

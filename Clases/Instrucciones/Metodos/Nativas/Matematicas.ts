@@ -28,6 +28,7 @@ export class Matematicas implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    public tipoStruct: any;
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let expresion = this.expresion.ejecutar(table, tree);

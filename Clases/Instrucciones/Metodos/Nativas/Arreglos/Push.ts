@@ -18,6 +18,7 @@ export class Push implements Funcion{
     public instructions: Array<any>;
     expresion;
     arreglo: boolean;
+    public tipoStruct: any;
 
     constructor(id, expresion, fila, columna)
     {
@@ -26,6 +27,7 @@ export class Push implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         // console.log("push id: " + this.id.id);

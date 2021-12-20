@@ -17,6 +17,7 @@ export class Pop implements Funcion{
     public parameters: Array<any>;
     public instructions : Array<Instruccion>;
     arreglo: boolean;
+    public tipoStruct: any;
 
     constructor(id, fila, columna)
     {
@@ -24,6 +25,7 @@ export class Pop implements Funcion{
         this.fila = fila;
         this.columna =columna;
     }
+    
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let arr = table.getSymbolTabla(this.id);

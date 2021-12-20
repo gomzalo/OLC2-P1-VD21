@@ -36,7 +36,8 @@ class Llamada {
                 if (valueExpr instanceof Errores_1.Errores) {
                     return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
                 }
-                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY || (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo)) //Valida Tipos
+                if (resultFunc.parameters[count].tipo == expr.tipo || resultFunc.parameters[count].tipo == Tipo_1.TIPO.ANY || (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo)
+                    || typeof valueExpr == "number") //Valida Tipos
                  {
                     let symbol;
                     // console.log(resultFunc.parameters[count]);
@@ -44,11 +45,18 @@ class Llamada {
                         // alert("valexp ll: " + valueExpr);
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), expr.tipo, this.arreglo, this.fila, this.columna, valueExpr); // seteo para variables nativas
                     }
-                    else if (expr instanceof Identificador_1.Identificador && expr.symbol.arreglo) {
+                    else if (expr instanceof Identificador_1.Identificador && valueExpr instanceof Array && resultFunc.parameters[count].tipo == Tipo_1.TIPO.STRUCT) { // ARRAY
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, true, this.fila, this.columna, valueExpr);
+                    }
+                    else if (valueExpr instanceof Simbolo_1.Simbolo && valueExpr.tipo == Tipo_1.TIPO.STRUCT && resultFunc.parameters[count].tipo == Tipo_1.TIPO.STRUCT) {
+                        symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, false, this.fila, this.columna, valueExpr.valor);
+                        symbol.tipoStruct = valueExpr.tipo;
                     }
                     else {
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);
+                        if (!Number.isInteger(valueExpr) && symbol.tipo == Tipo_1.TIPO.DECIMAL) {
+                            symbol.valor = Math.round(symbol.valor);
+                        }
                     }
                     let resultTable = newTable.setSymbolTabla(symbol);
                     if (resultTable instanceof Errores_1.Errores)
