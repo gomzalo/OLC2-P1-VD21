@@ -32,6 +32,7 @@ class Ast {
         this.strEntorno = "";
         this.TSglobal = new TablaSimbolos_1.TablaSimbolos(null);
         this.generadorC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
+        this.repGramatical = new Array();
     }
     ejecutar() {
         let tree = this;

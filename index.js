@@ -583,6 +583,63 @@ reporteTablaSimbolos.addEventListener('click', () => {
     CuerpoTablaSimbolos.innerHTML += content;
 });
 
+reporteGramatical.addEventListener('click', () => {
+    let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
+    let indexTab = 0;
+    let auxiliar = 0;
+    myTabs.forEach(element => {
+        var itemA = element.querySelector("a");
+        var bandera = itemA.getAttribute('aria-selected')
+        if (bandera == 'true') {
+            currentTab = itemA.id;
+            indexTab = auxiliar;
+        }
+        auxiliar = auxiliar + 1;
+    });
+    try{
+        result = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        console.log(result);
+        let cadena = ""
+        // result.reporteGramatical.forEach(()=>{
+
+        // });
+        for (let i = result.repGramatical.length -1 ; i >-1 ; i--) {
+            cadena += result.repGramatical[i] + "\n";
+          }
+
+        // entornoTraducir = result.TSglobal;
+        // let c3d = result.traducir();
+        // let c3d = result_traduccion.generadorC3d.getCode();
+        // result_traduccion.generadorC3d.clearCode();
+        // console.log(result);
+        // addNuevoTab();
+        // let tam =  editores.length;
+        // editores[tam-1].codeEditor.setValue(c3d);
+        // alert('Gramatica Correcta');
+        // let textarea =  document.querySelector('#textAreaC3d');
+        // let value = "";
+        // value += c3d;
+        // textarea.value = value;
+        // $("#textAreaC3d").val(c3d);
+        // txtC3d.append(c3d);
+        text2.setValue(cadena);
+
+        Swal.fire(
+            '¡Muy bien!',
+            '¡Se completo la traducción!',
+            'success'
+        )
+    }catch(e){
+        // alert('Grmatica Incorrecta');
+        // alert(e);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Gramatica incorrecta\n:' + e
+        });
+    }
+});
+
 function reporteAST_Traduccion(){
     let arbol = new Arbol();
     
