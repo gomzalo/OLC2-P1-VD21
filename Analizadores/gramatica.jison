@@ -5,6 +5,7 @@
 */
 %{
     let errores = [];
+    let gramatical = [];
 %}
 
 %lex
@@ -268,71 +269,75 @@ BSL                                 "\\".
 *//*{ $$ = $1; return $$; }*/
 start : 
         instrucciones EOF                   {   $$ = new Ast();  $$.instrucciones = $1; $$.Errores = errores.slice();
-                                                return $$; }
+        // console.log(gramatical);
+                                                gramatical.push("start -> instrucciones");
+                                                $$.repGramatical = gramatical;
+                                                return $$; 
+                                                }
     ;
 /*
 ::::::::::::::::::      Instrucciones     ::::::::::::::::::
 */
 instrucciones:
-        instrucciones instruccion           { $$ = $1;if($2!=null){ $$.push($2);} } //{ $1.push($2); $$ = $1;}
-	|   instruccion                         { $$= new Array(); if($1!=null){$$.push($1); }} /*{ $$ = [$1]; } */
+        instrucciones instruccion           { $$ = $1;if($2!=null){ $$.push($2);} gramatical.push("instrucciones -> instrucciones instruccion "); } //{ $1.push($2); $$ = $1;}
+	|   instruccion                         { $$= new Array(); if($1!=null){$$.push($1); } gramatical.push("instrucciones -> instruccion "); } /*{ $$ = [$1]; } */
     ;
 /*..............     Instruccion      ...............*/
 instruccion:
-        print_instr PUNTOCOMA               { $$ = $1 }
-    |   println_instr PUNTOCOMA             { $$ = $1 }
-    |   main_                               { $$ = $1 }
-    |   funciones                           { $$ = $1 }
-    |   declaracion PUNTOCOMA               { $$ = $1 }
-    |   asignacion  PUNTOCOMA               { $$ = $1 }
-    |   if_llav_instr                       { $$ = $1 }
-    |   if_instr                            { $$ = $1 }
-    |   switch_instr                        { $$ = $1 }
-    |   break_instr PUNTOCOMA               { $$ = $1 }
-    |   continue_instr PUNTOCOMA            { $$ = $1 }
-    |   return_instr PUNTOCOMA              { $$ = $1 }
-    |   while_instr                         { $$ = $1 }
-    |   for_instr                           { $$ = $1 }
-    |   dowhile_instr PUNTOCOMA             { $$ = $1 }
-    |   for_in_instr                        { $$ = $1 }
-    |   decl_arr_instr PUNTOCOMA            { $$ = $1 }
-    |   llamada PUNTOCOMA                   { $$ = $1 }
-    |   modif_arr_instr PUNTOCOMA           { $$ = $1 }
-    |   structs PUNTOCOMA                   { $$ = $1 }
-    |   nat_push_instr PUNTOCOMA            { $$ = $1 }
-    |   nat_pop PUNTOCOMA                   { $$ = $1 }
+        print_instr PUNTOCOMA               { $$ = $1; gramatical.push("instruccion -> print_instr PUNTOCOMA  "); }
+    |   println_instr PUNTOCOMA             { $$ = $1; gramatical.push("instruccion -> println_instr PUNTOCOMA ");  }
+    |   main_                               { $$ = $1; gramatical.push("instruccion -> main_ ");  }
+    |   funciones                           { $$ = $1; gramatical.push("instruccion -> funciones ");  }
+    |   declaracion PUNTOCOMA               { $$ = $1; gramatical.push("instruccion -> declaracion PUNTOCOMA ");  }
+    |   asignacion  PUNTOCOMA               { $$ = $1; gramatical.push("instruccion -> asignacion  PUNTOCOMA ");  }
+    |   if_llav_instr                       { $$ = $1; gramatical.push("instruccion -> if_llav_instr ");  }
+    |   if_instr                            { $$ = $1; gramatical.push("instruccion -> if_instr ");  }
+    |   switch_instr                        { $$ = $1; gramatical.push("instruccion -> switch_instr ");  }
+    |   break_instr PUNTOCOMA               { $$ = $1; gramatical.push("instruccion -> break_instr PUNTOCOMA  ");  }
+    |   continue_instr PUNTOCOMA            { $$ = $1; gramatical.push("instruccion -> continue_instr PUNTOCOMA ");  }
+    |   return_instr PUNTOCOMA              { $$ = $1; gramatical.push("instruccion -> return_instr PUNTOCOMA ");  }
+    |   while_instr                         { $$ = $1; gramatical.push("instruccion -> while_instr ");  }
+    |   for_instr                           { $$ = $1; gramatical.push("instruccion -> for_instr ");  }
+    |   dowhile_instr PUNTOCOMA             { $$ = $1; gramatical.push("instruccion -> dowhile_instr PUNTOCOMA ");  }
+    |   for_in_instr                        { $$ = $1; gramatical.push("instruccion -> for_in_instr ");  }
+    |   decl_arr_instr PUNTOCOMA            { $$ = $1; gramatical.push("instruccion -> decl_arr_instr PUNTOCOMA ");  }
+    |   llamada PUNTOCOMA                   { $$ = $1; gramatical.push("instruccion -> llamada PUNTOCOMA ");  }
+    |   modif_arr_instr PUNTOCOMA           { $$ = $1; gramatical.push("instruccion -> modif_arr_instr PUNTOCOMA ");  }
+    |   structs PUNTOCOMA                   { $$ = $1; gramatical.push("instruccion -> structs PUNTOCOMA ");  }
+    |   nat_push_instr PUNTOCOMA            { $$ = $1; gramatical.push("instruccion -> nat_push_instr PUNTOCOMA ");  }
+    |   nat_pop PUNTOCOMA                   { $$ = $1; gramatical.push("instruccion -> nat_pop PUNTOCOMA ");  }
     // |   expr                                { $$ = $1 } // SOLO DE PRUEBAAAAAAAAAAAAAAAAAAAA
     |   error                               { 
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
-                                                $$ =null;
+                                                $$ =null; 
                                             }
     ;
 /*..............     Declaracion      ...............*/
 declaracion: 
-        tipo  lista_simbolos                { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); }
+        tipo  lista_simbolos                { $$ = new Declaracion($1, $2, @1.first_line, @1.last_column); gramatical.push("declaracion -> tipo  lista_simbolos "); }
     ; 
 /*..............     STRUCTS      ...............*/
 structs:
         RSTRUCT ID 
-        LLAVA instrucciones_struct LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); }
+        LLAVA instrucciones_struct LLAVC    { $$ = new Struct($2,$4,@1.first_line, @1.last_column); gramatical.push("structs -> RSTRUCT ID  LLAVA instrucciones_struct LLAVC ");  }
     // |   RSTRUCT ID LLAVA  LLAVC                 { $$ = new Struct($2,[].first_line, @1.last_column); }
     ;
 
 instrucciones_struct:
         instrucciones_struct 
-        COMA attribute                      { $$ = $1; $$.push($3); } //{ $1.push($2); $$ = $1;}
-	|   attribute                           { $$= new Array(); $$.push($1); } /*{ $$ = [$1]; } */
+        COMA attribute                      { $$ = $1; $$.push($3); gramatical.push("instrucciones_struct -> instrucciones_struct COMA attribute "); } //{ $1.push($2); $$ = $1;}
+	|   attribute                           { $$= new Array(); $$.push($1); gramatical.push("instrucciones_struct -> attribute "); } /*{ $$ = [$1]; } */
     ;
 
 //    |   declaracion                { $$ = $1 }
-attribute:  ID ID                           {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); }
+attribute:  ID ID                           {$$ = new StructInStruct($1,$2,@1.first_line, @1.last_column); gramatical.push("attribute -> ID ID   "); }
 
-    |   tipo  attributeDeclaStruct          { $$ = new Declaracion($1, [$2], @1.first_line, @1.last_column); }
+    |   tipo  attributeDeclaStruct          { $$ = new Declaracion($1, [$2], @1.first_line, @1.last_column); gramatical.push("attribute -> tipo  attributeDeclaStruct  "); }
     ;
     
 attributeDeclaStruct: 
-        ID                                  { $$=new Simbolo($1,null,null,@1.first_line, @1.first_column,null); }
-    |   ID IGUAL expr                       { $$=new Simbolo($1,null,null,@1.first_line, @1.first_column,$3); }
+        ID                                  { $$=new Simbolo($1,null,null,@1.first_line, @1.first_column,null); gramatical.push("attributeDeclaStruct -> ID "); }
+    |   ID IGUAL expr                       { $$=new Simbolo($1,null,null,@1.first_line, @1.first_column,$3); gramatical.push("attributeDeclaStruct -> ID IGUAL expr "); }
     ;
 
 // isComaMaybe :           {$$=null;}
@@ -340,10 +345,10 @@ attributeDeclaStruct:
 //                 ;
 // Lista simbolos
 lista_simbolos:
-        lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); }
-    |   lista_simbolos COMA ID IGUAL expr   { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,$5)); }
-    |   ID                                  { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); }
-    |   ID IGUAL expr                       { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); }
+        lista_simbolos COMA ID              { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,null)); gramatical.push("lista_simbolos -> COMA ID "); }
+    |   lista_simbolos COMA ID IGUAL expr   { $$ = $1; $$.push(new Simbolo($3,null,null,@1.first_line, @1.first_column,$5)); gramatical.push("lista_simbolos -> COMA ID IGUAL expr "); }
+    |   ID                                  { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,null)); gramatical.push("lista_simbolos -> ID "); }
+    |   ID IGUAL expr                       { $$ = new Array(); $$.push(new Simbolo($1,null,null,@1.first_line, @1.first_column,$3)); gramatical.push("lista_simbolos -> ID IGUAL expr "); }
     ; 
 /*..............     Asignacion      ...............*/
 //    ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
@@ -356,128 +361,131 @@ asignacion:
                                                     // console.log("asignacion normal");
                                                     $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column);
                                                 }
+                                                gramatical.push("asignacion -> ID IGUAL expr ");
                                             }
-    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
-    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
-    |   ID ID IGUAL expr                    { $$ = new DeclararStruct($1,$2,$4,@1.first_line, @1.last_column); }
+    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID INCRE "); }
+    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID DECRE ");}
+    |   ID ID IGUAL expr                    { $$ = new DeclararStruct($1,$2,$4,@1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID ID IGUAL expr "); }
     
     ;
 
 /*..............     Print      ...............*/
 print_instr:
-        RPRINT PARA lista_parametros PARC   { $$ = new Print($3, @1.first_line, @1.first_column, false); }
+        RPRINT PARA lista_parametros PARC   { $$ = new Print($3, @1.first_line, @1.first_column, false); gramatical.push("print_instr -> RPRINT PARA lista_parametros PARC "); }
     ;
 println_instr:
-        RPRINTLN PARA lista_parametros PARC { $$ = new Print($3, @1.first_line, @1.first_column, true); }
+        RPRINTLN PARA lista_parametros PARC { $$ = new Print($3, @1.first_line, @1.first_column, true); gramatical.push("print_instr -> RPRINTLN PARA lista_parametros PARC "); }
     ;
 /*..............     If con llave     ...............*/
 if_llav_instr:
     // If
         RIF PARA expr PARC
-        LLAVA instrucciones LLAVC           { $$ = new If($3, $6, null,null, @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new If($3, $6, null,null, @1.first_line, @1.first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC  "); }
     // If-else
     |   RIF PARA expr PARC
         LLAVA instrucciones LLAVC
-        RELSE LLAVA instrucciones LLAVC     { $$ = new If($3, $6, $10,null, @1.first_line, @1.first_column); }
+        RELSE LLAVA instrucciones LLAVC     { $$ = new If($3, $6, $10,null, @1.first_line, @1.first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC RELSE LLAVA instrucciones LLAVC "); }
     // If-elseif
     |   RIF PARA expr PARC
         LLAVA instrucciones LLAVC
-        RELSE if_llav_instr                 { $$ = new If($3, $6,null, $9, @1.first_line, @1.first_column); }
+        RELSE if_llav_instr                 { $$ = new If($3, $6,null, $9, @1.first_line, @1.first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC RELSE if_llav_instr"); }
     ;
 /*..............     If sin llave     ...............*/
 if_instr:
     // If
         RIF PARA expr PARC
-        instruccion                         { $$ = new Ifsinllave($3, $5, [], @1.first_line, @1.first_column); }
+        instruccion                         { $$ = new Ifsinllave($3, $5, [], @1.first_line, @1.first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion "); }
     // If-else
     |   RIF PARA expr PARC
         instruccion
-        RELSE instruccion                   { $$ = new Ifsinllave($3, $5, $7, @1.first_line, @1.first_column); }
+        RELSE instruccion                   { $$ = new Ifsinllave($3, $5, $7, @1.first_line, @1.first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion  RELSE instruccion "); }
     // If-elseif
     |   RIF PARA expr PARC
         instruccion
-        RELSE if_instr                      { $$ = new Ifsinllave($3, $5, [$7], @1.first_line, @1.first_column); }
+        RELSE if_instr                      { $$ = new Ifsinllave($3, $5, [$7], @1.first_line, @1.first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion RELSE if_instr  ");  }
     ;
 /*..............     Switch     ...............*/
 switch_instr:
     // SW-CS
         RSWITCH PARA expr PARC
-        LLAVA lista_cases LLAVC             { $$ = new Switch($3, $6, [], @1.first_line, @1.first_column); }
+        LLAVA lista_cases LLAVC             { $$ = new Switch($3, $6, [], @1.first_line, @1.first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA lista_cases LLAVC "); }
     // SW-DF
     |   RSWITCH PARA expr PARC
         LLAVA RDEFAULT DOSPUNTOS
-        instrucciones LLAVC                 { $$ = new Switch($3, [], $8, @1.first_line, @1.first_column); }
+        instrucciones LLAVC                 { $$ = new Switch($3, [], $8, @1.first_line, @1.first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA RDEFAULT DOSPUNTOS instrucciones LLAVC "); }
     // SW-CS-DF
     |   RSWITCH PARA expr PARC
         LLAVA lista_cases             
         RDEFAULT DOSPUNTOS
-        instrucciones LLAVC                 { $$ = new Switch($3, $6, $9, @1.first_line, @1.first_column); }
+        instrucciones LLAVC                 { $$ = new Switch($3, $6, $9, @1.first_line, @1.first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA lista_cases RDEFAULT DOSPUNTOS instrucciones LLAVC instrucciones LLAVC  "); }
     ;
 // ------------ Lista cases
 lista_cases:
-        lista_cases case                    { $$ = $1; $$.push($2); }
-    |   case                                { $$ = new Array(); $$.push($1);}
+        lista_cases case                    { $$ = $1; $$.push($2);  gramatical.push("lista_cases -> lista_cases case  ");  }
+    |   case                                { $$ = new Array(); $$.push($1); gramatical.push("lista_cases -> case ");  }
     ;
 // ------------ Case
 case:
         RCASE expr DOSPUNTOS
-        instrucciones                       { $$ = new Case($2, $4, @1.first_line, @1.first_column); }
+        instrucciones                       { $$ = new Case($2, $4, @1.first_line, @1.first_column); gramatical.push("case -> RCASE expr DOSPUNTOS instrucciones "); }
     ;
 /*..............     Lista parametros      ...............*/
 lista_parametros: 
-        lista_parametros COMA expr          { $$ = $1; $$.push($3); }
-    |   expr                                { $$ = new Array(); $$.push($1);}
+        lista_parametros COMA expr          { $$ = $1; $$.push($3); gramatical.push("lista_parametros -> lista_parametros COMA expr ");  }
+    |   expr                                { $$ = new Array(); $$.push($1); gramatical.push("lista_parametros -> expr ");  }
     ;
 /*..............     Transferencia      ...............*/
 // ------------     Break
 break_instr:
-        RBREAK                              { $$ = new Detener(@1.first_line, @1.first_column); }
+        RBREAK                              { $$ = new Detener(@1.first_line, @1.first_column); gramatical.push("break_instr -> RBREAK "); }
     ;
 // ------------      Continue
 continue_instr:
-        RCONTINUE                           { $$ = new Continuar(@1.first_line, @1.first_column); }
+        RCONTINUE                           { $$ = new Continuar(@1.first_line, @1.first_column); gramatical.push("continue_instr -> RCONTINUE "); }
     ;
 // ------------     Return
 return_instr:
-        RRETURN expr                        { $$ = new Return($2,@1.first_line, @1.first_column); }
-    |   RRETURN                             { $$ = new Return(new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column),@1.first_line, @1.first_column); }
+        RRETURN expr                        { $$ = new Return($2,@1.first_line, @1.first_column); gramatical.push("return_instr -> RRETURN expr  "); }
+    |   RRETURN                             { $$ = new Return(new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column),@1.first_line, @1.first_column); gramatical.push("return_instr -> RRETURN "); }
     ;
 /*..............     While      ...............*/
 while_instr:
         RWHILE PARA expr PARC
-        LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new While($3, $6, @1.first_line, @1.first_column); gramatical.push("while_instr -> RWHILE PARA expr PARC LLAVA instrucciones LLAVC "); }
     ;
 /*..............     Do While      ...............*/
 dowhile_instr:
         RDO LLAVA instrucciones LLAVC
-        RWHILE PARA expr PARC               { $$ = new DoWhile($7, $3, @1.first_line, @1.last_column); }
+        RWHILE PARA expr PARC               { $$ = new DoWhile($7, $3, @1.first_line, @1.last_column); gramatical.push("while_instr -> RWHILE PARA expr PARC LLAVA instrucciones LLAVC "); }
     ;
 /*..............     For      ...............*/
 for_instr:
         RFOR PARA asignacion PUNTOCOMA
         expr PUNTOCOMA actualizacion PARC
-        LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); gramatical.push("for_instr -> RFOR PARA asignacion PUNTOCOMA expr PUNTOCOMA actualizacion PARC LLAVA instrucciones LLAVC   ");  }
     |   RFOR PARA declaracion PUNTOCOMA
         expr PUNTOCOMA actualizacion PARC
-        LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new For($3, $5, $7, $10, @1.first_line, @1.first_column); gramatical.push("for_instr -> RFOR PARA declaracion PUNTOCOMA expr PUNTOCOMA actualizacion PARC LLAVA instrucciones LLAVC"); }
     ;
 // ------------     Actualizacion
 actualizacion:
-        ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column); }
-    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
-    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); }
+        ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column);  gramatical.push("actualizacion -> ID IGUAL expr "); }
+    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); 
+                                                gramatical.push("actualizacion -> ID INCRE "); }
+    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); 
+                                                gramatical.push("actualizacion -> ID DECRE ");  }
     ;
 /*..............     For in      ...............*/
 for_in_instr:
         RFOR ID RIN expr
-        LLAVA instrucciones LLAVC           { $$ = new ForIn($2, $4, $6, @1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new ForIn($2, $4, $6, @1.first_line, @1.first_column); gramatical.push("for_in_instr -> RFOR ID RIN expr LLAVA instrucciones LLAVC   ");  }
     ;
 /*..............     Main      ...............*/
 main_:
         RVOID RMAIN PARA PARC 
-        LLAVA instrucciones LLAVC           { $$ = new Main($6,@1.first_line, @1.first_column); }
+        LLAVA instrucciones LLAVC           { $$ = new Main($6,@1.first_line, @1.first_column); gramatical.push("main_ -> RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC ");  }
     |   RVOID RMAIN PARA PARC 
-        LLAVA LLAVC                         { $$ = new Main([],@1.first_line, @1.first_column); }
+        LLAVA LLAVC                         { $$ = new Main([],@1.first_line, @1.first_column); gramatical.push("main_ -> RVOID RMAIN PARA PARC  LLAVA LLAVC  "); }
     |   error                               {   errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
                                                 $$=null;
                                             }
@@ -486,13 +494,14 @@ main_:
 /*..............     Funciones      ...............*/
 funciones:
         tipo ID PARA PARC
-        LLAVA instrucciones LLAVC           { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column); }
+        LLAVA instrucciones LLAVC           { $$ = new Funcion($2, $1, [], $6, @1.first_line, @1.last_column); gramatical.push("funciones -> tipo ID PARA PARC LLAVA instrucciones LLAVC  ");  }
     |   tipo ID
         PARA lista_parametros_func
-        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); }
+        PARC LLAVA instrucciones LLAVC      { $$ = new Funcion($2, $1, $4, $7, @1.first_line, @1.last_column); gramatical.push("funciones ->  tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC ");  }
     |   ID ID  PARA lista_parametros_func
         PARC LLAVA instrucciones LLAVC      {   $$ = new Funcion($2, TIPO.STRUCT, $4, $7, @1.first_line, @1.last_column);
                                                 $$.tipoStruct = $1;
+                                                gramatical.push("funciones ->  ID ID  PARA lista_parametros_func PARC LLAVA instrucciones LLAVC "); 
                                             }
     | error                                 {   errores.push(new Errores("Sintactico", `No hay instrucciones en la funcion.`, this._$.first_line, this._$.first_column));
                                                 $$=null;
@@ -501,69 +510,70 @@ funciones:
 /*..............     Lista parametros      ...............*/
 lista_parametros_func: 
         lista_parametros_func
-        COMA parametro_func                 { $$ = $1; $$.push($3); }
-    |   parametro_func                      { $$ = new Array(); $$.push($1); }
+        COMA parametro_func                 { $$ = $1; $$.push($3); gramatical.push("lista_parametros_func -> lista_parametros_func  COMA parametro_func  ");  }
+    |   parametro_func                      { $$ = new Array(); $$.push($1); gramatical.push("lista_parametros_func -> parametro_func ");  }
     ;
 //------   Parametros Funcion 
 parametro_func:
-        tipo ID                             { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; } // EN MEDIO $2 - LISTA DIM
-    |   tipo lista_dim ID                   { $$ = {"tipo" : $1, "arreglo": true, "id": $3}; }
-    |   ID                                  { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; }
-    |   ID ID                               { $$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $2, "tipoStruct": $1}; }
+        tipo ID                             { $$ = {"tipo" : $1, "arreglo": false, "id": $2}; gramatical.push("parametro_func -> tipo ID ");  } // EN MEDIO $2 - LISTA DIM
+    |   tipo lista_dim ID                   { $$ = {"tipo" : $1, "arreglo": true, "id": $3};  gramatical.push("parametro_func -> tipo lista_dim ID ");  }
+    |   ID                                  { $$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $1}; gramatical.push("parametro_func -> ID ");  }
+    |   ID ID                               { $$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $2, "tipoStruct": $1}; gramatical.push("parametro_func -> ID ID ");  }
     ;
 /*..............     Llamada      ...............*/
 llamada :
-        ID PARA PARC                        { $$ = new Llamada($1 , [], @1.first_line, @1.last_column); }
-    |   ID PARA lista_parametros PARC       { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column); }
+        ID PARA PARC                        { $$ = new Llamada($1 , [], @1.first_line, @1.last_column); gramatical.push("llamada -> ID ");  }
+    |   ID PARA lista_parametros PARC       { $$ = new Llamada($1 , $3 , @1.first_line, @1.last_column); gramatical.push("llamada -> ID ");  }
     ;
 /*..............     Arreglos      ...............*/
 // ------------     Declaracion array
 decl_arr_instr:
         tipo lista_dim ID
-        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column); }
-    |   ID IGUAL lista_exp_arr              { $$ = new DeclaracionArr(null, null, $1, $2, @1.first_line, @1.last_column); }
-    |   tipo lista_dim ID                   { $$ = new DeclaracionArr($1, $2, $3, null, @1.first_line, @1.last_column); }
+        IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column); gramatical.push("decl_arr_instr -> tipo lista_dim ID IGUAL lista_exp_arr ");  }
+    |   ID IGUAL lista_exp_arr              { $$ = new DeclaracionArr(null, null, $1, $2, @1.first_line, @1.last_column); gramatical.push("decl_arr_instr -> ID IGUAL lista_exp_arr ");  }
+    |   tipo lista_dim ID                   { $$ = new DeclaracionArr($1, $2, $3, null, @1.first_line, @1.last_column); gramatical.push("decl_arr_instr -> tipo lista_dim ID  ");  }
     ;
 // ------------     Dimensiones
 lista_dim:
-        lista_dim CORA CORC                 { $$ = $1; $$.push($2+1); }
-    |   CORA CORC                           { $$ = new Array(); $$.push(1); }
+        lista_dim CORA CORC                 { $$ = $1; $$.push($2+1); gramatical.push("lista_dim -> lista_dim CORA CORC    ");  }
+    |   CORA CORC                           { $$ = new Array(); $$.push(1); gramatical.push("lista_dim -> CORA CORC ");  }
     ;
 // ------------     Lista expresiones arr
 lista_exp_arr:
         lista_exp_arr 
-        CORA lista_exp_arr_c CORC           { $$ = $1; $$.push($3); }
-    |   CORA lista_exp_arr_c CORC           { $$ = new Array(); $$.push($2); }
-    |   HASH ID                             { $$ = new Copiar($2, @1.first_line, @1.first_column); }
+        CORA lista_exp_arr_c CORC           { $$ = $1; $$.push($3); gramatical.push("lista_exp_arr -> lista_exp_arr  CORA lista_exp_arr_c CORC ");  }
+    |   CORA lista_exp_arr_c CORC           { $$ = new Array(); $$.push($2); gramatical.push("lista_exp_arr -> CORA lista_exp_arr_c CORC ");  }
+    |   HASH ID                             { $$ = new Copiar($2, @1.first_line, @1.first_column); gramatical.push("lista_exp_arr -> HASH ID "); }
     ;
 // ------------     Lista expresiones arr c
 lista_exp_arr_c:
-        lista_exp_arr_c COMA expr           { $$ = $1; $$.push($3); }
-    |   expr                                { $$ = new Array(); $$.push($1); }
+        lista_exp_arr_c COMA expr           { $$ = $1; $$.push($3); gramatical.push("lista_exp_arr -> lista_exp_arr_c COMA expr "); }
+    |   expr                                { $$ = new Array(); $$.push($1); gramatical.push("lista_exp_arr -> expr "); }
     ;
 // ------------     Lista expresiones
 lista_exp:
-        lista_exp CORA expr CORC            { $$ = $1; $$.push($3); }
-    |   CORA expr CORC                      { $$ = new Array(); $$.push($2); }
+        lista_exp CORA expr CORC            { $$ = $1; $$.push($3); gramatical.push("lista_exp -> lista_exp CORA expr CORC "); }
+    |   CORA expr CORC                      { $$ = new Array(); $$.push($2); gramatical.push("lista_exp -> CORA expr CORC  "); }
     ;
 // ------------     Modificacion de arreglos
 modif_arr_instr:
-        ID lista_exp IGUAL expr             { $$ = new ModificacionArr($1, $2, $4, @1.first_line, @1.last_column); }
+        ID lista_exp IGUAL expr             { $$ = new ModificacionArr($1, $2, $4, @1.first_line, @1.last_column); gramatical.push("modif_arr_instr -> ID lista_exp IGUAL expr  "); }
     ;
 // ------------     Rango
 rango:
-        expr DOSPUNTOS expr                 { $$ = {"inicio": $1, "fin": $3}; }
-    |   RBEGIN DOSPUNTOS REND               { $$ = {"inicio": $1, "fin": $3}; }
-    |   expr DOSPUNTOS REND                 { $$ = {"inicio": $1, "fin": $3}; }
-    |   RBEGIN DOSPUNTOS expr               { $$ = {"inicio": $1, "fin": $3}; }
+        expr DOSPUNTOS expr                 { $$ = {"inicio": $1, "fin": $3};  gramatical.push("rango -> expr DOSPUNTOS expr  "); }
+    |   RBEGIN DOSPUNTOS REND               { $$ = {"inicio": $1, "fin": $3}; gramatical.push("rango -> RBEGIN DOSPUNTOS REND ");  }
+    |   expr DOSPUNTOS REND                 { $$ = {"inicio": $1, "fin": $3}; gramatical.push("rango -> expr DOSPUNTOS REND ");  }
+    |   RBEGIN DOSPUNTOS expr               { $$ = {"inicio": $1, "fin": $3}; gramatical.push("rango -> RBEGIN DOSPUNTOS expr ");  }
     ;
     /*..............     Nativas      ...............*/
 // ------------     ARR -> [Push]
 nat_push_instr:
         ID PUNTO RPUSH
-        PARA expr PARC                      { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); }
+        PARA expr PARC                      { $$ = new Push(new Identificador($1 , @1.first_line, @1.last_column), $5, @1.first_line, @1.first_column); gramatical.push("nat_push_instr -> ID PUNTO RPUSH PARA expr PARC "); }
     |   ID PUNTO
         accesoAsignaStruct IGUAL expr       {  
+                                                gramatical.push("nat_push_instr -> ID PUNTO accesoAsignaStruct IGUAL expr ");
                                                 // let first = $1;
                                                 // if (first instanceof Identificador)
                                                 // {
@@ -578,83 +588,84 @@ nat_push_instr:
     ;
 // ------------     ARR -> [Pop]
 nat_pop:
-    ID PUNTO RPOP PARA PARC                 { $$ = new Pop($1, @1.first_line, @1.first_column); }
+    ID PUNTO RPOP PARA PARC                 { $$ = new Pop($1, @1.first_line, @1.first_column); gramatical.push("nat_pop ->  ID PUNTO RPOP PARA PARC   "); }
     ;
     // |   accesoAsignaStruct IGUAL  expr  {}
 accesoAsignaStruct:
-        accesoAsignaStruct PUNTO ID         { $$ = new AccesoStruct($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); }
-    |   ID                                  { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
+        accesoAsignaStruct PUNTO ID         { $$ = new AccesoStruct($1,new Identificador($3 , @1.first_line, @1.last_column),@1.first_line, @1.first_column); gramatical.push("accesoAsignaStruct ->  accesoAsignaStruct PUNTO ID  "); }
+    |   ID                                  { $$ = new Identificador($1 , @1.first_line, @1.last_column); gramatical.push("accesoAsignaStruct ->  ID   "); }
     ;
 
 // ------------     Matematicas
 nat_matematicas:
-        RSIN                                { $$ = $1; }
-    |   RCOS                                { $$ = $1; }
-    |   RTAN                                { $$ = $1; }
-    |   RSQRT                               { $$ = $1; }
-    |   RLOG                                { $$ = $1; }
+        RSIN                                { $$ = $1;  gramatical.push("nat_matematicas ->  RSIN ");}
+    |   RCOS                                { $$ = $1;  gramatical.push("nat_matematicas ->  RCOS ");}
+    |   RTAN                                { $$ = $1;  gramatical.push("nat_matematicas ->  RTAN "); }
+    |   RSQRT                               { $$ = $1;  gramatical.push("nat_matematicas ->  RSQRT ");}
+    |   RLOG                                { $$ = $1;  gramatical.push("nat_matematicas ->  RLOG "); }
     ;
 // ------------     Numericas -> [PARSE]
 nat_parse:
         tipo PUNTO RPARSE
-        PARA expr PARC                      { $$ = new Parse($1, $5, @1.first_line, @1.last_column); }
+        PARA expr PARC                      { $$ = new Parse($1, $5, @1.first_line, @1.last_column); gramatical.push("nat_parse ->  tipo PUNTO RPARSE PARA expr PARC ");}
     ;
 // ------------     Numericas -> [toInt - toDouble]
 nat_conversion:
         nat_conversion_tipos
-        PARA expr PARC                      { $$ = new To($1, $3, @1.first_line, @1.last_column); }
+        PARA expr PARC                      { $$ = new To($1, $3, @1.first_line, @1.last_column); gramatical.push("nat_conversion ->  nat_conversion_tipos PARA expr PARC ");}
     ;
 // Tipos
 nat_conversion_tipos:
-        RTOINT                              { $$ = $1; }
-    |   RTODOUBLE                           { $$ = $1; }
+        RTOINT                              { $$ = $1; gramatical.push("nat_conversion_tipos ->  RTOINT "); }
+    |   RTODOUBLE                           { $$ = $1; gramatical.push("nat_conversion_tipos ->  RTODOUBLE  "); }
     ;
 /*..............     Tipos      ...............*/
 tipo : 
-        RINT                        { $$ = TIPO.ENTERO; }
-    |   RDOUBLE                     { $$ = TIPO.DECIMAL; }
-    |   RSTRING                     { $$ = TIPO.CADENA; }
-    |   RCHAR                       { $$ = TIPO.CHARACTER; }
-    |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; }
-    |   RVOID                       { $$ = TIPO.VOID; }
-    |   RSTRUCT                     { $$ = TIPO.STRUCT; }
+        RINT                        { $$ = TIPO.ENTERO; gramatical.push("tipo ->  RINT ");}
+    |   RDOUBLE                     { $$ = TIPO.DECIMAL; gramatical.push("tipo ->   RDOUBLE ");}
+    |   RSTRING                     { $$ = TIPO.CADENA; gramatical.push("tipo -> RSTRING ");}
+    |   RCHAR                       { $$ = TIPO.CHARACTER; gramatical.push("tipo ->  RCHAR  ");}
+    |   RBOOLEAN                    { $$ = TIPO.BOOLEANO; gramatical.push("tipo -> RBOOLEAN ");}
+    |   RVOID                       { $$ = TIPO.VOID; gramatical.push("tipo -> RVOID  ");}
+    |   RSTRUCT                     { $$ = TIPO.STRUCT; gramatical.push("tipo -> RSTRUCT   "); }
     ;
 /*..............     Expresiones      ...............*/
 expr: 
-        expr MAS expr               { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); }
-    |   expr MENOS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MENOS,$3, @1.first_line, @1.first_column, false); }
-    |   expr MULTI expr             { $$ = new Aritmetica($1,OperadorAritmetico.POR,$3, @1.first_line, @1.first_column, false); }
-    |   expr DIV expr               { $$ = new Aritmetica($1,OperadorAritmetico.DIV,$3, @1.first_line, @1.first_column, false); }
-    |   expr PORCENTAJE expr        { $$ = new Aritmetica($1,OperadorAritmetico.MOD,$3, @1.first_line, @1.first_column, false); }
-    |   expr POTENCIA expr          { $$ = new Aritmetica($1,OperadorAritmetico.POT,$3, @1.first_line, @1.first_column, false); }
-    |   expr AMPERSON expr          { $$ = new Aritmetica($1,OperadorAritmetico.AMPERSON,$3, @1.first_line, @1.first_column, false); }
-    |   MENOS expr %prec UMINUS     { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); }
-    |   PARA expr PARC              { $$ = $2; }
-    |   expr AND expr               { $$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false); }
-    |   expr OR expr                { $$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false); }
-    |   NOT expr                    { $$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true); }
-    |   expr MAYORQUE expr          { $$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false); }
-    |   expr MAYORIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false); }
-    |   expr MENORIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false); }
-    |   expr MENORQUE expr          { $$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false); }
-    |   expr IGUALIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false); }
-    |   expr DIFERENTE expr         { $$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false); }
-    |   ENTERO                      { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
-    |   DECIMAL                     { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
-    |   CADENA                      { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
-    |   CHAR                        { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); }
-    |   NULL                        { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
-    |   TRUE                        { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }
-    |   FALSE                       { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); } 
-    |   ID                          { $$ = new Identificador($1 , @1.first_line, @1.last_column); }
-    |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column);} 
-    |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
-    |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); }
-    |   CORA lista_exp_arr_c CORC   { $$ = $2; }
-    |   llamada                     { $$ = $1; }
-    |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); }
-    |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); }
-    |   ID PUNTO expr               { if( $3 instanceof Length || $3 instanceof CharOfPos ||
+        expr MAS expr               { $$ = new Aritmetica($1,OperadorAritmetico.MAS,$3, @1.first_line, @1.first_column, false); gramatical.push("expr ->  expr MAS expr "); }
+    |   expr MENOS expr             { $$ = new Aritmetica($1,OperadorAritmetico.MENOS,$3, @1.first_line, @1.first_column, false); gramatical.push("expr ->  expr MENOS expr "); }
+    |   expr MULTI expr             { $$ = new Aritmetica($1,OperadorAritmetico.POR,$3, @1.first_line, @1.first_column, false); gramatical.push("expr -> expr MULTI expr "); }
+    |   expr DIV expr               { $$ = new Aritmetica($1,OperadorAritmetico.DIV,$3, @1.first_line, @1.first_column, false); gramatical.push("expr ->  expr DIV expr ");}
+    |   expr PORCENTAJE expr        { $$ = new Aritmetica($1,OperadorAritmetico.MOD,$3, @1.first_line, @1.first_column, false); gramatical.push("expr ->  expr PORCENTAJE expr  "); }
+    |   expr POTENCIA expr          { $$ = new Aritmetica($1,OperadorAritmetico.POT,$3, @1.first_line, @1.first_column, false); gramatical.push("expr ->  expr POTENCIA expr "); }
+    |   expr AMPERSON expr          { $$ = new Aritmetica($1,OperadorAritmetico.AMPERSON,$3, @1.first_line, @1.first_column, false); gramatical.push("expr -> expr AMPERSON expr   "); }
+    |   MENOS expr %prec UMINUS     { $$ = new Aritmetica($2,OperadorAritmetico.UMENOS,$2, @1.first_line, @1.first_column, true); gramatical.push("expr ->  MENOS expr %prec UMINUS  "); }
+    |   PARA expr PARC              { $$ = $2; gramatical.push("expr ->  PARA expr PARC "); }
+    |   expr AND expr               { $$ = new Logica($1, OperadorLogico.AND, $3, $1.first_line, $1.last_column, false); gramatical.push("expr -> expr AND expr    ");}
+    |   expr OR expr                { $$ = new Logica($1, OperadorLogico.OR, $3, $1.first_line, $1.last_column, false); gramatical.push("expr -> expr OR expr  "); }
+    |   NOT expr                    { $$ = new Logica($2, OperadorLogico.NOT, null, $1.first_line, $1.last_column, true); gramatical.push("expr -> NOT expr  "); }
+    |   expr MAYORQUE expr          { $$ = new Relacional($1, OperadorRelacional.MAYORQUE, $3, $1.first_line, $1.last_column, false); gramatical.push("expr ->  expr MAYORQUE expr "); }
+    |   expr MAYORIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.MAYORIGUAL, $3, $1.first_line, $1.last_column, false); gramatical.push("expr -> expr MAYORIGUAL expr "); }
+    |   expr MENORIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.MENORIGUAL, $3, $1.first_line, $1.last_column, false); gramatical.push("expr -> expr MENORIGUAL expr "); }
+    |   expr MENORQUE expr          { $$ = new Relacional($1, OperadorRelacional.MENORQUE, $3, $1.first_line, $1.last_column, false); gramatical.push("expr ->  expr MENORQUE expr  "); }
+    |   expr IGUALIGUAL expr        { $$ = new Relacional($1, OperadorRelacional.IGUALIGUAL, $3, $1.first_line, $1.last_column, false); gramatical.push("expr -> expr IGUALIGUAL expr   "); }
+    |   expr DIFERENTE expr         { $$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false); gramatical.push("expr ->  expr DIFERENTE expr "); }
+    |   ENTERO                      { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); gramatical.push("expr -> ENTERO  "); }
+    |   DECIMAL                     { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); gramatical.push("expr ->  DECIMAL "); }
+    |   CADENA                      { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); gramatical.push("expr ->  CADENA "); }
+    |   CHAR                        { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); gramatical.push("expr -> CHAR "); }
+    |   NULL                        { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); gramatical.push("expr ->  NULL "); }
+    |   TRUE                        { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); gramatical.push("expr ->  TRUE "); }
+    |   FALSE                       { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); gramatical.push("expr ->  FALSE "); } 
+    |   ID                          { $$ = new Identificador($1 , @1.first_line, @1.last_column); gramatical.push("expr -> ID "); }
+    |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column); gramatical.push("expr -> expr INTERROGACION expr DOSPUNTOS expr "); } 
+    |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); gramatical.push("expr ->  ID INCRE "); }
+    |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); gramatical.push("expr -> ID DECRE "); }
+    |   CORA lista_exp_arr_c CORC   { $$ = $2; gramatical.push("expr -> CORA lista_exp_arr_c CORC  ");  }
+    |   llamada                     { $$ = $1; gramatical.push("expr -> llamada ");  }
+    |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); gramatical.push("expr -> ID lista_exp "); }
+    |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); gramatical.push("expr -> rango "); }
+    |   ID PUNTO expr               { gramatical.push("expr -> ID PUNTO expr "); 
+                                        if( $3 instanceof Length || $3 instanceof CharOfPos ||
                                             $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
                                             let identifica =new Identificador($1 , @1.first_line, @1.last_column);
@@ -663,17 +674,17 @@ expr:
                                             $$ = new AccesoStruct(new Identificador($1 , @1.first_line, @1.last_column),$3,@1.first_line, @1.first_column);
                                         }
                                     }
-    |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); }
-    |   nat_pop                     { $$ = $1; }
-    |   RPOW PARA expr COMA expr PARC { $$ = new Pow($3,$5, @1.first_line, @1.first_column); }
-    |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); }
-    |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); }
-    |   RSUBSTRING PARA expr COMA expr PARC { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); }
-    |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); }
-    |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); }
-    |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); }
-    |   nat_parse                   { $$ = $1; }
-    |   nat_conversion              { $$ = $1; }
-    |   RSTRING_N PARA expr PARC    { $$ = new StringN($3, @1.first_line, @1.first_column); }
-    |   RTYPEOF PARA expr PARC      { $$ = new TypeOfN($3, @1.first_line, @1.first_column); }
+    |   lista_exp_arr               { $$ = new Arreglo(TIPO.ARREGLO, $1, @1.first_line, @1.first_column); gramatical.push("expr -> lista_exp_arr "); }
+    |   nat_pop                     { $$ = $1; gramatical.push("expr -> nat_pop "); }
+    |   RPOW PARA expr COMA expr PARC { $$ = new Pow($3,$5, @1.first_line, @1.first_column); gramatical.push("expr -> RPOW PARA expr COMA expr PARC  "); }
+    |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); gramatical.push("expr ->  RLENGTH PARA PARC  "); }
+    |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); gramatical.push("expr -> RCHAROFPOS PARA expr PARC "); }
+    |   RSUBSTRING PARA expr COMA expr PARC { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); gramatical.push("expr -> RSUBSTRING PARA expr COMA expr PARC  "); }
+    |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); gramatical.push("expr -> RTOUPPER PARA PARC  "); }
+    |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); gramatical.push("expr -> RTOLOWER PARA PARC "); }
+    |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); gramatical.push("expr -> nat_matematicas PARA expr PARC "); }
+    |   nat_parse                   { $$ = $1; gramatical.push("expr -> nat_parse "); }
+    |   nat_conversion              { $$ = $1; gramatical.push("expr -> nat_conversion "); }
+    |   RSTRING_N PARA expr PARC    { $$ = new StringN($3, @1.first_line, @1.first_column); gramatical.push("expr -> RSTRING_N PARA expr PARC "); }
+    |   RTYPEOF PARA expr PARC      { $$ = new TypeOfN($3, @1.first_line, @1.first_column); gramatical.push("expr -> RTYPEOF PARA expr PARC  "); }
     ;

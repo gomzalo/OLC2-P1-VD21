@@ -1,4 +1,725 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.load = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+
+},{}],2:[function(require,module,exports){
+(function (process){(function (){
+// 'path' module extracted from Node.js v8.11.1 (only the posix part)
+// transplited with Babel
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+'use strict';
+
+function assertPath(path) {
+  if (typeof path !== 'string') {
+    throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
+  }
+}
+
+// Resolves . and .. elements in a path with directory names
+function normalizeStringPosix(path, allowAboveRoot) {
+  var res = '';
+  var lastSegmentLength = 0;
+  var lastSlash = -1;
+  var dots = 0;
+  var code;
+  for (var i = 0; i <= path.length; ++i) {
+    if (i < path.length)
+      code = path.charCodeAt(i);
+    else if (code === 47 /*/*/)
+      break;
+    else
+      code = 47 /*/*/;
+    if (code === 47 /*/*/) {
+      if (lastSlash === i - 1 || dots === 1) {
+        // NOOP
+      } else if (lastSlash !== i - 1 && dots === 2) {
+        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
+          if (res.length > 2) {
+            var lastSlashIndex = res.lastIndexOf('/');
+            if (lastSlashIndex !== res.length - 1) {
+              if (lastSlashIndex === -1) {
+                res = '';
+                lastSegmentLength = 0;
+              } else {
+                res = res.slice(0, lastSlashIndex);
+                lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
+              }
+              lastSlash = i;
+              dots = 0;
+              continue;
+            }
+          } else if (res.length === 2 || res.length === 1) {
+            res = '';
+            lastSegmentLength = 0;
+            lastSlash = i;
+            dots = 0;
+            continue;
+          }
+        }
+        if (allowAboveRoot) {
+          if (res.length > 0)
+            res += '/..';
+          else
+            res = '..';
+          lastSegmentLength = 2;
+        }
+      } else {
+        if (res.length > 0)
+          res += '/' + path.slice(lastSlash + 1, i);
+        else
+          res = path.slice(lastSlash + 1, i);
+        lastSegmentLength = i - lastSlash - 1;
+      }
+      lastSlash = i;
+      dots = 0;
+    } else if (code === 46 /*.*/ && dots !== -1) {
+      ++dots;
+    } else {
+      dots = -1;
+    }
+  }
+  return res;
+}
+
+function _format(sep, pathObject) {
+  var dir = pathObject.dir || pathObject.root;
+  var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
+  if (!dir) {
+    return base;
+  }
+  if (dir === pathObject.root) {
+    return dir + base;
+  }
+  return dir + sep + base;
+}
+
+var posix = {
+  // path.resolve([from ...], to)
+  resolve: function resolve() {
+    var resolvedPath = '';
+    var resolvedAbsolute = false;
+    var cwd;
+
+    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      var path;
+      if (i >= 0)
+        path = arguments[i];
+      else {
+        if (cwd === undefined)
+          cwd = process.cwd();
+        path = cwd;
+      }
+
+      assertPath(path);
+
+      // Skip empty entries
+      if (path.length === 0) {
+        continue;
+      }
+
+      resolvedPath = path + '/' + resolvedPath;
+      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    }
+
+    // At this point the path should be resolved to a full absolute path, but
+    // handle relative paths to be safe (might happen when process.cwd() fails)
+
+    // Normalize the path
+    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
+
+    if (resolvedAbsolute) {
+      if (resolvedPath.length > 0)
+        return '/' + resolvedPath;
+      else
+        return '/';
+    } else if (resolvedPath.length > 0) {
+      return resolvedPath;
+    } else {
+      return '.';
+    }
+  },
+
+  normalize: function normalize(path) {
+    assertPath(path);
+
+    if (path.length === 0) return '.';
+
+    var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
+
+    // Normalize the path
+    path = normalizeStringPosix(path, !isAbsolute);
+
+    if (path.length === 0 && !isAbsolute) path = '.';
+    if (path.length > 0 && trailingSeparator) path += '/';
+
+    if (isAbsolute) return '/' + path;
+    return path;
+  },
+
+  isAbsolute: function isAbsolute(path) {
+    assertPath(path);
+    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
+  },
+
+  join: function join() {
+    if (arguments.length === 0)
+      return '.';
+    var joined;
+    for (var i = 0; i < arguments.length; ++i) {
+      var arg = arguments[i];
+      assertPath(arg);
+      if (arg.length > 0) {
+        if (joined === undefined)
+          joined = arg;
+        else
+          joined += '/' + arg;
+      }
+    }
+    if (joined === undefined)
+      return '.';
+    return posix.normalize(joined);
+  },
+
+  relative: function relative(from, to) {
+    assertPath(from);
+    assertPath(to);
+
+    if (from === to) return '';
+
+    from = posix.resolve(from);
+    to = posix.resolve(to);
+
+    if (from === to) return '';
+
+    // Trim any leading backslashes
+    var fromStart = 1;
+    for (; fromStart < from.length; ++fromStart) {
+      if (from.charCodeAt(fromStart) !== 47 /*/*/)
+        break;
+    }
+    var fromEnd = from.length;
+    var fromLen = fromEnd - fromStart;
+
+    // Trim any leading backslashes
+    var toStart = 1;
+    for (; toStart < to.length; ++toStart) {
+      if (to.charCodeAt(toStart) !== 47 /*/*/)
+        break;
+    }
+    var toEnd = to.length;
+    var toLen = toEnd - toStart;
+
+    // Compare paths to find the longest common path from root
+    var length = fromLen < toLen ? fromLen : toLen;
+    var lastCommonSep = -1;
+    var i = 0;
+    for (; i <= length; ++i) {
+      if (i === length) {
+        if (toLen > length) {
+          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
+            // We get here if `from` is the exact base path for `to`.
+            // For example: from='/foo/bar'; to='/foo/bar/baz'
+            return to.slice(toStart + i + 1);
+          } else if (i === 0) {
+            // We get here if `from` is the root
+            // For example: from='/'; to='/foo'
+            return to.slice(toStart + i);
+          }
+        } else if (fromLen > length) {
+          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
+            // We get here if `to` is the exact base path for `from`.
+            // For example: from='/foo/bar/baz'; to='/foo/bar'
+            lastCommonSep = i;
+          } else if (i === 0) {
+            // We get here if `to` is the root.
+            // For example: from='/foo'; to='/'
+            lastCommonSep = 0;
+          }
+        }
+        break;
+      }
+      var fromCode = from.charCodeAt(fromStart + i);
+      var toCode = to.charCodeAt(toStart + i);
+      if (fromCode !== toCode)
+        break;
+      else if (fromCode === 47 /*/*/)
+        lastCommonSep = i;
+    }
+
+    var out = '';
+    // Generate the relative path based on the path difference between `to`
+    // and `from`
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
+        if (out.length === 0)
+          out += '..';
+        else
+          out += '/..';
+      }
+    }
+
+    // Lastly, append the rest of the destination (`to`) path that comes after
+    // the common path parts
+    if (out.length > 0)
+      return out + to.slice(toStart + lastCommonSep);
+    else {
+      toStart += lastCommonSep;
+      if (to.charCodeAt(toStart) === 47 /*/*/)
+        ++toStart;
+      return to.slice(toStart);
+    }
+  },
+
+  _makeLong: function _makeLong(path) {
+    return path;
+  },
+
+  dirname: function dirname(path) {
+    assertPath(path);
+    if (path.length === 0) return '.';
+    var code = path.charCodeAt(0);
+    var hasRoot = code === 47 /*/*/;
+    var end = -1;
+    var matchedSlash = true;
+    for (var i = path.length - 1; i >= 1; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          if (!matchedSlash) {
+            end = i;
+            break;
+          }
+        } else {
+        // We saw the first non-path separator
+        matchedSlash = false;
+      }
+    }
+
+    if (end === -1) return hasRoot ? '/' : '.';
+    if (hasRoot && end === 1) return '//';
+    return path.slice(0, end);
+  },
+
+  basename: function basename(path, ext) {
+    if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
+    assertPath(path);
+
+    var start = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i;
+
+    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+      if (ext.length === path.length && ext === path) return '';
+      var extIdx = ext.length - 1;
+      var firstNonSlashEnd = -1;
+      for (i = path.length - 1; i >= 0; --i) {
+        var code = path.charCodeAt(i);
+        if (code === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else {
+          if (firstNonSlashEnd === -1) {
+            // We saw the first non-path separator, remember this index in case
+            // we need it if the extension ends up not matching
+            matchedSlash = false;
+            firstNonSlashEnd = i + 1;
+          }
+          if (extIdx >= 0) {
+            // Try to match the explicit extension
+            if (code === ext.charCodeAt(extIdx)) {
+              if (--extIdx === -1) {
+                // We matched the extension, so mark this as the end of our path
+                // component
+                end = i;
+              }
+            } else {
+              // Extension does not match, so our result is the entire path
+              // component
+              extIdx = -1;
+              end = firstNonSlashEnd;
+            }
+          }
+        }
+      }
+
+      if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
+      return path.slice(start, end);
+    } else {
+      for (i = path.length - 1; i >= 0; --i) {
+        if (path.charCodeAt(i) === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else if (end === -1) {
+          // We saw the first non-path separator, mark this as the end of our
+          // path component
+          matchedSlash = false;
+          end = i + 1;
+        }
+      }
+
+      if (end === -1) return '';
+      return path.slice(start, end);
+    }
+  },
+
+  extname: function extname(path) {
+    assertPath(path);
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+    for (var i = path.length - 1; i >= 0; --i) {
+      var code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1)
+            startDot = i;
+          else if (preDotState !== 1)
+            preDotState = 1;
+      } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+        // We saw a non-dot character immediately before the dot
+        preDotState === 0 ||
+        // The (right-most) trimmed path component is exactly '..'
+        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      return '';
+    }
+    return path.slice(startDot, end);
+  },
+
+  format: function format(pathObject) {
+    if (pathObject === null || typeof pathObject !== 'object') {
+      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
+    }
+    return _format('/', pathObject);
+  },
+
+  parse: function parse(path) {
+    assertPath(path);
+
+    var ret = { root: '', dir: '', base: '', ext: '', name: '' };
+    if (path.length === 0) return ret;
+    var code = path.charCodeAt(0);
+    var isAbsolute = code === 47 /*/*/;
+    var start;
+    if (isAbsolute) {
+      ret.root = '/';
+      start = 1;
+    } else {
+      start = 0;
+    }
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i = path.length - 1;
+
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+
+    // Get non-dir info
+    for (; i >= start; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
+        } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      if (end !== -1) {
+        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
+      }
+    } else {
+      if (startPart === 0 && isAbsolute) {
+        ret.name = path.slice(1, startDot);
+        ret.base = path.slice(1, end);
+      } else {
+        ret.name = path.slice(startPart, startDot);
+        ret.base = path.slice(startPart, end);
+      }
+      ret.ext = path.slice(startDot, end);
+    }
+
+    if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
+
+    return ret;
+  },
+
+  sep: '/',
+  delimiter: ':',
+  win32: null,
+  posix: null
+};
+
+posix.posix = posix;
+
+module.exports = posix;
+
+}).call(this)}).call(this,require('_process'))
+},{"_process":3}],3:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],4:[function(require,module,exports){
 (function (process){(function (){
 /* parser generated by jison 0.4.18 */
 /*
@@ -87,61 +808,125 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
    this.$ = new Ast();  this.$.instrucciones = $$[$0-1]; this.$.Errores = errores.slice();
+        // console.log(gramatical);
+                                                gramatical.push("start -> instrucciones");
+                                                this.$.repGramatical = gramatical;
                                                 return this.$; 
+                                                
 break;
 case 2:
- this.$ = $$[$0-1];if($$[$0]!=null){ this.$.push($$[$0]);} 
+ this.$ = $$[$0-1];if($$[$0]!=null){ this.$.push($$[$0]);} gramatical.push("instrucciones -> instrucciones instruccion "); 
 break;
 case 3:
- this.$= new Array(); if($$[$0]!=null){this.$.push($$[$0]); }
+ this.$= new Array(); if($$[$0]!=null){this.$.push($$[$0]); } gramatical.push("instrucciones -> instruccion "); 
 break;
-case 4: case 5: case 8: case 9: case 13: case 14: case 15: case 18: case 20: case 21: case 22: case 23: case 24: case 25:
- this.$ = $$[$0-1] 
+case 4:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> print_instr PUNTOCOMA  "); 
 break;
-case 6: case 7: case 10: case 11: case 12: case 16: case 17: case 19:
- this.$ = $$[$0] 
+case 5:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> println_instr PUNTOCOMA ");  
+break;
+case 6:
+ this.$ = $$[$0]; gramatical.push("instruccion -> main_ ");  
+break;
+case 7:
+ this.$ = $$[$0]; gramatical.push("instruccion -> funciones ");  
+break;
+case 8:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> declaracion PUNTOCOMA ");  
+break;
+case 9:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> asignacion  PUNTOCOMA ");  
+break;
+case 10:
+ this.$ = $$[$0]; gramatical.push("instruccion -> if_llav_instr ");  
+break;
+case 11:
+ this.$ = $$[$0]; gramatical.push("instruccion -> if_instr ");  
+break;
+case 12:
+ this.$ = $$[$0]; gramatical.push("instruccion -> switch_instr ");  
+break;
+case 13:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> break_instr PUNTOCOMA  ");  
+break;
+case 14:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> continue_instr PUNTOCOMA ");  
+break;
+case 15:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> return_instr PUNTOCOMA ");  
+break;
+case 16:
+ this.$ = $$[$0]; gramatical.push("instruccion -> while_instr ");  
+break;
+case 17:
+ this.$ = $$[$0]; gramatical.push("instruccion -> for_instr ");  
+break;
+case 18:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> dowhile_instr PUNTOCOMA ");  
+break;
+case 19:
+ this.$ = $$[$0]; gramatical.push("instruccion -> for_in_instr ");  
+break;
+case 20:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> decl_arr_instr PUNTOCOMA ");  
+break;
+case 21:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> llamada PUNTOCOMA ");  
+break;
+case 22:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> modif_arr_instr PUNTOCOMA ");  
+break;
+case 23:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> structs PUNTOCOMA ");  
+break;
+case 24:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> nat_push_instr PUNTOCOMA ");  
+break;
+case 25:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> nat_pop PUNTOCOMA ");  
 break;
 case 26:
  
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
-                                                this.$ =null;
+                                                this.$ =null; 
                                             
 break;
 case 27:
- this.$ = new Declaracion($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].last_column); 
+ this.$ = new Declaracion($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("declaracion -> tipo  lista_simbolos "); 
 break;
 case 28:
- this.$ = new Struct($$[$0-3],$$[$0-1],_$[$0-4].first_line, _$[$0-4].last_column); 
+ this.$ = new Struct($$[$0-3],$$[$0-1],_$[$0-4].first_line, _$[$0-4].last_column); gramatical.push("structs -> RSTRUCT ID  LLAVA instrucciones_struct LLAVC ");  
 break;
-case 29: case 57: case 78: case 94:
- this.$ = $$[$0-2]; this.$.push($$[$0]); 
+case 29:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("instrucciones_struct -> instrucciones_struct COMA attribute "); 
 break;
 case 30:
- this.$= new Array(); this.$.push($$[$0]); 
+ this.$= new Array(); this.$.push($$[$0]); gramatical.push("instrucciones_struct -> attribute "); 
 break;
 case 31:
-this.$ = new StructInStruct($$[$0-1],$$[$0],_$[$0-1].first_line, _$[$0-1].last_column); 
+this.$ = new StructInStruct($$[$0-1],$$[$0],_$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("attribute -> ID ID   "); 
 break;
 case 32:
- this.$ = new Declaracion($$[$0-1], [$$[$0]], _$[$0-1].first_line, _$[$0-1].last_column); 
+ this.$ = new Declaracion($$[$0-1], [$$[$0]], _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("attribute -> tipo  attributeDeclaStruct  "); 
 break;
 case 33:
- this.$=new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null); 
+ this.$=new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null); gramatical.push("attributeDeclaStruct -> ID "); 
 break;
 case 34:
- this.$=new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0]); 
+ this.$=new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0]); gramatical.push("attributeDeclaStruct -> ID IGUAL expr "); 
 break;
 case 35:
- this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); 
+ this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); gramatical.push("lista_simbolos -> COMA ID "); 
 break;
 case 36:
- this.$ = $$[$0-4]; this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-4].first_line, _$[$0-4].first_column,$$[$0])); 
+ this.$ = $$[$0-4]; this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-4].first_line, _$[$0-4].first_column,$$[$0])); gramatical.push("lista_simbolos -> COMA ID IGUAL expr "); 
 break;
 case 37:
- this.$ = new Array(); this.$.push(new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null)); 
+ this.$ = new Array(); this.$.push(new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null)); gramatical.push("lista_simbolos -> ID "); 
 break;
 case 38:
- this.$ = new Array(); this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0])); 
+ this.$ = new Array(); this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0])); gramatical.push("lista_simbolos -> ID IGUAL expr "); 
 break;
 case 39:
 
@@ -152,91 +937,109 @@ case 39:
                                                     // console.log("asignacion normal");
                                                     this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column);
                                                 }
+                                                gramatical.push("asignacion -> ID IGUAL expr ");
                                             
 break;
-case 40: case 68:
- this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+case 40:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("lista_simbolos -> ID INCRE "); 
 break;
-case 41: case 69:
- this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+case 41:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("lista_simbolos -> ID DECRE ");
 break;
 case 42:
- this.$ = new DeclararStruct($$[$0-3],$$[$0-2],$$[$0],_$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new DeclararStruct($$[$0-3],$$[$0-2],$$[$0],_$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("lista_simbolos -> ID ID IGUAL expr "); 
 break;
 case 43:
- this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, false); 
+ this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, false); gramatical.push("print_instr -> RPRINT PARA lista_parametros PARC "); 
 break;
 case 44:
- this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); 
+ this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); gramatical.push("print_instr -> RPRINTLN PARA lista_parametros PARC "); 
 break;
 case 45:
- this.$ = new If($$[$0-4], $$[$0-1], null,null, _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new If($$[$0-4], $$[$0-1], null,null, _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC  "); 
 break;
 case 46:
- this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1],null, _$[$0-10].first_line, _$[$0-10].first_column); 
+ this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1],null, _$[$0-10].first_line, _$[$0-10].first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC RELSE LLAVA instrucciones LLAVC "); 
 break;
 case 47:
- this.$ = new If($$[$0-6], $$[$0-3],null, $$[$0], _$[$0-8].first_line, _$[$0-8].first_column); 
+ this.$ = new If($$[$0-6], $$[$0-3],null, $$[$0], _$[$0-8].first_line, _$[$0-8].first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC RELSE if_llav_instr"); 
 break;
 case 48:
- this.$ = new Ifsinllave($$[$0-2], $$[$0], [], _$[$0-4].first_line, _$[$0-4].first_column); 
+ this.$ = new Ifsinllave($$[$0-2], $$[$0], [], _$[$0-4].first_line, _$[$0-4].first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion "); 
 break;
 case 49:
- this.$ = new Ifsinllave($$[$0-4], $$[$0-2], $$[$0], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Ifsinllave($$[$0-4], $$[$0-2], $$[$0], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion  RELSE instruccion "); 
 break;
 case 50:
- this.$ = new Ifsinllave($$[$0-4], $$[$0-2], [$$[$0]], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Ifsinllave($$[$0-4], $$[$0-2], [$$[$0]], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion RELSE if_instr  ");  
 break;
 case 51:
- this.$ = new Switch($$[$0-4], $$[$0-1], [], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Switch($$[$0-4], $$[$0-1], [], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA lista_cases LLAVC "); 
 break;
 case 52:
- this.$ = new Switch($$[$0-6], [], $$[$0-1], _$[$0-8].first_line, _$[$0-8].first_column); 
+ this.$ = new Switch($$[$0-6], [], $$[$0-1], _$[$0-8].first_line, _$[$0-8].first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA RDEFAULT DOSPUNTOS instrucciones LLAVC "); 
 break;
 case 53:
- this.$ = new Switch($$[$0-7], $$[$0-4], $$[$0-1], _$[$0-9].first_line, _$[$0-9].first_column); 
+ this.$ = new Switch($$[$0-7], $$[$0-4], $$[$0-1], _$[$0-9].first_line, _$[$0-9].first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA lista_cases RDEFAULT DOSPUNTOS instrucciones LLAVC instrucciones LLAVC  "); 
 break;
 case 54:
- this.$ = $$[$0-1]; this.$.push($$[$0]); 
+ this.$ = $$[$0-1]; this.$.push($$[$0]);  gramatical.push("lista_cases -> lista_cases case  ");  
 break;
-case 55: case 58:
- this.$ = new Array(); this.$.push($$[$0]);
+case 55:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_cases -> case ");  
 break;
 case 56:
- this.$ = new Case($$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new Case($$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("case -> RCASE expr DOSPUNTOS instrucciones "); 
+break;
+case 57:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("lista_parametros -> lista_parametros COMA expr ");  
+break;
+case 58:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_parametros -> expr ");  
 break;
 case 59:
- this.$ = new Detener(_$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Detener(_$[$0].first_line, _$[$0].first_column); gramatical.push("break_instr -> RBREAK "); 
 break;
 case 60:
- this.$ = new Continuar(_$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Continuar(_$[$0].first_line, _$[$0].first_column); gramatical.push("continue_instr -> RCONTINUE "); 
 break;
 case 61:
- this.$ = new Return($$[$0],_$[$0-1].first_line, _$[$0-1].first_column); 
+ this.$ = new Return($$[$0],_$[$0-1].first_line, _$[$0-1].first_column); gramatical.push("return_instr -> RRETURN expr  "); 
 break;
 case 62:
- this.$ = new Return(new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column),_$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Return(new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column),_$[$0].first_line, _$[$0].first_column); gramatical.push("return_instr -> RRETURN "); 
 break;
 case 63:
- this.$ = new While($$[$0-4], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new While($$[$0-4], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("while_instr -> RWHILE PARA expr PARC LLAVA instrucciones LLAVC "); 
 break;
 case 64:
- this.$ = new DoWhile($$[$0-1], $$[$0-5], _$[$0-7].first_line, _$[$0-7].last_column); 
+ this.$ = new DoWhile($$[$0-1], $$[$0-5], _$[$0-7].first_line, _$[$0-7].last_column); gramatical.push("while_instr -> RWHILE PARA expr PARC LLAVA instrucciones LLAVC "); 
 break;
-case 65: case 66:
- this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); 
+case 65:
+ this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); gramatical.push("for_instr -> RFOR PARA asignacion PUNTOCOMA expr PUNTOCOMA actualizacion PARC LLAVA instrucciones LLAVC   ");  
+break;
+case 66:
+ this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); gramatical.push("for_instr -> RFOR PARA declaracion PUNTOCOMA expr PUNTOCOMA actualizacion PARC LLAVA instrucciones LLAVC"); 
 break;
 case 67:
- this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column);  gramatical.push("actualizacion -> ID IGUAL expr "); 
+break;
+case 68:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+                                                gramatical.push("actualizacion -> ID INCRE "); 
+break;
+case 69:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+                                                gramatical.push("actualizacion -> ID DECRE ");  
 break;
 case 70:
- this.$ = new ForIn($$[$0-5], $$[$0-3], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new ForIn($$[$0-5], $$[$0-3], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("for_in_instr -> RFOR ID RIN expr LLAVA instrucciones LLAVC   ");  
 break;
 case 71:
- this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("main_ -> RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC ");  
 break;
 case 72:
- this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("main_ -> RVOID RMAIN PARA PARC  LLAVA LLAVC  "); 
 break;
 case 73:
    errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
@@ -244,14 +1047,15 @@ case 73:
                                             
 break;
 case 74:
- this.$ = new Funcion($$[$0-5], $$[$0-6], [], $$[$0-1], _$[$0-6].first_line, _$[$0-6].last_column); 
+ this.$ = new Funcion($$[$0-5], $$[$0-6], [], $$[$0-1], _$[$0-6].first_line, _$[$0-6].last_column); gramatical.push("funciones -> tipo ID PARA PARC LLAVA instrucciones LLAVC  ");  
 break;
 case 75:
- this.$ = new Funcion($$[$0-6], $$[$0-7], $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column); 
+ this.$ = new Funcion($$[$0-6], $$[$0-7], $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column); gramatical.push("funciones ->  tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC ");  
 break;
 case 76:
    this.$ = new Funcion($$[$0-6], TIPO.STRUCT, $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column);
                                                 this.$.tipoStruct = $$[$0-7];
+                                                gramatical.push("funciones ->  ID ID  PARA lista_parametros_func PARC LLAVA instrucciones LLAVC "); 
                                             
 break;
 case 77:
@@ -259,62 +1063,87 @@ case 77:
                                                 this.$=null;
                                             
 break;
-case 79: case 95:
- this.$ = new Array(); this.$.push($$[$0]); 
+case 78:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("lista_parametros_func -> lista_parametros_func  COMA parametro_func  ");  
+break;
+case 79:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_parametros_func -> parametro_func ");  
 break;
 case 80:
- this.$ = {"tipo" : $$[$0-1], "arreglo": false, "id": $$[$0]}; 
+ this.$ = {"tipo" : $$[$0-1], "arreglo": false, "id": $$[$0]}; gramatical.push("parametro_func -> tipo ID ");  
 break;
 case 81:
- this.$ = {"tipo" : $$[$0-2], "arreglo": true, "id": $$[$0]}; 
+ this.$ = {"tipo" : $$[$0-2], "arreglo": true, "id": $$[$0]};  gramatical.push("parametro_func -> tipo lista_dim ID ");  
 break;
 case 82:
- this.$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $$[$0]}; 
+ this.$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $$[$0]}; gramatical.push("parametro_func -> ID ");  
 break;
 case 83:
- this.$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $$[$0], "tipoStruct": $$[$0-1]}; 
+ this.$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $$[$0], "tipoStruct": $$[$0-1]}; gramatical.push("parametro_func -> ID ID ");  
 break;
 case 84:
- this.$ = new Llamada($$[$0-2] , [], _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new Llamada($$[$0-2] , [], _$[$0-2].first_line, _$[$0-2].last_column); gramatical.push("llamada -> ID ");  
 break;
 case 85:
- this.$ = new Llamada($$[$0-3] , $$[$0-1] , _$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new Llamada($$[$0-3] , $$[$0-1] , _$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("llamada -> ID ");  
 break;
 case 86:
- this.$ = new DeclaracionArr($$[$0-4], $$[$0-3], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].last_column); 
+ this.$ = new DeclaracionArr($$[$0-4], $$[$0-3], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].last_column); gramatical.push("decl_arr_instr -> tipo lista_dim ID IGUAL lista_exp_arr ");  
 break;
 case 87:
- this.$ = new DeclaracionArr(null, null, $$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new DeclaracionArr(null, null, $$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column); gramatical.push("decl_arr_instr -> ID IGUAL lista_exp_arr ");  
 break;
 case 88:
- this.$ = new DeclaracionArr($$[$0-2], $$[$0-1], $$[$0], null, _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new DeclaracionArr($$[$0-2], $$[$0-1], $$[$0], null, _$[$0-2].first_line, _$[$0-2].last_column); gramatical.push("decl_arr_instr -> tipo lista_dim ID  ");  
 break;
 case 89:
- this.$ = $$[$0-2]; this.$.push($$[$0-1]+1); 
+ this.$ = $$[$0-2]; this.$.push($$[$0-1]+1); gramatical.push("lista_dim -> lista_dim CORA CORC    ");  
 break;
 case 90:
- this.$ = new Array(); this.$.push(1); 
+ this.$ = new Array(); this.$.push(1); gramatical.push("lista_dim -> CORA CORC ");  
 break;
-case 91: case 96:
- this.$ = $$[$0-3]; this.$.push($$[$0-1]); 
+case 91:
+ this.$ = $$[$0-3]; this.$.push($$[$0-1]); gramatical.push("lista_exp_arr -> lista_exp_arr  CORA lista_exp_arr_c CORC ");  
 break;
-case 92: case 97:
- this.$ = new Array(); this.$.push($$[$0-1]); 
+case 92:
+ this.$ = new Array(); this.$.push($$[$0-1]); gramatical.push("lista_exp_arr -> CORA lista_exp_arr_c CORC ");  
 break;
 case 93:
- this.$ = new Copiar($$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
+ this.$ = new Copiar($$[$0], _$[$0-1].first_line, _$[$0-1].first_column); gramatical.push("lista_exp_arr -> HASH ID "); 
+break;
+case 94:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("lista_exp_arr -> lista_exp_arr_c COMA expr "); 
+break;
+case 95:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_exp_arr -> expr "); 
+break;
+case 96:
+ this.$ = $$[$0-3]; this.$.push($$[$0-1]); gramatical.push("lista_exp -> lista_exp CORA expr CORC "); 
+break;
+case 97:
+ this.$ = new Array(); this.$.push($$[$0-1]); gramatical.push("lista_exp -> CORA expr CORC  "); 
 break;
 case 98:
- this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("modif_arr_instr -> ID lista_exp IGUAL expr  "); 
 break;
-case 99: case 100: case 101: case 102:
- this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; 
+case 99:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]};  gramatical.push("rango -> expr DOSPUNTOS expr  "); 
+break;
+case 100:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; gramatical.push("rango -> RBEGIN DOSPUNTOS REND ");  
+break;
+case 101:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; gramatical.push("rango -> expr DOSPUNTOS REND ");  
+break;
+case 102:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; gramatical.push("rango -> RBEGIN DOSPUNTOS expr ");  
 break;
 case 103:
- this.$ = new Push(new Identificador($$[$0-5] , _$[$0-5].first_line, _$[$0-5].last_column), $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Push(new Identificador($$[$0-5] , _$[$0-5].first_line, _$[$0-5].last_column), $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("nat_push_instr -> ID PUNTO RPUSH PARA expr PARC "); 
 break;
 case 104:
   
+                                                gramatical.push("nat_push_instr -> ID PUNTO accesoAsignaStruct IGUAL expr ");
                                                 // let first = $$[$0-4];
                                                 // if (first instanceof Identificador)
                                                 // {
@@ -328,136 +1157,164 @@ case 104:
                                             
 break;
 case 105:
- this.$ = new Pop($$[$0-4], _$[$0-4].first_line, _$[$0-4].first_column); 
+ this.$ = new Pop($$[$0-4], _$[$0-4].first_line, _$[$0-4].first_column); gramatical.push("nat_pop ->  ID PUNTO RPOP PARA PARC   "); 
 break;
 case 106:
- this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("accesoAsignaStruct ->  accesoAsignaStruct PUNTO ID  "); 
 break;
-case 107: case 149:
- this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); 
+case 107:
+ this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); gramatical.push("accesoAsignaStruct ->  ID   "); 
 break;
-case 108: case 109: case 110: case 111: case 112: case 115: case 116: case 154: case 159: case 167: case 168:
- this.$ = $$[$0]; 
+case 108:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RSIN ");
+break;
+case 109:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RCOS ");
+break;
+case 110:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RTAN "); 
+break;
+case 111:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RSQRT ");
+break;
+case 112:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RLOG "); 
 break;
 case 113:
- this.$ = new Parse($$[$0-5], $$[$0-1], _$[$0-5].first_line, _$[$0-5].last_column); 
+ this.$ = new Parse($$[$0-5], $$[$0-1], _$[$0-5].first_line, _$[$0-5].last_column); gramatical.push("nat_parse ->  tipo PUNTO RPARSE PARA expr PARC ");
 break;
 case 114:
- this.$ = new To($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new To($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("nat_conversion ->  nat_conversion_tipos PARA expr PARC ");
+break;
+case 115:
+ this.$ = $$[$0]; gramatical.push("nat_conversion_tipos ->  RTOINT "); 
+break;
+case 116:
+ this.$ = $$[$0]; gramatical.push("nat_conversion_tipos ->  RTODOUBLE  "); 
 break;
 case 117:
- this.$ = TIPO.ENTERO; 
+ this.$ = TIPO.ENTERO; gramatical.push("tipo ->  RINT ");
 break;
 case 118:
- this.$ = TIPO.DECIMAL; 
+ this.$ = TIPO.DECIMAL; gramatical.push("tipo ->   RDOUBLE ");
 break;
 case 119:
- this.$ = TIPO.CADENA; 
+ this.$ = TIPO.CADENA; gramatical.push("tipo -> RSTRING ");
 break;
 case 120:
- this.$ = TIPO.CHARACTER; 
+ this.$ = TIPO.CHARACTER; gramatical.push("tipo ->  RCHAR  ");
 break;
 case 121:
- this.$ = TIPO.BOOLEANO; 
+ this.$ = TIPO.BOOLEANO; gramatical.push("tipo -> RBOOLEAN ");
 break;
 case 122:
- this.$ = TIPO.VOID; 
+ this.$ = TIPO.VOID; gramatical.push("tipo -> RVOID  ");
 break;
 case 123:
- this.$ = TIPO.STRUCT; 
+ this.$ = TIPO.STRUCT; gramatical.push("tipo -> RSTRUCT   "); 
 break;
 case 124:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MAS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MAS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr MAS expr "); 
 break;
 case 125:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MENOS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MENOS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr MENOS expr "); 
 break;
 case 126:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POR,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POR,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr -> expr MULTI expr "); 
 break;
 case 127:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.DIV,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.DIV,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr DIV expr ");
 break;
 case 128:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MOD,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MOD,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr PORCENTAJE expr  "); 
 break;
 case 129:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POT,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POT,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr POTENCIA expr "); 
 break;
 case 130:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.AMPERSON,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.AMPERSON,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr -> expr AMPERSON expr   "); 
 break;
 case 131:
- this.$ = new Aritmetica($$[$0],OperadorAritmetico.UMENOS,$$[$0], _$[$0-1].first_line, _$[$0-1].first_column, true); 
+ this.$ = new Aritmetica($$[$0],OperadorAritmetico.UMENOS,$$[$0], _$[$0-1].first_line, _$[$0-1].first_column, true); gramatical.push("expr ->  MENOS expr %prec UMINUS  "); 
 break;
-case 132: case 153:
- this.$ = $$[$0-1]; 
+case 132:
+ this.$ = $$[$0-1]; gramatical.push("expr ->  PARA expr PARC "); 
 break;
 case 133:
- this.$ = new Logica($$[$0-2], OperadorLogico.AND, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Logica($$[$0-2], OperadorLogico.AND, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr AND expr    ");
 break;
 case 134:
- this.$ = new Logica($$[$0-2], OperadorLogico.OR, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Logica($$[$0-2], OperadorLogico.OR, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr OR expr  "); 
 break;
 case 135:
- this.$ = new Logica($$[$0], OperadorLogico.NOT, null, $$[$0-1].first_line, $$[$0-1].last_column, true); 
+ this.$ = new Logica($$[$0], OperadorLogico.NOT, null, $$[$0-1].first_line, $$[$0-1].last_column, true); gramatical.push("expr -> NOT expr  "); 
 break;
 case 136:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr ->  expr MAYORQUE expr "); 
 break;
 case 137:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr MAYORIGUAL expr "); 
 break;
 case 138:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr MENORIGUAL expr "); 
 break;
 case 139:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr ->  expr MENORQUE expr  "); 
 break;
 case 140:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.IGUALIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.IGUALIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr IGUALIGUAL expr   "); 
 break;
 case 141:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.DIFERENTE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.DIFERENTE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr ->  expr DIFERENTE expr "); 
 break;
 case 142:
- this.$ = new Primitivo(Number($$[$0]), TIPO.ENTERO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(Number($$[$0]), TIPO.ENTERO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr -> ENTERO  "); 
 break;
 case 143:
- this.$ = new Primitivo(Number($$[$0]), TIPO.DECIMAL, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(Number($$[$0]), TIPO.DECIMAL, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  DECIMAL "); 
 break;
 case 144:
- $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CADENA, _$[$0].first_line, _$[$0].first_column); 
+ $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CADENA, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  CADENA "); 
 break;
 case 145:
- $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CHARACTER, _$[$0].first_line, _$[$0].first_column); 
+ $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CHARACTER, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr -> CHAR "); 
 break;
 case 146:
- this.$ = new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  NULL "); 
 break;
 case 147:
- this.$ = new Primitivo(true, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(true, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  TRUE "); 
 break;
 case 148:
- this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  FALSE "); 
+break;
+case 149:
+ this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); gramatical.push("expr -> ID "); 
 break;
 case 150:
-this.$ = new Ternario($$[$0-4], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].first_column);
+this.$ = new Ternario($$[$0-4], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].first_column); gramatical.push("expr -> expr INTERROGACION expr DOSPUNTOS expr "); 
 break;
 case 151:
- this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); 
+ this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); gramatical.push("expr ->  ID INCRE "); 
 break;
 case 152:
- this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); 
+ this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); gramatical.push("expr -> ID DECRE "); 
+break;
+case 153:
+ this.$ = $$[$0-1]; gramatical.push("expr -> CORA lista_exp_arr_c CORC  ");  
+break;
+case 154:
+ this.$ = $$[$0]; gramatical.push("expr -> llamada ");  
 break;
 case 155:
- this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
+ this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); gramatical.push("expr -> ID lista_exp "); 
 break;
 case 156:
- this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); 
+ this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); gramatical.push("expr -> rango "); 
 break;
 case 157:
- if( $$[$0] instanceof Length || $$[$0] instanceof CharOfPos ||
+ gramatical.push("expr -> ID PUNTO expr "); 
+                                        if( $$[$0] instanceof Length || $$[$0] instanceof CharOfPos ||
                                             $$[$0] instanceof subString || $$[$0] instanceof toUpper || $$[$0] instanceof toLower){
                                             this.$ = $$[$0];
                                             let identifica =new Identificador($$[$0-2] , _$[$0-2].first_line, _$[$0-2].last_column);
@@ -468,34 +1325,43 @@ case 157:
                                     
 break;
 case 158:
- this.$ = new Arreglo(TIPO.ARREGLO, $$[$0], _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Arreglo(TIPO.ARREGLO, $$[$0], _$[$0].first_line, _$[$0].first_column); gramatical.push("expr -> lista_exp_arr "); 
+break;
+case 159:
+ this.$ = $$[$0]; gramatical.push("expr -> nat_pop "); 
 break;
 case 160:
- this.$ = new Pow($$[$0-3],$$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Pow($$[$0-3],$$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("expr -> RPOW PARA expr COMA expr PARC  "); 
 break;
 case 161:
- this.$ = new Length(null, _$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new Length(null, _$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("expr ->  RLENGTH PARA PARC  "); 
 break;
 case 162:
- this.$ = new CharOfPos(null, $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new CharOfPos(null, $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> RCHAROFPOS PARA expr PARC "); 
 break;
 case 163:
- this.$ = new subString(null, $$[$0-3], $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new subString(null, $$[$0-3], $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("expr -> RSUBSTRING PARA expr COMA expr PARC  "); 
 break;
 case 164:
- this.$ = new toUpper(null, _$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new toUpper(null, _$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("expr -> RTOUPPER PARA PARC  "); 
 break;
 case 165:
- this.$ = new toLower(null, _$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new toLower(null, _$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("expr -> RTOLOWER PARA PARC "); 
 break;
 case 166:
- this.$ = new Matematicas($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new Matematicas($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> nat_matematicas PARA expr PARC "); 
+break;
+case 167:
+ this.$ = $$[$0]; gramatical.push("expr -> nat_parse "); 
+break;
+case 168:
+ this.$ = $$[$0]; gramatical.push("expr -> nat_conversion "); 
 break;
 case 169:
- this.$ = new StringN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new StringN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> RSTRING_N PARA expr PARC "); 
 break;
 case 170:
- this.$ = new TypeOfN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new TypeOfN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> RTYPEOF PARA expr PARC  "); 
 break;
 }
 },
@@ -750,6 +1616,7 @@ _handle_error:
 }};
 
     let errores = [];
+    let gramatical = [];
 
 
     /*::::::::::::::::::     AST      ::::::::::::::::::*/
@@ -1364,7 +2231,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 }
 }).call(this)}).call(this,require('_process'))
-},{"../dist/Ast/Ast":2,"../dist/Ast/Errores":3,"../dist/Expresiones/Arreglos/AccesoArr":5,"../dist/Expresiones/Arreglos/Arreglo":6,"../dist/Expresiones/Arreglos/Copiar":7,"../dist/Expresiones/Arreglos/Rango":8,"../dist/Expresiones/Identificador":9,"../dist/Expresiones/Llamada":10,"../dist/Expresiones/Operaciones/Aritmeticas":11,"../dist/Expresiones/Operaciones/Logicas":12,"../dist/Expresiones/Operaciones/Relacionales":13,"../dist/Expresiones/Primitivo":14,"../dist/Expresiones/Struct/AccesoStruct":15,"../dist/Expresiones/Ternario":16,"../dist/Instrucciones/Arreglos/DeclaracionArr":20,"../dist/Instrucciones/Arreglos/ModificacionArr":21,"../dist/Instrucciones/Asignacion":22,"../dist/Instrucciones/Ciclicas/DoWhile":23,"../dist/Instrucciones/Ciclicas/For":24,"../dist/Instrucciones/Ciclicas/ForIn":25,"../dist/Instrucciones/Ciclicas/While":26,"../dist/Instrucciones/Condicionales/Case":27,"../dist/Instrucciones/Condicionales/If":28,"../dist/Instrucciones/Condicionales/Ifsinllave":29,"../dist/Instrucciones/Condicionales/Switch":30,"../dist/Instrucciones/Declaracion":31,"../dist/Instrucciones/Metodos/Funcion":32,"../dist/Instrucciones/Metodos/Main":33,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":34,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":35,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":36,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":37,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":39,"../dist/Instrucciones/Metodos/Nativas/Length":40,"../dist/Instrucciones/Metodos/Nativas/Matematicas":41,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":42,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":43,"../dist/Instrucciones/Metodos/Nativas/Pow":44,"../dist/Instrucciones/Metodos/Nativas/StringN":45,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":46,"../dist/Instrucciones/Print":47,"../dist/Instrucciones/Struct/AsignaVariable":48,"../dist/Instrucciones/Struct/DeclararStruct":49,"../dist/Instrucciones/Struct/Struct":50,"../dist/Instrucciones/Struct/StructInStruct":51,"../dist/Instrucciones/Transferencia/Break":52,"../dist/Instrucciones/Transferencia/Continuar":53,"../dist/Instrucciones/Transferencia/Return":54,"../dist/TablaSimbolos/Simbolo":55,"../dist/TablaSimbolos/Tipo":57,"_process":61,"fs":59,"path":60}],2:[function(require,module,exports){
+},{"../dist/Ast/Ast":5,"../dist/Ast/Errores":6,"../dist/Expresiones/Arreglos/AccesoArr":8,"../dist/Expresiones/Arreglos/Arreglo":9,"../dist/Expresiones/Arreglos/Copiar":10,"../dist/Expresiones/Arreglos/Rango":11,"../dist/Expresiones/Identificador":12,"../dist/Expresiones/Llamada":13,"../dist/Expresiones/Operaciones/Aritmeticas":14,"../dist/Expresiones/Operaciones/Logicas":15,"../dist/Expresiones/Operaciones/Relacionales":16,"../dist/Expresiones/Primitivo":17,"../dist/Expresiones/Struct/AccesoStruct":18,"../dist/Expresiones/Ternario":19,"../dist/Instrucciones/Arreglos/DeclaracionArr":23,"../dist/Instrucciones/Arreglos/ModificacionArr":24,"../dist/Instrucciones/Asignacion":25,"../dist/Instrucciones/Ciclicas/DoWhile":26,"../dist/Instrucciones/Ciclicas/For":27,"../dist/Instrucciones/Ciclicas/ForIn":28,"../dist/Instrucciones/Ciclicas/While":29,"../dist/Instrucciones/Condicionales/Case":30,"../dist/Instrucciones/Condicionales/If":31,"../dist/Instrucciones/Condicionales/Ifsinllave":32,"../dist/Instrucciones/Condicionales/Switch":33,"../dist/Instrucciones/Declaracion":34,"../dist/Instrucciones/Metodos/Funcion":35,"../dist/Instrucciones/Metodos/Main":36,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Pop":37,"../dist/Instrucciones/Metodos/Nativas/Arreglos/Push":38,"../dist/Instrucciones/Metodos/Nativas/Cadenas/CharOfPos":39,"../dist/Instrucciones/Metodos/Nativas/Cadenas/subString":40,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toLower":41,"../dist/Instrucciones/Metodos/Nativas/Cadenas/toUpper":42,"../dist/Instrucciones/Metodos/Nativas/Length":43,"../dist/Instrucciones/Metodos/Nativas/Matematicas":44,"../dist/Instrucciones/Metodos/Nativas/Numericas/Parse":45,"../dist/Instrucciones/Metodos/Nativas/Numericas/To":46,"../dist/Instrucciones/Metodos/Nativas/Pow":47,"../dist/Instrucciones/Metodos/Nativas/StringN":48,"../dist/Instrucciones/Metodos/Nativas/TypeOfN":49,"../dist/Instrucciones/Print":50,"../dist/Instrucciones/Struct/AsignaVariable":51,"../dist/Instrucciones/Struct/DeclararStruct":52,"../dist/Instrucciones/Struct/Struct":53,"../dist/Instrucciones/Struct/StructInStruct":54,"../dist/Instrucciones/Transferencia/Break":55,"../dist/Instrucciones/Transferencia/Continuar":56,"../dist/Instrucciones/Transferencia/Return":57,"../dist/TablaSimbolos/Simbolo":58,"../dist/TablaSimbolos/Tipo":60,"_process":3,"fs":1,"path":2}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
@@ -1399,6 +2266,7 @@ class Ast {
         this.strEntorno = "";
         this.TSglobal = new TablaSimbolos_1.TablaSimbolos(null);
         this.generadorC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
+        this.repGramatical = new Array();
     }
     ejecutar() {
         let tree = this;
@@ -1617,7 +2485,7 @@ class Ast {
 }
 exports.Ast = Ast;
 
-},{"../G3D/GeneradorC3D":17,"../Instrucciones/Arreglos/DeclaracionArr":20,"../Instrucciones/Arreglos/ModificacionArr":21,"../Instrucciones/Asignacion":22,"../Instrucciones/Declaracion":31,"../Instrucciones/Metodos/Funcion":32,"../Instrucciones/Metodos/Main":33,"../Instrucciones/Struct/Struct":50,"../Instrucciones/Transferencia/Break":52,"../Instrucciones/Transferencia/Continuar":53,"../Instrucciones/Transferencia/Return":54,"../TablaSimbolos/TablaSimbolos":56,"./../Instrucciones/Struct/DeclararStruct":49,"./Errores":3,"./Nodo":4}],3:[function(require,module,exports){
+},{"../G3D/GeneradorC3D":20,"../Instrucciones/Arreglos/DeclaracionArr":23,"../Instrucciones/Arreglos/ModificacionArr":24,"../Instrucciones/Asignacion":25,"../Instrucciones/Declaracion":34,"../Instrucciones/Metodos/Funcion":35,"../Instrucciones/Metodos/Main":36,"../Instrucciones/Struct/Struct":53,"../Instrucciones/Transferencia/Break":55,"../Instrucciones/Transferencia/Continuar":56,"../Instrucciones/Transferencia/Return":57,"../TablaSimbolos/TablaSimbolos":59,"./../Instrucciones/Struct/DeclararStruct":52,"./Errores":6,"./Nodo":7}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Errores = void 0;
@@ -1634,7 +2502,7 @@ class Errores {
 }
 exports.Errores = Errores;
 
-},{}],4:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Nodo = void 0;
@@ -1722,7 +2590,7 @@ class Nodo {
 }
 exports.Nodo = Nodo;
 
-},{}],5:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoArr = void 0;
@@ -1945,7 +2813,7 @@ class AccesoArr {
 }
 exports.AccesoArr = AccesoArr;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":57,"./../Identificador":9,"./Rango":8}],6:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":60,"./../Identificador":12,"./Rango":11}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Arreglo = void 0;
@@ -1972,7 +2840,7 @@ class Arreglo {
 }
 exports.Arreglo = Arreglo;
 
-},{"../../Ast/Nodo":4}],7:[function(require,module,exports){
+},{"../../Ast/Nodo":7}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Copiar = void 0;
@@ -2013,7 +2881,7 @@ class Copiar {
 }
 exports.Copiar = Copiar;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4}],8:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rango = void 0;
@@ -2045,7 +2913,7 @@ class Rango {
 }
 exports.Rango = Rango;
 
-},{"../../Ast/Nodo":4}],9:[function(require,module,exports){
+},{"../../Ast/Nodo":7}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Identificador = void 0;
@@ -2152,7 +3020,7 @@ class Identificador {
 }
 exports.Identificador = Identificador;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Tipo":57}],10:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Tipo":60}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Llamada = void 0;
@@ -2255,7 +3123,7 @@ class Llamada {
 }
 exports.Llamada = Llamada;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/TablaSimbolos":56,"../TablaSimbolos/Tipo":57,"./Identificador":9}],11:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/TablaSimbolos":59,"../TablaSimbolos/Tipo":60,"./Identificador":12}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aritmetica = void 0;
@@ -2824,7 +3692,7 @@ class Aritmetica {
 }
 exports.Aritmetica = Aritmetica;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57}],12:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logica = void 0;
@@ -3013,7 +3881,7 @@ class Logica {
 }
 exports.Logica = Logica;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57,"./Aritmeticas":11,"./Relacionales":13}],13:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60,"./Aritmeticas":14,"./Relacionales":16}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Relacional = void 0;
@@ -3571,7 +4439,7 @@ class Relacional {
 }
 exports.Relacional = Relacional;
 
-},{"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57}],14:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
@@ -3642,7 +4510,7 @@ class Primitivo {
 }
 exports.Primitivo = Primitivo;
 
-},{"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Tipo":57}],15:[function(require,module,exports){
+},{"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Tipo":60}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccesoStruct = void 0;
@@ -3753,7 +4621,7 @@ class AccesoStruct {
 }
 exports.AccesoStruct = AccesoStruct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Instrucciones/Struct/Struct":50,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Identificador":9}],16:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Instrucciones/Struct/Struct":53,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Identificador":12}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ternario = void 0;
@@ -3804,7 +4672,7 @@ class Ternario {
 }
 exports.Ternario = Ternario;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../TablaSimbolos/Tipo":57}],17:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../TablaSimbolos/Tipo":60}],20:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GeneradorC3D = void 0;
@@ -4153,7 +5021,7 @@ class GeneradorC3D {
 }
 exports.GeneradorC3D = GeneradorC3D;
 
-},{"./Nativas":18}],18:[function(require,module,exports){
+},{"./Nativas":21}],21:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Nativas = void 0;
@@ -4908,7 +5776,7 @@ class Nativas {
 }
 exports.Nativas = Nativas;
 
-},{"./GeneradorC3D":17}],19:[function(require,module,exports){
+},{"./GeneradorC3D":20}],22:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Retorno = void 0;
@@ -4926,7 +5794,7 @@ class Retorno {
 }
 exports.Retorno = Retorno;
 
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionArr = void 0;
@@ -5089,7 +5957,7 @@ class DeclaracionArr {
 }
 exports.DeclaracionArr = DeclaracionArr;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Arreglos/Copiar":7,"../../TablaSimbolos/Simbolo":55}],21:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/Copiar":10,"../../TablaSimbolos/Simbolo":58}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModificacionArr = void 0;
@@ -5213,7 +6081,7 @@ class ModificacionArr {
 }
 exports.ModificacionArr = ModificacionArr;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Tipo":57}],22:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Tipo":60}],25:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
@@ -5327,7 +6195,7 @@ class Asignacion {
 }
 exports.Asignacion = Asignacion;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57,"./Transferencia/Return":54}],23:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/Tipo":60,"./Transferencia/Return":57}],26:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DoWhile = void 0;
@@ -5395,7 +6263,7 @@ class DoWhile {
 }
 exports.DoWhile = DoWhile;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],24:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],27:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
@@ -5500,7 +6368,7 @@ class For {
 }
 exports.For = For;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"./../Transferencia/Continuar":53,"./../Transferencia/Return":54}],25:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"./../Transferencia/Continuar":56,"./../Transferencia/Return":57}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForIn = void 0;
@@ -5803,7 +6671,7 @@ class ForIn {
 }
 exports.ForIn = ForIn;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Arreglos/AccesoArr":5,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../Expresiones/Identificador":9}],26:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Arreglos/AccesoArr":8,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../Expresiones/Identificador":12}],29:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.While = void 0;
@@ -5902,7 +6770,7 @@ class While {
 }
 exports.While = While;
 
-},{"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../Ast/Errores":3}],27:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../Ast/Errores":6}],30:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Case = void 0;
@@ -5986,7 +6854,7 @@ class Case {
 }
 exports.Case = Case;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],28:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
@@ -6173,7 +7041,7 @@ class If {
 }
 exports.If = If;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../G3D/Retorno":19,"./../../TablaSimbolos/Tipo":57}],29:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../G3D/Retorno":22,"./../../TablaSimbolos/Tipo":60}],32:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ifsinllave = void 0;
@@ -6355,7 +7223,7 @@ class Ifsinllave {
 }
 exports.Ifsinllave = Ifsinllave;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./../../TablaSimbolos/Tipo":57}],30:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./../../TablaSimbolos/Tipo":60}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Switch = void 0;
@@ -6617,7 +7485,7 @@ class Switch {
 }
 exports.Switch = Switch;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Transferencia/Break":52,"../Transferencia/Return":54,"./../../G3D/Retorno":19}],31:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Transferencia/Break":55,"../Transferencia/Return":57,"./../../G3D/Retorno":22}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Declaracion = void 0;
@@ -6784,7 +7652,7 @@ class Declaracion {
 }
 exports.Declaracion = Declaracion;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../Expresiones/Primitivo":14,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57}],32:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../Expresiones/Primitivo":17,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/Tipo":60}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
@@ -6871,7 +7739,7 @@ class Funcion {
 }
 exports.Funcion = Funcion;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Struct/Struct":50,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],33:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Struct/Struct":53,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],36:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
@@ -6926,7 +7794,7 @@ class Main {
 }
 exports.Main = Main;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54}],34:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pop = void 0;
@@ -6976,7 +7844,7 @@ class Pop {
 }
 exports.Pop = Pop;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],35:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7}],38:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Push = void 0;
@@ -7037,7 +7905,7 @@ class Push {
 }
 exports.Push = Push;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4}],36:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharOfPos = void 0;
@@ -7109,7 +7977,7 @@ class CharOfPos {
 }
 exports.CharOfPos = CharOfPos;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],37:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subString = void 0;
@@ -7206,7 +8074,7 @@ class subString {
 }
 exports.subString = subString;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],38:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
@@ -7259,7 +8127,7 @@ java animal = "Tigre"; println(animal.toLowercase()); //tigre
 }
 exports.toLower = toLower;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],39:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],42:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toUpper = void 0;
@@ -7312,7 +8180,7 @@ java animal = "Tigre"; println(animal.toUppercase()); //TIGRE
 }
 exports.toUpper = toUpper;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],40:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],43:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Length = void 0;
@@ -7364,7 +8232,7 @@ class Length {
 }
 exports.Length = Length;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],41:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],44:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Matematicas = void 0;
@@ -7439,7 +8307,7 @@ class Matematicas {
 }
 exports.Matematicas = Matematicas;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"./../../../Expresiones/Identificador":9}],42:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"./../../../Expresiones/Identificador":12}],45:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parse = void 0;
@@ -7523,7 +8391,7 @@ class Parse {
 }
 exports.Parse = Parse;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],43:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],46:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.To = void 0;
@@ -7597,7 +8465,7 @@ class To {
 }
 exports.To = To;
 
-},{"../../../../Ast/Errores":3,"../../../../Ast/Nodo":4,"../../../../TablaSimbolos/Tipo":57}],44:[function(require,module,exports){
+},{"../../../../Ast/Errores":6,"../../../../Ast/Nodo":7,"../../../../TablaSimbolos/Tipo":60}],47:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pow = void 0;
@@ -7648,7 +8516,7 @@ class Pow {
 }
 exports.Pow = Pow;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],45:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],48:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringN = void 0;
@@ -7695,7 +8563,7 @@ class StringN {
 }
 exports.StringN = StringN;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],46:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],49:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOfN = void 0;
@@ -7771,7 +8639,7 @@ class TypeOfN {
 }
 exports.TypeOfN = TypeOfN;
 
-},{"../../../Ast/Errores":3,"../../../Ast/Nodo":4,"../../../TablaSimbolos/Tipo":57}],47:[function(require,module,exports){
+},{"../../../Ast/Errores":6,"../../../Ast/Nodo":7,"../../../TablaSimbolos/Tipo":60}],50:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
@@ -7899,7 +8767,7 @@ class Print {
 }
 exports.Print = Print;
 
-},{"../Ast/Errores":3,"../Ast/Nodo":4,"../G3D/Retorno":19,"../TablaSimbolos/Simbolo":55,"../TablaSimbolos/Tipo":57,"./Transferencia/Return":54}],48:[function(require,module,exports){
+},{"../Ast/Errores":6,"../Ast/Nodo":7,"../G3D/Retorno":22,"../TablaSimbolos/Simbolo":58,"../TablaSimbolos/Tipo":60,"./Transferencia/Return":57}],51:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AsignaVariable = void 0;
@@ -8003,7 +8871,7 @@ class AsignaVariable {
 }
 exports.AsignaVariable = AsignaVariable;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57,"../Asignacion":22}],49:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/Tipo":60,"../Asignacion":25}],52:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclararStruct = void 0;
@@ -8142,7 +9010,7 @@ class DeclararStruct {
 }
 exports.DeclararStruct = DeclararStruct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../Expresiones/Llamada":10,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57}],50:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../Expresiones/Llamada":13,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60}],53:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Struct = void 0;
@@ -8284,7 +9152,7 @@ class Struct {
 }
 exports.Struct = Struct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/TablaSimbolos":56,"../../TablaSimbolos/Tipo":57,"../Arreglos/DeclaracionArr":20,"../Declaracion":31,"../Transferencia/Break":52,"../Transferencia/Continuar":53,"../Transferencia/Return":54,"./DeclararStruct":49,"./StructInStruct":51}],51:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/TablaSimbolos":59,"../../TablaSimbolos/Tipo":60,"../Arreglos/DeclaracionArr":23,"../Declaracion":34,"../Transferencia/Break":55,"../Transferencia/Continuar":56,"../Transferencia/Return":57,"./DeclararStruct":52,"./StructInStruct":54}],54:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StructInStruct = void 0;
@@ -8325,7 +9193,7 @@ class StructInStruct {
 }
 exports.StructInStruct = StructInStruct;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../TablaSimbolos/Simbolo":55,"../../TablaSimbolos/Tipo":57}],52:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../TablaSimbolos/Simbolo":58,"../../TablaSimbolos/Tipo":60}],55:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Detener = void 0;
@@ -8353,7 +9221,7 @@ class Detener {
 }
 exports.Detener = Detener;
 
-},{"../../Ast/Nodo":4,"./../../Ast/Errores":3}],53:[function(require,module,exports){
+},{"../../Ast/Nodo":7,"./../../Ast/Errores":6}],56:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Continuar = void 0;
@@ -8381,7 +9249,7 @@ class Continuar {
 }
 exports.Continuar = Continuar;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4}],54:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7}],57:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Return = void 0;
@@ -8447,7 +9315,7 @@ class Return {
 }
 exports.Return = Return;
 
-},{"../../Ast/Errores":3,"../../Ast/Nodo":4,"../../G3D/Retorno":19,"../../TablaSimbolos/Tipo":57,"../Struct/Struct":50}],55:[function(require,module,exports){
+},{"../../Ast/Errores":6,"../../Ast/Nodo":7,"../../G3D/Retorno":22,"../../TablaSimbolos/Tipo":60,"../Struct/Struct":53}],58:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Simbolo = void 0;
@@ -8532,7 +9400,7 @@ class Simbolo {
 }
 exports.Simbolo = Simbolo;
 
-},{}],56:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
@@ -8687,7 +9555,7 @@ class TablaSimbolos {
 }
 exports.TablaSimbolos = TablaSimbolos;
 
-},{"../Ast/Errores":3,"./Tipo":57}],57:[function(require,module,exports){
+},{"../Ast/Errores":6,"./Tipo":60}],60:[function(require,module,exports){
 "use strict";
 /**
  * @enum de Tipo nos permite enumerar los tipos del lenguaje
@@ -8737,7 +9605,7 @@ var OperadorLogico;
     OperadorLogico[OperadorLogico["OR"] = 2] = "OR";
 })(OperadorLogico = exports.OperadorLogico || (exports.OperadorLogico = {}));
 
-},{}],58:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 const { Ast } = require("./dist/Ast/Ast");
 const gramatica = require("./Analizadores/gramatica");
 const { Declaracion } = require("./dist/Instrucciones/Declaracion");
@@ -9315,6 +10183,63 @@ reporteTablaSimbolos.addEventListener('click', () => {
     CuerpoTablaSimbolos.innerHTML += content;
 });
 
+reporteGramatical.addEventListener('click', () => {
+    let myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
+    let indexTab = 0;
+    let auxiliar = 0;
+    myTabs.forEach(element => {
+        var itemA = element.querySelector("a");
+        var bandera = itemA.getAttribute('aria-selected')
+        if (bandera == 'true') {
+            currentTab = itemA.id;
+            indexTab = auxiliar;
+        }
+        auxiliar = auxiliar + 1;
+    });
+    try{
+        result = gramatica.parse(editores[indexTab].codeEditor.getValue());
+        console.log(result);
+        let cadena = ""
+        // result.reporteGramatical.forEach(()=>{
+
+        // });
+        for (let i = result.repGramatical.length -1 ; i >-1 ; i--) {
+            cadena += result.repGramatical[i] + "\n";
+          }
+
+        // entornoTraducir = result.TSglobal;
+        // let c3d = result.traducir();
+        // let c3d = result_traduccion.generadorC3d.getCode();
+        // result_traduccion.generadorC3d.clearCode();
+        // console.log(result);
+        // addNuevoTab();
+        // let tam =  editores.length;
+        // editores[tam-1].codeEditor.setValue(c3d);
+        // alert('Gramatica Correcta');
+        // let textarea =  document.querySelector('#textAreaC3d');
+        // let value = "";
+        // value += c3d;
+        // textarea.value = value;
+        // $("#textAreaC3d").val(c3d);
+        // txtC3d.append(c3d);
+        text2.setValue(cadena);
+
+        Swal.fire(
+            '¡Muy bien!',
+            '¡Se completo la traducción!',
+            'success'
+        )
+    }catch(e){
+        // alert('Grmatica Incorrecta');
+        // alert(e);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Gramatica incorrecta\n:' + e
+        });
+    }
+});
+
 function reporteAST_Traduccion(){
     let arbol = new Arbol();
     
@@ -9334,726 +10259,5 @@ function reporteAST_Traduccion(){
     });
 }
 
-},{"./Analizadores/gramatica":1,"./dist/Ast/Ast":2,"./dist/Instrucciones/Arreglos/DeclaracionArr":20,"./dist/Instrucciones/Asignacion":22,"./dist/Instrucciones/Declaracion":31,"./dist/Instrucciones/Metodos/Funcion":32,"./dist/Instrucciones/Metodos/Main":33,"./dist/Instrucciones/Struct/Struct":50}],59:[function(require,module,exports){
-
-},{}],60:[function(require,module,exports){
-(function (process){(function (){
-// 'path' module extracted from Node.js v8.11.1 (only the posix part)
-// transplited with Babel
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-'use strict';
-
-function assertPath(path) {
-  if (typeof path !== 'string') {
-    throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
-  }
-}
-
-// Resolves . and .. elements in a path with directory names
-function normalizeStringPosix(path, allowAboveRoot) {
-  var res = '';
-  var lastSegmentLength = 0;
-  var lastSlash = -1;
-  var dots = 0;
-  var code;
-  for (var i = 0; i <= path.length; ++i) {
-    if (i < path.length)
-      code = path.charCodeAt(i);
-    else if (code === 47 /*/*/)
-      break;
-    else
-      code = 47 /*/*/;
-    if (code === 47 /*/*/) {
-      if (lastSlash === i - 1 || dots === 1) {
-        // NOOP
-      } else if (lastSlash !== i - 1 && dots === 2) {
-        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
-          if (res.length > 2) {
-            var lastSlashIndex = res.lastIndexOf('/');
-            if (lastSlashIndex !== res.length - 1) {
-              if (lastSlashIndex === -1) {
-                res = '';
-                lastSegmentLength = 0;
-              } else {
-                res = res.slice(0, lastSlashIndex);
-                lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
-              }
-              lastSlash = i;
-              dots = 0;
-              continue;
-            }
-          } else if (res.length === 2 || res.length === 1) {
-            res = '';
-            lastSegmentLength = 0;
-            lastSlash = i;
-            dots = 0;
-            continue;
-          }
-        }
-        if (allowAboveRoot) {
-          if (res.length > 0)
-            res += '/..';
-          else
-            res = '..';
-          lastSegmentLength = 2;
-        }
-      } else {
-        if (res.length > 0)
-          res += '/' + path.slice(lastSlash + 1, i);
-        else
-          res = path.slice(lastSlash + 1, i);
-        lastSegmentLength = i - lastSlash - 1;
-      }
-      lastSlash = i;
-      dots = 0;
-    } else if (code === 46 /*.*/ && dots !== -1) {
-      ++dots;
-    } else {
-      dots = -1;
-    }
-  }
-  return res;
-}
-
-function _format(sep, pathObject) {
-  var dir = pathObject.dir || pathObject.root;
-  var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
-  if (!dir) {
-    return base;
-  }
-  if (dir === pathObject.root) {
-    return dir + base;
-  }
-  return dir + sep + base;
-}
-
-var posix = {
-  // path.resolve([from ...], to)
-  resolve: function resolve() {
-    var resolvedPath = '';
-    var resolvedAbsolute = false;
-    var cwd;
-
-    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-      var path;
-      if (i >= 0)
-        path = arguments[i];
-      else {
-        if (cwd === undefined)
-          cwd = process.cwd();
-        path = cwd;
-      }
-
-      assertPath(path);
-
-      // Skip empty entries
-      if (path.length === 0) {
-        continue;
-      }
-
-      resolvedPath = path + '/' + resolvedPath;
-      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
-    }
-
-    // At this point the path should be resolved to a full absolute path, but
-    // handle relative paths to be safe (might happen when process.cwd() fails)
-
-    // Normalize the path
-    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
-
-    if (resolvedAbsolute) {
-      if (resolvedPath.length > 0)
-        return '/' + resolvedPath;
-      else
-        return '/';
-    } else if (resolvedPath.length > 0) {
-      return resolvedPath;
-    } else {
-      return '.';
-    }
-  },
-
-  normalize: function normalize(path) {
-    assertPath(path);
-
-    if (path.length === 0) return '.';
-
-    var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
-    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
-
-    // Normalize the path
-    path = normalizeStringPosix(path, !isAbsolute);
-
-    if (path.length === 0 && !isAbsolute) path = '.';
-    if (path.length > 0 && trailingSeparator) path += '/';
-
-    if (isAbsolute) return '/' + path;
-    return path;
-  },
-
-  isAbsolute: function isAbsolute(path) {
-    assertPath(path);
-    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
-  },
-
-  join: function join() {
-    if (arguments.length === 0)
-      return '.';
-    var joined;
-    for (var i = 0; i < arguments.length; ++i) {
-      var arg = arguments[i];
-      assertPath(arg);
-      if (arg.length > 0) {
-        if (joined === undefined)
-          joined = arg;
-        else
-          joined += '/' + arg;
-      }
-    }
-    if (joined === undefined)
-      return '.';
-    return posix.normalize(joined);
-  },
-
-  relative: function relative(from, to) {
-    assertPath(from);
-    assertPath(to);
-
-    if (from === to) return '';
-
-    from = posix.resolve(from);
-    to = posix.resolve(to);
-
-    if (from === to) return '';
-
-    // Trim any leading backslashes
-    var fromStart = 1;
-    for (; fromStart < from.length; ++fromStart) {
-      if (from.charCodeAt(fromStart) !== 47 /*/*/)
-        break;
-    }
-    var fromEnd = from.length;
-    var fromLen = fromEnd - fromStart;
-
-    // Trim any leading backslashes
-    var toStart = 1;
-    for (; toStart < to.length; ++toStart) {
-      if (to.charCodeAt(toStart) !== 47 /*/*/)
-        break;
-    }
-    var toEnd = to.length;
-    var toLen = toEnd - toStart;
-
-    // Compare paths to find the longest common path from root
-    var length = fromLen < toLen ? fromLen : toLen;
-    var lastCommonSep = -1;
-    var i = 0;
-    for (; i <= length; ++i) {
-      if (i === length) {
-        if (toLen > length) {
-          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
-            // We get here if `from` is the exact base path for `to`.
-            // For example: from='/foo/bar'; to='/foo/bar/baz'
-            return to.slice(toStart + i + 1);
-          } else if (i === 0) {
-            // We get here if `from` is the root
-            // For example: from='/'; to='/foo'
-            return to.slice(toStart + i);
-          }
-        } else if (fromLen > length) {
-          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
-            // We get here if `to` is the exact base path for `from`.
-            // For example: from='/foo/bar/baz'; to='/foo/bar'
-            lastCommonSep = i;
-          } else if (i === 0) {
-            // We get here if `to` is the root.
-            // For example: from='/foo'; to='/'
-            lastCommonSep = 0;
-          }
-        }
-        break;
-      }
-      var fromCode = from.charCodeAt(fromStart + i);
-      var toCode = to.charCodeAt(toStart + i);
-      if (fromCode !== toCode)
-        break;
-      else if (fromCode === 47 /*/*/)
-        lastCommonSep = i;
-    }
-
-    var out = '';
-    // Generate the relative path based on the path difference between `to`
-    // and `from`
-    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
-      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
-        if (out.length === 0)
-          out += '..';
-        else
-          out += '/..';
-      }
-    }
-
-    // Lastly, append the rest of the destination (`to`) path that comes after
-    // the common path parts
-    if (out.length > 0)
-      return out + to.slice(toStart + lastCommonSep);
-    else {
-      toStart += lastCommonSep;
-      if (to.charCodeAt(toStart) === 47 /*/*/)
-        ++toStart;
-      return to.slice(toStart);
-    }
-  },
-
-  _makeLong: function _makeLong(path) {
-    return path;
-  },
-
-  dirname: function dirname(path) {
-    assertPath(path);
-    if (path.length === 0) return '.';
-    var code = path.charCodeAt(0);
-    var hasRoot = code === 47 /*/*/;
-    var end = -1;
-    var matchedSlash = true;
-    for (var i = path.length - 1; i >= 1; --i) {
-      code = path.charCodeAt(i);
-      if (code === 47 /*/*/) {
-          if (!matchedSlash) {
-            end = i;
-            break;
-          }
-        } else {
-        // We saw the first non-path separator
-        matchedSlash = false;
-      }
-    }
-
-    if (end === -1) return hasRoot ? '/' : '.';
-    if (hasRoot && end === 1) return '//';
-    return path.slice(0, end);
-  },
-
-  basename: function basename(path, ext) {
-    if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
-    assertPath(path);
-
-    var start = 0;
-    var end = -1;
-    var matchedSlash = true;
-    var i;
-
-    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
-      if (ext.length === path.length && ext === path) return '';
-      var extIdx = ext.length - 1;
-      var firstNonSlashEnd = -1;
-      for (i = path.length - 1; i >= 0; --i) {
-        var code = path.charCodeAt(i);
-        if (code === 47 /*/*/) {
-            // If we reached a path separator that was not part of a set of path
-            // separators at the end of the string, stop now
-            if (!matchedSlash) {
-              start = i + 1;
-              break;
-            }
-          } else {
-          if (firstNonSlashEnd === -1) {
-            // We saw the first non-path separator, remember this index in case
-            // we need it if the extension ends up not matching
-            matchedSlash = false;
-            firstNonSlashEnd = i + 1;
-          }
-          if (extIdx >= 0) {
-            // Try to match the explicit extension
-            if (code === ext.charCodeAt(extIdx)) {
-              if (--extIdx === -1) {
-                // We matched the extension, so mark this as the end of our path
-                // component
-                end = i;
-              }
-            } else {
-              // Extension does not match, so our result is the entire path
-              // component
-              extIdx = -1;
-              end = firstNonSlashEnd;
-            }
-          }
-        }
-      }
-
-      if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
-      return path.slice(start, end);
-    } else {
-      for (i = path.length - 1; i >= 0; --i) {
-        if (path.charCodeAt(i) === 47 /*/*/) {
-            // If we reached a path separator that was not part of a set of path
-            // separators at the end of the string, stop now
-            if (!matchedSlash) {
-              start = i + 1;
-              break;
-            }
-          } else if (end === -1) {
-          // We saw the first non-path separator, mark this as the end of our
-          // path component
-          matchedSlash = false;
-          end = i + 1;
-        }
-      }
-
-      if (end === -1) return '';
-      return path.slice(start, end);
-    }
-  },
-
-  extname: function extname(path) {
-    assertPath(path);
-    var startDot = -1;
-    var startPart = 0;
-    var end = -1;
-    var matchedSlash = true;
-    // Track the state of characters (if any) we see before our first dot and
-    // after any path separator we find
-    var preDotState = 0;
-    for (var i = path.length - 1; i >= 0; --i) {
-      var code = path.charCodeAt(i);
-      if (code === 47 /*/*/) {
-          // If we reached a path separator that was not part of a set of path
-          // separators at the end of the string, stop now
-          if (!matchedSlash) {
-            startPart = i + 1;
-            break;
-          }
-          continue;
-        }
-      if (end === -1) {
-        // We saw the first non-path separator, mark this as the end of our
-        // extension
-        matchedSlash = false;
-        end = i + 1;
-      }
-      if (code === 46 /*.*/) {
-          // If this is our first dot, mark it as the start of our extension
-          if (startDot === -1)
-            startDot = i;
-          else if (preDotState !== 1)
-            preDotState = 1;
-      } else if (startDot !== -1) {
-        // We saw a non-dot and non-path separator before our dot, so we should
-        // have a good chance at having a non-empty extension
-        preDotState = -1;
-      }
-    }
-
-    if (startDot === -1 || end === -1 ||
-        // We saw a non-dot character immediately before the dot
-        preDotState === 0 ||
-        // The (right-most) trimmed path component is exactly '..'
-        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-      return '';
-    }
-    return path.slice(startDot, end);
-  },
-
-  format: function format(pathObject) {
-    if (pathObject === null || typeof pathObject !== 'object') {
-      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
-    }
-    return _format('/', pathObject);
-  },
-
-  parse: function parse(path) {
-    assertPath(path);
-
-    var ret = { root: '', dir: '', base: '', ext: '', name: '' };
-    if (path.length === 0) return ret;
-    var code = path.charCodeAt(0);
-    var isAbsolute = code === 47 /*/*/;
-    var start;
-    if (isAbsolute) {
-      ret.root = '/';
-      start = 1;
-    } else {
-      start = 0;
-    }
-    var startDot = -1;
-    var startPart = 0;
-    var end = -1;
-    var matchedSlash = true;
-    var i = path.length - 1;
-
-    // Track the state of characters (if any) we see before our first dot and
-    // after any path separator we find
-    var preDotState = 0;
-
-    // Get non-dir info
-    for (; i >= start; --i) {
-      code = path.charCodeAt(i);
-      if (code === 47 /*/*/) {
-          // If we reached a path separator that was not part of a set of path
-          // separators at the end of the string, stop now
-          if (!matchedSlash) {
-            startPart = i + 1;
-            break;
-          }
-          continue;
-        }
-      if (end === -1) {
-        // We saw the first non-path separator, mark this as the end of our
-        // extension
-        matchedSlash = false;
-        end = i + 1;
-      }
-      if (code === 46 /*.*/) {
-          // If this is our first dot, mark it as the start of our extension
-          if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
-        } else if (startDot !== -1) {
-        // We saw a non-dot and non-path separator before our dot, so we should
-        // have a good chance at having a non-empty extension
-        preDotState = -1;
-      }
-    }
-
-    if (startDot === -1 || end === -1 ||
-    // We saw a non-dot character immediately before the dot
-    preDotState === 0 ||
-    // The (right-most) trimmed path component is exactly '..'
-    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-      if (end !== -1) {
-        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
-      }
-    } else {
-      if (startPart === 0 && isAbsolute) {
-        ret.name = path.slice(1, startDot);
-        ret.base = path.slice(1, end);
-      } else {
-        ret.name = path.slice(startPart, startDot);
-        ret.base = path.slice(startPart, end);
-      }
-      ret.ext = path.slice(startDot, end);
-    }
-
-    if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
-
-    return ret;
-  },
-
-  sep: '/',
-  delimiter: ':',
-  win32: null,
-  posix: null
-};
-
-posix.posix = posix;
-
-module.exports = posix;
-
-}).call(this)}).call(this,require('_process'))
-},{"_process":61}],61:[function(require,module,exports){
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}]},{},[58])(58)
+},{"./Analizadores/gramatica":4,"./dist/Ast/Ast":5,"./dist/Instrucciones/Arreglos/DeclaracionArr":23,"./dist/Instrucciones/Asignacion":25,"./dist/Instrucciones/Declaracion":34,"./dist/Instrucciones/Metodos/Funcion":35,"./dist/Instrucciones/Metodos/Main":36,"./dist/Instrucciones/Struct/Struct":53}]},{},[61])(61)
 });

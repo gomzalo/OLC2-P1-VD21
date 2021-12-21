@@ -26,6 +26,7 @@ export class Ast  {
     public contador : number;
     public strEntorno : string = "";
     public generadorC3d : GeneradorC3D;
+    public repGramatical : Array<string> ;
 
 
     constructor(){
@@ -40,6 +41,7 @@ export class Ast  {
         this.strEntorno= "";
         this.TSglobal = new TablaSimbolos(null);
         this.generadorC3d=GeneradorC3D.getInstancia();
+        this.repGramatical = new Array<string>();
     }
 
     public ejecutar(){

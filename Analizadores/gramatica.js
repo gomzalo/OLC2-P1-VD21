@@ -85,61 +85,125 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
    this.$ = new Ast();  this.$.instrucciones = $$[$0-1]; this.$.Errores = errores.slice();
+        // console.log(gramatical);
+                                                gramatical.push("start -> instrucciones");
+                                                this.$.repGramatical = gramatical;
                                                 return this.$; 
+                                                
 break;
 case 2:
- this.$ = $$[$0-1];if($$[$0]!=null){ this.$.push($$[$0]);} 
+ this.$ = $$[$0-1];if($$[$0]!=null){ this.$.push($$[$0]);} gramatical.push("instrucciones -> instrucciones instruccion "); 
 break;
 case 3:
- this.$= new Array(); if($$[$0]!=null){this.$.push($$[$0]); }
+ this.$= new Array(); if($$[$0]!=null){this.$.push($$[$0]); } gramatical.push("instrucciones -> instruccion "); 
 break;
-case 4: case 5: case 8: case 9: case 13: case 14: case 15: case 18: case 20: case 21: case 22: case 23: case 24: case 25:
- this.$ = $$[$0-1] 
+case 4:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> print_instr PUNTOCOMA  "); 
 break;
-case 6: case 7: case 10: case 11: case 12: case 16: case 17: case 19:
- this.$ = $$[$0] 
+case 5:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> println_instr PUNTOCOMA ");  
+break;
+case 6:
+ this.$ = $$[$0]; gramatical.push("instruccion -> main_ ");  
+break;
+case 7:
+ this.$ = $$[$0]; gramatical.push("instruccion -> funciones ");  
+break;
+case 8:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> declaracion PUNTOCOMA ");  
+break;
+case 9:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> asignacion  PUNTOCOMA ");  
+break;
+case 10:
+ this.$ = $$[$0]; gramatical.push("instruccion -> if_llav_instr ");  
+break;
+case 11:
+ this.$ = $$[$0]; gramatical.push("instruccion -> if_instr ");  
+break;
+case 12:
+ this.$ = $$[$0]; gramatical.push("instruccion -> switch_instr ");  
+break;
+case 13:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> break_instr PUNTOCOMA  ");  
+break;
+case 14:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> continue_instr PUNTOCOMA ");  
+break;
+case 15:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> return_instr PUNTOCOMA ");  
+break;
+case 16:
+ this.$ = $$[$0]; gramatical.push("instruccion -> while_instr ");  
+break;
+case 17:
+ this.$ = $$[$0]; gramatical.push("instruccion -> for_instr ");  
+break;
+case 18:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> dowhile_instr PUNTOCOMA ");  
+break;
+case 19:
+ this.$ = $$[$0]; gramatical.push("instruccion -> for_in_instr ");  
+break;
+case 20:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> decl_arr_instr PUNTOCOMA ");  
+break;
+case 21:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> llamada PUNTOCOMA ");  
+break;
+case 22:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> modif_arr_instr PUNTOCOMA ");  
+break;
+case 23:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> structs PUNTOCOMA ");  
+break;
+case 24:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> nat_push_instr PUNTOCOMA ");  
+break;
+case 25:
+ this.$ = $$[$0-1]; gramatical.push("instruccion -> nat_pop PUNTOCOMA ");  
 break;
 case 26:
  
                                                 errores.push(new Errores("Sintactico", `Error sintactico: ${yytext}.`, this._$.first_line, this._$.first_column));
-                                                this.$ =null;
+                                                this.$ =null; 
                                             
 break;
 case 27:
- this.$ = new Declaracion($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].last_column); 
+ this.$ = new Declaracion($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("declaracion -> tipo  lista_simbolos "); 
 break;
 case 28:
- this.$ = new Struct($$[$0-3],$$[$0-1],_$[$0-4].first_line, _$[$0-4].last_column); 
+ this.$ = new Struct($$[$0-3],$$[$0-1],_$[$0-4].first_line, _$[$0-4].last_column); gramatical.push("structs -> RSTRUCT ID  LLAVA instrucciones_struct LLAVC ");  
 break;
-case 29: case 57: case 78: case 94:
- this.$ = $$[$0-2]; this.$.push($$[$0]); 
+case 29:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("instrucciones_struct -> instrucciones_struct COMA attribute "); 
 break;
 case 30:
- this.$= new Array(); this.$.push($$[$0]); 
+ this.$= new Array(); this.$.push($$[$0]); gramatical.push("instrucciones_struct -> attribute "); 
 break;
 case 31:
-this.$ = new StructInStruct($$[$0-1],$$[$0],_$[$0-1].first_line, _$[$0-1].last_column); 
+this.$ = new StructInStruct($$[$0-1],$$[$0],_$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("attribute -> ID ID   "); 
 break;
 case 32:
- this.$ = new Declaracion($$[$0-1], [$$[$0]], _$[$0-1].first_line, _$[$0-1].last_column); 
+ this.$ = new Declaracion($$[$0-1], [$$[$0]], _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("attribute -> tipo  attributeDeclaStruct  "); 
 break;
 case 33:
- this.$=new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null); 
+ this.$=new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null); gramatical.push("attributeDeclaStruct -> ID "); 
 break;
 case 34:
- this.$=new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0]); 
+ this.$=new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0]); gramatical.push("attributeDeclaStruct -> ID IGUAL expr "); 
 break;
 case 35:
- this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); 
+ this.$ = $$[$0-2]; this.$.push(new Simbolo($$[$0],null,null,_$[$0-2].first_line, _$[$0-2].first_column,null)); gramatical.push("lista_simbolos -> COMA ID "); 
 break;
 case 36:
- this.$ = $$[$0-4]; this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-4].first_line, _$[$0-4].first_column,$$[$0])); 
+ this.$ = $$[$0-4]; this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-4].first_line, _$[$0-4].first_column,$$[$0])); gramatical.push("lista_simbolos -> COMA ID IGUAL expr "); 
 break;
 case 37:
- this.$ = new Array(); this.$.push(new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null)); 
+ this.$ = new Array(); this.$.push(new Simbolo($$[$0],null,null,_$[$0].first_line, _$[$0].first_column,null)); gramatical.push("lista_simbolos -> ID "); 
 break;
 case 38:
- this.$ = new Array(); this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0])); 
+ this.$ = new Array(); this.$.push(new Simbolo($$[$0-2],null,null,_$[$0-2].first_line, _$[$0-2].first_column,$$[$0])); gramatical.push("lista_simbolos -> ID IGUAL expr "); 
 break;
 case 39:
 
@@ -150,91 +214,109 @@ case 39:
                                                     // console.log("asignacion normal");
                                                     this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column);
                                                 }
+                                                gramatical.push("asignacion -> ID IGUAL expr ");
                                             
 break;
-case 40: case 68:
- this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+case 40:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("lista_simbolos -> ID INCRE "); 
 break;
-case 41: case 69:
- this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+case 41:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); gramatical.push("lista_simbolos -> ID DECRE ");
 break;
 case 42:
- this.$ = new DeclararStruct($$[$0-3],$$[$0-2],$$[$0],_$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new DeclararStruct($$[$0-3],$$[$0-2],$$[$0],_$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("lista_simbolos -> ID ID IGUAL expr "); 
 break;
 case 43:
- this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, false); 
+ this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, false); gramatical.push("print_instr -> RPRINT PARA lista_parametros PARC "); 
 break;
 case 44:
- this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); 
+ this.$ = new Print($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column, true); gramatical.push("print_instr -> RPRINTLN PARA lista_parametros PARC "); 
 break;
 case 45:
- this.$ = new If($$[$0-4], $$[$0-1], null,null, _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new If($$[$0-4], $$[$0-1], null,null, _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC  "); 
 break;
 case 46:
- this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1],null, _$[$0-10].first_line, _$[$0-10].first_column); 
+ this.$ = new If($$[$0-8], $$[$0-5], $$[$0-1],null, _$[$0-10].first_line, _$[$0-10].first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC RELSE LLAVA instrucciones LLAVC "); 
 break;
 case 47:
- this.$ = new If($$[$0-6], $$[$0-3],null, $$[$0], _$[$0-8].first_line, _$[$0-8].first_column); 
+ this.$ = new If($$[$0-6], $$[$0-3],null, $$[$0], _$[$0-8].first_line, _$[$0-8].first_column); gramatical.push("if_llav_instr -> RIF PARA expr PARC LLAVA instrucciones LLAVC RELSE if_llav_instr"); 
 break;
 case 48:
- this.$ = new Ifsinllave($$[$0-2], $$[$0], [], _$[$0-4].first_line, _$[$0-4].first_column); 
+ this.$ = new Ifsinllave($$[$0-2], $$[$0], [], _$[$0-4].first_line, _$[$0-4].first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion "); 
 break;
 case 49:
- this.$ = new Ifsinllave($$[$0-4], $$[$0-2], $$[$0], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Ifsinllave($$[$0-4], $$[$0-2], $$[$0], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion  RELSE instruccion "); 
 break;
 case 50:
- this.$ = new Ifsinllave($$[$0-4], $$[$0-2], [$$[$0]], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Ifsinllave($$[$0-4], $$[$0-2], [$$[$0]], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("if_instr -> RIF PARA expr PARC instruccion RELSE if_instr  ");  
 break;
 case 51:
- this.$ = new Switch($$[$0-4], $$[$0-1], [], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Switch($$[$0-4], $$[$0-1], [], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA lista_cases LLAVC "); 
 break;
 case 52:
- this.$ = new Switch($$[$0-6], [], $$[$0-1], _$[$0-8].first_line, _$[$0-8].first_column); 
+ this.$ = new Switch($$[$0-6], [], $$[$0-1], _$[$0-8].first_line, _$[$0-8].first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA RDEFAULT DOSPUNTOS instrucciones LLAVC "); 
 break;
 case 53:
- this.$ = new Switch($$[$0-7], $$[$0-4], $$[$0-1], _$[$0-9].first_line, _$[$0-9].first_column); 
+ this.$ = new Switch($$[$0-7], $$[$0-4], $$[$0-1], _$[$0-9].first_line, _$[$0-9].first_column); gramatical.push("switch_instr -> RSWITCH PARA expr PARC LLAVA lista_cases RDEFAULT DOSPUNTOS instrucciones LLAVC instrucciones LLAVC  "); 
 break;
 case 54:
- this.$ = $$[$0-1]; this.$.push($$[$0]); 
+ this.$ = $$[$0-1]; this.$.push($$[$0]);  gramatical.push("lista_cases -> lista_cases case  ");  
 break;
-case 55: case 58:
- this.$ = new Array(); this.$.push($$[$0]);
+case 55:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_cases -> case ");  
 break;
 case 56:
- this.$ = new Case($$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new Case($$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("case -> RCASE expr DOSPUNTOS instrucciones "); 
+break;
+case 57:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("lista_parametros -> lista_parametros COMA expr ");  
+break;
+case 58:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_parametros -> expr ");  
 break;
 case 59:
- this.$ = new Detener(_$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Detener(_$[$0].first_line, _$[$0].first_column); gramatical.push("break_instr -> RBREAK "); 
 break;
 case 60:
- this.$ = new Continuar(_$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Continuar(_$[$0].first_line, _$[$0].first_column); gramatical.push("continue_instr -> RCONTINUE "); 
 break;
 case 61:
- this.$ = new Return($$[$0],_$[$0-1].first_line, _$[$0-1].first_column); 
+ this.$ = new Return($$[$0],_$[$0-1].first_line, _$[$0-1].first_column); gramatical.push("return_instr -> RRETURN expr  "); 
 break;
 case 62:
- this.$ = new Return(new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column),_$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Return(new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column),_$[$0].first_line, _$[$0].first_column); gramatical.push("return_instr -> RRETURN "); 
 break;
 case 63:
- this.$ = new While($$[$0-4], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new While($$[$0-4], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("while_instr -> RWHILE PARA expr PARC LLAVA instrucciones LLAVC "); 
 break;
 case 64:
- this.$ = new DoWhile($$[$0-1], $$[$0-5], _$[$0-7].first_line, _$[$0-7].last_column); 
+ this.$ = new DoWhile($$[$0-1], $$[$0-5], _$[$0-7].first_line, _$[$0-7].last_column); gramatical.push("while_instr -> RWHILE PARA expr PARC LLAVA instrucciones LLAVC "); 
 break;
-case 65: case 66:
- this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); 
+case 65:
+ this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); gramatical.push("for_instr -> RFOR PARA asignacion PUNTOCOMA expr PUNTOCOMA actualizacion PARC LLAVA instrucciones LLAVC   ");  
+break;
+case 66:
+ this.$ = new For($$[$0-8], $$[$0-6], $$[$0-4], $$[$0-1], _$[$0-10].first_line, _$[$0-10].first_column); gramatical.push("for_instr -> RFOR PARA declaracion PUNTOCOMA expr PUNTOCOMA actualizacion PARC LLAVA instrucciones LLAVC"); 
 break;
 case 67:
- this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new Asignacion($$[$0-2] ,$$[$0], _$[$0-2].first_line, _$[$0-2].last_column);  gramatical.push("actualizacion -> ID IGUAL expr "); 
+break;
+case 68:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+                                                gramatical.push("actualizacion -> ID INCRE "); 
+break;
+case 69:
+ this.$ = new Asignacion($$[$0-1] ,new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false), _$[$0-1].first_line, _$[$0-1].last_column); 
+                                                gramatical.push("actualizacion -> ID DECRE ");  
 break;
 case 70:
- this.$ = new ForIn($$[$0-5], $$[$0-3], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new ForIn($$[$0-5], $$[$0-3], $$[$0-1], _$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("for_in_instr -> RFOR ID RIN expr LLAVA instrucciones LLAVC   ");  
 break;
 case 71:
- this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); 
+ this.$ = new Main($$[$0-1],_$[$0-6].first_line, _$[$0-6].first_column); gramatical.push("main_ -> RVOID RMAIN PARA PARC LLAVA instrucciones LLAVC ");  
 break;
 case 72:
- this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Main([],_$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("main_ -> RVOID RMAIN PARA PARC  LLAVA LLAVC  "); 
 break;
 case 73:
    errores.push(new Errores("Sintactico", "No hay instrucciones dentro de Main.", this._$.first_line, this._$.first_column));
@@ -242,14 +324,15 @@ case 73:
                                             
 break;
 case 74:
- this.$ = new Funcion($$[$0-5], $$[$0-6], [], $$[$0-1], _$[$0-6].first_line, _$[$0-6].last_column); 
+ this.$ = new Funcion($$[$0-5], $$[$0-6], [], $$[$0-1], _$[$0-6].first_line, _$[$0-6].last_column); gramatical.push("funciones -> tipo ID PARA PARC LLAVA instrucciones LLAVC  ");  
 break;
 case 75:
- this.$ = new Funcion($$[$0-6], $$[$0-7], $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column); 
+ this.$ = new Funcion($$[$0-6], $$[$0-7], $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column); gramatical.push("funciones ->  tipo ID PARA lista_parametros_func PARC LLAVA instrucciones LLAVC ");  
 break;
 case 76:
    this.$ = new Funcion($$[$0-6], TIPO.STRUCT, $$[$0-4], $$[$0-1], _$[$0-7].first_line, _$[$0-7].last_column);
                                                 this.$.tipoStruct = $$[$0-7];
+                                                gramatical.push("funciones ->  ID ID  PARA lista_parametros_func PARC LLAVA instrucciones LLAVC "); 
                                             
 break;
 case 77:
@@ -257,62 +340,87 @@ case 77:
                                                 this.$=null;
                                             
 break;
-case 79: case 95:
- this.$ = new Array(); this.$.push($$[$0]); 
+case 78:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("lista_parametros_func -> lista_parametros_func  COMA parametro_func  ");  
+break;
+case 79:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_parametros_func -> parametro_func ");  
 break;
 case 80:
- this.$ = {"tipo" : $$[$0-1], "arreglo": false, "id": $$[$0]}; 
+ this.$ = {"tipo" : $$[$0-1], "arreglo": false, "id": $$[$0]}; gramatical.push("parametro_func -> tipo ID ");  
 break;
 case 81:
- this.$ = {"tipo" : $$[$0-2], "arreglo": true, "id": $$[$0]}; 
+ this.$ = {"tipo" : $$[$0-2], "arreglo": true, "id": $$[$0]};  gramatical.push("parametro_func -> tipo lista_dim ID ");  
 break;
 case 82:
- this.$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $$[$0]}; 
+ this.$ = {"tipo" : TIPO.ANY, "arreglo": false, "id": $$[$0]}; gramatical.push("parametro_func -> ID ");  
 break;
 case 83:
- this.$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $$[$0], "tipoStruct": $$[$0-1]}; 
+ this.$ = {"tipo" : TIPO.STRUCT, "arreglo": false, "id": $$[$0], "tipoStruct": $$[$0-1]}; gramatical.push("parametro_func -> ID ID ");  
 break;
 case 84:
- this.$ = new Llamada($$[$0-2] , [], _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new Llamada($$[$0-2] , [], _$[$0-2].first_line, _$[$0-2].last_column); gramatical.push("llamada -> ID ");  
 break;
 case 85:
- this.$ = new Llamada($$[$0-3] , $$[$0-1] , _$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new Llamada($$[$0-3] , $$[$0-1] , _$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("llamada -> ID ");  
 break;
 case 86:
- this.$ = new DeclaracionArr($$[$0-4], $$[$0-3], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].last_column); 
+ this.$ = new DeclaracionArr($$[$0-4], $$[$0-3], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].last_column); gramatical.push("decl_arr_instr -> tipo lista_dim ID IGUAL lista_exp_arr ");  
 break;
 case 87:
- this.$ = new DeclaracionArr(null, null, $$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new DeclaracionArr(null, null, $$[$0-2], $$[$0-1], _$[$0-2].first_line, _$[$0-2].last_column); gramatical.push("decl_arr_instr -> ID IGUAL lista_exp_arr ");  
 break;
 case 88:
- this.$ = new DeclaracionArr($$[$0-2], $$[$0-1], $$[$0], null, _$[$0-2].first_line, _$[$0-2].last_column); 
+ this.$ = new DeclaracionArr($$[$0-2], $$[$0-1], $$[$0], null, _$[$0-2].first_line, _$[$0-2].last_column); gramatical.push("decl_arr_instr -> tipo lista_dim ID  ");  
 break;
 case 89:
- this.$ = $$[$0-2]; this.$.push($$[$0-1]+1); 
+ this.$ = $$[$0-2]; this.$.push($$[$0-1]+1); gramatical.push("lista_dim -> lista_dim CORA CORC    ");  
 break;
 case 90:
- this.$ = new Array(); this.$.push(1); 
+ this.$ = new Array(); this.$.push(1); gramatical.push("lista_dim -> CORA CORC ");  
 break;
-case 91: case 96:
- this.$ = $$[$0-3]; this.$.push($$[$0-1]); 
+case 91:
+ this.$ = $$[$0-3]; this.$.push($$[$0-1]); gramatical.push("lista_exp_arr -> lista_exp_arr  CORA lista_exp_arr_c CORC ");  
 break;
-case 92: case 97:
- this.$ = new Array(); this.$.push($$[$0-1]); 
+case 92:
+ this.$ = new Array(); this.$.push($$[$0-1]); gramatical.push("lista_exp_arr -> CORA lista_exp_arr_c CORC ");  
 break;
 case 93:
- this.$ = new Copiar($$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
+ this.$ = new Copiar($$[$0], _$[$0-1].first_line, _$[$0-1].first_column); gramatical.push("lista_exp_arr -> HASH ID "); 
+break;
+case 94:
+ this.$ = $$[$0-2]; this.$.push($$[$0]); gramatical.push("lista_exp_arr -> lista_exp_arr_c COMA expr "); 
+break;
+case 95:
+ this.$ = new Array(); this.$.push($$[$0]); gramatical.push("lista_exp_arr -> expr "); 
+break;
+case 96:
+ this.$ = $$[$0-3]; this.$.push($$[$0-1]); gramatical.push("lista_exp -> lista_exp CORA expr CORC "); 
+break;
+case 97:
+ this.$ = new Array(); this.$.push($$[$0-1]); gramatical.push("lista_exp -> CORA expr CORC  "); 
 break;
 case 98:
- this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new ModificacionArr($$[$0-3], $$[$0-2], $$[$0], _$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("modif_arr_instr -> ID lista_exp IGUAL expr  "); 
 break;
-case 99: case 100: case 101: case 102:
- this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; 
+case 99:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]};  gramatical.push("rango -> expr DOSPUNTOS expr  "); 
+break;
+case 100:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; gramatical.push("rango -> RBEGIN DOSPUNTOS REND ");  
+break;
+case 101:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; gramatical.push("rango -> expr DOSPUNTOS REND ");  
+break;
+case 102:
+ this.$ = {"inicio": $$[$0-2], "fin": $$[$0]}; gramatical.push("rango -> RBEGIN DOSPUNTOS expr ");  
 break;
 case 103:
- this.$ = new Push(new Identificador($$[$0-5] , _$[$0-5].first_line, _$[$0-5].last_column), $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Push(new Identificador($$[$0-5] , _$[$0-5].first_line, _$[$0-5].last_column), $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("nat_push_instr -> ID PUNTO RPUSH PARA expr PARC "); 
 break;
 case 104:
   
+                                                gramatical.push("nat_push_instr -> ID PUNTO accesoAsignaStruct IGUAL expr ");
                                                 // let first = $$[$0-4];
                                                 // if (first instanceof Identificador)
                                                 // {
@@ -326,136 +434,164 @@ case 104:
                                             
 break;
 case 105:
- this.$ = new Pop($$[$0-4], _$[$0-4].first_line, _$[$0-4].first_column); 
+ this.$ = new Pop($$[$0-4], _$[$0-4].first_line, _$[$0-4].first_column); gramatical.push("nat_pop ->  ID PUNTO RPOP PARA PARC   "); 
 break;
 case 106:
- this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new AccesoStruct($$[$0-2],new Identificador($$[$0] , _$[$0-2].first_line, _$[$0-2].last_column),_$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("accesoAsignaStruct ->  accesoAsignaStruct PUNTO ID  "); 
 break;
-case 107: case 149:
- this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); 
+case 107:
+ this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); gramatical.push("accesoAsignaStruct ->  ID   "); 
 break;
-case 108: case 109: case 110: case 111: case 112: case 115: case 116: case 154: case 159: case 167: case 168:
- this.$ = $$[$0]; 
+case 108:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RSIN ");
+break;
+case 109:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RCOS ");
+break;
+case 110:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RTAN "); 
+break;
+case 111:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RSQRT ");
+break;
+case 112:
+ this.$ = $$[$0];  gramatical.push("nat_matematicas ->  RLOG "); 
 break;
 case 113:
- this.$ = new Parse($$[$0-5], $$[$0-1], _$[$0-5].first_line, _$[$0-5].last_column); 
+ this.$ = new Parse($$[$0-5], $$[$0-1], _$[$0-5].first_line, _$[$0-5].last_column); gramatical.push("nat_parse ->  tipo PUNTO RPARSE PARA expr PARC ");
 break;
 case 114:
- this.$ = new To($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].last_column); 
+ this.$ = new To($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].last_column); gramatical.push("nat_conversion ->  nat_conversion_tipos PARA expr PARC ");
+break;
+case 115:
+ this.$ = $$[$0]; gramatical.push("nat_conversion_tipos ->  RTOINT "); 
+break;
+case 116:
+ this.$ = $$[$0]; gramatical.push("nat_conversion_tipos ->  RTODOUBLE  "); 
 break;
 case 117:
- this.$ = TIPO.ENTERO; 
+ this.$ = TIPO.ENTERO; gramatical.push("tipo ->  RINT ");
 break;
 case 118:
- this.$ = TIPO.DECIMAL; 
+ this.$ = TIPO.DECIMAL; gramatical.push("tipo ->   RDOUBLE ");
 break;
 case 119:
- this.$ = TIPO.CADENA; 
+ this.$ = TIPO.CADENA; gramatical.push("tipo -> RSTRING ");
 break;
 case 120:
- this.$ = TIPO.CHARACTER; 
+ this.$ = TIPO.CHARACTER; gramatical.push("tipo ->  RCHAR  ");
 break;
 case 121:
- this.$ = TIPO.BOOLEANO; 
+ this.$ = TIPO.BOOLEANO; gramatical.push("tipo -> RBOOLEAN ");
 break;
 case 122:
- this.$ = TIPO.VOID; 
+ this.$ = TIPO.VOID; gramatical.push("tipo -> RVOID  ");
 break;
 case 123:
- this.$ = TIPO.STRUCT; 
+ this.$ = TIPO.STRUCT; gramatical.push("tipo -> RSTRUCT   "); 
 break;
 case 124:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MAS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MAS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr MAS expr "); 
 break;
 case 125:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MENOS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MENOS,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr MENOS expr "); 
 break;
 case 126:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POR,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POR,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr -> expr MULTI expr "); 
 break;
 case 127:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.DIV,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.DIV,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr DIV expr ");
 break;
 case 128:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MOD,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.MOD,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr PORCENTAJE expr  "); 
 break;
 case 129:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POT,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.POT,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr ->  expr POTENCIA expr "); 
 break;
 case 130:
- this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.AMPERSON,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); 
+ this.$ = new Aritmetica($$[$0-2],OperadorAritmetico.AMPERSON,$$[$0], _$[$0-2].first_line, _$[$0-2].first_column, false); gramatical.push("expr -> expr AMPERSON expr   "); 
 break;
 case 131:
- this.$ = new Aritmetica($$[$0],OperadorAritmetico.UMENOS,$$[$0], _$[$0-1].first_line, _$[$0-1].first_column, true); 
+ this.$ = new Aritmetica($$[$0],OperadorAritmetico.UMENOS,$$[$0], _$[$0-1].first_line, _$[$0-1].first_column, true); gramatical.push("expr ->  MENOS expr %prec UMINUS  "); 
 break;
-case 132: case 153:
- this.$ = $$[$0-1]; 
+case 132:
+ this.$ = $$[$0-1]; gramatical.push("expr ->  PARA expr PARC "); 
 break;
 case 133:
- this.$ = new Logica($$[$0-2], OperadorLogico.AND, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Logica($$[$0-2], OperadorLogico.AND, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr AND expr    ");
 break;
 case 134:
- this.$ = new Logica($$[$0-2], OperadorLogico.OR, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Logica($$[$0-2], OperadorLogico.OR, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr OR expr  "); 
 break;
 case 135:
- this.$ = new Logica($$[$0], OperadorLogico.NOT, null, $$[$0-1].first_line, $$[$0-1].last_column, true); 
+ this.$ = new Logica($$[$0], OperadorLogico.NOT, null, $$[$0-1].first_line, $$[$0-1].last_column, true); gramatical.push("expr -> NOT expr  "); 
 break;
 case 136:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr ->  expr MAYORQUE expr "); 
 break;
 case 137:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MAYORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr MAYORIGUAL expr "); 
 break;
 case 138:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr MENORIGUAL expr "); 
 break;
 case 139:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.MENORQUE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr ->  expr MENORQUE expr  "); 
 break;
 case 140:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.IGUALIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.IGUALIGUAL, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr -> expr IGUALIGUAL expr   "); 
 break;
 case 141:
- this.$ = new Relacional($$[$0-2], OperadorRelacional.DIFERENTE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); 
+ this.$ = new Relacional($$[$0-2], OperadorRelacional.DIFERENTE, $$[$0], $$[$0-2].first_line, $$[$0-2].last_column, false); gramatical.push("expr ->  expr DIFERENTE expr "); 
 break;
 case 142:
- this.$ = new Primitivo(Number($$[$0]), TIPO.ENTERO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(Number($$[$0]), TIPO.ENTERO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr -> ENTERO  "); 
 break;
 case 143:
- this.$ = new Primitivo(Number($$[$0]), TIPO.DECIMAL, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(Number($$[$0]), TIPO.DECIMAL, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  DECIMAL "); 
 break;
 case 144:
- $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CADENA, _$[$0].first_line, _$[$0].first_column); 
+ $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CADENA, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  CADENA "); 
 break;
 case 145:
- $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CHARACTER, _$[$0].first_line, _$[$0].first_column); 
+ $$[$0] = $$[$0].slice(1, $$[$0].length-1); this.$ = new Primitivo($$[$0], TIPO.CHARACTER, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr -> CHAR "); 
 break;
 case 146:
- this.$ = new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(null, TIPO.NULO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  NULL "); 
 break;
 case 147:
- this.$ = new Primitivo(true, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(true, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  TRUE "); 
 break;
 case 148:
- this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Primitivo(false, TIPO.BOOLEANO, _$[$0].first_line, _$[$0].first_column); gramatical.push("expr ->  FALSE "); 
+break;
+case 149:
+ this.$ = new Identificador($$[$0] , _$[$0].first_line, _$[$0].last_column); gramatical.push("expr -> ID "); 
 break;
 case 150:
-this.$ = new Ternario($$[$0-4], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].first_column);
+this.$ = new Ternario($$[$0-4], $$[$0-2], $$[$0], _$[$0-4].first_line, _$[$0-4].first_column); gramatical.push("expr -> expr INTERROGACION expr DOSPUNTOS expr "); 
 break;
 case 151:
- this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); 
+ this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); gramatical.push("expr ->  ID INCRE "); 
 break;
 case 152:
- this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); 
+ this.$ = new Aritmetica(new Identificador($$[$0-1], _$[$0-1].first_line, _$[$0-1].last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $$[$0-1].first_line, $$[$0-1].last_column), $$[$0-1].first_line, $$[$0-1].last_column, false); gramatical.push("expr -> ID DECRE "); 
+break;
+case 153:
+ this.$ = $$[$0-1]; gramatical.push("expr -> CORA lista_exp_arr_c CORC  ");  
+break;
+case 154:
+ this.$ = $$[$0]; gramatical.push("expr -> llamada ");  
 break;
 case 155:
- this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); 
+ this.$ = new AccesoArr($$[$0-1], $$[$0], _$[$0-1].first_line, _$[$0-1].first_column); gramatical.push("expr -> ID lista_exp "); 
 break;
 case 156:
- this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); 
+ this.$ = new Rango(TIPO.RANGO, [$$[$0].inicio, $$[$0].fin], _$[$0].first_line, _$[$0].last_column); gramatical.push("expr -> rango "); 
 break;
 case 157:
- if( $$[$0] instanceof Length || $$[$0] instanceof CharOfPos ||
+ gramatical.push("expr -> ID PUNTO expr "); 
+                                        if( $$[$0] instanceof Length || $$[$0] instanceof CharOfPos ||
                                             $$[$0] instanceof subString || $$[$0] instanceof toUpper || $$[$0] instanceof toLower){
                                             this.$ = $$[$0];
                                             let identifica =new Identificador($$[$0-2] , _$[$0-2].first_line, _$[$0-2].last_column);
@@ -466,34 +602,43 @@ case 157:
                                     
 break;
 case 158:
- this.$ = new Arreglo(TIPO.ARREGLO, $$[$0], _$[$0].first_line, _$[$0].first_column); 
+ this.$ = new Arreglo(TIPO.ARREGLO, $$[$0], _$[$0].first_line, _$[$0].first_column); gramatical.push("expr -> lista_exp_arr "); 
+break;
+case 159:
+ this.$ = $$[$0]; gramatical.push("expr -> nat_pop "); 
 break;
 case 160:
- this.$ = new Pow($$[$0-3],$$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new Pow($$[$0-3],$$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("expr -> RPOW PARA expr COMA expr PARC  "); 
 break;
 case 161:
- this.$ = new Length(null, _$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new Length(null, _$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("expr ->  RLENGTH PARA PARC  "); 
 break;
 case 162:
- this.$ = new CharOfPos(null, $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new CharOfPos(null, $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> RCHAROFPOS PARA expr PARC "); 
 break;
 case 163:
- this.$ = new subString(null, $$[$0-3], $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); 
+ this.$ = new subString(null, $$[$0-3], $$[$0-1], _$[$0-5].first_line, _$[$0-5].first_column); gramatical.push("expr -> RSUBSTRING PARA expr COMA expr PARC  "); 
 break;
 case 164:
- this.$ = new toUpper(null, _$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new toUpper(null, _$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("expr -> RTOUPPER PARA PARC  "); 
 break;
 case 165:
- this.$ = new toLower(null, _$[$0-2].first_line, _$[$0-2].first_column); 
+ this.$ = new toLower(null, _$[$0-2].first_line, _$[$0-2].first_column); gramatical.push("expr -> RTOLOWER PARA PARC "); 
 break;
 case 166:
- this.$ = new Matematicas($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new Matematicas($$[$0-3], $$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> nat_matematicas PARA expr PARC "); 
+break;
+case 167:
+ this.$ = $$[$0]; gramatical.push("expr -> nat_parse "); 
+break;
+case 168:
+ this.$ = $$[$0]; gramatical.push("expr -> nat_conversion "); 
 break;
 case 169:
- this.$ = new StringN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new StringN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> RSTRING_N PARA expr PARC "); 
 break;
 case 170:
- this.$ = new TypeOfN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); 
+ this.$ = new TypeOfN($$[$0-1], _$[$0-3].first_line, _$[$0-3].first_column); gramatical.push("expr -> RTYPEOF PARA expr PARC  "); 
 break;
 }
 },
@@ -748,6 +893,7 @@ _handle_error:
 }};
 
     let errores = [];
+    let gramatical = [];
 
 
     /*::::::::::::::::::     AST      ::::::::::::::::::*/
