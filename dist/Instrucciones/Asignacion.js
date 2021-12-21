@@ -58,6 +58,7 @@ class Asignacion {
             let error = new Errores_1.Errores("C3d ", "Asignacion " + this.id + " -No se encontro", this.fila, this.columna);
             ;
             tree.updateConsolaPrintln(error.toString());
+            tree.Errores.push(error);
             return error;
         }
         let retActual;

@@ -147,6 +147,7 @@ class Ifsinllave {
                 }
             }
             else {
+                tree.Errores.push(new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna));
                 return new Errores_1.Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
             }
         }

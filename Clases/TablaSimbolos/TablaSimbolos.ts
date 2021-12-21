@@ -109,24 +109,26 @@ export class TablaSimbolos{
         return null;
     }
 
-    public imprimirTabla():string{
+    public imprimirTabla(cont: number):string{
         let content = "";
-        let cont = 1;
+        // let cont = 1;
         // console.log("printtable");
         for(let [k,v] of this.tabla){
             let symbol = <Simbolo>v;
-            /** DECLARACION */
-            content += `
-                <tr>
-                <th scope="row">${cont}</th>
-                <td>Declaracion</td>
-                <td>Global</td>
-                <td>${k}</td>
-                <td>${symbol.fila}</td>
-                <td>${symbol.columna}</td>
-                </tr>
-                `
-            cont++;
+            if([k,v] != null || [k,v] != undefined){
+                /** DECLARACION */
+                content += `
+                    <tr>
+                    <th scope="row">${cont}</th>
+                    <td>Declaracion</td>
+                    <td>Global</td>
+                    <td>${k}</td>
+                    <td>${symbol.fila}</td>
+                    <td>${symbol.columna}</td>
+                    </tr>
+                    `
+                cont++;
+            }
         }
         return content;
     }

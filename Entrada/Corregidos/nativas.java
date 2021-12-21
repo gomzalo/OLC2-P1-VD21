@@ -5,7 +5,7 @@ int MINZIE = 0;
 
 void apilar(int num) {
     if(stack.length() == MAXSIZE){
-        print("Pila llena");
+        println("Pila llena");
     }
     else{
         stack.push(num);
@@ -14,7 +14,7 @@ void apilar(int num) {
 
 void desapilar(){
     if(stack.length() == MINZIE){
-        print("Pila llena");
+        println("Pila llena");
         return;
     }
     else{
@@ -53,7 +53,8 @@ void main(){
     for i in stack{
         temp = temp & "|" & i & "|" & stack[i] & "|\n";
     }
-    println("Pos | Val \n",temp);
+    println("Pos | Val ");
+    println(temp);
 
     vaciar();
     desapilar();

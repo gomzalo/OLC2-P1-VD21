@@ -129,15 +129,91 @@ export class Ast  {
         let tree = this;
         tree.generadorC3d.clearCode();
         tree.setTSGlobal(this.TSglobal);
+        // console.log("ENTRO A TRANSLATE AST: ");
+        // 1ERA PASADA: 
+        // GUARDAR FUNCIONES  Y METODOS
+        for(let instr of this.instrucciones){
+            // let value = null;
+            if(instr instanceof Funcion)
+            {
+                this.addFunction(instr);
+            }
+            if(instr instanceof Struct)
+            {
+                this.addStruct(instr);
+            }
+            if(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof DeclaracionArr || instr instanceof DeclararStruct || instr instanceof ModificacionArr)
+            {
+                console.log("ENTRO A DECLARACION GLOBAL: ");
 
-        // 1er recorrido
-        
+                let value = instr.translate3d(this.TSglobal,tree);
+                console.log(value);
+                if (value instanceof Errores)
+                {
+                    this.getErrores().push(value);
+                    this.updateConsolaPrintln(value.toString());
+                }
+                if( value instanceof Detener ){
+                    let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+                if( value instanceof Continuar){
+                    let error = new Errores("Semantico", "Sentencia Continue fuera de Instruccion Ciclo", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+                if( value instanceof Return){
+                    let error = new Errores("Semantico", "Sentencia Return fuera de Metodos/Control/Ciclos", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                }
+            }
+        }
 
-        //2
+        // 2DA PASADA
+        // EJECUTAMOS TODAS LAS FUNCIONES
+        for(let instr of this.instrucciones){
+            let countMain = 0;
+            if (instr instanceof Main)
+            {
+                countMain++;
+                if (countMain == 2)
+                {
+                    let error = new Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
+                    this.getErrores().push(error);
+                    this.updateConsolaPrintln(error.toString());
+                    break;
+                }
+                console.log("ENTRO A DECLARACION GLOBAL: ");
+                let value = instr.translate3d(this.TSglobal,tree);   
+                // if( value instanceof Detener ){
+                //     let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
+                //     this.getErrores().push(error);
+                //     this.updateConsolaPrintln(error.toString());
+                // }
+                // if( value instanceof Continuar){
+                //     let error = new Errores("Semantico", "Sentencia Continue fuera de Instruccion Ciclo", instr.fila, instr.columna);
+                //     this.getErrores().push(error);
+                //     this.updateConsolaPrintln(error.toString());
+                // }
+            }
+            // instr.ejecutar(this.TSglobal, this);
+        };
 
-        this.instrucciones.forEach(instr => {
-            instr.translate3d(this.TSglobal, tree)
-        });
+        // 3RA PASADA
+        // VALIDACION FUERA DE MAIN
+        for( let instr of this.instrucciones){
+            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct || instr instanceof DeclaracionArr || instr instanceof ModificacionArr))
+            {
+                let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
+                this.getErrores().push(error);
+                this.updateConsolaPrintln(error.toString());
+            }
+        }
+        // this.instrucciones.forEach(instr => {
+        //     instr.translate3d(this.TSglobal, tree)
+        // });
         let txtC3d = this.generadorC3d.getCode();
         // console.log(txtC3d)
         this.printInHtmlC3d(txtC3d);
@@ -269,7 +345,13 @@ export class Ast  {
          * >>> GRAFICANDO
          */
         this.dot = ""
-        this.dot += "digraph {\n" 
+        this.dot += "digraph {\n"
+        this.dot += `\nbgcolor="mistyrose";`
+        this.dot += `\ngraph[color = "lightcyan:mistyrose", fontcolor = "darkslateblue", fontname = serif, style = filled, label = "AST"];`
+        this.dot += `\nnode[shape = egg, style = filled, color = "gray9", fillcolor = navyblue, fontcolor = white];`
+        this.dot += `\nedge[color = "deeppink"];`
+        this.dot += "\n"
+        this.dot += "\n"
         this.dot += "n0[label=\"" +raiz.getToken().replace("\"","")  + "\"];\n";
         this.contador = 1;
         console.log(raiz);

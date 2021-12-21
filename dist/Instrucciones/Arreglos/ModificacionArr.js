@@ -6,6 +6,14 @@ const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 class ModificacionArr {
     //ID lista_exp IGUAL expr
+    /**
+     * @function ModificacionArr Modifica un arreglo ya declarado.
+     * @param id ID del arreglo a modificar.
+     * @param expresiones Posicion del arreglo a modificar.
+     * @param valor Nuevo valor que se desea asignar en la posicion indicada al arreglo.
+     * @param fila
+     * @param columna
+     */
     constructor(id, expresiones, valor, fila, columna) {
         this.arreglo = true;
         this.dim = 0;

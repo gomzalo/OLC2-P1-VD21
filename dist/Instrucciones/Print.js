@@ -24,6 +24,14 @@ class Print {
             if (typeof valor == "undefined") {
                 return;
             }
+            // if(typeof valor == "string"){
+            //     console.log("val es str");
+            //     console.log(valor);
+            //     // if(valor.includes("\\n")){
+            //     // valor.replace(/\n/g,"\\n");
+            //     // console.log(valor.replace(/\n/g,"\\n"));
+            //     // }
+            // }
             // Validaciones de TIPOS A Imprimir
             if (valor instanceof Errores_1.Errores) {
                 return valor;

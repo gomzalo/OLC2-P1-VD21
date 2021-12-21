@@ -26,8 +26,6 @@ export  class Declaracion implements Instruccion{
     ejecutar(table: TablaSimbolos, tree: Ast) {
 
         for(let simbolo of this.simbolos){
-            
-
             let variable = simbolo as Simbolo;
             // console.log(variable.id)
             if(variable.valor != null){
@@ -85,8 +83,9 @@ export  class Declaracion implements Instruccion{
 
         }
     }
+
     translate3d(table: TablaSimbolos, tree: Ast) {
-        console.log("declaracion")
+        // console.log("declaracion")
         const genc3d = tree.generadorC3d;
         for(let simbolo of this.simbolos)
         {
@@ -126,18 +125,19 @@ export  class Declaracion implements Instruccion{
                 /// arreglos en clase arreglo
 
             }
-            console.log(valor)
-            console.log(this.tipo)
-            if (this.tipo !== valor.tipo){
-                let error = new Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
+            // console.log(valor)
+            // console.log(this.tipo)
+            if (this.tipo != valor.tipo){
+                let error = new Errores("\nC3D ", "Declaracion " + variable.id + " - No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 tree.updateConsolaPrintln(error.toString());
+                tree.Errores.push(error);
                 return error;
             }
 
             // Verificar si guardar
             let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,"");
             nuevo_simb.posicion = table.size;
-            console.log(nuevo_simb);
+            // console.log(nuevo_simb);
             // nuevo_simb.isRef=true;
             let res_simb = table.setSymbolTabla(nuevo_simb);
             if(res_simb instanceof Errores){
@@ -180,6 +180,7 @@ export  class Declaracion implements Instruccion{
 
         }
     }
+
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("DECLARACION","");
         for (let sim of this.simbolos)

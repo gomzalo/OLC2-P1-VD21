@@ -166,6 +166,7 @@ export class If implements Instruccion{
                     genc3d.gen_Label(lb_exit);
                 }
             }else{
+                tree.Errores.push(new Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna));
                 return new Errores("Semantico", "Tipo de dato no booleano en IF", this.fila, this.columna);
             }
         }

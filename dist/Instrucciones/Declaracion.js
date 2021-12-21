@@ -71,7 +71,7 @@ class Declaracion {
     }
     translate3d(table, tree) {
         var _a;
-        console.log("declaracion");
+        // console.log("declaracion")
         const genc3d = tree.generadorC3d;
         for (let simbolo of this.simbolos) {
             let variable = simbolo;
@@ -102,17 +102,18 @@ class Declaracion {
                 }
                 /// arreglos en clase arreglo
             }
-            console.log(valor);
-            console.log(this.tipo);
-            if (this.tipo !== valor.tipo) {
-                let error = new Errores_1.Errores("C3d ", "Declaracion " + variable.id + " -No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
+            // console.log(valor)
+            // console.log(this.tipo)
+            if (this.tipo != valor.tipo) {
+                let error = new Errores_1.Errores("\nC3D ", "Declaracion " + variable.id + " - No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
                 tree.updateConsolaPrintln(error.toString());
+                tree.Errores.push(error);
                 return error;
             }
             // Verificar si guardar
             let nuevo_simb = new Simbolo_1.Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
             nuevo_simb.posicion = table.size;
-            console.log(nuevo_simb);
+            // console.log(nuevo_simb);
             // nuevo_simb.isRef=true;
             let res_simb = table.setSymbolTabla(nuevo_simb);
             if (res_simb instanceof Errores_1.Errores) {

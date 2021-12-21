@@ -11,7 +11,6 @@ var myTab = document.getElementById('myTab');
 var itemAbrir = document.getElementById('itemAbrir');
 let result;
 let entornoAnalizar;
-let entornoTraducir;
 
 var text2 = CodeMirror.fromTextArea(document.getElementById("textAreaC3d"),{
     mode: "text/x-csrc",
@@ -248,7 +247,7 @@ compilar.addEventListener('click', () => {
         // result.Errores = gramatica.errores.slice()
         console.log(result);
         result.ejecutar();
-        console.log(result.TSglobal);
+        // console.log(result.TSglobal);
         entornoAnalizar = result.TSglobal;
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
@@ -319,7 +318,7 @@ traducirProyecto.addEventListener('click', () => {
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
         // console.log(result_traduccion);
-        entornoTraducir = result.TSglobal;
+        entornoAnalizar = result.TSglobal;
         let c3d = result.traducir();
         // let c3d = result_traduccion.generadorC3d.getCode();
         // result_traduccion.generadorC3d.clearCode();
@@ -360,34 +359,37 @@ reporteErrores.addEventListener('click', () => {
     
     let aux = 1;
     //alert("Tam: "+listaErrores.length);
-    result.Errores.forEach(
-        element =>{
-            let textoAuxilarTipo = "";
-            if( element.tipo == "Lexico" ){
-                textoAuxilarTipo = "Lexico";
-                //texto += "\n--Error Lexico "+"Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
-            }else if(element.tipo == "Sintactico"){
-                textoAuxilarTipo = "Sintactico";
-                //texto += "\n--Error Sintactico "+"Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
-            }
-            else{
-                textoAuxilarTipo = "Semantico";
-                //texto += "\n--Error Semántico "+" Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
-            }
+    if(result.Errores != null || result.Errores != undefined){
+        result.Errores.forEach(
+            element =>{
+                let textoAuxilarTipo = "";
+                if( element.tipo == "Lexico" ){
+                    textoAuxilarTipo = "Lexico";
+                    //texto += "\n--Error Lexico "+"Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
+                }else if(element.tipo == "Sintactico"){
+                    textoAuxilarTipo = "Sintactico";
+                    //texto += "\n--Error Sintactico "+"Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
+                }
+                else{
+                    textoAuxilarTipo = "Semantico";
+                    //texto += "\n--Error Semántico "+" Descripcion: "+element.getMensaje()+" Fila: "+element.getFila()+ " Columna: "+element.getColumna();
+                }
 
-            CuerpoTablaErrores.innerHTML += `
-            <tr>
-            <th scope="row">${aux}</th>
-            <td>${textoAuxilarTipo}</td>
-            <td>${element.descripcion}</td>
-            <td>${element.fila}</td>
-            <td>${element.columna}</td>
-            </tr>
-            `
-            aux++;
-            
-        }
-    );
+                CuerpoTablaErrores.innerHTML += `
+                <tr>
+                <th scope="row">${aux}</th>
+                <td>${textoAuxilarTipo}</td>
+                <td>${element.descripcion}</td>
+                <td>${element.fila}</td>
+                <td>${element.columna}</td>
+                </tr>
+                `
+                aux++;
+                
+            }
+        );
+    }
+    result.Errores = [];
 
 });
 
@@ -395,48 +397,147 @@ reporteTablaSimbolos.addEventListener('click', () => {
     CuerpoTablaSimbolos.innerHTML = '';
     let content = "";
     let contador = 1;
-    result.instrucciones.forEach(instruccion => {
-        // :::::::::::::::::::  FUNCIONES    :::::::::::::::::::
-        if(instruccion instanceof Funcion){
-            content += `
-            <tr>
-            <th scope="row">${contador}</th>
-            <td>Función</td>
-            <td>Global</td>
-            <td>${instruccion.id}</td>
-            <td>${instruccion.fila}</td>
-            <td>${instruccion.columna}</td>
-            </tr>
-            `
-            contador++;
-            // ________     Parametros main  ________
-            if(instruccion.parameters != null){
-                instruccion.parameters.forEach(parametros_funcion => {
-                    // .........    Arreglo de parametros     .........
-                        content += `
-                        <tr>
-                        <th scope="row">${contador}</th>
-                        <td>Parametro</td>
-                        <td>Funcion ${instruccion.id}</td>
-                        <td>${parametros_funcion.id}</td>
-                        <td>${instruccion.fila}</td>
-                        <td>${instruccion.columna}</td>
-                        </tr>
-                        `
-                        contador++;
-                });
+    if(result.instrucciones != null || result.instrucciones != undefined){
+        result.instrucciones.forEach(instruccion => {
+            // :::::::::::::::::::  FUNCIONES    :::::::::::::::::::
+            if(instruccion instanceof Funcion){
+                content += `
+                <tr>
+                <th scope="row">${contador}</th>
+                <td>Función</td>
+                <td>Global</td>
+                <td>${instruccion.id}</td>
+                <td>${instruccion.fila}</td>
+                <td>${instruccion.columna}</td>
+                </tr>
+                `
+                contador++;
+                // ________     Parametros main  ________
+                if(instruccion.parameters != null){
+                    instruccion.parameters.forEach(parametros_funcion => {
+                        // .........    Arreglo de parametros     .........
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Parametro</td>
+                            <td>Funcion ${instruccion.id}</td>
+                            <td>${parametros_funcion.id}</td>
+                            <td>${instruccion.fila}</td>
+                            <td>${instruccion.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                    });
+                }
+                // ________     Instrucciones funciones  ________
+                if(instruccion.instructions != null){
+                    instruccion.instructions.forEach(instrucciones_funcion => {
+                        // .........    Declaracion     .........
+                        if(instrucciones_funcion instanceof Declaracion){
+                            instrucciones_funcion.simbolos.forEach(simbolo_decl =>{
+                                content += `
+                                <tr>
+                                <th scope="row">${contador}</th>
+                                <td>Declaracion</td>
+                                <td>Funcion ${instruccion.id}</td>
+                                <td>${simbolo_decl.id}</td>
+                                <td>${simbolo_decl.fila}</td>
+                                <td>${simbolo_decl.columna}</td>
+                                </tr>
+                                `
+                                contador++;
+                            });
+                        } // .........    Asignacion     .........
+                        else if(instrucciones_funcion instanceof Asignacion){
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Asignacion</td>
+                            <td>Funcion ${instruccion.id}</td>
+                            <td>${instrucciones_funcion.id}</td>
+                            <td>${instrucciones_funcion.fila}</td>
+                            <td>${instrucciones_funcion.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                        } // .........    Declaracion arreglo     .........
+                        else if(instrucciones_funcion instanceof DeclaracionArr){
+                                content += `
+                                <tr>
+                                <th scope="row">${contador}</th>
+                                <td>Arreglo</td>
+                                <td>Funcion ${instruccion.id}</td>
+                                <td>${instrucciones_funcion.id}</td>
+                                <td>${instrucciones_funcion.fila}</td>
+                                <td>${instrucciones_funcion.columna}</td>
+                                </tr>
+                                `
+                                contador++;
+                        }
+                    });
+                }
             }
-            // ________     Instrucciones funciones  ________
-            if(instruccion.instructions != null){
-                instruccion.instructions.forEach(instrucciones_funcion => {
-                    // .........    Declaracion     .........
-                    if(instrucciones_funcion instanceof Declaracion){
-                        instrucciones_funcion.simbolos.forEach(simbolo_decl =>{
+            // :::::::::::::::::::      STRUCTS    :::::::::::::::::::
+            else if(instruccion instanceof Struct){
+                content += `
+                <tr>
+                <th scope="row">${contador}</th>
+                <td>Struct</td>
+                <td>Global</td>
+                <td>${instruccion.id}</td>
+                <td>${instruccion.fila}</td>
+                <td>${instruccion.columna}</td>
+                </tr>
+                `
+                contador++; 
+                // ________     Instrucciones structs  ________
+                if(instruccion.instructions != null){
+                    instruccion.instructions.forEach(instrucciones_struct => {
+                        // .........    Declaracion     .........
+                        if(instrucciones_struct instanceof Declaracion){
                             content += `
                             <tr>
                             <th scope="row">${contador}</th>
                             <td>Declaracion</td>
-                            <td>Funcion ${instruccion.id}</td>
+                            <td>Struct ${instruccion.id}</td>
+                            <td>${instrucciones_struct.simbolos[0].id}</td>
+                            <td>${instrucciones_struct.fila}</td>
+                            <td>${instrucciones_struct.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                        } // .........    Declaracion arreglo     .........
+                        else if(instrucciones_struct instanceof DeclaracionArr){
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Arreglo</td>
+                            <td>Struct ${instruccion.id}</td>
+                            <td>${instrucciones_struct.id}</td>
+                            <td>${instrucciones_struct.fila}</td>
+                            <td>${instrucciones_struct.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                    }
+                    });
+                }
+            }
+            // :::::::::::::::::::      MAIN    :::::::::::::::::::
+            else if(instruccion instanceof  Main){
+                // ________     Instrucciones main  ________
+                instruccion.instructions.forEach(instruccion_main => {
+                    // .........    Declaracion     .........
+                    
+                    if(instruccion_main instanceof Declaracion){
+                    //     console.log("decl en main");
+                    // console.log(instruccion_main);
+                        instruccion_main.simbolos.forEach(simbolo_decl =>{
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Declaracion</td>
+                            <td>Main</td>
                             <td>${simbolo_decl.id}</td>
                             <td>${simbolo_decl.fila}</td>
                             <td>${simbolo_decl.columna}</td>
@@ -445,119 +546,11 @@ reporteTablaSimbolos.addEventListener('click', () => {
                             contador++;
                         });
                     } // .........    Asignacion     .........
-                    else if(instrucciones_funcion instanceof Asignacion){
+                    else if(instruccion_main instanceof Asignacion){
                         content += `
                         <tr>
                         <th scope="row">${contador}</th>
                         <td>Asignacion</td>
-                        <td>Funcion ${instruccion.id}</td>
-                        <td>${instrucciones_funcion.id}</td>
-                        <td>${instrucciones_funcion.fila}</td>
-                        <td>${instrucciones_funcion.columna}</td>
-                        </tr>
-                        `
-                        contador++;
-                    } // .........    Declaracion arreglo     .........
-                    else if(instrucciones_funcion instanceof DeclaracionArr){
-                            content += `
-                            <tr>
-                            <th scope="row">${contador}</th>
-                            <td>Arreglo</td>
-                            <td>Funcion ${instruccion.id}</td>
-                            <td>${instrucciones_funcion.id}</td>
-                            <td>${instrucciones_funcion.fila}</td>
-                            <td>${instrucciones_funcion.columna}</td>
-                            </tr>
-                            `
-                            contador++;
-                    }
-                });
-            }
-        }
-        // :::::::::::::::::::      STRUCTS    :::::::::::::::::::
-        else if(instruccion instanceof Struct){
-            content += `
-            <tr>
-            <th scope="row">${contador}</th>
-            <td>Struct</td>
-            <td>Global</td>
-            <td>${instruccion.id}</td>
-            <td>${instruccion.fila}</td>
-            <td>${instruccion.columna}</td>
-            </tr>
-            `
-            contador++; 
-            // ________     Instrucciones structs  ________
-            if(instruccion.instructions != null){
-                instruccion.instructions.forEach(instrucciones_struct => {
-                    // .........    Declaracion     .........
-                    if(instrucciones_struct instanceof Declaracion){
-                        content += `
-                        <tr>
-                        <th scope="row">${contador}</th>
-                        <td>Declaracion</td>
-                        <td>Struct ${instruccion.id}</td>
-                        <td>${instrucciones_struct.simbolos[0].id}</td>
-                        <td>${instrucciones_struct.fila}</td>
-                        <td>${instrucciones_struct.columna}</td>
-                        </tr>
-                        `
-                        contador++;
-                    } // .........    Declaracion arreglo     .........
-                    else if(instrucciones_struct instanceof DeclaracionArr){
-                        content += `
-                        <tr>
-                        <th scope="row">${contador}</th>
-                        <td>Arreglo</td>
-                        <td>Struct ${instruccion.id}</td>
-                        <td>${instrucciones_struct.id}</td>
-                        <td>${instrucciones_struct.fila}</td>
-                        <td>${instrucciones_struct.columna}</td>
-                        </tr>
-                        `
-                        contador++;
-                }
-                });
-            }
-        }
-        // :::::::::::::::::::      MAIN    :::::::::::::::::::
-        else if(instruccion instanceof  Main){
-            // ________     Instrucciones main  ________
-            instruccion.instructions.forEach(instruccion_main => {
-                // .........    Declaracion     .........
-                if(instruccion_main instanceof Declaracion){
-                    instruccion_main.simbolos.forEach(simbolo_decl =>{
-                        content += `
-                        <tr>
-                        <th scope="row">${contador}</th>
-                        <td>Declaracion</td>
-                        <td>Main</td>
-                        <td>${simbolo_decl.id}</td>
-                        <td>${simbolo_decl.fila}</td>
-                        <td>${simbolo_decl.columna}</td>
-                        </tr>
-                        `
-                        contador++;
-                    });
-                } // .........    Asignacion     .........
-                else if(instruccion_main instanceof Asignacion){
-                    content += `
-                    <tr>
-                    <th scope="row">${contador}</th>
-                    <td>Asignacion</td>
-                    <td>Main</td>
-                    <td>${instruccion_main.id}</td>
-                    <td>${instruccion_main.fila}</td>
-                    <td>${instruccion_main.columna}</td>
-                    </tr>
-                    `
-                    contador++;
-                } // .........    Declaracion arreglo     .........
-                else if(instruccion_main instanceof DeclaracionArr){
-                        content += `
-                        <tr>
-                        <th scope="row">${contador}</th>
-                        <td>Arreglo</td>
                         <td>Main</td>
                         <td>${instruccion_main.id}</td>
                         <td>${instruccion_main.fila}</td>
@@ -565,13 +558,28 @@ reporteTablaSimbolos.addEventListener('click', () => {
                         </tr>
                         `
                         contador++;
-                }
-            });
-        }
-    });
-    content += entornoAnalizar.imprimirTabla();
-
-    // let texto = entornoAnalizar.imprimirEntorno();
+                    } // .........    Declaracion arreglo     .........
+                    else if(instruccion_main instanceof DeclaracionArr){
+                            content += `
+                            <tr>
+                            <th scope="row">${contador}</th>
+                            <td>Arreglo</td>
+                            <td>Main</td>
+                            <td>${instruccion_main.id}</td>
+                            <td>${instruccion_main.fila}</td>
+                            <td>${instruccion_main.columna}</td>
+                            </tr>
+                            `
+                            contador++;
+                    }
+                });
+            }
+        });
+    }
+    if((typeof entornoAnalizar.imprimirTabla() != "undefined") || (typeof entornoAnalizar.imprimirTabla() != "null")){
+        // console.log("entro a imprimirTabla ");
+        content += entornoAnalizar.imprimirTabla(contador);
+    }
     CuerpoTablaSimbolos.innerHTML += content;
 });
 

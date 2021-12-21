@@ -10,13 +10,15 @@
 %lex
 
 %options case-sensitive
-
+%x STRING_S
 
 escapechar                          [\'\"\\bfnrtv]
 escape                              \\{escapechar}
 acceptedcharsdouble                 [^\"\\]+
 stringdouble                        {escape}|{acceptedcharsdouble}
 stringliteral                       \"{stringdouble}*\"
+
+
 
 acceptedcharssingle                 [^\'\\]
 stringsingle                        {escape}|{acceptedcharssingle}
@@ -143,15 +145,26 @@ BSL                                 "\\".
 (([0-9]+"."[0-9]*)|("."[0-9]+))     return 'DECIMAL';
 [0-9]+                              return 'ENTERO';
 [a-zA-Z_][a-zA-Z0-9_ñÑ]*            return 'ID';
-{stringliteral}                     return 'CADENA';
+/* {stringliteral}                     return 'CADENA'; */
 {charliteral}                       return 'CHAR';
+["]                           {    string = ""; this.begin("STRING_S"); }
+[']                           {    string = ""; this.begin("STRING_S"); }
+<STRING_S>\"                   %{    this.begin('INITIAL'); yytext=""; yytext=string;  return 'CADENA'; %}      
+<STRING_S>[\']                 %{    this.begin('INITIAL'); yytext=""; yytext=string;  return 'CADENA'; %}      
+<STRING_S>[^\n\r\"\\']+        %{    string+=yytext;  %}
+<STRING_S>'\t'                 %{    string+="\t";    %}
+<STRING_S>'\n'                 %{    string+="\n";    %}
+<STRING_S>'\r'                 %{    string+="\r";    %}
+<STRING_S>'\\"'                %{    string+='\"';    %}
+<STRING_S>'\\'                 %{    string+='\\';    %}
 /*..............     Error lexico      ...............*/
 .       {
             // console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
             errores.push(new Errores("Lexico", `Error lexico '${yytext}'.`, yylloc.first_line, yylloc.first_column));
         }
 /*..............     Espacios      ...............*/
-[\r\n\t]+                  {/* skip whitespace */}
+[ \r\t]+                       {/* skip whitespace */}
+\n                            {}
 
 <<EOF>>                     return 'EOF'
 
@@ -521,7 +534,7 @@ llamada :
 decl_arr_instr:
         tipo lista_dim ID
         IGUAL lista_exp_arr                 { $$ = new DeclaracionArr($1, $2, $3, $5, @1.first_line, @1.last_column); }
-    |   ID IGUAL lista_exp_arr              { $$ = new DeclaracionArr(null, null, $1, $2, @1.first_line, @1.last_column); }
+    |   ID IGUAL lista_exp_arr              { $$ = new DeclaracionArr(null, null, $1, $3, @1.first_line, @1.last_column); }
     |   tipo lista_dim ID                   { $$ = new DeclaracionArr($1, $2, $3, null, @1.first_line, @1.last_column); }
     ;
 // ------------     Dimensiones
@@ -535,6 +548,7 @@ lista_exp_arr:
         CORA lista_exp_arr_c CORC           { $$ = $1; $$.push($3); }
     |   CORA lista_exp_arr_c CORC           { $$ = new Array(); $$.push($2); }
     |   HASH ID                             { $$ = new Copiar($2, @1.first_line, @1.first_column); }
+    |   CORA CORC                           { $$ = "[]"; }
     ;
 // ------------     Lista expresiones arr c
 lista_exp_arr_c:
@@ -641,7 +655,7 @@ expr:
     |   expr DIFERENTE expr         { $$ = new Relacional($1, OperadorRelacional.DIFERENTE, $3, $1.first_line, $1.last_column, false); }
     |   ENTERO                      { $$ = new Primitivo(Number($1), TIPO.ENTERO, @1.first_line, @1.first_column); }
     |   DECIMAL                     { $$ = new Primitivo(Number($1), TIPO.DECIMAL, @1.first_line, @1.first_column); }
-    |   CADENA                      { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
+    |   CADENA                      { /**$1 = $1.slice(1, $1.length-1);*/ $$ = new Primitivo($1, TIPO.CADENA, @1.first_line, @1.first_column); }
     |   CHAR                        { $1 = $1.slice(1, $1.length-1); $$ = new Primitivo($1, TIPO.CHARACTER, @1.first_line, @1.first_column); }
     |   NULL                        { $$ = new Primitivo(null, TIPO.NULO, @1.first_line, @1.first_column); }
     |   TRUE                        { $$ = new Primitivo(true, TIPO.BOOLEANO, @1.first_line, @1.first_column); }

@@ -18,6 +18,14 @@ export  class ModificacionArr implements Instruccion{
     public arreglo = true;
 
     //ID lista_exp IGUAL expr
+    /**
+     * @function ModificacionArr Modifica un arreglo ya declarado.
+     * @param id ID del arreglo a modificar.
+     * @param expresiones Posicion del arreglo a modificar.
+     * @param valor Nuevo valor que se desea asignar en la posicion indicada al arreglo.
+     * @param fila 
+     * @param columna 
+     */
     constructor(id, expresiones, valor, fila, columna){
         this.id = id;
         this.expresiones = expresiones;

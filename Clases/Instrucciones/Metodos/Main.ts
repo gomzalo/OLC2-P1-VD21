@@ -19,7 +19,12 @@ export class Main implements Instruccion{
         this.fila = fila;
         this.columna = columna;
     }
-
+    /**
+     * @function ejecutar Interpreta el codigo
+     * @param table 
+     * @param tree 
+     * @returns 
+     */
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let newTable = new TablaSimbolos(table);
 
@@ -47,8 +52,16 @@ export class Main implements Instruccion{
             }
         }
     }
+    /**
+     * @function translate3d Traduce el codigo a tres direcciones
+     * @param table 
+     * @param tree 
+     */
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented MAIN.");
+        let newTable = new TablaSimbolos(table);
+        this.instructions.forEach(instruccion => {
+            instruccion.translate3d(newTable, tree);
+        });
     }
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("MAIN","");

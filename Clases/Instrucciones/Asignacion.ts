@@ -71,6 +71,7 @@ export class Asignacion implements Instruccion{
         if (varSymb == null){
             let error = new Errores("C3d ", "Asignacion " + this.id + " -No se encontro", this.fila, this.columna);;
             tree.updateConsolaPrintln(error.toString());
+            tree.Errores.push(error);
             return error;
         }
         let retActual;
@@ -83,9 +84,6 @@ export class Asignacion implements Instruccion{
             genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
             retActual =  new Retorno(temp, true, varSymb.tipo, varSymb);
         }
-
-        
-
         //obteniendo resultado
         let valorExp = this.expresion.translate3d(table,tree);
         if (varSymb.tipo === TIPO.ENTERO && valorExp.tipo === TIPO.DECIMAL)

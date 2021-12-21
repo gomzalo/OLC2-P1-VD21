@@ -18,6 +18,15 @@ export  class DeclaracionArr implements Instruccion{
     public arreglo = true;
     public arr = Array<any>();
     //tipo lista_dim ID IGUAL lista_exp_arr
+    /**
+     * @function DeclaracionArr Declara arreglo.
+     * @param tipo Tipo de datos dentro del arreglo.
+     * @param dimensiones Dimension del arreglo (siempre sera []).
+     * @param id ID del arreglo.
+     * @param expresiones Valores a asignar al arreglo.
+     * @param fila 
+     * @param columna 
+     */
     constructor(tipo, dimensiones, id, expresiones, fila, columna){
         this.tipo = tipo;
         this.dimensiones = dimensiones;
@@ -47,8 +56,14 @@ export  class DeclaracionArr implements Instruccion{
                         return new Errores("Semantico", "Arreglo nulo.", this.fila, this.columna);
                     }
                 }else{
-                    // console.log("AS ARR ");
-                    value = this.crearDimensiones(table, tree, this.expresiones.slice()); // Devuelve el arreglo de dimensiones
+                    console.log("AS ARR ");
+                    console.log(this.expresiones);
+                    if(this.expresiones == "[]"){
+                        console.log("AS ARR vacio");
+                        value = [];
+                    }else{
+                        value = this.crearDimensiones(table, tree, this.expresiones.slice()); // Devuelve el arreglo de dimensiones
+                    }
                     // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
                     // value = this.arr;
                     // console.log("value declArr: " + value);

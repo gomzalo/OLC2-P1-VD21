@@ -35,20 +35,20 @@ export class Pop implements Funcion{
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
         let arr = table.getSymbolTabla(this.id);
-        console.log("pop type: " + arr.tipo);
+        // console.log("pop type: " + arr.tipo);
         if(arr != null){
             if(arr.getArreglo()){
                 if(arr.getValor().length > 0){
                     this.tipo = arr.getTipo();
                     return arr.getValor().pop();
                 }else{
-                    return new Errores("Semantico", `El arreglo con ID ${this.id}, esta vacio.`, this.fila, this.columna);
+                    return new Errores("Semantico", `El arreglo con ID "${this.id}", esta vacio.`, this.fila, this.columna);
                 }
             }else{
-                return new Errores("Semantico", `Nativa POP no puede utilizase en variable con ID ${this.id}, porque no es un arreglo.`, this.fila, this.columna);
+                return new Errores("Semantico", `Nativa POP no puede utilizase en variable con ID "${this.id}", porque no es un arreglo.`, this.fila, this.columna);
             }
         }else{
-            return new Errores("Semantico", `La variable con ID ${this.id}, no existe.`, this.fila, this.columna);
+            return new Errores("Semantico", `La variable con ID "${this.id}", no existe.`, this.fila, this.columna);
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {

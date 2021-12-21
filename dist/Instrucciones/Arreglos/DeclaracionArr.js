@@ -7,6 +7,15 @@ const Copiar_1 = require("../../Expresiones/Arreglos/Copiar");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 class DeclaracionArr {
     //tipo lista_dim ID IGUAL lista_exp_arr
+    /**
+     * @function DeclaracionArr Declara arreglo.
+     * @param tipo Tipo de datos dentro del arreglo.
+     * @param dimensiones Dimension del arreglo (siempre sera []).
+     * @param id ID del arreglo.
+     * @param expresiones Valores a asignar al arreglo.
+     * @param fila
+     * @param columna
+     */
     constructor(tipo, dimensiones, id, expresiones, fila, columna) {
         this.arreglo = true;
         this.arr = Array();
@@ -38,8 +47,15 @@ class DeclaracionArr {
                     }
                 }
                 else {
-                    // console.log("AS ARR ");
-                    value = this.crearDimensiones(table, tree, this.expresiones.slice()); // Devuelve el arreglo de dimensiones
+                    console.log("AS ARR ");
+                    console.log(this.expresiones);
+                    if (this.expresiones == "[]") {
+                        console.log("AS ARR vacio");
+                        value = [];
+                    }
+                    else {
+                        value = this.crearDimensiones(table, tree, this.expresiones.slice()); // Devuelve el arreglo de dimensiones
+                    }
                     // let value = this.crearDimensiones(table, tree, this.expresiones[0].slice()); // Devuelve el arreglo de dimensiones
                     // value = this.arr;
                     // console.log("value declArr: " + value);
