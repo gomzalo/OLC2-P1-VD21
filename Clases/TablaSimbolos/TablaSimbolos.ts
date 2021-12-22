@@ -1,7 +1,6 @@
 import { Struct } from './../Instrucciones/Struct/Struct';
 import { DeclararStruct } from './../Instrucciones/Struct/DeclararStruct';
 import { Asignacion } from './../Instrucciones/Asignacion';
-import { traceDeprecation } from "process";
 import { Errores } from "../Ast/Errores";
 import { Declaracion } from "../Instrucciones/Declaracion";
 import { Funcion } from "../Instrucciones/Metodos/Funcion";
@@ -20,7 +19,10 @@ export class TablaSimbolos{
     public continue: string | null;
     public return: string | null;
     public actual_funcion: Simbolo_funcion;
-
+    /**
+     * 
+     * @param anterior Entorno anterior
+     */
     constructor(anterior : TablaSimbolos){
         this.anterior = anterior;
         this.tabla = new Map<string, Simbolo>();
@@ -30,7 +32,11 @@ export class TablaSimbolos{
         this.return = anterior?.return || null;
         this.actual_funcion = anterior?.actual_funcion || null;
     }
-
+    /**
+     * @function setSymbolTabla Agrega un nuevo simbolo al entorno actual.
+     * @param simbolo Símbolo que se agregara al entorno actual.
+     * @returns 
+     */
     public setSymbolTabla(simbolo: Simbolo){
         
         if (this.existeEnActual(simbolo.id)){
@@ -46,7 +52,11 @@ export class TablaSimbolos{
             return null;
         }
     }
-
+    /**
+     * @function existeEnActual Verifica si el simbolo ya existe en el entorno actual.
+     * @param id ID del simbolo a buscar dentro del entorno actual.
+     * @returns 
+     */
     public existeEnActual(id: string): boolean{
         let entorno : TablaSimbolos = this;
 
@@ -90,11 +100,10 @@ export class TablaSimbolos{
         return false;
     }
     /**
-     * @function  getSymbolTabla
-     * @param id 
+     * @function getSymbolTabla Obtiene un simbolo, si existe, dentro del entorno actual.
+     * @param id ID del simbolo a buscar dentro del entorno actual.
      * @returns existe || null
      */
-
     public getSymbolTabla(id: string):Simbolo
     {
         let tablaActual: TablaSimbolos = this;
@@ -108,7 +117,11 @@ export class TablaSimbolos{
         }
         return null;
     }
-
+    /**
+     * @function imprimirTabla Imprime las variables declaradas en el entorno actual.
+     * @param cont Devuelve el html que se agregara a la tabla del reporte de la Tabla de Simbolos.
+     * @returns 
+     */
     public imprimirTabla(cont: number):string{
         let content = "";
         // let cont = 1;

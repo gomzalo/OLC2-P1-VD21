@@ -5,13 +5,10 @@ import { Instruccion } from '../../Interfaces/Instruccion';
 import { OperadorLogico } from '../../TablaSimbolos/Tipo';
 import { Nodo } from "../../Ast/Nodo";
 import { Ast } from "../../Ast/Ast"
-import { Expresion } from "../../Interfaces/Expresion";
 import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { TIPO } from "../../TablaSimbolos/Tipo";
 import { Detener } from '../Transferencia/Break';
-import { timingSafeEqual } from 'crypto';
 import { Errores } from '../../Ast/Errores';
-import { isInt16Array } from 'util/types';
 import { Simbolo } from "../../TablaSimbolos/Simbolo";
 import { AccesoArr } from '../../Expresiones/Arreglos/AccesoArr';
 

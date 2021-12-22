@@ -8,7 +8,6 @@ import { Detener } from "../../../Transferencia/Break";
 import { Continuar } from "../../../Transferencia/Continuar";
 import { Return } from "../../../Transferencia/Return";
 import { Funcion } from "../../Funcion";
-import { resourceUsage } from 'process';
 import { Identificador } from '../../../../Expresiones/Identificador';
 import { Nodo } from '../../../../Ast/Nodo';
 

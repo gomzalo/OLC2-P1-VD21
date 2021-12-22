@@ -1,4 +1,3 @@
-import exp from "constants";
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
 import { Nodo } from "../../Ast/Nodo";

@@ -1,5 +1,7 @@
 ###################################################
-###############     Simbolos       ################
+
+                    Simbolos       
+
 ###################################################
 
 ..............      Especiales      ...............
@@ -70,7 +72,9 @@
     ::
 
 ###################################################
-##############     Reservadas       ###############
+
+     Reservadas       
+
 ###################################################
 
 ..............      Primitivos      ...............
@@ -206,6 +210,7 @@ reservadas = {
 }
 
 tokens = [
+
     'PUNTO',                .
     'PUNTOCOMA',            ;
     'COMA',                 ,
@@ -236,10 +241,13 @@ tokens = [
     'ENTERO',
     'CADENA',
     'ID'
-] + list(reservadas.values())
+
+]
 
 ###################################################
-###############     Gramatica       ###############
+
+     Gramatica       
+     
 ###################################################
 
     inicio              :   instrucciones
@@ -343,7 +351,7 @@ tokens = [
     while_instr         :   RWHILE PARA expresion PARC
                             LLAVEA instrucciones LLAVEC
     
-    dowhile_statement   : DO LLAVEA instrucciones LLAVEC WHILE PARA expresion PARC  
+    dowhile_statement   :   DO LLAVEA instrucciones LLAVEC WHILE PARA expresion PARC  
 
     for_instr           :   RFOR PARA declaracion PUNTOCOMA condicion PUNTOCOMA actualizacion PARC
                             LLAVE instrucciones LLAVEC
@@ -378,10 +386,10 @@ tokens = [
                         |   UMENOS expresion
                         |   expresion POTENCIA expresion
 
-    rango    : expresion DOSPUNTOS expresion
-            | RBEGIN DOSPUNTOS REND
-            | expresion DOSPUNTOS REND
-            | RBEGIN DOSPUNTOS expresion
+    rango               :   expresion DOSPUNTOS expresion
+                        |   RBEGIN DOSPUNTOS REND
+                        |   expresion DOSPUNTOS REND
+                        |   RBEGIN DOSPUNTOS expresion
 
     tipo                :   RINT
                         |   RDOUBLE

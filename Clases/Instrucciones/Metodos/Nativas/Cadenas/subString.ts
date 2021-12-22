@@ -7,7 +7,6 @@ import { Detener } from "../../../Transferencia/Break";
 import { Continuar } from "../../../Transferencia/Continuar";
 import { Return } from "../../../Transferencia/Return";
 import { Funcion } from "../../Funcion";
-import { resourceUsage } from 'process';
 import { Nodo } from '../../../../Ast/Nodo';
 
 export class subString implements Funcion{

@@ -5,7 +5,6 @@ import { TablaSimbolos } from "../../TablaSimbolos/TablaSimbolos";
 import { OperadorLogico, TIPO } from "../../TablaSimbolos/Tipo";
 import { Errores } from '../../Ast/Errores';
 import { Instruccion } from "../../Interfaces/Instruccion";
-import { setFlagsFromString } from "v8";
 
 export class Rango implements Instruccion{
     public tipo: TIPO;

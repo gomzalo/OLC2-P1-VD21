@@ -93,29 +93,29 @@ itemAbrir.addEventListener('click', async () => {
 
 });
 
-agregarNuevoTab.addEventListener('click', async () => {
+// agregarNuevoTab.addEventListener('click', async () => {
 
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementById('#myTab');
-    tablinks = document.getElementById('#myTabContent');
-    cantTabs = cantTabs + 1;
+//     var i, tabcontent, tablinks;
+//     tabcontent = document.getElementById('#myTab');
+//     tablinks = document.getElementById('#myTabContent');
+//     cantTabs = cantTabs + 1;
 
-    $('#myTab').append('\
-    <li class = "nav-item">\
-    <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
-    </li>');
-    $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
+//     $('#myTab').append('\
+//     <li class = "nav-item">\
+//     <a class="nav-link" bg-primary id="tab' + cantTabs + '" data-toggle="tab" href="#panel' + cantTabs + '" role="tab" aria-controls="panel' + cantTabs + '" aria-selected="false" >Tab ' + cantTabs + '</a>\
+//     </li>');
+//     $('#myTabContent').append('<div class="tab-pane fade" id="panel' + cantTabs + '" role="tabpanel" aria-labelledby="tab"' + cantTabs + '>  <div> <textarea class="form-control" rows="21" id="text' + cantTabs + '" > </textarea>  </div> </div>');
 
-    var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
-        mode: "javascript",
-        theme: "night",
-        lineNumbers: true
-    });
-    editorActual.setSize(null, 520);
-    var nuevoEditor = new Editor(editorActual);
-    editores.push(nuevoEditor);
+//     var editorActual = CodeMirror.fromTextArea(document.getElementById('text' + cantTabs), {
+//         mode: "javascript",
+//         theme: "night",
+//         lineNumbers: true
+//     });
+//     editorActual.setSize(null, 520);
+//     var nuevoEditor = new Editor(editorActual);
+//     editores.push(nuevoEditor);
     
-});
+// });
 
 function addNuevoTab(){
 
@@ -141,78 +141,78 @@ function addNuevoTab(){
     
 };
 
-eliminarTab.addEventListener('click', async () => {
+// eliminarTab.addEventListener('click', async () => {
 
 
-    if( cantTabs == 1 ){
-        // alert('No se puede eliminar todas las pestañas de trabajo.')
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'No se puede eliminar todas las pestañas de trabajo.'
-        });
-        return;
-    }
+//     if( cantTabs == 1 ){
+//         // alert('No se puede eliminar todas las pestañas de trabajo.')
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: 'No se puede eliminar todas las pestañas de trabajo.'
+//         });
+//         return;
+//     }
 
-    var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
+//     var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
-    var currentTab = undefined;
-    var indexTab = 0;
-    var auxiliar = 0;
+//     var currentTab = undefined;
+//     var indexTab = 0;
+//     var auxiliar = 0;
 
-    myTabs.forEach(element => {
+//     myTabs.forEach(element => {
 
-        var itemA = element.querySelector("a");
+//         var itemA = element.querySelector("a");
 
-        var bandera = itemA.getAttribute('aria-selected')
+//         var bandera = itemA.getAttribute('aria-selected')
 
-        if (bandera == 'true') {
-            currentTab = itemA.id;
-            indexTab = auxiliar;
-        }
+//         if (bandera == 'true') {
+//             currentTab = itemA.id;
+//             indexTab = auxiliar;
+//         }
 
-        auxiliar = auxiliar + 1;
-    });
+//         auxiliar = auxiliar + 1;
+//     });
 
-    var tabSeleccionado = document.getElementById(currentTab);
-    var idPanelTab = tabSeleccionado.getAttribute('aria-controls');
-    var panelTab = document.getElementById(idPanelTab);
+//     var tabSeleccionado = document.getElementById(currentTab);
+//     var idPanelTab = tabSeleccionado.getAttribute('aria-controls');
+//     var panelTab = document.getElementById(idPanelTab);
     
-    var padre = tabSeleccionado.parentElement;
-    padre.remove()
+//     var padre = tabSeleccionado.parentElement;
+//     padre.remove()
 
-    var panelTabSeleccionado = document.getElementById(panelTab.id);
-    var padre = panelTabSeleccionado.parentElement
-    padre.removeChild(panelTabSeleccionado);
+//     var panelTabSeleccionado = document.getElementById(panelTab.id);
+//     var padre = panelTabSeleccionado.parentElement
+//     padre.removeChild(panelTabSeleccionado);
 
-    editores.splice(indexTab,1);
-    cantTabs = cantTabs - 1;
-});
+//     editores.splice(indexTab,1);
+//     cantTabs = cantTabs - 1;
+// });
 
-limpiarTab.addEventListener('click', async () => {
+// limpiarTab.addEventListener('click', async () => {
 
-    var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
+//     var myTabs = document.querySelectorAll("#myTab.nav-tabs >li");
 
-    var indexTab = 0;
-    var auxiliar = 0;
+//     var indexTab = 0;
+//     var auxiliar = 0;
 
-    myTabs.forEach(element => {
+//     myTabs.forEach(element => {
 
-        var itemA = element.querySelector("a");
+//         var itemA = element.querySelector("a");
 
-        var bandera = itemA.getAttribute('aria-selected')
+//         var bandera = itemA.getAttribute('aria-selected')
 
-        if (bandera == 'true') {
-            currentTab = itemA.id;
-            indexTab = auxiliar;
-        }
+//         if (bandera == 'true') {
+//             currentTab = itemA.id;
+//             indexTab = auxiliar;
+//         }
 
-        auxiliar = auxiliar + 1;
-    });
+//         auxiliar = auxiliar + 1;
+//     });
 
-    editores[indexTab].codeEditor.setValue('');
+//     editores[indexTab].codeEditor.setValue('');
     
-});
+// });
 
 compilar.addEventListener('click', () => {
 

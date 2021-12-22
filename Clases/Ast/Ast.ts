@@ -28,7 +28,10 @@ export class Ast  {
     public generadorC3d : GeneradorC3D;
     public repGramatical : Array<string> ;
 
-
+    /**
+     * @class AST
+     * Almacena instrucciones, funciones y structs.
+     */
     constructor(){
         this.instrucciones = new Array<Instruccion>();
         this.funciones =  new Array();
@@ -43,7 +46,9 @@ export class Ast  {
         this.generadorC3d=GeneradorC3D.getInstancia();
         this.repGramatical = new Array<string>();
     }
-
+    /**
+     * @function ejecutar interpreta las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     */
     public ejecutar(){
         let tree = this;
         tree.setTSGlobal(this.TSglobal);
@@ -126,7 +131,10 @@ export class Ast  {
         }
 
     }
-
+    /**
+     * @function traducir traduce las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     * @returns 
+     */
     public traducir(){
         let tree = this;
         tree.generadorC3d.clearCode();
