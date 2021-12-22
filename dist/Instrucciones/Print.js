@@ -77,11 +77,13 @@ class Print {
             if (valor3d instanceof Retorno_1.Retorno) {
                 // console.log(valor3d)
                 let temp = valor3d.translate3d();
-                let t0 = genc3d.newTemp();
+                // let t0 = genc3d.newTemp();
                 if (valor3d.tipo == Tipo_1.TIPO.CADENA) {
                     genc3d.gen_Comment('--------- INICIA PRINT CADENA ---------');
-                    genc3d.gen_SetStack(t0, temp);
+                    genc3d.gen_NextEnv(table.size);
+                    genc3d.gen_SetStack('p', temp);
                     genc3d.gen_Call('natPrintStr');
+                    genc3d.gen_AntEnv(table.size);
                     // genc3d.gen_Code('');
                     genc3d.gen_Comment('--------- FIN PRINT CADENA ---------');
                 }
@@ -92,8 +94,12 @@ class Print {
                 }
                 if (valor3d.tipo == Tipo_1.TIPO.CHARACTER) {
                     genc3d.gen_Comment('--------- INICIA PRINT CHAR ---------');
-                    genc3d.gen_SetStack(t0, temp);
+                    // genc3d.gen_SetStack(t0, temp);
+                    // genc3d.gen_Call('natPrintStr');
+                    genc3d.gen_NextEnv(table.size);
+                    genc3d.gen_SetStack('p', temp);
                     genc3d.gen_Call('natPrintStr');
+                    genc3d.gen_AntEnv(table.size);
                 }
                 if (valor3d.tipo == Tipo_1.TIPO.DECIMAL) {
                     genc3d.gen_Comment('--------- INICIA PRINT DOUBLE ---------');
@@ -102,14 +108,15 @@ class Print {
                 }
                 if (valor3d.tipo == Tipo_1.TIPO.BOOLEANO) {
                     let salida = genc3d.newLabel();
-                    genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');
-                    genc3d.gen_Label(valor3d.lblFalse);
-                    genc3d.gen_PrintFalse();
-                    genc3d.gen_Goto(salida);
                     genc3d.gen_Comment('--------- INICIA PRINT TRUE ---------');
                     genc3d.gen_Label(valor3d.lblTrue);
                     genc3d.gen_PrintTrue();
                     genc3d.gen_Goto(salida);
+                    // genc3d.gen_Label(salida);
+                    genc3d.gen_Comment('--------- INICIA PRINT FALSE ---------');
+                    genc3d.gen_Label(valor3d.lblFalse);
+                    genc3d.gen_PrintFalse();
+                    // genc3d.gen_Goto(salida);
                     genc3d.gen_Label(salida);
                 }
             }

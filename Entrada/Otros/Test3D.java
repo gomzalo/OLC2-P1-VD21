@@ -193,4 +193,44 @@ void main(){
         print(ix,"|"); // 0|1|2|3|4
         ix = ix +1;
     }
+    println("");
+    println("");
+    println("************   While anidado **************");
+    println("");
+    i = 0;
+    while (i < 5) {
+        println(i,":"); // i:
+        i=i+1;
+        int h =0;
+        while (h < 5) {
+            print(h,"|"); // 0|1|2|3|4
+            h=h+1;
+        }
+        println("");
+    }
+    /*  0:
+        0|1|2|3|4|
+        1:
+        0|1|2|3|4|
+        2:
+        0|1|2|3|4|
+        3:
+        0|1|2|3|4|
+        4:
+        0|1|2|3|4|
+    */
+    // 
+    println("");
+    println("");
+    println("************   Do-While  **************");
+    println("");
+    //do while
+    int i_do = 0;
+    do {
+        print(i_do,":");
+        i_do=i_do+1;
+    }
+    while (i_do < 5); // 0:1:2:3:4
+    println("");
+    println("");
 }

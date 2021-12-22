@@ -75,7 +75,8 @@ export class While implements Instruccion{
         let condicion = this.condicion.translate3d(table,tree);
         
         if (condicion.tipo !== TIPO.BOOLEANO){
-            let error =  new Errores("c3d", "La condicion no  es boolean", this.fila, this.columna);
+            let error =  new Errores("c3d", "La condicion no es booleana.", this.fila, this.columna);
+            tree.Errores.push(error);
             tree.updateConsolaPrintln(error.toString());
         }
 
@@ -94,7 +95,7 @@ export class While implements Instruccion{
 
         genc3d.gen_Goto(lbl);
         genc3d.gen_Label(condicion.lblFalse);
-        genc3d.gen_Comment('-----------fin while -------');
+        genc3d.gen_Comment('----------- FIN WHILE -------');
         
     }
     

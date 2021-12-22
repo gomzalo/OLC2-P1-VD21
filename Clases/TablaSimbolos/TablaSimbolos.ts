@@ -41,12 +41,12 @@ export class TablaSimbolos{
         
         if (this.existeEnActual(simbolo.id)){
             // console.log("Entreeeeee")
-            return new Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+            return new Errores("Semantico", `Variable con ID: "${simbolo.getId()}", ya existe.`, simbolo.getFila(), simbolo.getColumna());
         }else{
             // this.tabla[simbolo.getId()] = simbolo;
             simbolo.setPosicion(this.size);
             this.tabla.set(simbolo.getId(),simbolo);
-            this.size+= 1;
+            this.size += 1;
             // console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
@@ -166,12 +166,12 @@ export class TablaSimbolos{
                     return null;
                 }
                 // console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
-                return new Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+                return new Errores("Semantico", "Tipo de dato diferente en asignacion.", simbolo.getFila(), simbolo.getColumna());
             }else{
                 tablaActual = tablaActual.anterior
             }
         }
-        return new Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+        return new Errores("Semantico", "Varibale no encontrada en asignacion.", simbolo.getFila(), simbolo.getColumna());
     }
 
     getTipoStr(tipo:TIPO):string{

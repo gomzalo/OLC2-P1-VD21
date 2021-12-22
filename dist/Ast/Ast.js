@@ -165,12 +165,12 @@ class Ast {
             if (instr instanceof Main_1.Main) {
                 countMain++;
                 if (countMain == 2) {
-                    let error = new Errores_1.Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
+                    let error = new Errores_1.Errores("Semantico", "Existe mas de un metodo main.", instr.fila, instr.columna);
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                console.log("ENTRO A DECLARACION GLOBAL: ");
+                console.log("ENTRO A DECLARACION MAIN: ");
                 let value = instr.translate3d(this.TSglobal, tree);
                 // if( value instanceof Detener ){
                 //     let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
@@ -190,7 +190,7 @@ class Ast {
         // VALIDACION FUERA DE MAIN
         for (let instr of this.instrucciones) {
             if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion || instr instanceof Struct_1.Struct || instr instanceof DeclaracionArr_1.DeclaracionArr || instr instanceof ModificacionArr_1.ModificacionArr)) {
-                let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
+                let error = new Errores_1.Errores("Semantico", "Sentencia fuera de main.", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());
             }

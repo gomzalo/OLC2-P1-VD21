@@ -51,7 +51,24 @@ class Main {
     translate3d(table, tree) {
         let newTable = new TablaSimbolos_1.TablaSimbolos(table);
         this.instructions.forEach(instruccion => {
-            instruccion.translate3d(newTable, tree);
+            let result = instruccion.translate3d(newTable, tree);
+            if (result instanceof Errores_1.Errores) {
+                tree.getErrores().push(result);
+                tree.updateConsolaPrintln(result.toString());
+            }
+            if (result instanceof Break_1.Detener) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
+                tree.getErrores().push(error);
+                tree.updateConsolaPrintln(error.toString());
+            }
+            if (result instanceof Continuar_1.Continuar) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo", this.fila, this.columna);
+                tree.getErrores().push(error);
+                tree.updateConsolaPrintln(error.toString());
+            }
+            if (result instanceof Return_1.Return) {
+                return result;
+            }
         });
     }
     recorrer(table, tree) {

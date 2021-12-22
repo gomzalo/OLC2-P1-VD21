@@ -213,6 +213,7 @@ BSL                                 "\\".
     /*..............     Declaracion y asignacion      ...............*/
     const { Declaracion } = require("../dist/Instrucciones/Declaracion");
     const { Asignacion } = require("../dist/Instrucciones/Asignacion");
+    const { IncDec } = require("../dist/Instrucciones/IncDec");
     const { Simbolo } = require("../dist/TablaSimbolos/Simbolo");
     /*..............     Arreglos      ...............*/
     const { DeclaracionArr } = require("../dist/Instrucciones/Arreglos/DeclaracionArr");
@@ -376,8 +377,10 @@ asignacion:
                                                 }
                                                 gramatical.push("asignacion -> ID IGUAL expr ");
                                             }
-    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID INCRE "); }
-    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID DECRE ");}
+    |   incre_decre                         { $$ = $1; gramatical.push("asignacion -> incre_decre ");}
+    // |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID INCRE "); }
+    // |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID DECRE ");}
+    
     |   ID ID IGUAL expr                    { $$ = new DeclararStruct($1,$2,$4,@1.first_line, @1.last_column); gramatical.push("lista_simbolos -> ID ID IGUAL expr "); }
     
     ;
@@ -483,10 +486,14 @@ for_instr:
 // ------------     Actualizacion
 actualizacion:
         ID IGUAL expr                       { $$ = new Asignacion($1 ,$3, @1.first_line, @1.last_column);  gramatical.push("actualizacion -> ID IGUAL expr "); }
-    |   ID INCRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); 
-                                                gramatical.push("actualizacion -> ID INCRE "); }
-    |   ID DECRE                            { $$ = new Asignacion($1 ,new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false), @1.first_line, @1.last_column); 
-                                                gramatical.push("actualizacion -> ID DECRE ");  }
+    |   incre_decre                         { $$ = $1; gramatical.push("actualizacion -> ID INCRE ");}
+    ;
+// Incremento y decremento
+incre_decre:
+        ID INCRE                            { $$ = new IncDec(new Identificador($1, @1.first_line, @1.last_column), true, @1.first_line, @1.last_column); 
+                                                gramatical.push("incre_decre -> ID INCRE "); }
+    |   ID DECRE                            { $$ = new IncDec(new Identificador($1, @1.first_line, @1.last_column), false, @1.first_line, @1.last_column); 
+                                                gramatical.push("incre_decre -> ID DECRE ");  }
     ;
 /*..............     For in      ...............*/
 for_in_instr:
@@ -672,8 +679,9 @@ expr:
     |   FALSE                       { $$ = new Primitivo(false, TIPO.BOOLEANO, @1.first_line, @1.first_column); gramatical.push("expr ->  FALSE "); } 
     |   ID                          { $$ = new Identificador($1 , @1.first_line, @1.last_column); gramatical.push("expr -> ID "); }
     |   expr INTERROGACION expr DOSPUNTOS expr {$$ = new Ternario($1, $3, $5, @1.first_line, @1.first_column); gramatical.push("expr -> expr INTERROGACION expr DOSPUNTOS expr "); } 
-    |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); gramatical.push("expr ->  ID INCRE "); }
-    |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); gramatical.push("expr -> ID DECRE "); }
+    // |   ID INCRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MAS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); gramatical.push("expr ->  ID INCRE "); }
+    // |   ID DECRE                    { $$ = new Aritmetica(new Identificador($1, @1.first_line, @1.last_column), OperadorAritmetico.MENOS,new Primitivo(Number(1), $1.first_line, $1.last_column), $1.first_line, $1.last_column, false); gramatical.push("expr -> ID DECRE "); }
+    |   incre_decre                 { $$ = $1; gramatical.push("expr -> incre_decre ");}
     |   CORA lista_exp_arr_c CORC   { $$ = $2; gramatical.push("expr -> CORA lista_exp_arr_c CORC  ");  }
     |   llamada                     { $$ = $1; gramatical.push("expr -> llamada ");  }
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); gramatical.push("expr -> ID lista_exp "); }

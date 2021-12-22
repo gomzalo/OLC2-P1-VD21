@@ -25,7 +25,7 @@ class TablaSimbolos {
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {
             // console.log("Entreeeeee")
-            return new Errores_1.Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+            return new Errores_1.Errores("Semantico", `Variable con ID: "${simbolo.getId()}", ya existe.`, simbolo.getFila(), simbolo.getColumna());
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
@@ -142,13 +142,13 @@ class TablaSimbolos {
                     return null;
                 }
                 // console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
-                return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+                return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion.", simbolo.getFila(), simbolo.getColumna());
             }
             else {
                 tablaActual = tablaActual.anterior;
             }
         }
-        return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+        return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion.", simbolo.getFila(), simbolo.getColumna());
     }
     getTipoStr(tipo) {
         switch (tipo) {

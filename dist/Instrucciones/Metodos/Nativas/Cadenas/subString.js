@@ -47,7 +47,7 @@ class subString {
                             if (inicio < fin) {
                                 let cont = inicio;
                                 let result = "";
-                                while (cont <= fin) {
+                                while (cont < fin) {
                                     result += cadena.getValor().charAt(cont);
                                     cont++;
                                 }

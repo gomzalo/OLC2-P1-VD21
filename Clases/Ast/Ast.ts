@@ -190,12 +190,12 @@ export class Ast  {
                 countMain++;
                 if (countMain == 2)
                 {
-                    let error = new Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
+                    let error = new Errores("Semantico", "Existe mas de un metodo main.", instr.fila, instr.columna);
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                console.log("ENTRO A DECLARACION GLOBAL: ");
+                console.log("ENTRO A DECLARACION MAIN: ");
                 let value = instr.translate3d(this.TSglobal,tree);   
                 // if( value instanceof Detener ){
                 //     let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
@@ -216,7 +216,7 @@ export class Ast  {
         for( let instr of this.instrucciones){
             if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct || instr instanceof DeclaracionArr || instr instanceof ModificacionArr))
             {
-                let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
+                let error = new Errores("Semantico", "Sentencia fuera de main.", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());
             }

@@ -240,11 +240,13 @@ compilar.addEventListener('click', () => {
     //parse(editores[indexTab].codeEditor.getValue());
     
     var txtConsola = document.getElementById("textAreaConsola");
+    // txtConsola.val("");
     $("#textAreaConsola").val("");
 
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue()); // return ast
         // result.Errores = gramatica.errores.slice()
+        console.log('AST EXEC');
         console.log(result);
         result.ejecutar();
         // console.log(result.TSglobal);
@@ -252,7 +254,6 @@ compilar.addEventListener('click', () => {
         let texto = "::::::::::::::::::::::::::::::::::::::::::::::::    SALIDA CONSOLA  ::::::::::::::::::::::::::::::::::::::::::::::::\n";
         
         texto += result.getConsola();
-        // $("#textAreaConsola").val(texto);
         // txtConsola.append(texto);
         Swal.fire(
             '¡Muy bien!',
@@ -293,7 +294,7 @@ reporteAST.addEventListener('click', () => {
     .catch((error) => {
         console.error(error);
     });
- 
+
 });
 
 
@@ -314,6 +315,10 @@ traducirProyecto.addEventListener('click', () => {
 
     var txtC3d = document.getElementById("textAreaC3d");
     $("#textAreaC3d").val("");
+    $("#textAreaConsola").val("");
+
+    // var txtConsola = document.getElementById("textAreaConsola");
+    // txtConsola.val("");
 
     try{
         result = gramatica.parse(editores[indexTab].codeEditor.getValue());
@@ -322,6 +327,7 @@ traducirProyecto.addEventListener('click', () => {
         let c3d = result.traducir();
         // let c3d = result_traduccion.generadorC3d.getCode();
         // result_traduccion.generadorC3d.clearCode();
+        console.log('AST 3D');
         console.log(result);
         // addNuevoTab();
         // let tam =  editores.length;
@@ -605,7 +611,7 @@ reporteGramatical.addEventListener('click', () => {
         // });
         for (let i = result.repGramatical.length -1 ; i >-1 ; i--) {
             cadena += result.repGramatical[i] + "\n";
-          }
+        }
 
         // entornoTraducir = result.TSglobal;
         // let c3d = result.traducir();
