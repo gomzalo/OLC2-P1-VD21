@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.toLower = void 0;
+const subString_1 = require("./subString");
 const Errores_1 = require("../../../../Ast/Errores");
 const Tipo_1 = require("../../../../TablaSimbolos/Tipo");
 const Nodo_1 = require("../../../../Ast/Nodo");
@@ -19,23 +20,40 @@ java animal = "Tigre"; println(animal.toLowercase()); //tigre
     }
     ejecutar(table, tree) {
         // console.log("push id: " + this.id.id);
-        let cadena = table.getSymbolTabla(this.id);
-        if (cadena != null) {
-            if (cadena.getTipo() == Tipo_1.TIPO.CADENA && !cadena.getArreglo()) {
-                this.tipo = cadena.getTipo();
-                if (cadena.getValor().length > 0) {
-                    return cadena.getValor().toLowerCase();
+        if (this.id instanceof subString_1.subString) {
+            let cadena_primitivo = this.id.ejecutar(table, tree);
+            if (typeof cadena_primitivo == "string") {
+                this.tipo = Tipo_1.TIPO.CADENA;
+                if (cadena_primitivo.length > 0) {
+                    return cadena_primitivo.toLowerCase();
                 }
                 else {
-                    return new Errores_1.Errores("Semantico", `La cadena en la variable con ID: '${this.id} es vacia'.`, this.fila, this.columna);
+                    return new Errores_1.Errores("Semantico", `La cadena con valor: '${this.id}' es vacia.`, this.fila, this.columna);
                 }
             }
             else {
-                return new Errores_1.Errores("Semantico", `Nativa 'toLowercase' no puede utilizase en variable con ID ${this.id}, porque no es una cadena.`, this.fila, this.columna);
+                return new Errores_1.Errores("Semantico", `Nativa 'toLowercase' no puede utilizase en valor '${this.id}', porque no es una cadena.`, this.fila, this.columna);
             }
         }
         else {
-            return new Errores_1.Errores("Semantico", `La variable con ID ${this.id}, no existe.`, this.fila, this.columna);
+            let cadena = table.getSymbolTabla(this.id);
+            if (cadena != null) {
+                if (cadena.getTipo() == Tipo_1.TIPO.CADENA && !cadena.getArreglo()) {
+                    this.tipo = cadena.getTipo();
+                    if (cadena.getValor().length > 0) {
+                        return cadena.getValor().toLowerCase();
+                    }
+                    else {
+                        return new Errores_1.Errores("Semantico", `La cadena en la variable con ID: '${this.id} es vacia'.`, this.fila, this.columna);
+                    }
+                }
+                else {
+                    return new Errores_1.Errores("Semantico", `Nativa 'toLowercase' no puede utilizase en variable con ID ${this.id}, porque no es una cadena.`, this.fila, this.columna);
+                }
+            }
+            else {
+                return new Errores_1.Errores("Semantico", `La variable con ID ${this.id}, no existe.`, this.fila, this.columna);
+            }
         }
     }
     translate3d(table, tree) {

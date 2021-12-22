@@ -16,6 +16,7 @@ export class subString implements Funcion{
     public id;
     public parameters: Array<any>;
     public instructions: Array<any>;
+    public valor : string;
     inicio;
     fin;
     arreglo: boolean;
@@ -38,7 +39,7 @@ export class subString implements Funcion{
     public tipoStruct: any;
 
     ejecutar(table: TablaSimbolos, tree: Ast) {
-        // console.log("push id: " + this.id.id);
+        // console.log("substr: ");
         let cadena = table.getSymbolTabla(this.id);
         if(cadena != null){
             if(cadena.getTipo() == TIPO.CADENA && !cadena.getArreglo()){
@@ -58,7 +59,8 @@ export class subString implements Funcion{
                     return new Errores("Semantico", `La cadena en la variable con ID: '${this.id} es vacia'.`, this.fila, this.columna);
                 }
                 if(this.inicio.tipo == TIPO.ENTERO && this.fin.tipo == TIPO.ENTERO){
-                    if(fin < tam){
+                    // console.log("fin: " + fin + ", tam: " + tam);
+                    if(fin <= tam){
                         if(inicio >= 0){
                             if(inicio < fin){
                                 let cont = inicio;
@@ -67,24 +69,27 @@ export class subString implements Funcion{
                                     result += cadena.getValor().charAt(cont);
                                     cont++;
                                 }
+                                // console.log("valor substr");
+                                // console.log(result);
+                                this.valor = result;
                                 return result;
                             }else{
-                                return new Errores("Semantico", `La posicion ${inicio} debe ser menor que ${fin}.`, this.fila, this.columna);
+                                return new Errores("Semantico", `La posicion '${inicio}' debe ser menor que '${fin}'.`, this.fila, this.columna);
                             }
                         }else{
-                            return new Errores("Semantico", `La posicion ${inicio} no se encuentra no puede ser negativa.`, this.fila, this.columna);
+                            return new Errores("Semantico", `La posicion '${inicio}' no se encuentra no puede ser negativa.`, this.fila, this.columna);
                         }
                     }else{
-                        return new Errores("Semantico", `La posicion ${fin} no se encuentra dentro de ${this.id}.`, this.fila, this.columna);
+                        return new Errores("Semantico", `La posicion '${fin}' no se encuentra dentro de '${this.id}'.`, this.fila, this.columna);
                     }
                 }else{
                     return new Errores("Semantico", `Los accesos deben de ser de tipo entero.`, this.fila, this.columna);
                 }
             }else{
-                return new Errores("Semantico", `Nativa 'subString' no puede utilizase en variable con ID ${this.id}, porque no es una cadena.`, this.fila, this.columna);
+                return new Errores("Semantico", `Nativa 'subString' no puede utilizase en variable con ID '${this.id}', porque no es una cadena.`, this.fila, this.columna);
             }
         }else{
-            return new Errores("Semantico", `La variable con ID ${this.id}, no existe.`, this.fila, this.columna);
+            return new Errores("Semantico", `La variable con ID '${this.id}', no existe.`, this.fila, this.columna);
         }
     }
     translate3d(table: TablaSimbolos, tree: Ast) {

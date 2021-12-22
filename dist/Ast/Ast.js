@@ -17,6 +17,10 @@ const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 const Nodo_1 = require("./Nodo");
 const GeneradorC3D_1 = require("../G3D/GeneradorC3D");
 class Ast {
+    /**
+     * @class AST
+     * Almacena instrucciones, funciones y structs.
+     */
     constructor() {
         this.consola = "";
         this.dot = "";
@@ -34,6 +38,9 @@ class Ast {
         this.generadorC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         this.repGramatical = new Array();
     }
+    /**
+     * @function ejecutar interpreta las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     */
     ejecutar() {
         let tree = this;
         tree.setTSGlobal(this.TSglobal);
@@ -107,6 +114,10 @@ class Ast {
             }
         }
     }
+    /**
+     * @function traducir traduce las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     * @returns
+     */
     traducir() {
         let tree = this;
         tree.generadorC3d.clearCode();
@@ -305,10 +316,11 @@ class Ast {
         console.log(raiz);
         this.recorrer("n0", raiz);
         this.dot += "}";
-        let textarea = document.querySelector('#textAreaConsola');
-        let value = "";
-        value += this.dot;
-        textarea.value = value;
+        // let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
+        // let value = "";
+        // value += this.dot;
+        // textarea.value = value;
+        console.log(this.dot);
         return this.dot;
     }
     recorrer(idPadre, nodoPadre) {

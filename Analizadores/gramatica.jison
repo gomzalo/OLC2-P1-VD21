@@ -679,8 +679,8 @@ expr:
     |   ID lista_exp                { $$ = new AccesoArr($1, $2, @1.first_line, @1.first_column); gramatical.push("expr -> ID lista_exp "); }
     |   rango                       { $$ = new Rango(TIPO.RANGO, [$1.inicio, $1.fin], @1.first_line, @1.last_column); gramatical.push("expr -> rango "); }
     |   ID PUNTO expr               { gramatical.push("expr -> ID PUNTO expr "); 
-                                        if( $3 instanceof Length || $3 instanceof CharOfPos ||
-                                            $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
+                                        if( $3 instanceof Length || $3 instanceof CharOfPos
+                                            || $3 instanceof subString || $3 instanceof toUpper || $3 instanceof toLower){
                                             $$ = $3;
                                             let identifica =new Identificador($1 , @1.first_line, @1.last_column);
                                             $$.id = identifica.id;
@@ -694,8 +694,11 @@ expr:
     |   RLENGTH PARA PARC           { $$ = new Length(null, @1.first_line, @1.first_column); gramatical.push("expr ->  RLENGTH PARA PARC  "); }
     |   RCHAROFPOS PARA expr PARC   { $$ = new CharOfPos(null, $3, @1.first_line, @1.first_column); gramatical.push("expr -> RCHAROFPOS PARA expr PARC "); }
     |   RSUBSTRING PARA expr COMA expr PARC { $$ = new subString(null, $3, $5, @1.first_line, @1.first_column); gramatical.push("expr -> RSUBSTRING PARA expr COMA expr PARC  "); }
-    |   RTOUPPER PARA PARC          { $$ = new toUpper(null, @1.first_line, @1.first_column); gramatical.push("expr -> RTOUPPER PARA PARC  "); }
-    |   RTOLOWER PARA PARC          { $$ = new toLower(null, @1.first_line, @1.first_column); gramatical.push("expr -> RTOLOWER PARA PARC "); }
+    // |   expr PUNTO RSUBSTRING PARA expr COMA expr PARC { $$ = new subString($1, $3, $5, @1.first_line, @1.first_column); gramatical.push("expr -> RSUBSTRING PARA expr COMA expr PARC  "); }
+    |   expr PUNTO RTOUPPER PARA PARC          { $$ = new toUpper($1, @1.first_line, @1.first_column); gramatical.push("expr -> RTOUPPER PARA PARC  "); }
+    |   expr PUNTO RTOLOWER PARA PARC          { $$ = new toLower($1, @1.first_line, @1.first_column); gramatical.push("expr -> RTOLOWER PARA PARC "); }
+    |   RTOUPPER PARA PARC   { $$ = new toUpper(null, @1.first_line, @1.first_column); gramatical.push("expr -> RTOUPPER PARA PARC  "); }
+    |   RTOLOWER PARA PARC   { $$ = new toLower(null, @1.first_line, @1.first_column); gramatical.push("expr -> RTOLOWER PARA PARC "); }
     |   nat_matematicas PARA expr PARC { $$ = new Matematicas($1, $3, @1.first_line, @1.first_column); gramatical.push("expr -> nat_matematicas PARA expr PARC "); }
     |   nat_parse                   { $$ = $1; gramatical.push("expr -> nat_parse "); }
     |   nat_conversion              { $$ = $1; gramatical.push("expr -> nat_conversion "); }

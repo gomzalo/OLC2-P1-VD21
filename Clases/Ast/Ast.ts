@@ -368,11 +368,11 @@ export class Ast  {
         this.recorrer("n0", raiz);
         this.dot += "}"
 
-        let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
-        let value = "";
-        value += this.dot;
-        textarea.value = value;
-
+        // let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
+        // let value = "";
+        // value += this.dot;
+        // textarea.value = value;
+        console.log(this.dot);
         return this.dot;    
     }
 

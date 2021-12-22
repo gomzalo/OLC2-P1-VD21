@@ -4,6 +4,10 @@ exports.TablaSimbolos = void 0;
 const Errores_1 = require("../Ast/Errores");
 const Tipo_1 = require("./Tipo");
 class TablaSimbolos {
+    /**
+     *
+     * @param anterior Entorno anterior
+     */
     constructor(anterior) {
         this.anterior = anterior;
         this.tabla = new Map();
@@ -13,6 +17,11 @@ class TablaSimbolos {
         this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
         this.actual_funcion = (anterior === null || anterior === void 0 ? void 0 : anterior.actual_funcion) || null;
     }
+    /**
+     * @function setSymbolTabla Agrega un nuevo simbolo al entorno actual.
+     * @param simbolo Símbolo que se agregara al entorno actual.
+     * @returns
+     */
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {
             // console.log("Entreeeeee")
@@ -28,6 +37,11 @@ class TablaSimbolos {
             return null;
         }
     }
+    /**
+     * @function existeEnActual Verifica si el simbolo ya existe en el entorno actual.
+     * @param id ID del simbolo a buscar dentro del entorno actual.
+     * @returns
+     */
     existeEnActual(id) {
         let entorno = this;
         let existe = entorno.tabla.get(id);
@@ -65,8 +79,8 @@ class TablaSimbolos {
         return false;
     }
     /**
-     * @function  getSymbolTabla
-     * @param id
+     * @function getSymbolTabla Obtiene un simbolo, si existe, dentro del entorno actual.
+     * @param id ID del simbolo a buscar dentro del entorno actual.
      * @returns existe || null
      */
     getSymbolTabla(id) {
@@ -82,6 +96,11 @@ class TablaSimbolos {
         }
         return null;
     }
+    /**
+     * @function imprimirTabla Imprime las variables declaradas en el entorno actual.
+     * @param cont Devuelve el html que se agregara a la tabla del reporte de la Tabla de Simbolos.
+     * @returns
+     */
     imprimirTabla(cont) {
         let content = "";
         // let cont = 1;
