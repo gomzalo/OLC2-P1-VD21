@@ -197,7 +197,7 @@ export class Switch implements Instruccion{
                         // console.log(this.lblFalse)
                         genc3d.gen_If(temp, '1', '==', lb_case_true);
                         genc3d.gen_Goto(lb_case_false);
-                        const retorno = new Retorno(temp, true, TIPO.BOOLEANO);
+                        const retorno = new Retorno(temp, true, TIPO.BOOLEANO,null,ts_local,tree);
                         retorno.lblTrue = lb_case_true;
                         retorno.lblFalse = lb_case_false;
                     }else if(condicion.tipo == TIPO.CHARACTER){

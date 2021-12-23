@@ -29,9 +29,9 @@ class TablaSimbolos {
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
-            simbolo.setPosicion(this.size);
+            simbolo.setPosicion(this.size++);
             this.tabla.set(simbolo.getId(), simbolo);
-            this.size += 1;
+            // this.size++;
             // console.log("size: " + this.size);
             // console.log("set simbolo " +  simbolo.getId() + " " + simbolo.getValor())
             return null;
@@ -50,6 +50,21 @@ class TablaSimbolos {
         }
         return false;
     }
+    /**
+     * @function setTableFuncion Establece el ambito de una funcion.
+     * @param actual_funcion Simbolo de la nueva funcion.
+     * @param lblreturn Etiqueta de retorno.
+     */
+    setTableFuncion(actual_funcion, lblreturn) {
+        // if(this.)
+        this.size = 1;
+        this.return = lblreturn;
+        this.actual_funcion = actual_funcion;
+    }
+    /**
+     *
+     * @returns Atributos del entorno en String.
+     */
     toStringTable() {
         let cadena = "";
         if (this.tabla == null) {

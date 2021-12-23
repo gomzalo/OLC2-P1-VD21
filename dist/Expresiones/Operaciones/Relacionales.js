@@ -432,27 +432,27 @@ class Relacional {
         }
         switch (this.operador) {
             case Tipo_1.OperadorRelacional.IGUALIGUAL:
-                return this.igualigual3D(valor_exp1, valor_exp2, tree);
+                return this.igualigual3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorRelacional.DIFERENTE:
-                return this.diferente3D(valor_exp1, valor_exp2, tree);
+                return this.diferente3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorRelacional.MENORQUE:
-                return this.menorque3D(valor_exp1, valor_exp2, tree);
+                return this.menorque3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorRelacional.MENORIGUAL:
-                return this.menorigual3D(valor_exp1, valor_exp2, tree);
+                return this.menorigual3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorRelacional.MAYORQUE:
-                return this.mayorque3D(valor_exp1, valor_exp2, tree);
+                return this.mayorque3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorRelacional.MAYORIGUAL:
-                return this.mayoigual3D(valor_exp1, valor_exp2, tree);
+                return this.mayoigual3D(valor_exp1, valor_exp2, table, tree);
             default:
                 break;
         }
     }
-    igualigual3D(valor_exp1, valor_exp2, tree) {
+    igualigual3D(valor_exp1, valor_exp2, table, tree) {
         const genC3d = tree.generadorC3d;
         const temp = genC3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '==');
+                return this.compararExp(valor_exp1, valor_exp2, table, tree, '==');
             }
         }
         else {
@@ -473,7 +473,7 @@ class Relacional {
                     // console.log(this.lblFalse)
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
                     genC3d.gen_Goto(this.lblFalse);
-                    const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
+                    const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO, null, table, tree);
                     retorno.lblTrue = this.lblTrue;
                     retorno.lblFalse = this.lblFalse;
                     return retorno;
@@ -481,40 +481,40 @@ class Relacional {
             }
         }
     }
-    menorque3D(valor_exp1, valor_exp2, tree) {
+    menorque3D(valor_exp1, valor_exp2, table, tree) {
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '<');
+                return this.compararExp(valor_exp1, valor_exp2, table, tree, '<');
             }
         }
     }
-    menorigual3D(valor_exp1, valor_exp2, tree) {
+    menorigual3D(valor_exp1, valor_exp2, table, tree) {
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '<=');
+                return this.compararExp(valor_exp1, valor_exp2, table, tree, '<=');
             }
         }
     }
-    mayorque3D(valor_exp1, valor_exp2, tree) {
+    mayorque3D(valor_exp1, valor_exp2, table, tree) {
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '>');
+                return this.compararExp(valor_exp1, valor_exp2, table, tree, '>');
             }
         }
     }
-    mayoigual3D(valor_exp1, valor_exp2, tree) {
+    mayoigual3D(valor_exp1, valor_exp2, table, tree) {
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '>=');
+                return this.compararExp(valor_exp1, valor_exp2, table, tree, '>=');
             }
         }
     }
-    diferente3D(valor_exp1, valor_exp2, tree) {
+    diferente3D(valor_exp1, valor_exp2, table, tree) {
         const genC3d = tree.generadorC3d;
         const temp = genC3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
-                return this.compararExp(valor_exp1, valor_exp2, tree, '!=');
+                return this.compararExp(valor_exp1, valor_exp2, table, tree, '!=');
             }
         }
         else {
@@ -533,7 +533,7 @@ class Relacional {
                     this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
                     genC3d.gen_If(temp, '1', '!=', this.lblTrue);
                     genC3d.gen_Goto(this.lblFalse);
-                    const ret = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
+                    const ret = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO, null, table, tree);
                     ret.lblTrue = this.lblTrue;
                     ret.lblFalse = this.lblFalse;
                     return ret;
@@ -541,13 +541,13 @@ class Relacional {
             }
         }
     }
-    compararExp(valor_exp1, valor_exp2, tree, signo) {
+    compararExp(valor_exp1, valor_exp2, table, tree, signo) {
         const genC3d = tree.generadorC3d;
         this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
         this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
         genC3d.gen_If(valor_exp1.translate3d(), valor_exp2.translate3d(), signo, this.lblTrue);
         genC3d.gen_Goto(this.lblFalse);
-        const ret = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
+        const ret = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO, null, table, tree);
         ret.lblTrue = this.lblTrue;
         ret.lblFalse = this.lblFalse;
         return ret;

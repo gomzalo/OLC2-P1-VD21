@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcion = void 0;
+const Simbolo_1 = require("./../../TablaSimbolos/Simbolo");
 const Errores_1 = require("../../Ast/Errores");
 const Nodo_1 = require("../../Ast/Nodo");
 const TablaSimbolos_1 = require("../../TablaSimbolos/TablaSimbolos");
@@ -60,9 +61,72 @@ class Funcion {
         }
         return null;
     }
+    /**
+     * @function translate3d Traduce a C3D
+     * @param table
+     * @param tree
+     */
     translate3d(table, tree) {
-        throw new Error("Method not implemented FUNCION.");
+        // this.validarParametros(table, tree);
+        // tree.
+        let funcion = tree.getFunction(this.id);
+        if (funcion !== undefined && funcion !== null) {
+            let genc3d = tree.generadorC3d;
+            let newTabla = new TablaSimbolos_1.TablaSimbolos(table);
+            let returnLbl = genc3d.newLabel();
+            let tempStorage = genc3d.getTempStorage();
+            let codeActual = genc3d.getOnlyCode();
+            newTabla.setTableFuncion(funcion, returnLbl);
+            this.parameters.forEach((param) => {
+                newTabla.setSymbolTabla(new Simbolo_1.Simbolo(param["id"], param["tipo"], false, this.fila, this.columna, null));
+            });
+            genc3d.clearTempStorage();
+            genc3d.clearCode();
+            genc3d.isFunc = '\t';
+            genc3d.gen_Funcion(funcion.id);
+            genc3d.newLabel();
+            this.instructions.forEach((instr) => {
+                instr.translate3d(newTabla, tree);
+            });
+            genc3d.gen_Label(returnLbl);
+            genc3d.gen_Code('return;');
+            genc3d.gen_EndFunction();
+            genc3d.isFunc = '';
+            genc3d.agregarFuncion(genc3d.getOnlyCode());
+            genc3d.setOnlyCode(codeActual);
+            genc3d.setTempStorage(tempStorage);
+        }
     }
+    // /**
+    //  * @function validarParametros valida los parametros en la funcion.
+    //  * @param table 
+    //  * @param tree 
+    //  */
+    // validarParametros(table: TablaSimbolos, tree: Ast){
+    //     const set = new Set<string>();
+    //     this.parameters.forEach((param) => {
+    //         if(set.has(param["id"])){
+    //             let error = new Errores("Semantico", `Parametro con nombre "${param["id"]}" repetiod en la función.`, this.fila, this.columna);
+    //             tree.getErrores().push(error);
+    //             tree.updateConsolaPrintln(error.toString());
+    //         }
+    //         set.add(param["id"]);
+    //     });
+    // }
+    // /**
+    //  * @function validarTipo valida los tipos en la funcion.
+    //  * @param table 
+    //  * @param tree 
+    //  */
+    // validarTipo(table: TablaSimbolos, tree: Ast){
+    //     if(this.tipo == )
+    // }
+    /**
+     * @function recorrer Grafica el nodo del AST
+     * @param table
+     * @param tree
+     * @returns
+     */
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("FUNCION", "");
         padre.addChildNode(new Nodo_1.Nodo(this.id, ""));

@@ -158,6 +158,12 @@ class Ast {
                 }
             }
         }
+        // Traducir funciones
+        if (this.funciones.length > 0) {
+            this.funciones.forEach((func) => {
+                func.translate3d(this.TSglobal, tree);
+            });
+        }
         // 2DA PASADA
         // EJECUTAMOS TODAS LAS FUNCIONES
         for (let instr of this.instrucciones) {

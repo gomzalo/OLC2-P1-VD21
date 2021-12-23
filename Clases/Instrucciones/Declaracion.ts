@@ -129,15 +129,17 @@ export  class Declaracion implements Instruccion{
             // console.log("while tipos:");
             // console.log(this.tipo);
             // console.log(valor.tipo);
-            console.log(!(this.tipo == TIPO.DECIMAL && valor.tipo == TIPO.ENTERO));
+            // console.log(!(this.tipo == TIPO.DECIMAL && valor.tipo == TIPO.ENTERO));
             if (this.tipo == valor.tipo  || (this.tipo == TIPO.DECIMAL && valor.tipo == TIPO.ENTERO)){
                 
                 // Verificar si guardar
-                let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,"");
-                nuevo_simb.posicion = table.size;
+                let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila, variable.columna, "");
+                
                 // console.log(nuevo_simb);
                 // nuevo_simb.isRef=true;
+                nuevo_simb.posicion = table.size;
                 let res_simb = table.setSymbolTabla(nuevo_simb);
+                
                 if(res_simb instanceof Errores){
                     tree.updateConsolaPrintln(res_simb.toString());
                     return;
@@ -147,7 +149,7 @@ export  class Declaracion implements Instruccion{
                 
                 if (nuevo_simb.isGlobal) {
                     if (valor.tipo === TIPO.BOOLEANO) {
-                        genc3d.gen_Comment("------- is ref true-------");
+                        genc3d.gen_Comment("------- is ref true -------");
                         const lbl = genc3d.newLabel();
                         genc3d.gen_Label(valor.lblTrue);
                         genc3d.gen_SetStack(nuevo_simb.posicion, '1');
@@ -160,7 +162,7 @@ export  class Declaracion implements Instruccion{
                     genc3d.gen_SetStack(nuevo_simb.posicion, valor.valor);
                 }
                 else {
-                    genc3d.gen_Comment("------- is ref false-------");
+                    genc3d.gen_Comment("------- is ref false -------");
                     const temp = genc3d.newTemp(); genc3d.freeTemp(temp);
                     genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
                     if (valor.tipo === TIPO.BOOLEANO) {

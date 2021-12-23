@@ -233,4 +233,10 @@ void main(){
     while (i_do < 5); // 0:1:2:3:4
     println("");
     println("");
+    metodo("siuu");
+}
+
+void metodo (String hola)
+{
+    println(hola);
 }

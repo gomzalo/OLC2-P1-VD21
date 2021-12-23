@@ -33,7 +33,7 @@ class Return {
     translate3d(table, tree) {
         var _a;
         const genc3d = tree.generadorC3d;
-        const valor = ((_a = this.expresion) === null || _a === void 0 ? void 0 : _a.translate3d(table, tree)) || new Retorno_1.Retorno('-1', false, Tipo_1.TIPO.VOID);
+        const valor = ((_a = this.expresion) === null || _a === void 0 ? void 0 : _a.translate3d(table, tree)) || new Retorno_1.Retorno('-1', false, Tipo_1.TIPO.VOID, null, table, tree);
         let result_func = table.actual_funcion;
         if (valor == null) {
             return new Errores_1.Errores('Semantico', 'No se permite el uso de return en la instrucción.', this.fila, this.columna);
@@ -48,7 +48,7 @@ class Return {
             genc3d.gen_Label(templabel);
         }
         else if (result_func.tipo !== Tipo_1.TIPO.VOID) {
-            genc3d.gen_SetStack('p', valor.getValor());
+            genc3d.gen_SetStack('p', valor.translate3d());
         }
         genc3d.gen_Goto(table.return || '');
     }

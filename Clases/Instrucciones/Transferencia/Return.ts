@@ -45,7 +45,7 @@ export class Return implements Instruccion{
     
     translate3d(table: TablaSimbolos, tree: Ast) {
         const genc3d = tree.generadorC3d;
-        const valor = this.expresion?.translate3d(table, tree) || new Retorno('-1', false, TIPO.VOID);
+        const valor = this.expresion?.translate3d(table, tree) || new Retorno('-1', false, TIPO.VOID, null, table, tree);
         let result_func = table.actual_funcion;
         if(valor == null){
             return new Errores('Semantico','No se permite el uso de return en la instrucción.', this.fila, this.columna);
@@ -59,7 +59,7 @@ export class Return implements Instruccion{
             genc3d.gen_SetStack('p', '0');
             genc3d.gen_Label(templabel);
         }else if (result_func.tipo !== TIPO.VOID){
-            genc3d.gen_SetStack('p', valor.getValor());
+            genc3d.gen_SetStack('p', valor.translate3d());
         }
 
         genc3d.gen_Goto(table.return || '');

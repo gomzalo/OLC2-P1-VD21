@@ -10,7 +10,7 @@ import { TIPO } from "../TablaSimbolos/Tipo";
 import { Return } from "./Transferencia/Return";
 
 export class Asignacion implements Instruccion{
-    public id: string;
+    public id: any;
     public expresion : any;
     public fila : number;
     public columna : number;
@@ -70,6 +70,9 @@ export class Asignacion implements Instruccion{
         if(table.existe(this.id)){
             console.log("asignacion");
             console.log(this.id);
+            // let destino = this.id.translate3d(table, tree);
+            // console.log("destino");
+            // console.log(destino);
             let varSymb = table.getSymbolTabla(this.id);
             if (varSymb == null){
                 let error = new Errores("C3D ", `Asignacion, variable con ID: "${this.id}", no se encontro.`, this.fila, this.columna);;
@@ -80,12 +83,14 @@ export class Asignacion implements Instruccion{
             let retActual;
             
             if (varSymb.isGlobal) {
-                retActual= new Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb);
+                retActual= new Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb, table, tree);
+                // return retActual;
             }
             else {
                 const temp = genc3d.newTemp();
                 genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
-                retActual =  new Retorno(temp, true, varSymb.tipo, varSymb);
+                retActual =  new Retorno(temp, true, varSymb.tipo, varSymb, table, tree);
+                // return retActual;
             }
             //obteniendo resultado
             let valorExp = this.expresion.translate3d(table,tree);

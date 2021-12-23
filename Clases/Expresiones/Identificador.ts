@@ -60,11 +60,11 @@ export class Identificador implements Instruccion{
                     genC3d.gen_GetStack(temp,varSimb.posicion);
                     if(varSimb.tipo !== TIPO.BOOLEANO) // si no es booleano
                     {
-                        return new Retorno(temp,true,varSimb.tipo,varSimb);
+                        return new Retorno(temp, true, varSimb.tipo, varSimb, table, tree);
                     }
                     genC3d.gen_Comment("--------Id booleano glb -------");
                     //si lo es : booleano
-                    let retorno = new Retorno("",false,varSimb.tipo,varSimb);
+                    let retorno = new Retorno("", false, varSimb.tipo, varSimb, table, tree);
                     this.lblTrue = this.lblTrue == "" ? genC3d.newLabel() : this.lblTrue;
                     this.lblFalse = this.lblFalse == "" ? genC3d.newLabel() : this.lblFalse;
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
@@ -78,11 +78,11 @@ export class Identificador implements Instruccion{
                     genC3d.gen_Exp(tempAux, 'p', varSimb.posicion, '+');
                     genC3d.gen_GetStack(temp, tempAux);
                     if (varSimb.tipo !== TIPO.BOOLEANO){
-                        return new Retorno(temp, true, varSimb.tipo, varSimb);
+                        return new Retorno(temp, true, varSimb.tipo, varSimb, table, tree);
                     }
                     //si lo es : booleano
                     genC3d.gen_Comment("--------Id booleano hp-------");
-                    const retorno = new Retorno('', false, varSimb.tipo, varSimb);
+                    const retorno = new Retorno('', false, varSimb.tipo, varSimb, table, tree);
                     this.lblTrue = this.lblTrue == '' ? genC3d.newLabel() : this.lblTrue;
                     this.lblFalse = this.lblFalse == '' ? genC3d.newLabel() : this.lblFalse;
                     genC3d.gen_If(temp, '1', '==', this.lblTrue);
@@ -94,7 +94,7 @@ export class Identificador implements Instruccion{
             }else{
                 const generator = tree.generadorC3d;
                 if (typeof this.symbol.valor == "number") {
-                return new Retorno(this.symbol.valor + "", false, TIPO.DECIMAL);
+                return new Retorno(this.symbol.valor + "", false, TIPO.DECIMAL, null, table, tree);
                 } else if (typeof this.symbol.valor == "string") {
                 // console.log("entre****");
                 // console.log(this.symbol);
@@ -106,7 +106,7 @@ export class Identificador implements Instruccion{
                 }
                 generator.gen_SetHeap("h", "-1");
                 generator.nextHeap();
-                return new Retorno(temp, true, TIPO.CADENA);
+                return new Retorno(temp, true, TIPO.CADENA, null, table, tree);
 
                 } else {
                 // console.log("no entre");

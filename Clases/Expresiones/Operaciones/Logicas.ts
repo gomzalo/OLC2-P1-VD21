@@ -143,7 +143,7 @@ export class Logica implements Instruccion{
         if(expIzq.tipo !== TIPO.BOOLEANO && expDer.tipo !== TIPO.BOOLEANO){
             return;
         }
-        const retorno = new Retorno("", false, TIPO.BOOLEANO);
+        const retorno = new Retorno("", false, TIPO.BOOLEANO, null, table, tree);
         retorno.lblTrue = this.lblTrue;
         retorno.lblFalse = this.exp2.lblFalse;
         
@@ -167,7 +167,7 @@ export class Logica implements Instruccion{
 
         if(expIzq.tipo == TIPO.BOOLEANO && expDer.tipo == TIPO.BOOLEANO){
         
-            const retorno = new Retorno('', false, TIPO.BOOLEANO);
+            const retorno = new Retorno('', false, TIPO.BOOLEANO, null, table, tree);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
             return retorno;

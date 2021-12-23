@@ -134,7 +134,7 @@ export class IncDec implements Instruccion{
                     genc3d.gen_Exp(tempaux, id3d.valor, '1', op);
                     genc3d.gen_SetStack(varSymb.posicion, tempaux);
                 }
-                return new Retorno(temp, true, varSymb.tipo);
+                return new Retorno(temp, true, varSymb.tipo, varSymb, table, tree);
             }else{
                 let error = new Errores("Semantico", `No puede aplicarse ${this.tipo_incr_decr} a variable con ID: "${id_identificador}", no es un numero.`, this.fila,this.columna);
                 tree.updateConsolaPrintln(error.toString());

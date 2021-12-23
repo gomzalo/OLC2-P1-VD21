@@ -116,7 +116,7 @@ class Logica {
         if (expIzq.tipo !== Tipo_1.TIPO.BOOLEANO && expDer.tipo !== Tipo_1.TIPO.BOOLEANO) {
             return;
         }
-        const retorno = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO);
+        const retorno = new Retorno_1.Retorno("", false, Tipo_1.TIPO.BOOLEANO, null, table, tree);
         retorno.lblTrue = this.lblTrue;
         retorno.lblFalse = this.exp2.lblFalse;
         return retorno;
@@ -132,7 +132,7 @@ class Logica {
         gen3d.gen_Label(this.exp1.lblFalse);
         const expDer = this.exp2.translate3d(table, tree);
         if (expIzq.tipo == Tipo_1.TIPO.BOOLEANO && expDer.tipo == Tipo_1.TIPO.BOOLEANO) {
-            const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO);
+            const retorno = new Retorno_1.Retorno('', false, Tipo_1.TIPO.BOOLEANO, null, table, tree);
             retorno.lblTrue = this.lblTrue;
             retorno.lblFalse = this.exp2.lblFalse;
             return retorno;

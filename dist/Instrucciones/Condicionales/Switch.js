@@ -179,7 +179,7 @@ class Switch {
                         // console.log(this.lblFalse)
                         genc3d.gen_If(temp, '1', '==', lb_case_true);
                         genc3d.gen_Goto(lb_case_false);
-                        const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO);
+                        const retorno = new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.BOOLEANO, null, ts_local, tree);
                         retorno.lblTrue = lb_case_true;
                         retorno.lblFalse = lb_case_false;
                     }

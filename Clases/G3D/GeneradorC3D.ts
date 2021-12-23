@@ -1,3 +1,4 @@
+import { TablaSimbolos } from './../TablaSimbolos/TablaSimbolos';
 import { Nativas } from "./Nativas";
 
 export class GeneradorC3D {
@@ -390,5 +391,43 @@ export class GeneradorC3D {
     public gen_Temp(temp: string) {
         if (!this.tempStorage.has(temp))
             this.tempStorage.add(temp);
+    }
+
+    public salvandoTemporales(entorno: TablaSimbolos): number {
+        if (this.tempStorage.size > 0) {
+            const temp = this.newTemp(); this.freeTemp(temp);
+            let size = 0;
+
+            this.gen_Comment('Guardado de temporales en el stack');
+            this.gen_Exp(temp, 'p', entorno.size, '+');
+            this.tempStorage.forEach((value) => {
+                size++;
+                this.gen_SetStack(temp, value);
+                if (size != this.tempStorage.size)
+                    this.gen_Exp(temp, temp, '1', '+');
+            });
+            this.gen_Comment('Se guardo los temporales en el stack');
+        }
+        let ptr = entorno.size;
+        entorno.size = ptr + this.tempStorage.size;
+        return ptr;
+    }
+
+    public recuperandoTemporales(entorno: TablaSimbolos, pos: number) {
+        if (this.tempStorage.size > 0) {
+            const temp = this.newTemp(); this.freeTemp(temp);
+            let size = 0;
+
+            this.gen_Comment('Sacando los temporales del Stack');
+            this.gen_Exp(temp, 'p', pos, '+');
+            this.tempStorage.forEach((value) => {
+                size++;
+                this.gen_GetStack(value, temp);
+                if (size != this.tempStorage.size)
+                    this.gen_Exp(temp, temp, '1', '+');
+            });
+            this.gen_Comment('Se sacaron los temporales del Stack');
+            entorno.size = pos;
+        }
     }
 }

@@ -328,21 +328,21 @@ class Aritmetica {
         switch (this.operador) {
             case Tipo_1.OperadorAritmetico.MAS:
                 // console.log("entre a suma");
-                return this.suma3D(valor_exp1, valor_exp2, tree);
+                return this.suma3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorAritmetico.MENOS:
-                return this.resta3D(valor_exp1, valor_exp2, tree);
+                return this.resta3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorAritmetico.POR:
-                return this.multiplicacion3D(valor_exp1, valor_exp2, tree);
+                return this.multiplicacion3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorAritmetico.DIV:
-                return this.divicion3D(valor_exp1, valor_exp2, tree);
+                return this.divicion3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorAritmetico.POT:
-                return this.potencia(valor_exp1, valor_exp2);
+                return this.potencia(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorAritmetico.MOD:
-                return this.modulo3D(valor_exp1, valor_exp2, tree);
+                return this.modulo3D(valor_exp1, valor_exp2, table, tree);
             case Tipo_1.OperadorAritmetico.UMENOS:
-                return this.unario3D(valor_expU, tree);
+                return this.unario3D(valor_expU, table, tree);
             case Tipo_1.OperadorAritmetico.AMPERSON:
-                return this.suma3D(valor_exp1, valor_exp2, tree);
+                return this.suma3D(valor_exp1, valor_exp2, table, tree);
             default:
                 //Se produjo un error inesperado
                 break;
@@ -351,7 +351,7 @@ class Aritmetica {
     // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // :::::::::::::::::::::    Aritmeticas C3D      :::::::::::::::::::::
     // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    suma3D(valor_exp1, valor_exp2, tree) {
+    suma3D(valor_exp1, valor_exp2, table, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
         let tempAux;
@@ -360,10 +360,10 @@ class Aritmetica {
                 switch (valor_exp2.tipo) {
                     case Tipo_1.TIPO.DECIMAL:
                         genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
                     case Tipo_1.TIPO.ENTERO:
                         genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
                     case Tipo_1.TIPO.CADENA:
                         let tempAux = genc3d.newTemp();
                         genc3d.freeTemp(tempAux);
@@ -372,10 +372,10 @@ class Aritmetica {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_int_str');
+                        genc3d.gen_Call('natConcatInt_str');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA, null, table, tree);
                     case Tipo_1.TIPO.BOOLEANO:
                     default:
                         break;
@@ -385,10 +385,10 @@ class Aritmetica {
                 switch (valor_exp2.tipo) {
                     case Tipo_1.TIPO.DECIMAL:
                         genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
                     case Tipo_1.TIPO.ENTERO:
                         genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '+');
-                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                        return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
                     case Tipo_1.TIPO.CADENA:
                         let tempAux = genc3d.newTemp();
                         genc3d.freeTemp(tempAux);
@@ -397,10 +397,10 @@ class Aritmetica {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_int_str');
+                        genc3d.gen_Call('natConcatInt_str');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA, null, table, tree);
                     case Tipo_1.TIPO.BOOLEANO:
                     default:
                         break;
@@ -419,7 +419,7 @@ class Aritmetica {
                         genc3d.gen_Call('natConcatStr_int');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA, null, table, tree);
                     case Tipo_1.TIPO.ENTERO:
                         tempAux = genc3d.newTemp();
                         genc3d.freeTemp(tempAux);
@@ -431,7 +431,7 @@ class Aritmetica {
                         genc3d.gen_Call('natConcatInt_str');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA, null, table, tree);
                     case Tipo_1.TIPO.CADENA:
                         tempAux = genc3d.newTemp();
                         genc3d.freeTemp(tempAux);
@@ -443,7 +443,7 @@ class Aritmetica {
                         genc3d.gen_Call('natConcatStr');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
-                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
+                        return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA, null, table, tree);
                     case Tipo_1.TIPO.BOOLEANO:
                     default:
                         break;
@@ -453,7 +453,7 @@ class Aritmetica {
                 break;
         }
     }
-    potencia(valor_exp1, valor_exp2) {
+    potencia(valor_exp1, valor_exp2, table, tree) {
         if (typeof valor_exp1 == 'number') {
             if (typeof valor_exp2 == 'number') {
                 return Math.pow(valor_exp1, valor_exp2);
@@ -472,55 +472,55 @@ class Aritmetica {
             // Error semantico
         }
     }
-    resta3D(valor_exp1, valor_exp2, tree) {
+    resta3D(valor_exp1, valor_exp2, table, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '-');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
             }
         }
     }
-    multiplicacion3D(valor_exp1, valor_exp2, tree) {
+    multiplicacion3D(valor_exp1, valor_exp2, table, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '*');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
             }
         }
     }
-    divicion3D(valor_exp1, valor_exp2, tree) {
+    divicion3D(valor_exp1, valor_exp2, table, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Exp(temp, valor_exp1.translate3d(), valor_exp2.translate3d(), '/');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
             }
         }
     }
-    modulo3D(valor_exp1, valor_exp2, tree) {
+    modulo3D(valor_exp1, valor_exp2, table, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             if (valor_exp2.tipo == Tipo_1.TIPO.DECIMAL || valor_exp2.tipo == Tipo_1.TIPO.ENTERO) {
                 genc3d.gen_Code(temp + ' = fmod(' + valor_exp1.translate3d() + ',' + valor_exp2.translate3d() + ');');
-                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo);
+                return new Retorno_1.Retorno(temp, true, valor_exp2.tipo, null, table, tree);
             }
         }
     }
-    unario3D(valor_exp1, tree) {
+    unario3D(valor_exp1, table, tree) {
         const genc3d = tree.generadorC3d;
         const temp = genc3d.newTemp();
         if (valor_exp1.tipo == Tipo_1.TIPO.DECIMAL || valor_exp1.tipo == Tipo_1.TIPO.ENTERO) {
             genc3d.gen_Exp(temp, valor_exp1.translate3d(), '-1', '*');
-            return new Retorno_1.Retorno(temp, true, valor_exp1.tipo);
+            return new Retorno_1.Retorno(temp, true, valor_exp1.tipo, null, table, tree);
         }
     }
-    getTipo(ts, ast) {
+    getTipo(ts, table, ast) {
         let valor = this.ejecutar(ts, ast);
         if (typeof valor === 'number') {
             return Tipo_1.TIPO.DECIMAL;

@@ -1,3 +1,4 @@
+import { Simbolo } from './../../TablaSimbolos/Simbolo';
 import { Ast } from "../../Ast/Ast";
 import { Errores } from "../../Ast/Errores";
 import { Nodo } from "../../Ast/Nodo";
@@ -75,9 +76,75 @@ export class Funcion implements Instruccion{
         }
         return null;
     }
+    /**
+     * @function translate3d Traduce a C3D
+     * @param table 
+     * @param tree 
+     */
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error("Method not implemented FUNCION.");
+        // this.validarParametros(table, tree);
+        // tree.
+
+        let funcion = tree.getFunction(this.id);
+        if( funcion !== undefined && funcion !== null){
+            let genc3d = tree.generadorC3d;
+            let newTabla = new TablaSimbolos(table);
+            let returnLbl = genc3d.newLabel();
+            let tempStorage = genc3d.getTempStorage();
+            let codeActual =  genc3d.getOnlyCode();
+            
+            newTabla.setTableFuncion(funcion, returnLbl);
+            this.parameters.forEach((param) => {
+                newTabla.setSymbolTabla(new Simbolo(param["id"], param["tipo"], false, this.fila, this.columna, null));
+            });
+            genc3d.clearTempStorage();
+            genc3d.clearCode();
+
+            genc3d.isFunc = '\t';
+            genc3d.gen_Funcion(funcion.id);
+            genc3d.newLabel();
+            this.instructions.forEach((instr) => {
+                instr.translate3d(newTabla, tree);
+            });
+            genc3d.gen_Label(returnLbl);
+            genc3d.gen_Code('return;');
+            genc3d.gen_EndFunction();
+            genc3d.isFunc = '';
+            genc3d.agregarFuncion(genc3d.getOnlyCode());
+            genc3d.setOnlyCode(codeActual);
+            genc3d.setTempStorage(tempStorage);
+        }
     }
+    // /**
+    //  * @function validarParametros valida los parametros en la funcion.
+    //  * @param table 
+    //  * @param tree 
+    //  */
+    // validarParametros(table: TablaSimbolos, tree: Ast){
+    //     const set = new Set<string>();
+    //     this.parameters.forEach((param) => {
+    //         if(set.has(param["id"])){
+    //             let error = new Errores("Semantico", `Parametro con nombre "${param["id"]}" repetiod en la función.`, this.fila, this.columna);
+    //             tree.getErrores().push(error);
+    //             tree.updateConsolaPrintln(error.toString());
+    //         }
+    //         set.add(param["id"]);
+    //     });
+    // }
+    // /**
+    //  * @function validarTipo valida los tipos en la funcion.
+    //  * @param table 
+    //  * @param tree 
+    //  */
+    // validarTipo(table: TablaSimbolos, tree: Ast){
+    //     if(this.tipo == )
+    // }
+    /**
+     * @function recorrer Grafica el nodo del AST
+     * @param table 
+     * @param tree 
+     * @returns 
+     */
     recorrer(table: TablaSimbolos, tree: Ast) {
         let padre = new Nodo("FUNCION","");
         
