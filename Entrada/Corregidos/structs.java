@@ -27,7 +27,7 @@ Nodo insertar(Nodo nodo, int indice, String nombre) {
 
 void preOrden(Nodo raiz){
     if(raiz != null){
-        println("Indice: $raiz.indice  Dato: ",raiz.nombre);
+        println("Indice: ",raiz.indice,"  Dato: ",raiz.nombre);
         preOrden(raiz.izq);
         preOrden(raiz.der);
     }
@@ -37,14 +37,14 @@ void postOrden(Nodo raiz) {
     if(raiz != null){
         postOrden(raiz.izq);
         postOrden(raiz.der);
-        println("Indice: $raiz.indice  Dato: ",raiz.nombre);
+        println("Indice: ", raiz.indice,"  Dato: ",raiz.nombre);
     }
 }
 
 void inOrden(Nodo raiz){
     if(raiz != null){
         inOrden(raiz.izq);
-        println("Indice: $raiz.indice  Dato: ",raiz.nombre);
+        println("Indice: ",$raiz.indice,"  Dato: ",raiz.nombre);
         inOrden(raiz.der);
     }
 }
@@ -75,6 +75,7 @@ void main(){
 	arbol.raiz = insertar(arbol.raiz, 9,"id4");
 	arbol.raiz = insertar(arbol.raiz, 3,"id5");
 	arbol.raiz = insertar(arbol.raiz, 14,"id6");
+    //println(arbol);
 	println("--------- PREORDEN ----------");
 	preOrden(arbol.raiz); // (* RESULTADO : 10, 5, 3, 9, 12, 14 *)
 	println("--------- POSTORDEN ----------");

@@ -33,6 +33,13 @@ class Llamada {
      */
     ejecutar(table, tree) {
         let resultFunc = tree.getFunction(this.id);
+        // validacion si es una asignacion de Struct
+        if (resultFunc == null) {
+            let resultStruct = tree.getStruct(this.id);
+            if (resultStruct != null) {
+                return this.ejecutarCreateStruct(table, tree);
+            }
+        }
         if (resultFunc == null) {
             return new Errores_1.Errores("Semantico", "Funcion no encontrada en asignacion", this.fila, this.columna);
         }
@@ -66,7 +73,7 @@ class Llamada {
                     }
                     else if (valueExpr instanceof Simbolo_1.Simbolo && valueExpr.tipo == Tipo_1.TIPO.STRUCT && resultFunc.parameters[count].tipo == Tipo_1.TIPO.STRUCT) {
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, false, this.fila, this.columna, valueExpr.valor);
-                        symbol.tipoStruct = valueExpr.tipo;
+                        symbol.tipoStruct = resultFunc.parameters[count].tipoStruct;
                     }
                     else {
                         symbol = new Simbolo_1.Simbolo(String(resultFunc.parameters[count].id), resultFunc.parameters[count].tipo, this.arreglo, this.fila, this.columna, valueExpr);
@@ -99,11 +106,104 @@ class Llamada {
         this.tipo = resultFunc.tipo;
         return valor;
     }
+<<<<<<< HEAD
     /**
      * @function translate3d Traduce a 3D.
      * @param table
      * @param tree
      */
+=======
+    ejecutarCreateStruct(table, tree) {
+        // SI NO, ES ASIGNACION CON DECLARACION=
+        //1 Obtenemos Struct
+        let struct = tree.getStruct(this.id); // Struct
+        // console.log(struct);
+        if (struct == null) {
+            return new Errores_1.Errores("Semantico", "Llamada - Struct " + this.id + ": NO coincide con la busqueda", this.fila, this.columna);
+        }
+        //2 EJECUTAMOS  STRUCT
+        // struct.idSimbolo =this.id;
+        let SymbolStructNow = new Simbolo_1.Simbolo(this.id, Tipo_1.TIPO.STRUCT, false, this.fila, this.columna, new TablaSimbolos_1.TablaSimbolos(null));
+        // nuevo_simb.tipoStruct = this.id;
+        // tree.updateConsolaPrintln(" tamano variables: struct; " + this.variables.length);
+        // tree.updateConsolaPrintln(" tamano instruccines: struct; " + this.instructions.length);
+        /**
+         * GUARDAMOS SIMBOLO STRUCT
+         */
+        let entornoAttributes = new TablaSimbolos_1.TablaSimbolos(null);
+        let varSTemps = [];
+        let resultStruct = struct.executeEnvironment(entornoAttributes, tree, varSTemps); // retorna variables
+        if (resultStruct instanceof Errores_1.Errores)
+            return resultStruct;
+        // table.setSymbolTabla(nuevo_simb);
+        // 
+        // console.log(table.getSymbolTabla(this.id));
+        // 2.1 if es nulo, solo declara
+        // Ejecutando parametros
+        // let SymbolStructNow = table.getSymbolTabla(this.id);
+        SymbolStructNow.valor = new TablaSimbolos_1.TablaSimbolos(null);
+        SymbolStructNow.valor = entornoAttributes;
+        SymbolStructNow.variables = varSTemps;
+        // tree.updateConsolaPrintln(`to strinng Struct: ${SymbolStructNow.valor.toStringTable()}`);
+        // let newTable = nuevo_simb.getValor();
+        // console.log("STRUCTTTTTTTTTTTTTTTTTTTTTTT")
+        // console.log(SymbolStructNow)
+        // valido tama;o de   parametros parameters de funcion y parametros de llamada
+        if (this.parameters.length == SymbolStructNow.variables.length) {
+            let count = 0;
+            for (let expr of this.parameters) {
+                let valueExpr = expr.ejecutar(table, tree);
+                if (valueExpr instanceof Errores_1.Errores) {
+                    return new Errores_1.Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", this.fila, this.columna);
+                }
+                if (SymbolStructNow.variables[count].tipo == expr.tipo || SymbolStructNow.variables[count].tipo == Tipo_1.TIPO.ANY || expr.tipo == Tipo_1.TIPO.NULO) //Valida Tipos
+                 {
+                    let symbol;
+                    if (SymbolStructNow.variables[count].tipo == Tipo_1.TIPO.ANY) {
+                        symbol = new Simbolo_1.Simbolo(String(SymbolStructNow.variables[count].id), expr.tipo, false, this.fila, this.columna, valueExpr); // seteo para variables nativas
+                    }
+                    else if (SymbolStructNow.variables[count].tipo == Tipo_1.TIPO.STRUCT) {
+                        // Dos formas 1: struct intanciado|| null
+                        // IF el nuevo parametro es de tipo struct
+                        if (expr.tipo == Tipo_1.TIPO.STRUCT && expr.tipoStruct == this.id) {
+                            symbol = new Simbolo_1.Simbolo(SymbolStructNow.variables[count].id, Tipo_1.TIPO.STRUCT, false, this.fila, this.columna, valueExpr.valor);
+                            symbol.variables = valueExpr.variables;
+                            symbol.tipoStruct = this.id;
+                        }
+                        if (expr.tipo == Tipo_1.TIPO.NULO) {
+                            symbol = new Simbolo_1.Simbolo(SymbolStructNow.variables[count].id, Tipo_1.TIPO.STRUCT, false, this.fila, this.columna, null);
+                            // symbol.variables = valueExpr.variables;
+                            symbol.variables = [];
+                            symbol.tipoStruct = this.id;
+                        }
+                        // symbol = new Simbolo(String(struct.variables[count].id),expr.tipo, true, this.llamada.fila, this.llamada.columna, valueExpr ); // seteo para variables nativas
+                    }
+                    else {
+                        symbol = new Simbolo_1.Simbolo(SymbolStructNow.variables[count].id, SymbolStructNow.variables[count].tipo, false, this.fila, this.columna, valueExpr);
+                    }
+                    // console.log(struct)
+                    // console.log(symbol)
+                    let resultTable = SymbolStructNow.valor.updateSymbolTabla(symbol);
+                    if (resultTable instanceof Errores_1.Errores)
+                        return resultTable;
+                }
+                else {
+                    return new Errores_1.Errores("Semantico", "Verificacion de Tipo de Parametros no coincide", this.fila, this.columna);
+                }
+                count++;
+            }
+            // let resultStruct = table.updateSymbolTabla(SymbolStructNow); // Update Struct Actual
+            // if (resultStruct instanceof Errores)
+            //     return resultStruct
+            // return null;
+        }
+        else {
+            console.log(`tam param call: ${this.parameters.length} func ${struct.instructions.length}`);
+            return new Errores_1.Errores("Semantico", "Tamaño de Tipo de Parametros no coincide", this.fila, this.columna);
+        }
+        return SymbolStructNow.valor;
+    }
+>>>>>>> develop
     translate3d(table, tree) {
         let funcion = tree.getFunction(this.id);
         if (funcion === null || funcion === undefined) {

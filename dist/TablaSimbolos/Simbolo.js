@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Simbolo = void 0;
+const TablaSimbolos_1 = require("./TablaSimbolos");
 class Simbolo {
     /**
      *
@@ -71,7 +72,12 @@ class Simbolo {
         // {
         if (this.valor != null) {
             // console.log(this.valor.tabla)
-            cadena += this.valor.toStringTable();
+            if (this.valor instanceof TablaSimbolos_1.TablaSimbolos) {
+                cadena += this.valor.toStringTable();
+            }
+            else if (this.valor instanceof Simbolo) {
+                cadena += this.valor.toStringStruct();
+            }
         }
         else {
             return this.id + "(null)";

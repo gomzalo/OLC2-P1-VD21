@@ -122,7 +122,8 @@ export class Ast  {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for( let instr of this.instrucciones){
-            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct || instr instanceof DeclaracionArr || instr instanceof ModificacionArr))
+            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion 
+                || instr instanceof Struct || instr instanceof DeclaracionArr || instr instanceof ModificacionArr || instr instanceof DeclararStruct))
             {
                 let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
                 this.getErrores().push(error);
@@ -219,7 +220,8 @@ export class Ast  {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for( let instr of this.instrucciones){
-            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct || instr instanceof DeclaracionArr || instr instanceof ModificacionArr))
+            if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct 
+                || instr instanceof DeclaracionArr || instr instanceof ModificacionArr || instr instanceof DeclararStruct ) )
             {
                 let error = new Errores("Semantico", "Sentencia fuera de main.", instr.fila, instr.columna);
                 this.getErrores().push(error);

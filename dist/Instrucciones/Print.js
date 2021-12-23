@@ -42,6 +42,8 @@ class Print {
                 // console.log("print STRUCT");
                 // console.log(valor);
                 valor = temp.toStringStruct();
+                console.log("imprimiendo Struct");
+                console.log(temp.valor);
             }
             if (expresion.tipo == Tipo_1.TIPO.ARREGLO) {
             }

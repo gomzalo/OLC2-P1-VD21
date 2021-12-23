@@ -57,7 +57,10 @@ export class Print implements Instruccion{
                 temp = valor;
                 // console.log("print STRUCT");
                 // console.log(valor);
-                valor = temp.toStringStruct()
+                valor = temp.toStringStruct();
+                console.log("imprimiendo Struct");
+                console.log(temp.valor);
+
             }
             if (expresion.tipo == TIPO.ARREGLO)
             {
