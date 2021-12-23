@@ -233,15 +233,6 @@ void main(){
     while (i_do < 5); // 0:1:2:3:4
     println("");
     println("");
-    println("************   Asignaciones  **************");
-    println("");
-    int test1, test2 = 56, test3;
-    char cprueba;
-    int test;
-    println(test); // 0
-    println(test2); // 56
-    println(cprueba); // 0
-    println("");
     println("************   For  **************");
     println("");
     for (int i = 0; i < 5; i++) {
@@ -255,13 +246,7 @@ void main(){
     test1++;
     test1--;
     println(test1); // 1
-    test=-25*(69-33*2)+22-32*2-33*(-48+48);
     println(test); // -117
     println(test++); // -116
     println("");
-}
-
-void metodo (String hola)
-{
-    println(hola);
 }
