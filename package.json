@@ -4,7 +4,12 @@
   "description": "Primer proyecto de laboratorio del curso Organización de lenguajes y compiladores 2.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "jison": "jison './Analizadores/gramatica.jison' ",
+    "tsc": "tsc ",
+    "build": "browserify index.js --standalone load > bundle.js",
+    "compi": "tsc & browserify index.js --standalone load > bundle.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/gomzalo/OLC2-P1-VD21/issues"
   },
-  "homepage": "https://github.com/gomzalo/OLC2-P1-VD21#readme"
+  "homepage": "https://github.com/gomzalo/OLC2-P1-VD21#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "codemirror": "^5.64.0",
+    "jison": "^0.4.18",
+    "vis-network": "^9.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11"
+  }
 }

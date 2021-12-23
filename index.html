@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>QUETZAL-OLC2</title>
+    <link rel="shortcut icon" type="image/png" href="quetzal.png"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- BOOSTRAP 4-->
+    <link rel="stylesheet" href="https://bootswatch.com/5/quartz/bootstrap.css">
+
+    <!-- JS Dropdown -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- GOOGLE FONTS -->
+    <!--<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Permanent+Marker&display=swap" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+
+    <!-- Create a simple CodeMirror instance -->
+    <script src="codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/theme/night.css"> 
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/clike/clike.js"></script>
+    <script src="codemirror/addon/edit/closebrackets.js"></script>
+
+
+    <!--ALERTAS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" ></script>
+
+    <!-- CUSTOM CSS-->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- VIZ -->
+    <!-- <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha512-vnRdmX8ZxbU+IhA2gLhZqXkX1neJISG10xy0iP0WauuClu3AIMknxyDjYHEpEhi8fTZPyOCWgqUCnEafDB/jVQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js" integrity="sha512-1zKK2bG3QY2JaUPpfHZDUMe3dwBwFdCDwXQ01GrKSd+/l0hqPbF+aak66zYPUZtn+o2JYi1mjXAqy5mW04v3iA==" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-primary navbar-primary" data-hover="dropdown"
+    data-animations="fadeInDown fadeInLeft fadeInUp fadeInRight">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="#"><i class="fa fa-server"></i>QUETZAL-OLC2</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav ">
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Archivo
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" id="itemAbrir"><i class="fa fa-folder-open"></i> Abrir</a>
+                <a class="dropdown-item" href="#"><i class="fa fa-save"></i> Guardar</a>
+                <!-- <a class="dropdown-item" href="#"><i class="fa fa-share-square"></i> Guardar Como</a> -->
+            </div>
+        </li>
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Ejecución
+            </a>
+            <div class="dropdown-menu" >
+                <a class="dropdown-item" id="compilarProyecto"><i class="fa fa-play"></i> Compilar</a>                
+                <a class="dropdown-item" id="traducirProyecto"><i class="fa fa-edit"></i> Traducir</a>
+                <!-- <a class="dropdown-item" href="#"><i class="fa fa-compress"></i> Optimizar Archivo</a> -->
+            </div>
+        </li>
+
+        <!-- Dropdown 
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" display="none">
+                Edición
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" id="agregarNuevoTab"><i class="fa fa-square"></i> Nuevo</a>
+                <a class="dropdown-item" id="eliminarTab"><i class="fa fa-minus-square"></i> Eliminar</a>
+                <a class="dropdown-item" id="limpiarTab"><i class="fa fa-eraser"></i> Limpiar</a>
+            </div>
+        </li>
+        -->
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Reportes
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" id="reporteErrores"><i class="fa fa-exclamation-circle"></i> Errores</a>
+                <a class="dropdown-item" id="reporteTablaSimbolos"><i class="fa fa-table"></i> Tabla de Símbolos</a>
+                <a class="dropdown-item" id="reporteAST"><i class="fa fa-angle-double-down"></i> AST </a>
+                <!-- <a class="dropdown-item" onclick="reporteAST_Traduccion()"><i class="fa fa-angle-double-down"></i> AST Traduccion</a> -->
+                <a class="dropdown-item" id="reporteGramatical"><i class="fa fa-edit"></i> Gramatical </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<br>
+<br>
+
+<div class="container">
+    <h2>Entrada</h2>
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs active" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link bg-primary" id="tab1" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                        aria-selected="true">Tab 1</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="tab1">
+                    <div>
+                        <textarea class="form-control" id ="textAreaEntrada" rows="21"></textarea>
+                    </div>
+                    
+                </div>
+            </div>
+        
+        </div>
+        <div class="col">
+            <h2>Consola</h2>
+            <textarea class="form-control1" id="textAreaConsola"
+                wrap='off' readonly>Solamente de lectura.&#13;&#10;</textarea>
+        </div>
+    </div>
+        <div class="row">
+            <h2>Consola C3D</h2>
+            <textarea class="form-control" id ="textAreaC3d" rows="50"></textarea>
+        </div>
+
+    <div id="clickedTab">
+        <h3>Reporte Ast</h3>
+    </div>
+    <div>
+        <table class="table table-hover table-secondary">
+            <h3>Reporte de Errores</h3>
+            <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Fila</th>
+            <th scope="col">Columna</th>
+            </tr>
+            </thead>
+            <tbody id="CuerpoTablaErrores">
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table class="table table-hover table-active">
+            <h3>Tabla de Simbolos</h3>
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Entorno</th>
+                <th scope="col">Identificador</th>
+                <th scope="col">Fila</th>
+                <th scope="col">Columna</th>
+                </tr>
+            </thead>
+            <tbody id="CuerpoTablaSimbolos">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+<br>
+
+<script src="./bundle.js"></script>
+</body>
+<center>
+<footer class="btn btn-outline-primary">
+    
+    <p>Universidad de San Carlos de Guatemala - Facultad de Ingeníeria</p>
+    <p>Laboratorio de Organización de Lenguajes y Compiladores 2</p>
+    <p><a href="https://github.com/gomzalo">Gonzalo García - 20131852</a></p>
+    <p><a href="https://github.com/Ebenja">Erick López - 201504530</a></p>
+    
+</footer>
+</center>
+</html>
