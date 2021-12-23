@@ -126,56 +126,60 @@ export  class Declaracion implements Instruccion{
 
             }
             // console.log(valor)
-            // console.log(this.tipo)
-            if (this.tipo != valor.tipo){
-                let error = new Errores("\nC3D ", "Declaracion " + variable.id + " - No coincide el tipo", simbolo.getFila(), simbolo.getColumna());
+            // console.log("while tipos:");
+            // console.log(this.tipo);
+            // console.log(valor.tipo);
+            console.log(!(this.tipo == TIPO.DECIMAL && valor.tipo == TIPO.ENTERO));
+            if (this.tipo == valor.tipo  || (this.tipo == TIPO.DECIMAL && valor.tipo == TIPO.ENTERO)){
+                
+                // Verificar si guardar
+                let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,"");
+                nuevo_simb.posicion = table.size;
+                // console.log(nuevo_simb);
+                // nuevo_simb.isRef=true;
+                let res_simb = table.setSymbolTabla(nuevo_simb);
+                if(res_simb instanceof Errores){
+                    tree.updateConsolaPrintln(res_simb.toString());
+                    return;
+                }
+                genc3d.gen_Comment("------- Declarando-------");
+                ///array en declaracion array
+                
+                if (nuevo_simb.isGlobal) {
+                    if (valor.tipo === TIPO.BOOLEANO) {
+                        genc3d.gen_Comment("------- is ref true-------");
+                        const lbl = genc3d.newLabel();
+                        genc3d.gen_Label(valor.lblTrue);
+                        genc3d.gen_SetStack(nuevo_simb.posicion, '1');
+                        genc3d.gen_Goto(lbl);
+                        genc3d.gen_Label(valor.lblFalse);
+                        genc3d.gen_SetStack(nuevo_simb.posicion, '0');
+                        genc3d.gen_Label(lbl);
+                    }
+                    else
+                    genc3d.gen_SetStack(nuevo_simb.posicion, valor.valor);
+                }
+                else {
+                    genc3d.gen_Comment("------- is ref false-------");
+                    const temp = genc3d.newTemp(); genc3d.freeTemp(temp);
+                    genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
+                    if (valor.tipo === TIPO.BOOLEANO) {
+                        const lbl = genc3d.newLabel();
+                        genc3d.gen_Label(valor.lblTrue);
+                        genc3d.gen_SetStack(nuevo_simb.posicion, '1');
+                        genc3d.gen_Goto(lbl);
+                        genc3d.gen_Label(valor.lblFalse);
+                        genc3d.gen_SetStack(nuevo_simb.posicion, '0');
+                        genc3d.gen_Label(lbl);
+                    }
+                    else
+                        genc3d.gen_SetStack(temp, valor.valor);
+                }
+            }else{
+                let error = new Errores("\nC3D ", `Declaracion, variable con ID: "${variable.id}", no coincide el tipo.`, simbolo.getFila(), simbolo.getColumna());
                 tree.updateConsolaPrintln(error.toString());
                 tree.Errores.push(error);
                 return error;
-            }
-
-            // Verificar si guardar
-            let nuevo_simb = new Simbolo(variable.id, this.tipo, this.arreglo, variable.fila,variable.columna,"");
-            nuevo_simb.posicion = table.size;
-            // console.log(nuevo_simb);
-            // nuevo_simb.isRef=true;
-            let res_simb = table.setSymbolTabla(nuevo_simb);
-            if(res_simb instanceof Errores){
-                tree.updateConsolaPrintln(res_simb.toString());
-                return;
-            }
-            genc3d.gen_Comment("------- Declarando-------");
-            ///array en declaracion array
-            
-            if (nuevo_simb.isGlobal) {
-                if (valor.tipo === TIPO.BOOLEANO) {
-                    genc3d.gen_Comment("------- is ref true-------");
-                    const lbl = genc3d.newLabel();
-                    genc3d.gen_Label(valor.lblTrue);
-                    genc3d.gen_SetStack(nuevo_simb.posicion, '1');
-                    genc3d.gen_Goto(lbl);
-                    genc3d.gen_Label(valor.lblFalse);
-                    genc3d.gen_SetStack(nuevo_simb.posicion, '0');
-                    genc3d.gen_Label(lbl);
-                }
-                else
-                genc3d.gen_SetStack(nuevo_simb.posicion, valor.valor);
-            }
-            else {
-                genc3d.gen_Comment("------- is ref false-------");
-                const temp = genc3d.newTemp(); genc3d.freeTemp(temp);
-                genc3d.gen_Exp(temp, 'p', nuevo_simb.posicion, '+');
-                if (valor.tipo === TIPO.BOOLEANO) {
-                    const lbl = genc3d.newLabel();
-                    genc3d.gen_Label(valor.lblTrue);
-                    genc3d.gen_SetStack(nuevo_simb.posicion, '1');
-                    genc3d.gen_Goto(lbl);
-                    genc3d.gen_Label(valor.lblFalse);
-                    genc3d.gen_SetStack(nuevo_simb.posicion, '0');
-                    genc3d.gen_Label(lbl);
-                }
-                else
-                    genc3d.gen_SetStack(temp, valor.valor);
             }
 
         }

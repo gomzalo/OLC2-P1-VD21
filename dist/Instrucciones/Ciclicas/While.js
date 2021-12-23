@@ -61,7 +61,8 @@ class While {
         genc3d.gen_Comment('-----Condicion');
         let condicion = this.condicion.translate3d(table, tree);
         if (condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
-            let error = new Errores_1.Errores("c3d", "La condicion no  es boolean", this.fila, this.columna);
+            let error = new Errores_1.Errores("c3d", "La condicion no es booleana.", this.fila, this.columna);
+            tree.Errores.push(error);
             tree.updateConsolaPrintln(error.toString());
         }
         entornoLocal.break = condicion.lblFalse;
@@ -74,7 +75,7 @@ class While {
         // this.sentencias.translate3d(entornoLocal);
         genc3d.gen_Goto(lbl);
         genc3d.gen_Label(condicion.lblFalse);
-        genc3d.gen_Comment('-----------fin while -------');
+        genc3d.gen_Comment('----------- FIN WHILE -------');
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("WHILE", "");

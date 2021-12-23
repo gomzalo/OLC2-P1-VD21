@@ -11,7 +11,7 @@ import { Return } from "./Transferencia/Return";
 
 export class Asignacion implements Instruccion{
     public id: string;
-    public expresion : Expresion|any;
+    public expresion : any;
     public fila : number;
     public columna : number;
     arreglo = false;
@@ -50,7 +50,7 @@ export class Asignacion implements Instruccion{
              */
             // console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
             let getSym = table.getSymbolTabla(this.id);
-            let update = new Simbolo(this.id, this.expresion.tipo, null, this.fila,this.columna,valor); 
+            let update = new Simbolo(this.id, this.expresion.tipo, this.arreglo, this.fila,this.columna,valor); 
             if (getSym != null)
             {
                 update.tipoStruct = getSym.tipoStruct;
@@ -68,7 +68,7 @@ export class Asignacion implements Instruccion{
                 return result;
             }
         }else{
-            return new Errores("Semantico", "Variable no encontrada en asignacion", this.fila,this.columna);
+            return new Errores("Semantico", `Variable con ID: "${this.id}", no encontrada en asignacion.`, this.fila,this.columna);
         }
         return null
     }
@@ -76,54 +76,66 @@ export class Asignacion implements Instruccion{
     translate3d(table: TablaSimbolos, tree: Ast) {
         let genc3d = tree.generadorC3d;
         genc3d.gen_Comment("----------- ASIGNANDO ----------");
-        let varSymb = table.getSymbolTabla(this.id);
-        if (varSymb == null){
-            let error = new Errores("C3d ", "Asignacion " + this.id + " -No se encontro", this.fila, this.columna);;
+        if(table.existe(this.id)){
+            console.log("asignacion");
+            console.log(this.id);
+            let varSymb = table.getSymbolTabla(this.id);
+            if (varSymb == null){
+                let error = new Errores("C3D ", `Asignacion, variable con ID: "${this.id}", no se encontro.`, this.fila, this.columna);;
+                tree.updateConsolaPrintln(error.toString());
+                tree.Errores.push(error);
+                return error;
+            }
+            let retActual;
+            
+            if (varSymb.isGlobal) {
+                retActual= new Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb);
+            }
+            else {
+                const temp = genc3d.newTemp();
+                genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
+                retActual =  new Retorno(temp, true, varSymb.tipo, varSymb);
+            }
+            //obteniendo resultado
+            let valorExp = this.expresion.translate3d(table,tree);
+            if (varSymb.tipo === TIPO.ENTERO && valorExp.tipo === TIPO.DECIMAL)
+                varSymb.tipo = valorExp.tipo;
+
+            // if(varSymb?.inHeap || varSymb?.isGlobal){
+            if(varSymb?.inHeap){
+                if (varSymb.tipo == TIPO.BOOLEANO) {
+                    let templabel = genc3d.newLabel();
+                    genc3d.gen_Label(valorExp.lblTrue);
+                    genc3d.gen_SetHeap(retActual.valor, '1');
+                    genc3d.gen_Goto(templabel);
+                    genc3d.gen_Label(valorExp.lblFalse);
+                    genc3d.gen_SetHeap(retActual.valor, '0');
+                    genc3d.gen_Label(templabel);
+                }
+                else {
+                    genc3d.gen_SetHeap(retActual.valor, valorExp.valor);
+                    table.updateSymbolTabla(new Simbolo(this.id, this.expresion.tipo, this.arreglo, this.fila, this.columna, valorExp.valor));
+                }
+            }else{
+                if (varSymb.tipo == TIPO.BOOLEANO) {
+                    const templabel = genc3d.newLabel();
+                    genc3d.gen_Label(valorExp.lblTrue);
+                    genc3d.gen_SetStack(retActual.valor, '1');
+                    genc3d.gen_Goto(templabel);
+                    genc3d.gen_Label(valorExp.lblFalse);
+                    genc3d.gen_SetStack(retActual.valor, '0');
+                    genc3d.gen_Label(templabel);
+                }
+                else {
+                    genc3d.gen_SetStack(retActual.valor, valorExp.valor);
+                    table.updateSymbolTabla(new Simbolo(this.id, this.expresion.tipo, this.arreglo, this.fila, this.columna, valorExp.valor));
+                }
+            }
+        }else{
+            let error = new Errores("C3D ", `Asignacion, variable con ID: "${this.id}", no se encontro.`, this.fila, this.columna);;
             tree.updateConsolaPrintln(error.toString());
             tree.Errores.push(error);
             return error;
-        }
-        let retActual;
-        
-        if (varSymb.isGlobal) {
-            retActual= new Retorno(String(varSymb.posicion), false, varSymb.tipo, varSymb);
-        }
-        else {
-            const temp = genc3d.newTemp();
-            genc3d.gen_Exp(temp, 'p', varSymb.posicion, '+');
-            retActual =  new Retorno(temp, true, varSymb.tipo, varSymb);
-        }
-        //obteniendo resultado
-        let valorExp = this.expresion.translate3d(table,tree);
-        if (varSymb.tipo === TIPO.ENTERO && valorExp.tipo === TIPO.DECIMAL)
-            varSymb.tipo = valorExp.tipo;
-
-        if(varSymb?.inHeap || varSymb?.isGlobal){
-            if (varSymb.tipo == TIPO.BOOLEANO) {
-                let templabel = genc3d.newLabel();
-                genc3d.gen_Label(valorExp.lblTrue);
-                genc3d.gen_SetHeap(retActual.valor, '1');
-                genc3d.gen_Goto(templabel);
-                genc3d.gen_Label(valorExp.lblFalse);
-                genc3d.gen_SetHeap(retActual.valor, '0');
-                genc3d.gen_Label(templabel);
-            }
-            else {
-                genc3d.gen_SetHeap(retActual.valor, valorExp.valor);
-            }
-        }else{
-            if (varSymb.tipo == TIPO.BOOLEANO) {
-                const templabel = genc3d.newLabel();
-                genc3d.gen_Label(valorExp.lblTrue);
-                genc3d.gen_SetStack(retActual.valor, '1');
-                genc3d.gen_Goto(templabel);
-                genc3d.gen_Label(valorExp.lblFalse);
-                genc3d.gen_SetStack(retActual.valor, '0');
-                genc3d.gen_Label(templabel);
-            }
-            else {
-                genc3d.gen_SetStack(retActual.valor, valorExp.valor);
-            }
         }
         
 
@@ -133,7 +145,6 @@ export class Asignacion implements Instruccion{
         let padre = new Nodo("ASIGNACION","");
         padre.addChildNode(new Nodo(this.id,""));
         padre.addChildNode(this.expresion.recorrer(table,tree));
-         
         return padre;
     }
 

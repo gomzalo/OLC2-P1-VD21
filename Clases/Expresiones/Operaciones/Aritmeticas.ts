@@ -403,6 +403,8 @@ export class Aritmetica implements Instruccion {
                 return this.modulo3D(valor_exp1,valor_exp2,tree);
             case OperadorAritmetico.UMENOS:
                 return this.unario3D(valor_expU,tree);
+            case OperadorAritmetico.AMPERSON:
+                return this.suma3D(valor_exp1,valor_exp2,tree);
             default:
                 //Se produjo un error inesperado
                 break;
@@ -476,7 +478,7 @@ export class Aritmetica implements Instruccion {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_Call('natConcatStr_int');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno(temp, true, TIPO.CADENA); 
@@ -487,7 +489,7 @@ export class Aritmetica implements Instruccion {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_Call('natConcatInt_str');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno(temp, true, TIPO.CADENA); 
@@ -498,7 +500,7 @@ export class Aritmetica implements Instruccion {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_str');
+                        genc3d.gen_Call('natConcatStr');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno(temp, true, TIPO.CADENA); 

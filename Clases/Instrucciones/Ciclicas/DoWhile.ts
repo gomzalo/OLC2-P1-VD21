@@ -12,7 +12,7 @@ import { Errores } from '../../Ast/Errores';
 
 export class DoWhile implements Instruccion{
 
-    public condicion : Instruccion;
+    public condicion;
     public lista_instrucciones : Array<Instruccion>;
     public fila : number;
     public columna : number;
@@ -62,7 +62,26 @@ export class DoWhile implements Instruccion{
     }
 
     translate3d(table: TablaSimbolos, tree: Ast) {
-        throw new Error('Method not implemented DOWHILE.');
+        let genc3d = tree.generadorC3d;
+        let entornoLocal = new TablaSimbolos(table);
+        
+        genc3d.gen_Comment('------------ DO WHILE -----------');
+        entornoLocal.continue = this.condicion.lblTrue = genc3d.newLabel();
+        entornoLocal.break = this.condicion.lblFalse = genc3d.newLabel();
+        genc3d.gen_Label(this.condicion.lblTrue);
+        for(let inst of this.lista_instrucciones)
+        {
+            inst.translate3d(entornoLocal,tree);
+        }
+        genc3d.gen_Comment('-----Condicion');
+        let condicion = this.condicion.translate3d(table,tree);
+        if (condicion.tipo !== TIPO.BOOLEANO){
+            let error =  new Errores("c3d", "La condicion no es booleana.", this.fila, this.columna);
+            tree.Errores.push(error);
+            tree.updateConsolaPrintln(error.toString());
+        }
+        genc3d.gen_Label(condicion.lblFalse);
+        genc3d.gen_Comment('----------- FIN DO WHILE  -------');
     }
     
     recorrer(table: TablaSimbolos, tree: Ast) {

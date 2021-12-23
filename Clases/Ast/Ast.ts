@@ -28,7 +28,10 @@ export class Ast  {
     public generadorC3d : GeneradorC3D;
     public repGramatical : Array<string> ;
 
-
+    /**
+     * @class AST
+     * Almacena instrucciones, funciones y structs.
+     */
     constructor(){
         this.instrucciones = new Array<Instruccion>();
         this.funciones =  new Array();
@@ -43,7 +46,9 @@ export class Ast  {
         this.generadorC3d=GeneradorC3D.getInstancia();
         this.repGramatical = new Array<string>();
     }
-
+    /**
+     * @function ejecutar interpreta las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     */
     public ejecutar(){
         let tree = this;
         tree.setTSGlobal(this.TSglobal);
@@ -127,7 +132,10 @@ export class Ast  {
         }
 
     }
-
+    /**
+     * @function traducir traduce las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     * @returns 
+     */
     public traducir(){
         let tree = this;
         tree.generadorC3d.clearCode();
@@ -183,12 +191,12 @@ export class Ast  {
                 countMain++;
                 if (countMain == 2)
                 {
-                    let error = new Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
+                    let error = new Errores("Semantico", "Existe mas de un metodo main.", instr.fila, instr.columna);
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                console.log("ENTRO A DECLARACION GLOBAL: ");
+                console.log("ENTRO A DECLARACION MAIN: ");
                 let value = instr.translate3d(this.TSglobal,tree);   
                 // if( value instanceof Detener ){
                 //     let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
@@ -210,7 +218,7 @@ export class Ast  {
             if (!(instr instanceof Declaracion || instr instanceof Asignacion || instr instanceof Main || instr instanceof Funcion || instr instanceof Struct 
                 || instr instanceof DeclaracionArr || instr instanceof ModificacionArr || instr instanceof DeclararStruct ) )
             {
-                let error = new Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
+                let error = new Errores("Semantico", "Sentencia fuera de main.", instr.fila, instr.columna);
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());
             }
@@ -362,11 +370,11 @@ export class Ast  {
         this.recorrer("n0", raiz);
         this.dot += "}"
 
-        let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
-        let value = "";
-        value += this.dot;
-        textarea.value = value;
-
+        // let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
+        // let value = "";
+        // value += this.dot;
+        // textarea.value = value;
+        console.log(this.dot);
         return this.dot;    
     }
 

@@ -5,6 +5,10 @@ const Errores_1 = require("../Ast/Errores");
 const Simbolo_1 = require("./Simbolo");
 const Tipo_1 = require("./Tipo");
 class TablaSimbolos {
+    /**
+     *
+     * @param anterior Entorno anterior
+     */
     constructor(anterior) {
         this.anterior = anterior;
         this.tabla = new Map();
@@ -14,10 +18,15 @@ class TablaSimbolos {
         this.return = (anterior === null || anterior === void 0 ? void 0 : anterior.return) || null;
         this.actual_funcion = (anterior === null || anterior === void 0 ? void 0 : anterior.actual_funcion) || null;
     }
+    /**
+     * @function setSymbolTabla Agrega un nuevo simbolo al entorno actual.
+     * @param simbolo Símbolo que se agregara al entorno actual.
+     * @returns
+     */
     setSymbolTabla(simbolo) {
         if (this.existeEnActual(simbolo.id)) {
             // console.log("Entreeeeee")
-            return new Errores_1.Errores("Semantico", "Variable " + simbolo.getId() + " Existe", simbolo.getFila(), simbolo.getColumna());
+            return new Errores_1.Errores("Semantico", `Variable con ID: "${simbolo.getId()}", ya existe.`, simbolo.getFila(), simbolo.getColumna());
         }
         else {
             // this.tabla[simbolo.getId()] = simbolo;
@@ -29,6 +38,11 @@ class TablaSimbolos {
             return null;
         }
     }
+    /**
+     * @function existeEnActual Verifica si el simbolo ya existe en el entorno actual.
+     * @param id ID del simbolo a buscar dentro del entorno actual.
+     * @returns
+     */
     existeEnActual(id) {
         let entorno = this;
         let existe = entorno.tabla.get(id);
@@ -69,8 +83,8 @@ class TablaSimbolos {
         return false;
     }
     /**
-     * @function  getSymbolTabla
-     * @param id
+     * @function getSymbolTabla Obtiene un simbolo, si existe, dentro del entorno actual.
+     * @param id ID del simbolo a buscar dentro del entorno actual.
      * @returns existe || null
      */
     getSymbolTabla(id) {
@@ -86,6 +100,11 @@ class TablaSimbolos {
         }
         return null;
     }
+    /**
+     * @function imprimirTabla Imprime las variables declaradas en el entorno actual.
+     * @param cont Devuelve el html que se agregara a la tabla del reporte de la Tabla de Simbolos.
+     * @returns
+     */
     imprimirTabla(cont) {
         let content = "";
         // let cont = 1;
@@ -127,13 +146,13 @@ class TablaSimbolos {
                     return null;
                 }
                 // console.log(`tipoo exp: ${existe.getTipo()} tipo variableSym: ${simbolo.getTipo()}`);
-                return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion", simbolo.getFila(), simbolo.getColumna());
+                return new Errores_1.Errores("Semantico", "Tipo de dato diferente en asignacion.", simbolo.getFila(), simbolo.getColumna());
             }
             else {
                 tablaActual = tablaActual.anterior;
             }
         }
-        return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion", simbolo.getFila(), simbolo.getColumna());
+        return new Errores_1.Errores("Semantico", "Varibale no encontrada en asignacion.", simbolo.getFila(), simbolo.getColumna());
     }
     getTipoStr(tipo) {
         switch (tipo) {

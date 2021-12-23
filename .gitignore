@@ -105,3 +105,4 @@ typings/
 
 # VScode
 .vscode/
+*.code-workspace

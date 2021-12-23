@@ -341,6 +341,8 @@ class Aritmetica {
                 return this.modulo3D(valor_exp1, valor_exp2, tree);
             case Tipo_1.OperadorAritmetico.UMENOS:
                 return this.unario3D(valor_expU, tree);
+            case Tipo_1.OperadorAritmetico.AMPERSON:
+                return this.suma3D(valor_exp1, valor_exp2, tree);
             default:
                 //Se produjo un error inesperado
                 break;
@@ -414,7 +416,7 @@ class Aritmetica {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_Call('natConcatStr_int');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
@@ -426,7 +428,7 @@ class Aritmetica {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_int');
+                        genc3d.gen_Call('natConcatInt_str');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);
@@ -438,7 +440,7 @@ class Aritmetica {
                         genc3d.gen_Exp(tempAux, tempAux, '1', '+');
                         genc3d.gen_SetStack(tempAux, valor_exp2.translate3d());
                         genc3d.gen_NextEnv(1);
-                        genc3d.gen_Call('nativa_concat_str_str');
+                        genc3d.gen_Call('natConcatStr');
                         genc3d.gen_GetStack(temp, 'p');
                         genc3d.gen_AntEnv(1);
                         return new Retorno_1.Retorno(temp, true, Tipo_1.TIPO.CADENA);

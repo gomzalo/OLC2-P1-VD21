@@ -7,21 +7,21 @@ export interface Instruccion {
     arreglo: boolean;
 
     /**
-     * @function ejecutar execute instruccions
-     * @param table Maneja el entorno
-     * @param tree AST del programa
+     * @function ejecutar Ejecuta las intrucciones.
+     * @param table Maneja el entorno.
+     * @param tree AST del programa.
      */
     ejecutar(table : TablaSimbolos, tree : Ast): any;
     /**
-     * @function translate3d translate instruccions to three address code
-     * @param table Maneja el entorno
-     * @param tree AST del programa
+     * @function translate3d Traduce las instrucciones a código de tres direcciones.
+     * @param table Maneja el entorno.
+     * @param tree AST del programa.
      */
     translate3d(table : TablaSimbolos, tree : Ast): any;
     /**
-     * @function recorrer Recorrer nodos para graficar
-     * @param table Maneja el entorno
-     * @param tree AST del programa
+     * @function recorrer Recorrer nodos para graficar AST.
+     * @param table Maneja el entorno.
+     * @param tree AST del programa.
      */
     recorrer(table : TablaSimbolos, tree : Ast): any;
 

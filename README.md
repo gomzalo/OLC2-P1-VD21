@@ -1,4 +1,4 @@
-# OLC2-P1-VD21
+# **OLC2-P1-VD21**
 - Universidad de San Carlos de Guatemala
 - Facultad de ingenieria
 - Escuela de Sistemas
@@ -19,3 +19,6 @@
 
 - [Manual tecnico](/Documentacion/Manual_usuario.md)
 - [Manual usuario](/Documentacion/Manual_tecnico.md)
+- [Gramatica](/Documentacion/Gramatica_Quetzal.md)
+- [Enunciado](https://github.com/harias25/olc2-diciembre-2021/tree/main/Proyecto%201)
+- [**Página en GitHub Pages**](https://gomzalo.github.io/OLC2-P1-VD21/)

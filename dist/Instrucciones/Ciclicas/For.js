@@ -9,6 +9,18 @@ const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Break_1 = require("../Transferencia/Break");
 const Errores_1 = require("../../Ast/Errores");
 class For {
+    /**
+     * @class For
+     * @gramatica   RFOR PARA declaracion_asignacion PUNTOCOMA
+                    expr PUNTOCOMA actualizacion PARC
+                    LLAVA instrucciones LLAVC
+     * @param declaracion_asignacion
+     * @param condicion
+     * @param actualizacion
+     * @param lista_instrucciones
+     * @param fila
+     * @param columna
+     */
     constructor(declaracion_asignacion, condicion, actualizacion, lista_instrucciones, fila, columna) {
         this.declaracion_asignacion = declaracion_asignacion;
         this.condicion = condicion;
@@ -76,7 +88,44 @@ class For {
         }
     }
     translate3d(table, tree) {
-        throw new Error('Method not implemented FOR.');
+        let genc3d = tree.generadorC3d;
+        let lbl = genc3d.newLabel();
+        let entornoLocal = new TablaSimbolos_1.TablaSimbolos(table);
+        genc3d.gen_Comment('------------ FOR -----------');
+        let declaracion_asignacion = this.declaracion_asignacion.translate3d(entornoLocal, tree);
+        genc3d.gen_Comment('----- Iniciacion');
+        if (declaracion_asignacion instanceof Errores_1.Errores) {
+            tree.getErrores().push(declaracion_asignacion);
+            tree.updateConsolaPrintln(declaracion_asignacion.toString());
+        }
+        genc3d.gen_Label(lbl);
+        genc3d.gen_Comment("Validacion de condicion");
+        // console.log("for3d");
+        // console.log("declaracion_asignacion");
+        // console.log(declaracion_asignacion);
+        let condicion = this.condicion.translate3d(entornoLocal, tree);
+        // console.log(condicion.tipo);
+        if (condicion.tipo !== Tipo_1.TIPO.BOOLEANO) {
+            // console.log("err tipo no bool");
+            let error = new Errores_1.Errores("c3d", "La condicion no es booleana.", this.fila, this.columna);
+            tree.Errores.push(error);
+            tree.updateConsolaPrintln(error.toString());
+        }
+        genc3d.gen_Comment("Instrucciones dentro de For");
+        entornoLocal.break = condicion.lblFalse;
+        entornoLocal.continue = lbl;
+        genc3d.gen_Label(condicion.lblTrue);
+        this.lista_instrucciones.forEach(instruccion => {
+            let ins = instruccion.translate3d(entornoLocal, tree);
+            // console.log("instr for");
+            // console.log(ins);
+        });
+        genc3d.gen_Comment("Actualizacion");
+        let actualizacion = this.actualizacion.translate3d(entornoLocal, tree);
+        // console.log(actualizacion);
+        genc3d.gen_Goto(lbl);
+        genc3d.gen_Label(condicion.lblFalse);
+        genc3d.gen_Comment('------------ FIN FOR -----------');
     }
     recorrer(table, tree) {
         let padre = new Nodo_1.Nodo("FOR", "");

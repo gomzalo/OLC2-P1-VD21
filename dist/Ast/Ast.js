@@ -17,6 +17,10 @@ const ModificacionArr_1 = require("../Instrucciones/Arreglos/ModificacionArr");
 const Nodo_1 = require("./Nodo");
 const GeneradorC3D_1 = require("../G3D/GeneradorC3D");
 class Ast {
+    /**
+     * @class AST
+     * Almacena instrucciones, funciones y structs.
+     */
     constructor() {
         this.consola = "";
         this.dot = "";
@@ -34,6 +38,9 @@ class Ast {
         this.generadorC3d = GeneradorC3D_1.GeneradorC3D.getInstancia();
         this.repGramatical = new Array();
     }
+    /**
+     * @function ejecutar interpreta las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     */
     ejecutar() {
         let tree = this;
         tree.setTSGlobal(this.TSglobal);
@@ -108,6 +115,10 @@ class Ast {
             }
         }
     }
+    /**
+     * @function traducir traduce las instrucciones, realiza las pasadas para verificar que no vengan instrucciones donde no son permitidas.
+     * @returns
+     */
     traducir() {
         let tree = this;
         tree.generadorC3d.clearCode();
@@ -155,12 +166,12 @@ class Ast {
             if (instr instanceof Main_1.Main) {
                 countMain++;
                 if (countMain == 2) {
-                    let error = new Errores_1.Errores("Semantico", "Existe mas de un metodo main", instr.fila, instr.columna);
+                    let error = new Errores_1.Errores("Semantico", "Existe mas de un metodo main.", instr.fila, instr.columna);
                     this.getErrores().push(error);
                     this.updateConsolaPrintln(error.toString());
                     break;
                 }
-                console.log("ENTRO A DECLARACION GLOBAL: ");
+                console.log("ENTRO A DECLARACION MAIN: ");
                 let value = instr.translate3d(this.TSglobal, tree);
                 // if( value instanceof Detener ){
                 //     let error = new Errores("Semantico", "Sentencia Break fuera de Instruccion Ciclo/Control", instr.fila, instr.columna);
@@ -179,9 +190,14 @@ class Ast {
         // 3RA PASADA
         // VALIDACION FUERA DE MAIN
         for (let instr of this.instrucciones) {
+<<<<<<< HEAD
             if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion || instr instanceof Struct_1.Struct
                 || instr instanceof DeclaracionArr_1.DeclaracionArr || instr instanceof ModificacionArr_1.ModificacionArr || instr instanceof DeclararStruct_1.DeclararStruct)) {
                 let error = new Errores_1.Errores("Semantico", "Sentencia Fuera de main", instr.fila, instr.columna);
+=======
+            if (!(instr instanceof Declaracion_1.Declaracion || instr instanceof Asignacion_1.Asignacion || instr instanceof Main_1.Main || instr instanceof Funcion_1.Funcion || instr instanceof Struct_1.Struct || instr instanceof DeclaracionArr_1.DeclaracionArr || instr instanceof ModificacionArr_1.ModificacionArr)) {
+                let error = new Errores_1.Errores("Semantico", "Sentencia fuera de main.", instr.fila, instr.columna);
+>>>>>>> develop
                 this.getErrores().push(error);
                 this.updateConsolaPrintln(error.toString());
             }
@@ -307,10 +323,11 @@ class Ast {
         console.log(raiz);
         this.recorrer("n0", raiz);
         this.dot += "}";
-        let textarea = document.querySelector('#textAreaConsola');
-        let value = "";
-        value += this.dot;
-        textarea.value = value;
+        // let textarea = <HTMLInputElement>document.querySelector('#textAreaConsola');
+        // let value = "";
+        // value += this.dot;
+        // textarea.value = value;
+        console.log(this.dot);
         return this.dot;
     }
     recorrer(idPadre, nodoPadre) {

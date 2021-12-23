@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "P1Compi2-main"
+		"liveServer.settings.multiRootWorkspaceName": "P1Compi2-main",
+		"discord.enabled": true
 	}
 }
