@@ -63,16 +63,20 @@ export class TablaSimbolos{
         {
             return "null";
         }
-        JSON.stringify((this.tabla.forEach((key ,value)=>{
+        this.tabla.forEach((key ,value)=>{
             // console.log(value)
             // console.log( key['valor'] +"," )
-            if (key != null && key['valor'] instanceof TablaSimbolos)
+            if (key != null && key['valor'] instanceof Simbolo)
             {
                     cadena += key.toStringStruct()
-            }else{
+            } else if (key != null && key['valor'] instanceof TablaSimbolos)
+            {
+                    cadena += key.toStringStruct()
+            }
+            else{
                 cadena +=  key['valor'] +",";
             }
-        })));
+        });
         return cadena;
     }
 

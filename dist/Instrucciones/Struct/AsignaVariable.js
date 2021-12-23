@@ -5,7 +5,6 @@ const Errores_1 = require("../../Ast/Errores");
 const Nodo_1 = require("../../Ast/Nodo");
 const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
-const Asignacion_1 = require("../Asignacion");
 class AsignaVariable {
     constructor(idStruct, idAcceso, fila, columna) {
         this.idStruct = idStruct; // Acceso | ID
@@ -25,34 +24,37 @@ class AsignaVariable {
         // let resultAcceso = this.idAcceso.ejecutar(simboloStruct.valor,tree); //devuelve un Simbolo
         // //retorno el simbolo si este ya fue 
         // EJCUTANDO CAMBIO 
-        if (this.instruccion instanceof Asignacion_1.Asignacion) {
-            let valorExpr = this.instruccion.expresion.ejecutar(table, tree); // Ejecutando ID, o Primitivo, Acceso
-            if (valorExpr instanceof Errores_1.Errores)
-                return valorExpr;
-            if (valorExpr instanceof Simbolo_1.Simbolo) // es un id (struct, o Variable normal)
+        // if (this.instruccion instanceof Asignacion){
+        let valorExpr = this.instruccion.ejecutar(table, tree); // Ejecutando ID, o Primitivo, Acceso
+        console.log("llegue aqui");
+        console.log(valorExpr);
+        if (valorExpr instanceof Errores_1.Errores)
+            return valorExpr;
+        if (valorExpr instanceof Simbolo_1.Simbolo) // es un id (struct, o Variable normal)
+         {
+            /**
+             * Puede venir:
+             * struct -> struct
+             * struct -> nulo
+             * var -> primitivo
+             * --- tipo = tipo
+             */
+            if (resultAcceso.tipo == Tipo_1.TIPO.STRUCT && this.instruccion.tipo == resultAcceso.tipo && (valorExpr.tipoStruct == resultAcceso.tipoStruct)) // validando Simbolo struct = struct
              {
-                /**
-                 * Puede venir:
-                 * struct -> struct
-                 * struct -> nulo
-                 * var -> primitivo
-                 * --- tipo = tipo
-                 */
-                if (resultAcceso.tipo = Tipo_1.TIPO.STRUCT && this.instruccion.expresion.tipo == resultAcceso.tipo && (valorExpr.tipoStruct == resultAcceso.tipoStruct)) // validando Simbolo struct = struct
-                 {
-                    resultAcceso.valor = valorExpr;
-                }
-                else if (this.instruccion.expresion.tipo == Tipo_1.TIPO.NULO) {
-                    resultAcceso.valor = null;
-                }
-                else if (resultAcceso.tipo == this.instruccion.expresion.tipo) {
-                    resultAcceso.valor = valorExpr;
-                }
-                else {
-                    return new Errores_1.Errores("Semantico", "AsignaVariable " + this.idStruct.id + " Error en asignacion ", this.fila, this.columna);
-                }
+                resultAcceso.valor = valorExpr.valor;
+                resultAcceso.arreglo = valorExpr.valor;
+            }
+            else if (this.instruccion.expresion.tipo == Tipo_1.TIPO.NULO) {
+                resultAcceso.valor = null;
+            }
+            else if (resultAcceso.tipo == this.instruccion.tipo) {
+                resultAcceso.valor = valorExpr;
+            }
+            else {
+                return new Errores_1.Errores("Semantico", "AsignaVariable " + this.idStruct.id + " Error en asignacion ", this.fila, this.columna);
             }
         }
+        // }
         return resultAcceso;
     }
     translate3d(table, tree) {

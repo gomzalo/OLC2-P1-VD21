@@ -4,6 +4,7 @@ exports.Relacional = void 0;
 const Nodo_1 = require("../../Ast/Nodo");
 const Tipo_1 = require("../../TablaSimbolos/Tipo");
 const Retorno_1 = require("../../G3D/Retorno");
+const Simbolo_1 = require("../../TablaSimbolos/Simbolo");
 class Relacional {
     constructor(exp1, operador, exp2, fila, columna, expU) {
         this.exp1 = exp1;
@@ -126,6 +127,36 @@ class Relacional {
         else if (typeof valor_exp1 == 'undefined') {
             //return new Errores("Semantico", `${valor_exp1} es undefined.`, this.fila, this.columna);
         }
+        //Structs
+        if (valor_exp1 instanceof Simbolo_1.Simbolo) {
+            if (valor_exp2 instanceof Simbolo_1.Simbolo) {
+                if (valor_exp2 == valor_exp1) {
+                    return true;
+                }
+                if (valor_exp2.valor == valor_exp1.valor) {
+                    return true;
+                }
+                return false; //revisar
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 == null) && valor_exp1.valor == null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        if ((typeof valor_exp1 == 'undefined' || valor_exp1 == null)) {
+            if (valor_exp2 instanceof Simbolo_1.Simbolo) {
+                if (valor_exp2.valor == null) {
+                    return true;
+                }
+                return false;
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 == null)) {
+                return true;
+            }
+            return false;
+        }
     }
     diferente(valor_exp1, valor_exp2) {
         if (typeof valor_exp1 == 'number') {
@@ -184,6 +215,36 @@ class Relacional {
                     return valor_exp1 != valor_exp2;
                 }
             }
+        }
+        //Structs
+        if (valor_exp1 instanceof Simbolo_1.Simbolo) {
+            if (valor_exp2 instanceof Simbolo_1.Simbolo) {
+                if (valor_exp2 == valor_exp1) {
+                    return false;
+                }
+                if (valor_exp2.valor == valor_exp1.valor) {
+                    return false;
+                }
+                return true; //revisar
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 == null) && valor_exp1.valor == null) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        if ((typeof valor_exp1 == 'undefined' || valor_exp1 == null)) {
+            if (valor_exp2 instanceof Simbolo_1.Simbolo) {
+                if (valor_exp2.valor == null) {
+                    return false;
+                }
+                return true;
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 == null)) {
+                return false;
+            }
+            return true;
         }
     }
     menorque(valor_exp1, valor_exp2) {

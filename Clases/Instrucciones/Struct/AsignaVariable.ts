@@ -21,7 +21,7 @@ export class AsignaVariable implements Instruccion{
     public tipo : TIPO;
     // public ultimo : boolean;
     // public simboloStruct :Simbolo;
-    public instruccion: Instruccion | Asignacion ;
+    public instruccion: Instruccion | Asignacion | any ;
     public entornoPadre;
 
     constructor( idStruct, idAcceso, fila, columna){
@@ -45,8 +45,11 @@ export class AsignaVariable implements Instruccion{
 
         
         // EJCUTANDO CAMBIO 
-        if (this.instruccion instanceof Asignacion){
-            let valorExpr = this.instruccion.expresion.ejecutar(table,tree); // Ejecutando ID, o Primitivo, Acceso
+        // if (this.instruccion instanceof Asignacion){
+            let valorExpr = this.instruccion.ejecutar(table,tree); // Ejecutando ID, o Primitivo, Acceso
+
+            console.log("llegue aqui");
+            console.log(valorExpr);
             if (valorExpr instanceof Errores)
                 return valorExpr;
             if (valorExpr instanceof Simbolo) // es un id (struct, o Variable normal)
@@ -58,20 +61,21 @@ export class AsignaVariable implements Instruccion{
                  * var -> primitivo
                  * --- tipo = tipo
                  */
-                if (resultAcceso.tipo =TIPO.STRUCT && this.instruccion.expresion.tipo == resultAcceso.tipo && (valorExpr.tipoStruct == resultAcceso.tipoStruct)) // validando Simbolo struct = struct
+                if (resultAcceso.tipo ==TIPO.STRUCT && this.instruccion.tipo == resultAcceso.tipo && (valorExpr.tipoStruct == resultAcceso.tipoStruct)) // validando Simbolo struct = struct
                 {
-                    resultAcceso.valor = valorExpr;
+                    resultAcceso.valor = valorExpr.valor;
+                    resultAcceso.arreglo = valorExpr.valor;
                 }else if (this.instruccion.expresion.tipo  == TIPO.NULO)
                 {
                     resultAcceso.valor = null;
-                }else if (resultAcceso.tipo == this.instruccion.expresion.tipo )
+                }else if (resultAcceso.tipo == this.instruccion.tipo )
                 {
                     resultAcceso.valor = valorExpr
                 }else{
                     return new Errores("Semantico", "AsignaVariable " + this.idStruct.id + " Error en asignacion ", this.fila, this.columna);
                 }
             }
-        }
+        // }
         return resultAcceso;
     }
 

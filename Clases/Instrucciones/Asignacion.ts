@@ -49,7 +49,16 @@ export class Asignacion implements Instruccion{
              * Agregar struct y arreglos aca
              */
             // console.log(`Existe id: ${this.id} ${table.existe(this.id)}`);
-            let result = table.updateSymbolTabla(new Simbolo(this.id, this.expresion.tipo, null, this.fila,this.columna,valor))
+            let getSym = table.getSymbolTabla(this.id);
+            let update = new Simbolo(this.id, this.expresion.tipo, null, this.fila,this.columna,valor); 
+            if (getSym != null)
+            {
+                update.tipoStruct = getSym.tipoStruct;
+                update.variables = getSym.variables;
+                update.tipo = getSym.tipo;
+                update.arreglo = getSym.arreglo;
+            }
+            let result = table.updateSymbolTabla(update);
             
             
             if (result instanceof Errores){

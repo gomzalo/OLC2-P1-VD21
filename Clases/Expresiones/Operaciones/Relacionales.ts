@@ -6,6 +6,7 @@ import { OperadorRelacional, TIPO } from "../../TablaSimbolos/Tipo";
 import { Errores } from '../../Ast/Errores';
 import { Instruccion } from "../../Interfaces/Instruccion";
 import { Retorno } from "../../G3D/Retorno";
+import { Simbolo } from "../../TablaSimbolos/Simbolo";
 export class Relacional implements Instruccion{
     public exp1: any;
     public operador: any;
@@ -130,6 +131,45 @@ export class Relacional implements Instruccion{
         }else if(typeof valor_exp1 == 'undefined'){
             //return new Errores("Semantico", `${valor_exp1} es undefined.`, this.fila, this.columna);
         }
+        //Structs
+        if (valor_exp1 instanceof Simbolo)
+        {
+            if (valor_exp2 instanceof Simbolo)
+            {
+                if (valor_exp2 == valor_exp1)
+                {
+                    return true;
+                }
+                if(valor_exp2.valor == valor_exp1.valor)
+                {
+                    return true;
+                }
+                return false; //revisar
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 ==null) && valor_exp1.valor == null)
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        if ((typeof valor_exp1 == 'undefined' || valor_exp1 ==null))
+        {
+            if (valor_exp2 instanceof Simbolo)
+            { 
+                if(valor_exp2.valor == null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 ==null) )
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 
     diferente(valor_exp1,valor_exp2){
@@ -178,6 +218,45 @@ export class Relacional implements Instruccion{
                 }
             }
         }
+        //Structs
+        if (valor_exp1 instanceof Simbolo)
+        {
+            if (valor_exp2 instanceof Simbolo)
+            {
+                if (valor_exp2 == valor_exp1)
+                {
+                    return false;
+                }
+                if(valor_exp2.valor == valor_exp1.valor)
+                {
+                    return false;
+                }
+                return true; //revisar
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 ==null) && valor_exp1.valor == null)
+            {
+                return false;
+            }else{
+                return true;
+            }
+        }
+        if ((typeof valor_exp1 == 'undefined' || valor_exp1 ==null))
+        {
+            if (valor_exp2 instanceof Simbolo)
+            { 
+                if(valor_exp2.valor == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+            if ((typeof valor_exp2 == 'undefined' || valor_exp2 ==null) )
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 
 

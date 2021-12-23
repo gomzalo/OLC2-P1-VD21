@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TablaSimbolos = void 0;
 const Errores_1 = require("../Ast/Errores");
+const Simbolo_1 = require("./Simbolo");
 const Tipo_1 = require("./Tipo");
 class TablaSimbolos {
     constructor(anterior) {
@@ -41,16 +42,19 @@ class TablaSimbolos {
         if (this.tabla == null) {
             return "null";
         }
-        JSON.stringify((this.tabla.forEach((key, value) => {
+        this.tabla.forEach((key, value) => {
             // console.log(value)
             // console.log( key['valor'] +"," )
-            if (key != null && key['valor'] instanceof TablaSimbolos) {
+            if (key != null && key['valor'] instanceof Simbolo_1.Simbolo) {
+                cadena += key.toStringStruct();
+            }
+            else if (key != null && key['valor'] instanceof TablaSimbolos) {
                 cadena += key.toStringStruct();
             }
             else {
                 cadena += key['valor'] + ",";
             }
-        })));
+        });
         return cadena;
     }
     existe(id) {
