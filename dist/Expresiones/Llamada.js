@@ -106,13 +106,6 @@ class Llamada {
         this.tipo = resultFunc.tipo;
         return valor;
     }
-<<<<<<< HEAD
-    /**
-     * @function translate3d Traduce a 3D.
-     * @param table
-     * @param tree
-     */
-=======
     ejecutarCreateStruct(table, tree) {
         // SI NO, ES ASIGNACION CON DECLARACION=
         //1 Obtenemos Struct
@@ -203,7 +196,11 @@ class Llamada {
         }
         return SymbolStructNow.valor;
     }
->>>>>>> develop
+    /**
+     * @function translate3d Traduce a 3D.
+     * @param table
+     * @param tree
+     */
     translate3d(table, tree) {
         let funcion = tree.getFunction(this.id);
         if (funcion === null || funcion === undefined) {

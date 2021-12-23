@@ -11,10 +11,10 @@ void main(){
     println("");
     //PARTE DE PRUEBA AUX
     println("Probando Manejo de Entornos");
-    // int var11 = 10;
-    // println("El valor de var1 global es $var11");  //10
-    // int var1 = 5*5;
-    // println("El valor de var1 local es $var1");  //25
+    int var11 = 10;
+    println("El valor de var1 global es", var11);  //10
+    int var1 = 5*5;
+    println("El valor de var1 local es", var1);  //25
     println("");
     println("************   Expresiones  **************");
     println("");
@@ -233,7 +233,32 @@ void main(){
     while (i_do < 5); // 0:1:2:3:4
     println("");
     println("");
-    metodo("siuu");
+    println("************   Asignaciones  **************");
+    println("");
+    int test1, test2 = 56, test3;
+    char cprueba;
+    int test;
+    println(test); // 0
+    println(test2); // 56
+    println(cprueba); // 0
+    println("");
+    println("************   For  **************");
+    println("");
+    for (int i = 0; i < 5; i++) {
+        print(i," "); // 0 1 2 3 4
+    }
+    println("");
+    println("");
+    println("************   Incrementos  **************");
+    println("");
+    test1++;
+    test1++;
+    test1--;
+    println(test1); // 1
+    test=-25*(69-33*2)+22-32*2-33*(-48+48);
+    println(test); // -117
+    println(test++); // -116
+    println("");
 }
 
 void metodo (String hola)
