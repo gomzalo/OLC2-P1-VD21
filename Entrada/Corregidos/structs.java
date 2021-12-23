@@ -44,7 +44,7 @@ void postOrden(Nodo raiz) {
 void inOrden(Nodo raiz){
     if(raiz != null){
         inOrden(raiz.izq);
-        println("Indice: ",$raiz.indice,"  Dato: ",raiz.nombre);
+        println("Indice: ",raiz.indice,"  Dato: ",raiz.nombre);
         inOrden(raiz.der);
     }
 }
